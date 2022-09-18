@@ -8,15 +8,17 @@ namespace Schedule
 {
     public partial class MainWindow : Window
     {
-        public WeekTemplate SelectedWeek { get; set; }  
-        public WeekTemplate Test { get; set; }
+        public WeekTemplate SelectedWeek { get; set; }
+        public char ButtonBackContent { get; set; }
+        public char ButtonForwardContent { get; set; }
         public MainWindow()
         {
-            Test = new();
+            SelectedWeek = new();
+            ButtonBackContent = '<';
+            ButtonForwardContent ='>';
             InitializeComponent();
             TestFunction();
-            SelectedWeek = new();
-            var test = SelectedWeek.Sunday;
+            
         }
 
         public void TestFunction ()
@@ -28,6 +30,16 @@ namespace Schedule
             Grid.SetRow(text, 12);
             Grid.SetRowSpan(text, 20);
             GridFriday.Children.Add(text);
+        }
+
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedWeek.PreviousWeek();
+        }
+
+        private void ButtonForward_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedWeek.NextWeek();
         }
     }
 }

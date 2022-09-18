@@ -14,7 +14,8 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Top Academy Lesson Schedule" Height="800" Width="1300" Icon="Icons/icon.png">
+        Title="Top Academy Lesson Schedule" Height="800" Width="1500" Icon="Icons/icon.png"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>
@@ -23,11 +24,15 @@
         <Border Grid.Column="0" Background="AliceBlue" BorderThickness="1" BorderBrush="Aqua">
             <Grid Grid.Column="0" ShowGridLines="True">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="40"/>
                     <RowDefinition Height="20"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0"  Text="(Month+Year Binding From Source) Not Yet Developed" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button x:Name="ButtonBack" Content="{Binding ButtonBackContent}" Margin="0,0,8,0" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Click="ButtonBack_Click"/>
+                    <TextBlock Text="{Binding SelectedWeek.Header}" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
+                    <Button x:Name="ButtonForward" Content="{Binding ButtonForwardContent}" Margin="8,0,0,0" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Click="ButtonForward_Click"/>
+                </StackPanel>
 
                 <Grid Grid.Row="1" ShowGridLines="True">
                     <Grid.ColumnDefinitions>
@@ -40,13 +45,13 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="1" Text="Monday" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="2" Text="Tuesday" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="3" Text="Wednesday" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="4" Text="Thursday" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="5" Text="Friday" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="6" Text="Saturday" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="7" Text="Sunday" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="1" Text="{Binding SelectedWeek.Monday.ShortDayInfo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2" Text="{Binding SelectedWeek.Tuesday.ShortDayInfo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="3" Text="{Binding SelectedWeek.Wednesday.ShortDayInfo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="4" Text="{Binding SelectedWeek.Thursday.ShortDayInfo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="5" Text="{Binding SelectedWeek.Friday.ShortDayInfo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="6" Text="{Binding SelectedWeek.Saturday.ShortDayInfo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="7" Text="{Binding SelectedWeek.Sunday.ShortDayInfo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
 
                 <Grid Grid.Row="2" ShowGridLines="True">
@@ -676,10 +681,8 @@
                 </Grid>
             </Grid>
         </Border>
-       
-        <Grid Grid.Column="1">
-            
-        </Grid>
+
+        <Grid Grid.Column="1"/>
     </Grid>
-   
+
 </Window>

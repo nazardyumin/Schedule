@@ -9,6 +9,7 @@ namespace Schedule.Model
         private readonly int _month;
         private readonly int _date;
         private readonly int _index;
+        public string ShortDayInfo { get; set; }
         public ObservableCollection<Lesson> Lessons { get; set; }
 
         public Day(DateTime dateTime)
@@ -17,6 +18,7 @@ namespace Schedule.Model
             _month = dateTime.Month;
             _date = dateTime.Day;
             _index = SetIndex(dateTime.DayOfWeek.ToString());
+            ShortDayInfo = GetShortDayInfo(dateTime);
             Lessons = new();
         }
 
@@ -73,6 +75,10 @@ namespace Schedule.Model
                 default:
                     return -1;
             }
+        }
+        private string GetShortDayInfo(DateTime dateTime)
+        {
+            return $"{dateTime.DayOfWeek.ToString()} {SetMonth(_month).Substring(0,3)}, {_date}";
         }
         public string GetDayInfo()
         {
