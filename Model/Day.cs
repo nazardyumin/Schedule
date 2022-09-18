@@ -4,13 +4,13 @@ using System.Collections.ObjectModel;
 
 namespace Schedule.Model
 {
-    public class Day : Notifier
+    public class Day
     {
         private readonly int _year;
         private readonly string _month;
         private readonly int _date;
         private readonly int _index;
-        public ObservableCollection<Lesson>? Lessons { get; set; }
+        public ObservableCollection<Lesson> Lessons { get; set; }
 
         public Day(DateTime dateTime)
         {
@@ -18,6 +18,7 @@ namespace Schedule.Model
             _month = SetMonth(dateTime.Month);
             _date = dateTime.Day;
             _index = SetIndex(dateTime.DayOfWeek.ToString());
+            Lessons = new();
         }
 
         private string SetMonth(int month)
@@ -77,6 +78,10 @@ namespace Schedule.Model
         public string GetDayInfo()
         {
             return $"{_year} {_month}, {_date}";
+        }
+        public int GetDayIndex()
+        {
+            return _index;
         }
     }
 }
