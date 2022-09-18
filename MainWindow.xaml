@@ -14,12 +14,12 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Top Academy Lesson Schedule" Height="800" Width="1650" Icon="Icons/icon.png"
+        Title="Top Academy Lesson Schedule" Height="800" Width="1700" Icon="Icons/icon.png"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0" Background="AliceBlue" BorderThickness="1" BorderBrush="Aqua">
             <Grid Grid.Column="0" ShowGridLines="True">
@@ -691,7 +691,7 @@
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="70"/>
-                <RowDefinition Height="60"/>
+                <RowDefinition Height="70"/>
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
@@ -719,18 +719,19 @@
             <StackPanel Grid.Row="6" Margin="10,10,10,10">
                 <TextBlock Text="From"/>
                 <StackPanel Orientation="Horizontal" >
-                    <ComboBox x:Name="ComboBoxYearFrom" Width="50" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxYears}"/>
-                    <ComboBox x:Name="ComboBoxMonthFrom" Width="80" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxMonths}"/>
-                    <ComboBox x:Name="ComboBoxDayFrom" Width="40" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxDates}"/>
+                    <ComboBox x:Name="ComboBoxYearFrom" Width="50" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxYears}" DropDownClosed="ComboBoxYearFrom_DropDownClosed"/>
+                    <ComboBox x:Name="ComboBoxMonthFrom" Width="80" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxMonths}" DropDownClosed="ComboBoxMonthFrom_DropDownClosed"/>
+                    <ComboBox x:Name="ComboBoxDayFrom" Width="40" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxDates}" DropDownClosed="ComboBoxDayFrom_DropDownClosed"/>
                     <Button x:Name="ButtonToday" Content="Today" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Padding="4" Click="ButtonToday_Click" Foreground="Gray"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="7" Margin="10,10,10,10">
                 <TextBlock Text="To"/>
                 <StackPanel Orientation="Horizontal" >
-                    <ComboBox x:Name="ComboBoxYearTo" Width="50" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxYears}"/>
-                    <ComboBox x:Name="ComboBoxMonthTo" Width="80" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxMonths}"/>
-                    <ComboBox x:Name="ComboBoxDayTo" Width="40" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxDates}"/>
+                    <ComboBox x:Name="ComboBoxYearTo" Width="50" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxYears}" DropDownClosed="ComboBoxYearTo_DropDownClosed"/>
+                    <ComboBox x:Name="ComboBoxMonthTo" Width="80" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxMonths}" DropDownClosed="ComboBoxMonthTo_DropDownClosed"/>
+                    <ComboBox x:Name="ComboBoxDayTo" Width="40" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxDates}" DropDownClosed="ComboBoxDayTo_DropDownClosed"/>
+                    <Button x:Name="ButtonTargetDay" Content="" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Padding="4" Foreground="Gray" IsEnabled="False"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="8" Margin="10,10,10,10">

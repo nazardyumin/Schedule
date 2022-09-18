@@ -70,6 +70,7 @@ namespace Schedule
             ComboBoxMonthFrom.SelectedIndex = result.month;
             ComboBoxDayFrom.SelectedIndex = result.day;
             ButtonToday.Content = result.name;
+            ButtonToday.IsEnabled = false;
         }
 
         private void ButtonClear_Click(object sender, RoutedEventArgs e)
@@ -86,6 +87,8 @@ namespace Schedule
             ComboBoxMonthTo.SelectedIndex = -1;
             ComboBoxDayTo.SelectedIndex = -1;
             ButtonToday.Content = "Today";
+            ButtonTargetDay.Content = string.Empty;
+            ButtonToday.IsEnabled = true;
             ComboBoxCopy1.SelectedIndex = -1;
             ComboBoxCopy2.SelectedIndex = -1;
             ComboBoxCopy2.Visibility = Visibility.Hidden;
@@ -109,6 +112,8 @@ namespace Schedule
             ComboBoxMonthTo.SelectedIndex = -1;
             ComboBoxDayTo.SelectedIndex = -1;
             ButtonToday.Content = "Today";
+            ButtonTargetDay.Content = string.Empty;
+            ButtonToday.IsEnabled = true;
             ComboBoxCopy1.SelectedIndex = -1;
             ComboBoxCopy2.SelectedIndex = -1;
             ComboBoxCopy2.Visibility = Visibility.Hidden;
@@ -117,6 +122,51 @@ namespace Schedule
         private void ComboBoxCopy1_DropDownClosed(object sender, EventArgs e)
         {
             ComboBoxCopy2.Visibility = Visibility.Visible;
+        }
+
+        private void ComboBoxYearFrom_DropDownClosed(object sender, EventArgs e)
+        {
+            ChangeButtonTodayContent();
+        }
+
+        private void ComboBoxMonthFrom_DropDownClosed(object sender, EventArgs e)
+        {
+            ChangeButtonTodayContent();
+        }
+
+        private void ComboBoxDayFrom_DropDownClosed(object sender, EventArgs e)
+        {
+            ChangeButtonTodayContent();
+        }
+
+        private void ComboBoxYearTo_DropDownClosed(object sender, EventArgs e)
+        {
+            ChangeButtonTargetDayContent();
+        }
+
+        private void ComboBoxMonthTo_DropDownClosed(object sender, EventArgs e)
+        {
+            ChangeButtonTargetDayContent();
+        }
+
+        private void ComboBoxDayTo_DropDownClosed(object sender, EventArgs e)
+        {
+            ChangeButtonTargetDayContent();
+        }
+        private void ChangeButtonTodayContent()
+        {
+            if (ComboBoxYearFrom.SelectedIndex!=-1&& ComboBoxMonthFrom.SelectedIndex!=-1&& ComboBoxDayFrom.SelectedIndex!=-1)
+            {
+                ButtonToday.Content = Model.GetSelectedDay(ComboBoxYearFrom.SelectedIndex + 2022, ComboBoxMonthFrom.SelectedIndex + 1, ComboBoxDayFrom.SelectedIndex + 1);
+                ButtonToday.IsEnabled = false;
+            }           
+        }
+        private void ChangeButtonTargetDayContent()
+        {
+            if (ComboBoxYearTo.SelectedIndex != -1 && ComboBoxMonthTo.SelectedIndex != -1 && ComboBoxDayTo.SelectedIndex != -1)
+            {
+                ButtonTargetDay.Content = Model.GetSelectedDay(ComboBoxYearTo.SelectedIndex + 2022, ComboBoxMonthTo.SelectedIndex + 1, ComboBoxDayTo.SelectedIndex + 1);
+            }
         }
     }
 }
