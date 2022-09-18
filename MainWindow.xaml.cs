@@ -45,9 +45,29 @@ namespace Schedule
         private void ButtonToday_Click(object sender, RoutedEventArgs e)
         {
             var result = Model.GetTodayIndexes();
-            ComboBoxYear.SelectedIndex = result.year;
-            ComboBoxMonth.SelectedIndex = result.month;
-            ComboBoxDay.SelectedIndex = result.day;
+            ComboBoxYearFrom.SelectedIndex = result.year;
+            ComboBoxMonthFrom.SelectedIndex = result.month;
+            ComboBoxDayFrom.SelectedIndex = result.day;
+        }
+
+        private void ButtonClear_Click(object sender, RoutedEventArgs e)
+        {
+            InputSubject.Clear();
+            InputTeacher.Clear();
+            InputAuditorium.Clear();
+            ComboBoxStartTime.SelectedIndex = -1;
+            ComboBoxEndTime.SelectedIndex = -1;
+            ComboBoxYearFrom.SelectedIndex = -1;
+            ComboBoxMonthFrom.SelectedIndex = -1;
+            ComboBoxDayFrom.SelectedIndex = -1;
+            ComboBoxYearTo.SelectedIndex = -1;
+            ComboBoxMonthTo.SelectedIndex = -1;
+            ComboBoxDayTo.SelectedIndex = -1;
+        }
+
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

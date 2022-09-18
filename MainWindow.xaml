@@ -692,44 +692,49 @@
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0"  Text="Add Lesson" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
             <StackPanel Grid.Row="1" Margin="10,10,10,10">
                 <TextBlock Text="Subject" />
-                <TextBox />
+                <TextBox x:Name="InputSubject" />
             </StackPanel>
             <StackPanel Grid.Row="2" Margin="10,10,10,10">
                 <TextBlock Text="Teacher"/>
-                <TextBox />
+                <TextBox x:Name="InputTeacher" />
             </StackPanel>
             <StackPanel Grid.Row="3" Margin="10,10,10,10">
                 <TextBlock Text="Auditorium"/>
-                <TextBox />
+                <TextBox x:Name="InputAuditorium" />
             </StackPanel>
             <StackPanel Grid.Row="4" Margin="10,10,10,10">
                 <TextBlock Text="Start Time"/>
-                <ComboBox ItemsSource="{Binding Model.ComboBoxTime}"/>
+                <ComboBox x:Name="ComboBoxStartTime" ItemsSource="{Binding Model.ComboBoxTime}"/>
             </StackPanel>
             <StackPanel Grid.Row="5" Margin="10,10,10,10">
                 <TextBlock Text="End Time"/>
-                <ComboBox ItemsSource="{Binding Model.ComboBoxTime}"/>
+                <ComboBox x:Name="ComboBoxEndTime" ItemsSource="{Binding Model.ComboBoxTime}"/>
             </StackPanel>
             <StackPanel Grid.Row="6" Margin="10,10,10,10">
                 <TextBlock Text="From"/>
                 <StackPanel Orientation="Horizontal" >
-                    <ComboBox x:Name="ComboBoxYear" Width="50" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxYears}"/>
-                    <ComboBox x:Name="ComboBoxMonth" Width="80" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxMonths}"/>
-                    <ComboBox x:Name="ComboBoxDay" Width="40" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxDates}"/>
-                    <Button x:Name="ButtonToday" Content="Today" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Padding="4" Click="ButtonToday_Click"/>
+                    <ComboBox x:Name="ComboBoxYearFrom" Width="50" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxYears}"/>
+                    <ComboBox x:Name="ComboBoxMonthFrom" Width="80" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxMonths}"/>
+                    <ComboBox x:Name="ComboBoxDayFrom" Width="40" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxDates}"/>
+                    <Button x:Name="ButtonToday" Content="Today" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Padding="4" Click="ButtonToday_Click" Foreground="Gray"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="7" Margin="10,10,10,10">
                 <TextBlock Text="To"/>
                 <StackPanel Orientation="Horizontal" >
-                    <ComboBox Width="50" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxYears}"/>
-                    <ComboBox Width="80" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxMonths}"/>
-                    <ComboBox Width="40" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxDates}"/>
+                    <ComboBox x:Name="ComboBoxYearTo" Width="50" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxYears}"/>
+                    <ComboBox x:Name="ComboBoxMonthTo" Width="80" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxMonths}"/>
+                    <ComboBox x:Name="ComboBoxDayTo" Width="40" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxDates}"/>
                 </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="8" Margin="10,10,10,10" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="ButtonClear" Content="Clear" Margin="0,0,5,0" Style="{DynamicResource MaterialDesignPaperButton}" Click="ButtonClear_Click"/>
+                <Button x:Name="ButtonAdd" Content="Add" Margin="5,0,0,0" Style="{DynamicResource MaterialDesignPaperButton}" Click="ButtonAdd_Click"/>
             </StackPanel>
         </Grid>
     </Grid>
