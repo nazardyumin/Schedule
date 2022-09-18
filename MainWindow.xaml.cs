@@ -121,7 +121,10 @@ namespace Schedule
 
         private void ComboBoxCopy1_DropDownClosed(object sender, EventArgs e)
         {
-            ComboBoxCopy2.Visibility = Visibility.Visible;
+            if (ComboBoxCopy1.SelectedIndex > -1)
+            {
+                ComboBoxCopy2.Visibility = Visibility.Visible;
+            }               
         }
 
         private void ComboBoxYearFrom_DropDownClosed(object sender, EventArgs e)
