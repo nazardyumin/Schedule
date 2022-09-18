@@ -92,6 +92,7 @@ namespace Schedule
             ComboBoxCopy1.SelectedIndex = -1;
             ComboBoxCopy2.SelectedIndex = -1;
             ComboBoxCopy2.Visibility = Visibility.Hidden;
+            ComboBoxCopy3.Visibility = Visibility.Hidden;
         }
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
@@ -117,6 +118,7 @@ namespace Schedule
             ComboBoxCopy1.SelectedIndex = -1;
             ComboBoxCopy2.SelectedIndex = -1;
             ComboBoxCopy2.Visibility = Visibility.Hidden;
+            ComboBoxCopy3.Visibility = Visibility.Hidden;
         }
 
         private void ComboBoxCopy1_DropDownClosed(object sender, EventArgs e)
@@ -169,6 +171,14 @@ namespace Schedule
             if (ComboBoxYearTo.SelectedIndex != -1 && ComboBoxMonthTo.SelectedIndex != -1 && ComboBoxDayTo.SelectedIndex != -1)
             {
                 ButtonTargetDay.Content = Model.GetSelectedDay(ComboBoxYearTo.SelectedIndex + 2022, ComboBoxMonthTo.SelectedIndex + 1, ComboBoxDayTo.SelectedIndex + 1);
+            }
+        }
+
+        private void ComboBoxCopy2_DropDownClosed(object sender, EventArgs e)
+        {
+            if (ComboBoxCopy2.SelectedIndex > -1)
+            {
+                ComboBoxCopy3.Visibility = Visibility.Visible;
             }
         }
     }

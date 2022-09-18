@@ -738,7 +738,8 @@
                 <TextBlock Text="Copy To Every..."/>
                 <StackPanel Orientation="Horizontal" >
                     <ComboBox x:Name="ComboBoxCopy1" Width="85" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxDays}" DropDownClosed="ComboBoxCopy1_DropDownClosed"/>
-                    <ComboBox x:Name="ComboBoxCopy2" Width="85" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxDays}" Visibility="Hidden"/>
+                    <ComboBox x:Name="ComboBoxCopy2" Width="85" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxDays}" Visibility="Hidden" DropDownClosed="ComboBoxCopy2_DropDownClosed"/>
+                    <ComboBox x:Name="ComboBoxCopy3" Width="85" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxDays}" Visibility="Hidden"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="9" Margin="10,10,10,10" Orientation="Horizontal" HorizontalAlignment="Center">
