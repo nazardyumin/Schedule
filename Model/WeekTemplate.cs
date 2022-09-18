@@ -9,14 +9,14 @@ namespace Schedule.Model
 {
     public class WeekTemplate : Notifier
     {
-        private List<Day>? Days; 
+        private List<Day>? Days;
         private int _currentDayIndex;
 
         private Day? _monday;
-        public Day Monday 
-        { 
-            get => _monday!; 
-            set => SetField(ref _monday, value); 
+        public Day Monday
+        {
+            get => _monday!;
+            set => SetField(ref _monday, value);
         }
 
         private Day? _tuesday;
@@ -67,10 +67,18 @@ namespace Schedule.Model
             get => _header!;
             set => SetField(ref _header, value);
         }
+        public List<int>? ComboBoxYears{ get; set; }
+        public List<string>? ComboBoxMonths { get; set; }
+        public List<int>? ComboBoxDates{get;set;}
+        public List<string>? ComboBoxTime { get; set; }
 
         public WeekTemplate ()
         {
             SetDays();
+            SetComboBoxYears();
+            SetComboBoxMonths();
+            SetComboBoxDates();
+            SetComboBoxTime();
             FocuseOnCurrentWeek();
         }
 
@@ -312,7 +320,6 @@ namespace Schedule.Model
         {
             grid.Children.Add(card);
         }
-
         public void NextWeek()
         {
             Monday = Days![Days.IndexOf(Monday) + 7];
@@ -334,6 +341,64 @@ namespace Schedule.Model
             Saturday = Days![Days.IndexOf(Saturday) - 7];
             Sunday = Days![Days.IndexOf(Sunday) - 7];
             Header = SetHeader();
+        }
+        private void SetComboBoxYears()
+        {
+            ComboBoxYears = new();
+            ComboBoxYears.Add(2022);
+            ComboBoxYears.Add(2023);
+        }
+        private void SetComboBoxMonths()
+        {
+            ComboBoxMonths = new();
+            ComboBoxMonths.Add("January");
+            ComboBoxMonths.Add("February");
+            ComboBoxMonths.Add("March");
+            ComboBoxMonths.Add("April");
+            ComboBoxMonths.Add("May");
+            ComboBoxMonths.Add("June");
+            ComboBoxMonths.Add("July");
+            ComboBoxMonths.Add("August");
+            ComboBoxMonths.Add("September");
+            ComboBoxMonths.Add("October");
+            ComboBoxMonths.Add("November");
+            ComboBoxMonths.Add("December");
+        }
+        private void SetComboBoxDates()
+        {
+            ComboBoxDates = new();
+            for (int i = 0; i < 31; i++)
+            {
+                ComboBoxDates.Add(i + 1);
+            }
+        }
+        private void SetComboBoxTime()
+        {
+            ComboBoxTime = new();
+            ComboBoxTime.Add("08:00");
+            ComboBoxTime.Add("08:10");
+            ComboBoxTime.Add("08:20");
+            ComboBoxTime.Add("08:30");
+            ComboBoxTime.Add("08:40");
+            ComboBoxTime.Add("08:50");
+            ComboBoxTime.Add("09:00");
+            ComboBoxTime.Add("09:10");
+            ComboBoxTime.Add("09:20");
+            ComboBoxTime.Add("09:30");
+            ComboBoxTime.Add("09:40");
+            ComboBoxTime.Add("09:50");
+            ComboBoxTime.Add("10:00");
+            ComboBoxTime.Add("10:10");
+            ComboBoxTime.Add("10:20");
+            ComboBoxTime.Add("10:30");
+            ComboBoxTime.Add("10:40");
+            ComboBoxTime.Add("10:50");
+            ComboBoxTime.Add("11:00");
+        }
+        public (int year, int month, int day) GetTodayIndexes()
+        {
+            DateTime today = DateTime.Now;
+            return (today.Year - 2022, today.Month - 1, today.Day - 1);
         }
     }
 }

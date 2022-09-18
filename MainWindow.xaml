@@ -14,7 +14,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Top Academy Lesson Schedule" Height="800" Width="1500" Icon="Icons/icon.png"
+        Title="Top Academy Lesson Schedule" Height="800" Width="1600" Icon="Icons/icon.png"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -30,7 +30,7 @@
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Button x:Name="ButtonBack" Content="{Binding ButtonBackContent}" Margin="0,0,8,0" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Click="ButtonBack_Click"/>
-                    <TextBlock Text="{Binding SelectedWeek.Header}" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
+                    <TextBlock Text="{Binding Model.Header}" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
                     <Button x:Name="ButtonForward" Content="{Binding ButtonForwardContent}" Margin="8,0,0,0" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Click="ButtonForward_Click"/>
                 </StackPanel>
 
@@ -45,13 +45,13 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="1" Text="{Binding SelectedWeek.Monday.ShortDayInfo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="2" Text="{Binding SelectedWeek.Tuesday.ShortDayInfo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="3" Text="{Binding SelectedWeek.Wednesday.ShortDayInfo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="4" Text="{Binding SelectedWeek.Thursday.ShortDayInfo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="5" Text="{Binding SelectedWeek.Friday.ShortDayInfo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="6" Text="{Binding SelectedWeek.Saturday.ShortDayInfo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="7" Text="{Binding SelectedWeek.Sunday.ShortDayInfo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="1" Text="{Binding Model.Monday.ShortDayInfo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2" Text="{Binding Model.Tuesday.ShortDayInfo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="3" Text="{Binding Model.Wednesday.ShortDayInfo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="4" Text="{Binding Model.Thursday.ShortDayInfo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="5" Text="{Binding Model.Friday.ShortDayInfo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="6" Text="{Binding Model.Saturday.ShortDayInfo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="7" Text="{Binding Model.Sunday.ShortDayInfo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
 
                 <Grid Grid.Row="2" ShowGridLines="True">
@@ -682,7 +682,56 @@
             </Grid>
         </Border>
 
-        <Grid Grid.Column="1"/>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0"  Text="Add Lesson" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
+            <StackPanel Grid.Row="1" Margin="10,10,10,10">
+                <TextBlock Text="Subject" />
+                <TextBox />
+            </StackPanel>
+            <StackPanel Grid.Row="2" Margin="10,10,10,10">
+                <TextBlock Text="Teacher"/>
+                <TextBox />
+            </StackPanel>
+            <StackPanel Grid.Row="3" Margin="10,10,10,10">
+                <TextBlock Text="Auditorium"/>
+                <TextBox />
+            </StackPanel>
+            <StackPanel Grid.Row="4" Margin="10,10,10,10">
+                <TextBlock Text="Start Time"/>
+                <ComboBox ItemsSource="{Binding Model.ComboBoxTime}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="5" Margin="10,10,10,10">
+                <TextBlock Text="End Time"/>
+                <ComboBox ItemsSource="{Binding Model.ComboBoxTime}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="6" Margin="10,10,10,10">
+                <TextBlock Text="From"/>
+                <StackPanel Orientation="Horizontal" >
+                    <ComboBox x:Name="ComboBoxYear" Width="50" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxYears}"/>
+                    <ComboBox x:Name="ComboBoxMonth" Width="80" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxMonths}"/>
+                    <ComboBox x:Name="ComboBoxDay" Width="40" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxDates}"/>
+                    <Button x:Name="ButtonToday" Content="Today" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Padding="4" Click="ButtonToday_Click"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="7" Margin="10,10,10,10">
+                <TextBlock Text="To"/>
+                <StackPanel Orientation="Horizontal" >
+                    <ComboBox Width="50" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxYears}"/>
+                    <ComboBox Width="80" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxMonths}"/>
+                    <ComboBox Width="40" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxDates}"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
     </Grid>
 
 </Window>

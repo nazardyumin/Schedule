@@ -8,14 +8,14 @@ namespace Schedule
 {
     public partial class MainWindow : Window
     {
-        public WeekTemplate SelectedWeek { get; set; }
-        public char ButtonBackContent { get; set; }
-        public char ButtonForwardContent { get; set; }
+        public WeekTemplate Model { get; set; }
+        public string ButtonBackContent { get; set; }
+        public string ButtonForwardContent { get; set; }
         public MainWindow()
         {
-            SelectedWeek = new();
-            ButtonBackContent = '<';
-            ButtonForwardContent ='>';
+            Model = new();
+            ButtonBackContent = "<<";
+            ButtonForwardContent =">>";
             InitializeComponent();
             TestFunction();
             
@@ -34,12 +34,20 @@ namespace Schedule
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
-            SelectedWeek.PreviousWeek();
+            Model.PreviousWeek();
         }
 
         private void ButtonForward_Click(object sender, RoutedEventArgs e)
         {
-            SelectedWeek.NextWeek();
+            Model.NextWeek();
+        }
+
+        private void ButtonToday_Click(object sender, RoutedEventArgs e)
+        {
+            var result = Model.GetTodayIndexes();
+            ComboBoxYear.SelectedIndex = result.year;
+            ComboBoxMonth.SelectedIndex = result.month;
+            ComboBoxDay.SelectedIndex = result.day;
         }
     }
 }
