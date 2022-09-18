@@ -1,5 +1,4 @@
-﻿using MaterialDesignThemes.Wpf;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 
 namespace Schedule.Model
@@ -7,7 +6,7 @@ namespace Schedule.Model
     public class Day
     {
         private readonly int _year;
-        private readonly string _month;
+        private readonly int _month;
         private readonly int _date;
         private readonly int _index;
         public ObservableCollection<Lesson> Lessons { get; set; }
@@ -15,7 +14,7 @@ namespace Schedule.Model
         public Day(DateTime dateTime)
         {
             _year = dateTime.Year;
-            _month = SetMonth(dateTime.Month);
+            _month = dateTime.Month;
             _date = dateTime.Day;
             _index = SetIndex(dateTime.DayOfWeek.ToString());
             Lessons = new();
@@ -77,11 +76,15 @@ namespace Schedule.Model
         }
         public string GetDayInfo()
         {
-            return $"{_year} {_month}, {_date}";
+            return $"{_year} {SetMonth(_month)}, {_date}";
         }
         public int GetDayIndex()
         {
             return _index;
+        }
+        public bool IsCurrentDay(int year,int month, int date)
+        {
+            return year == _year && month == _month && date == _date;
         }
     }
 }

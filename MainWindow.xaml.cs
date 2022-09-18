@@ -8,14 +8,15 @@ namespace Schedule
 {
     public partial class MainWindow : Window
     {
-        public SelectedWeek Test { get; set; }
+        public WeekTemplate SelectedWeek { get; set; }  
+        public WeekTemplate Test { get; set; }
         public MainWindow()
         {
             Test = new();
             InitializeComponent();
             TestFunction();
-            var test = new DateTime(2022, 8, 17);
-            var day = new Day(test);
+            SelectedWeek = new();
+            var test = SelectedWeek.Sunday;
         }
 
         public void TestFunction ()
