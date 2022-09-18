@@ -44,10 +44,11 @@ namespace Schedule
 
         private void ButtonToday_Click(object sender, RoutedEventArgs e)
         {
-            var result = Model.GetTodayIndexes();
+            var result = Model.GetTodayIndexesAndDay();
             ComboBoxYearFrom.SelectedIndex = result.year;
             ComboBoxMonthFrom.SelectedIndex = result.month;
             ComboBoxDayFrom.SelectedIndex = result.day;
+            ButtonToday.Content = result.name;
         }
 
         private void ButtonClear_Click(object sender, RoutedEventArgs e)
@@ -63,11 +64,21 @@ namespace Schedule
             ComboBoxYearTo.SelectedIndex = -1;
             ComboBoxMonthTo.SelectedIndex = -1;
             ComboBoxDayTo.SelectedIndex = -1;
+            ButtonToday.Content = "Today";
+            ComboBoxCopy1.SelectedIndex = -1;
+            ComboBoxCopy2.SelectedIndex = -1;
+            ComboBoxCopy2.Visibility = Visibility.Hidden;
         }
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
+            //TODO прописать проверки!!!!!!!!!
+            //var newLesson = new Lesson (InputSubject.Text, InputTeacher.Text, InputAuditorium.Text, ComboBoxStartTime.SelectedValue.ToString(), ComboBoxEndTime.SelectedValue.ToString());
+        }
 
+        private void ComboBoxCopy1_DropDownClosed(object sender, EventArgs e)
+        {
+            ComboBoxCopy2.Visibility = Visibility.Visible;
         }
     }
 }

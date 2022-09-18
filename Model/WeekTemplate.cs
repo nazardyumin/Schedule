@@ -71,6 +71,7 @@ namespace Schedule.Model
         public List<string>? ComboBoxMonths { get; set; }
         public List<int>? ComboBoxDates{get;set;}
         public List<string>? ComboBoxTime { get; set; }
+        public List<string>? ComboBoxDays { get; set; }
 
         public WeekTemplate ()
         {
@@ -79,6 +80,7 @@ namespace Schedule.Model
             SetComboBoxMonths();
             SetComboBoxDates();
             SetComboBoxTime();
+            SetComboBoxDays();
             FocuseOnCurrentWeek();
         }
 
@@ -395,10 +397,21 @@ namespace Schedule.Model
             ComboBoxTime.Add("10:50");
             ComboBoxTime.Add("11:00");
         }
-        public (int year, int month, int day) GetTodayIndexes()
+        private void SetComboBoxDays()
+        {
+            ComboBoxDays = new();
+            ComboBoxDays.Add("Monday");
+            ComboBoxDays.Add("Tuesday");
+            ComboBoxDays.Add("Wednesday");
+            ComboBoxDays.Add("Thursday");
+            ComboBoxDays.Add("Friday");
+            ComboBoxDays.Add("Saturday");
+            ComboBoxDays.Add("Sunday");
+        }
+        public (int year, int month, int day, string name) GetTodayIndexesAndDay()
         {
             DateTime today = DateTime.Now;
-            return (today.Year - 2022, today.Month - 1, today.Day - 1);
+            return (today.Year - 2022, today.Month - 1, today.Day - 1, today.DayOfWeek.ToString());
         }
     }
 }

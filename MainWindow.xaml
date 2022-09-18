@@ -14,7 +14,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Top Academy Lesson Schedule" Height="800" Width="1600" Icon="Icons/icon.png"
+        Title="Top Academy Lesson Schedule" Height="800" Width="1650" Icon="Icons/icon.png"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -692,6 +692,7 @@
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="60"/>
+                <RowDefinition Height="70"/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0"  Text="Add Lesson" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
@@ -732,7 +733,14 @@
                     <ComboBox x:Name="ComboBoxDayTo" Width="40" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxDates}"/>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Grid.Row="8" Margin="10,10,10,10" Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Grid.Row="8" Margin="10,10,10,10">
+                <TextBlock Text="Copy To Every..."/>
+                <StackPanel Orientation="Horizontal" >
+                    <ComboBox x:Name="ComboBoxCopy1" Width="85" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxDays}" DropDownClosed="ComboBoxCopy1_DropDownClosed"/>
+                    <ComboBox x:Name="ComboBoxCopy2" Width="85" Margin="0,0,10,0" ItemsSource="{Binding Model.ComboBoxDays}" Visibility="Hidden"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="9" Margin="10,10,10,10" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button x:Name="ButtonClear" Content="Clear" Margin="0,0,5,0" Style="{DynamicResource MaterialDesignPaperButton}" Click="ButtonClear_Click"/>
                 <Button x:Name="ButtonAdd" Content="Add" Margin="5,0,0,0" Style="{DynamicResource MaterialDesignPaperButton}" Click="ButtonAdd_Click"/>
             </StackPanel>

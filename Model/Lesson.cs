@@ -12,23 +12,16 @@ namespace Schedule.Model
     {
         private string? Subject;
         private string? Teacher;
-        private int AuditoriumNumber;
-        private string? StartTime;
-        private string? EndTime;
+        private string? AuditoriumNumber;
         private int PositionColumn;
         private int PositionRow;
         private int RowSpan;
 
-        public Lesson (string? subject, string? teacher, int auditoriumNumber, string? startTime, string? endTime, int positionColumn, int positionRow, int rowSpan)
+        public Lesson (string? subject, string? teacher, string auditoriumNumber)
         {
             Subject = subject;
             Teacher = teacher;
             AuditoriumNumber = auditoriumNumber;
-            StartTime = startTime;
-            EndTime = endTime;
-            PositionColumn = positionColumn;
-            PositionRow = positionRow;
-            RowSpan = rowSpan;
         }
 
         public Card ConvertToCard()
