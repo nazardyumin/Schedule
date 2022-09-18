@@ -4,29 +4,50 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Schedule.Model
 {
     public class Lesson
     {
-        private string? Subject;
-        private string? Teacher;
-        private string? AuditoriumNumber;
+        private readonly string? _subject;
+        private readonly string? _teacher;
+        private readonly string? _auditorium;
+        private readonly string? _time;
         private int PositionColumn;
         private int PositionRow;
         private int RowSpan;
 
-        public Lesson (string? subject, string? teacher, string auditoriumNumber)
+        public Lesson (string subject, string teacher, string auditorium, string time)
         {
-            Subject = subject;
-            Teacher = teacher;
-            AuditoriumNumber = auditoriumNumber;
+            _subject = subject;
+            _teacher = teacher;
+            _auditorium = auditorium;
+            _time = time;
         }
 
+        public void SetPositionColumn(int index)
+        {
+            PositionColumn = index;
+        }
+        public void SetPositionRow(int index)
+        {
+            PositionRow = index;
+        }
+        public void SetRowSpan(int index)
+        {
+            RowSpan = PositionRow + index;
+        }
         public Card ConvertToCard()
         {
-            return null;
+            var card = new Card();
+            card.Content = $"{_subject}\n{_teacher}\n{_auditorium}\n{_time}";
+            card.HorizontalContentAlignment = HorizontalAlignment.Center;
+            Grid.SetColumn(card, PositionColumn);
+            Grid.SetRow(card, PositionRow);
+            Grid.SetRowSpan(card, RowSpan);
+            return card;
         }
     }
 }

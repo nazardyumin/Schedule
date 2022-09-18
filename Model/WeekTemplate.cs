@@ -318,10 +318,7 @@ namespace Schedule.Model
         {
             return _currentDayIndex;
         }
-        public void AddCardToGrid(Card card, ref Grid grid)
-        {
-            grid.Children.Add(card);
-        }
+      
         public void NextWeek()
         {
             Monday = Days![Days.IndexOf(Monday) + 7];
@@ -412,6 +409,99 @@ namespace Schedule.Model
         {
             DateTime today = DateTime.Now;
             return (today.Year - 2022, today.Month - 1, today.Day - 1, today.DayOfWeek.ToString());
+        }
+
+        public List<Day> GetDays()
+        {
+            return Days!;
+        }
+        public Lesson CreateLesson(string subject, string teacher, string auditorium, int startTimeIndex, int endTimeIndex, string time)
+        {
+            var lesson = new Lesson(subject, teacher, auditorium, time);
+            lesson.SetPositionRow(startTimeIndex);
+            lesson.SetRowSpan(endTimeIndex);
+            return lesson;
+        }
+        public void AddLessonToDays(Lesson lesson, int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo, int dayTo, int copy1Index, int copy2Index)
+        {
+            int start = Days!.IndexOf(Days.Find((d) => d.IsCurrentDay(yearFrom, monthFrom, dayFrom)));
+            int stop = Days!.IndexOf(Days.Find((d) => d.IsCurrentDay(yearTo, monthTo, dayTo)));
+            lesson.SetPositionColumn(Days![start].GetDayIndex());
+            for (int i = start; i <= stop; i+=7)
+            {
+                Days[i].Lessons.Add(lesson);
+            }
+            if (copy1Index != -1)
+            {
+                lesson.SetPositionColumn(copy1Index);
+                for (int i = start; i <= stop; i += 7)
+                {
+                    if(Days[i].GetDayIndex()== copy1Index)
+                    {
+                        Days[i].Lessons.Add(lesson);
+                    }                   
+                }
+            }
+            if (copy2Index != -1)
+            {
+                lesson.SetPositionColumn(copy2Index);
+                for (int i = start; i <= stop; i += 7)
+                {
+                    if (Days[i].GetDayIndex() == copy2Index)
+                    {
+                        Days[i].Lessons.Add(lesson);
+                    }
+                }
+            }
+        }
+        public void AddAllCardsToMondayGrid(ref Grid grid)
+        {
+            foreach (var item in Monday.Lessons)
+            {
+                grid.Children.Add(item.ConvertToCard());
+            }
+        }
+        public void AddAllCardsToTuesdayGrid(ref Grid grid)
+        {
+            foreach (var item in Tuesday.Lessons)
+            {
+                grid.Children.Add(item.ConvertToCard());
+            }
+        }
+        public void AddAllCardsToWednesdayGrid(ref Grid grid)
+        {
+            foreach (var item in Wednesday.Lessons)
+            {
+                grid.Children.Add(item.ConvertToCard());
+            }
+        }
+        public void AddAllCardsToThursdayGrid(ref Grid grid)
+        {
+            foreach (var item in Thursday.Lessons)
+            {
+                grid.Children.Add(item.ConvertToCard());
+            }
+        }
+        public void AddAllCardsToFridayGrid(ref Grid grid)
+        {
+            foreach (var item in Friday.Lessons)
+            {
+                grid.Children.Add(item.ConvertToCard());
+            }
+        }
+        public void AddAllCardsToSaturdayGrid(ref Grid grid)
+        {
+            foreach (var item in Saturday.Lessons)
+            {
+                grid.Children.Add(item.ConvertToCard());
+            }
+        }
+        public void AddAllCardsToSundayGrid(ref Grid grid)
+        {
+            foreach (var item in Sunday.Lessons)
+            {
+                grid.Children.Add(item.ConvertToCard());
+            }
         }
     }
 }

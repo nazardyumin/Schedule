@@ -17,8 +17,15 @@ namespace Schedule
             ButtonBackContent = "<<";
             ButtonForwardContent =">>";
             InitializeComponent();
-            TestFunction();
-            
+            Model.AddAllCardsToMondayGrid(ref GridMonday);
+            Model.AddAllCardsToTuesdayGrid(ref GridTuesday);
+            Model.AddAllCardsToWednesdayGrid(ref GridWednesday);
+            Model.AddAllCardsToThursdayGrid(ref GridThursday);
+            Model.AddAllCardsToFridayGrid(ref GridFriday);
+            Model.AddAllCardsToSaturdayGrid(ref GridSaturday);
+            Model.AddAllCardsToSundayGrid(ref GridSunday);
+            //TestFunction();
+
         }
 
         public void TestFunction ()
@@ -35,11 +42,25 @@ namespace Schedule
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             Model.PreviousWeek();
+            Model.AddAllCardsToMondayGrid(ref GridMonday);
+            Model.AddAllCardsToTuesdayGrid(ref GridTuesday);
+            Model.AddAllCardsToWednesdayGrid(ref GridWednesday);
+            Model.AddAllCardsToThursdayGrid(ref GridThursday);
+            Model.AddAllCardsToFridayGrid(ref GridFriday);
+            Model.AddAllCardsToSaturdayGrid(ref GridSaturday);
+            Model.AddAllCardsToSundayGrid(ref GridSunday);
         }
 
         private void ButtonForward_Click(object sender, RoutedEventArgs e)
         {
             Model.NextWeek();
+            Model.AddAllCardsToMondayGrid(ref GridMonday);
+            Model.AddAllCardsToTuesdayGrid(ref GridTuesday);
+            Model.AddAllCardsToWednesdayGrid(ref GridWednesday);
+            Model.AddAllCardsToThursdayGrid(ref GridThursday);
+            Model.AddAllCardsToFridayGrid(ref GridFriday);
+            Model.AddAllCardsToSaturdayGrid(ref GridSaturday);
+            Model.AddAllCardsToSundayGrid(ref GridSunday);
         }
 
         private void ButtonToday_Click(object sender, RoutedEventArgs e)
@@ -73,7 +94,23 @@ namespace Schedule
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             //TODO прописать проверки!!!!!!!!!
-            //var newLesson = new Lesson (InputSubject.Text, InputTeacher.Text, InputAuditorium.Text, ComboBoxStartTime.SelectedValue.ToString(), ComboBoxEndTime.SelectedValue.ToString());
+            var lesson = Model.CreateLesson(InputSubject.Text, InputTeacher.Text, InputAuditorium.Text, ComboBoxStartTime.SelectedIndex, ComboBoxEndTime.SelectedIndex, $"{ComboBoxStartTime.SelectedValue} - {ComboBoxEndTime.SelectedValue}");
+            Model.AddLessonToDays(lesson, ComboBoxYearFrom.SelectedIndex+2022, ComboBoxMonthFrom.SelectedIndex+1, ComboBoxDayFrom.SelectedIndex+1, ComboBoxYearTo.SelectedIndex+2022, ComboBoxMonthTo.SelectedIndex+1, ComboBoxDayTo.SelectedIndex+1, ComboBoxCopy1.SelectedIndex, ComboBoxCopy2.SelectedIndex);
+            InputSubject.Clear();
+            InputTeacher.Clear();
+            InputAuditorium.Clear();
+            ComboBoxStartTime.SelectedIndex = -1;
+            ComboBoxEndTime.SelectedIndex = -1;
+            ComboBoxYearFrom.SelectedIndex = -1;
+            ComboBoxMonthFrom.SelectedIndex = -1;
+            ComboBoxDayFrom.SelectedIndex = -1;
+            ComboBoxYearTo.SelectedIndex = -1;
+            ComboBoxMonthTo.SelectedIndex = -1;
+            ComboBoxDayTo.SelectedIndex = -1;
+            ButtonToday.Content = "Today";
+            ComboBoxCopy1.SelectedIndex = -1;
+            ComboBoxCopy2.SelectedIndex = -1;
+            ComboBoxCopy2.Visibility = Visibility.Hidden;
         }
 
         private void ComboBoxCopy1_DropDownClosed(object sender, EventArgs e)
