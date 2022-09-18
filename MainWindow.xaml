@@ -124,7 +124,7 @@
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" x:Name="GridMonday" >
+                        <Grid Grid.Column="0" x:Name="GridMonday">
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition/>

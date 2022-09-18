@@ -422,10 +422,10 @@ namespace Schedule.Model
             lesson.SetRowSpan(endTimeIndex);
             return lesson;
         }
-        public void AddLessonToDays(Lesson lesson, int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo, int dayTo, int copy1Index, int copy2Index)
+        public int AddLessonToDays(Lesson lesson, int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo, int dayTo, int copy1Index, int copy2Index)
         {
-            int start = Days!.IndexOf(Days.Find((d) => d.IsCurrentDay(yearFrom, monthFrom, dayFrom)));
-            int stop = Days!.IndexOf(Days.Find((d) => d.IsCurrentDay(yearTo, monthTo, dayTo)));
+            int start = FindDay(yearFrom, monthFrom, dayFrom);
+            int stop = FindDay(yearTo, monthTo, dayTo);
             lesson.SetPositionColumn(Days![start].GetDayIndex());
             for (int i = start; i <= stop; i+=7)
             {
@@ -453,9 +453,11 @@ namespace Schedule.Model
                     }
                 }
             }
+            return start;
         }
         public void AddAllCardsToMondayGrid(ref Grid grid)
         {
+            grid.Children.Clear();
             foreach (var item in Monday.Lessons)
             {
                 grid.Children.Add(item.ConvertToCard());
@@ -463,6 +465,7 @@ namespace Schedule.Model
         }
         public void AddAllCardsToTuesdayGrid(ref Grid grid)
         {
+            grid.Children.Clear();
             foreach (var item in Tuesday.Lessons)
             {
                 grid.Children.Add(item.ConvertToCard());
@@ -470,6 +473,7 @@ namespace Schedule.Model
         }
         public void AddAllCardsToWednesdayGrid(ref Grid grid)
         {
+            grid.Children.Clear();
             foreach (var item in Wednesday.Lessons)
             {
                 grid.Children.Add(item.ConvertToCard());
@@ -477,6 +481,7 @@ namespace Schedule.Model
         }
         public void AddAllCardsToThursdayGrid(ref Grid grid)
         {
+            grid.Children.Clear();
             foreach (var item in Thursday.Lessons)
             {
                 grid.Children.Add(item.ConvertToCard());
@@ -484,6 +489,7 @@ namespace Schedule.Model
         }
         public void AddAllCardsToFridayGrid(ref Grid grid)
         {
+            grid.Children.Clear();
             foreach (var item in Friday.Lessons)
             {
                 grid.Children.Add(item.ConvertToCard());
@@ -491,6 +497,7 @@ namespace Schedule.Model
         }
         public void AddAllCardsToSaturdayGrid(ref Grid grid)
         {
+            grid.Children.Clear();
             foreach (var item in Saturday.Lessons)
             {
                 grid.Children.Add(item.ConvertToCard());
@@ -498,10 +505,105 @@ namespace Schedule.Model
         }
         public void AddAllCardsToSundayGrid(ref Grid grid)
         {
+            grid.Children.Clear();
             foreach (var item in Sunday.Lessons)
             {
                 grid.Children.Add(item.ConvertToCard());
             }
+        }
+        private int FindDay(int year, int month, int date)
+        {
+            int index = -1;
+            for (int i = 0; i < Days!.Count; i++)
+            {
+                if (Days[i].IsCurrentDay(year, month, date))
+                {
+                    index = i;
+                    break;
+                }
+            }
+            return index;
+        }
+        public void RefreshGrids(ref Grid grid0, ref Grid grid1, ref Grid grid2, ref Grid grid3, ref Grid grid4, ref Grid grid5, ref Grid grid6, int index1, int index2, int index3)
+        {
+            switch (index1)
+            {
+                case 0:
+                    AddAllCardsToSundayGrid(ref grid0);
+                    break;
+                case 1:
+                    AddAllCardsToSundayGrid(ref grid1);
+                    break;
+                case 2:
+                    AddAllCardsToSundayGrid(ref grid2);
+                    break;
+                case 3:
+                    AddAllCardsToSundayGrid(ref grid3);
+                    break;
+                case 4:
+                    AddAllCardsToSundayGrid(ref grid4);
+                    break;
+                case 5:
+                    AddAllCardsToSundayGrid(ref grid5);
+                    break;
+                case 6:
+                    AddAllCardsToSundayGrid(ref grid6);
+                    break;
+            }
+            if (index2!=-1)
+            {
+                switch (index2)
+                {
+                    case 0:
+                        AddAllCardsToSundayGrid(ref grid0);
+                        break;
+                    case 1:
+                        AddAllCardsToSundayGrid(ref grid1);
+                        break;
+                    case 2:
+                        AddAllCardsToSundayGrid(ref grid2);
+                        break;
+                    case 3:
+                        AddAllCardsToSundayGrid(ref grid3);
+                        break;
+                    case 4:
+                        AddAllCardsToSundayGrid(ref grid4);
+                        break;
+                    case 5:
+                        AddAllCardsToSundayGrid(ref grid5);
+                        break;
+                    case 6:
+                        AddAllCardsToSundayGrid(ref grid6);
+                        break;
+                }
+            }
+            if (index3 != -1)
+            {
+                switch (index3)
+                {
+                    case 0:
+                        AddAllCardsToSundayGrid(ref grid0);
+                        break;
+                    case 1:
+                        AddAllCardsToSundayGrid(ref grid1);
+                        break;
+                    case 2:
+                        AddAllCardsToSundayGrid(ref grid2);
+                        break;
+                    case 3:
+                        AddAllCardsToSundayGrid(ref grid3);
+                        break;
+                    case 4:
+                        AddAllCardsToSundayGrid(ref grid4);
+                        break;
+                    case 5:
+                        AddAllCardsToSundayGrid(ref grid5);
+                        break;
+                    case 6:
+                        AddAllCardsToSundayGrid(ref grid6);
+                        break;
+                }
+            }             
         }
     }
 }

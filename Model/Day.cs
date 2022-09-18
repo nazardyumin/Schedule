@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace Schedule.Model
 {
-    public class Day
+    public class Day : Notifier
     {
         private readonly int _year;
         private readonly int _month;
@@ -79,7 +79,7 @@ namespace Schedule.Model
         }
         private string GetShortDayInfo(DateTime dateTime)
         {
-            return $"{dateTime.DayOfWeek.ToString()} {SetMonth(_month).Substring(0,3)}, {_date}";
+            return $"{dateTime.DayOfWeek} {SetMonth(_month).Substring(0,3)}, {_date}";
         }
         public string GetDayInfo()
         {
