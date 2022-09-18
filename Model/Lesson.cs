@@ -30,5 +30,10 @@ namespace Schedule.Model
             PositionRow = positionRow;
             RowSpan = rowSpan;
         }
+
+        public Card ConvertToCard()
+        {
+            return null;
+        }
     }
 }
