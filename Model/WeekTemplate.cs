@@ -440,8 +440,9 @@ namespace Schedule.Model
                     {
                         for (int j = i; j <= stop; j += 7)
                         {
-                            Days[i].Lessons.Add(lesson);
+                            Days[j].Lessons.Add(lesson);
                         }
+                        break;
                     }                   
                 }
             }
@@ -454,8 +455,9 @@ namespace Schedule.Model
                     {
                         for (int j = i; j <= stop; j += 7)
                         {
-                            Days[i].Lessons.Add(lesson);
+                            Days[j].Lessons.Add(lesson);
                         }
+                        break;
                     }
                 }
             }
@@ -468,8 +470,9 @@ namespace Schedule.Model
                     {
                         for (int j = i; j <= stop; j += 7)
                         {
-                            Days[i].Lessons.Add(lesson);
+                            Days[j].Lessons.Add(lesson);
                         }
+                        break;
                     }
                 }
             }
