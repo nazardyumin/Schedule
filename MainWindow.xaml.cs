@@ -98,7 +98,7 @@ namespace Schedule
             ComboBoxCopy2.SelectedIndex = -1;
             ComboBoxCopy2.Visibility = Visibility.Hidden;
             ComboBoxCopy3.Visibility = Visibility.Hidden;
-            AddingSection.ClearMothsAndDates();
+            AddingSection.ClearMonthsAndDates();
         }
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
@@ -132,7 +132,7 @@ namespace Schedule
             ComboBoxCopy2.SelectedIndex = -1;
             ComboBoxCopy2.Visibility = Visibility.Hidden;
             ComboBoxCopy3.Visibility = Visibility.Hidden;
-            AddingSection.ClearMothsAndDates();
+            AddingSection.ClearMonthsAndDates();
         }
 
         private void ComboBoxCopy1_DropDownClosed(object sender, EventArgs e)

@@ -224,7 +224,7 @@ namespace Schedule.Model
                 }
             }
         }
-        public void ClearMothsAndDates()
+        public void ClearMonthsAndDates()
         {
             MonthsFrom!.Clear();
             DatesFrom!.Clear();
