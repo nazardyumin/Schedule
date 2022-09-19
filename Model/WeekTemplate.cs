@@ -422,7 +422,7 @@ namespace Schedule.Model
             lesson.SetRowSpan(endTimeIndex);
             return lesson;
         }
-        public int AddLessonToDays(Lesson lesson, int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo, int dayTo, int copy1Index, int copy2Index)
+        public int AddLessonToDays(Lesson lesson, int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo, int dayTo, int copy1Index, int copy2Index, int copy3Index)
         {
             int start = FindDay(yearFrom, monthFrom, dayFrom);
             int stop = FindDay(yearTo, monthTo, dayTo);
@@ -434,22 +434,42 @@ namespace Schedule.Model
             if (copy1Index != -1)
             {
                 lesson.SetPositionColumn(copy1Index);
-                for (int i = start; i <= stop; i += 7)
+                for (int i = start; i <= stop; i ++)
                 {
                     if(Days[i].GetDayIndex()== copy1Index)
                     {
-                        Days[i].Lessons.Add(lesson);
+                        for (int j = i; j <= stop; j += 7)
+                        {
+                            Days[i].Lessons.Add(lesson);
+                        }
                     }                   
                 }
             }
             if (copy2Index != -1)
             {
                 lesson.SetPositionColumn(copy2Index);
-                for (int i = start; i <= stop; i += 7)
+                for (int i = start; i <= stop; i++)
                 {
                     if (Days[i].GetDayIndex() == copy2Index)
                     {
-                        Days[i].Lessons.Add(lesson);
+                        for (int j = i; j <= stop; j += 7)
+                        {
+                            Days[i].Lessons.Add(lesson);
+                        }
+                    }
+                }
+            }
+            if (copy3Index != -1)
+            {
+                lesson.SetPositionColumn(copy3Index);
+                for (int i = start; i <= stop; i++)
+                {
+                    if (Days[i].GetDayIndex() == copy3Index)
+                    {
+                        for (int j = i; j <= stop; j += 7)
+                        {
+                            Days[i].Lessons.Add(lesson);
+                        }
                     }
                 }
             }

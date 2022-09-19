@@ -99,7 +99,7 @@ namespace Schedule
         {
             //TODO прописать проверки!!!!!!!!!
             var lesson = Model.CreateLesson(InputSubject.Text, InputTeacher.Text, InputAuditorium.Text, ComboBoxStartTime.SelectedIndex, ComboBoxEndTime.SelectedIndex, $"{ComboBoxStartTime.SelectedValue} - {ComboBoxEndTime.SelectedValue}");
-            var originalIndex = Model.AddLessonToDays(lesson, ComboBoxYearFrom.SelectedIndex+2022, ComboBoxMonthFrom.SelectedIndex+1, ComboBoxDayFrom.SelectedIndex+1, ComboBoxYearTo.SelectedIndex+2022, ComboBoxMonthTo.SelectedIndex+1, ComboBoxDayTo.SelectedIndex+1, ComboBoxCopy1.SelectedIndex, ComboBoxCopy2.SelectedIndex);
+            var originalIndex = Model.AddLessonToDays(lesson, ComboBoxYearFrom.SelectedIndex+2022, ComboBoxMonthFrom.SelectedIndex+1, ComboBoxDayFrom.SelectedIndex+1, ComboBoxYearTo.SelectedIndex+2022, ComboBoxMonthTo.SelectedIndex+1, ComboBoxDayTo.SelectedIndex+1, ComboBoxCopy1.SelectedIndex, ComboBoxCopy2.SelectedIndex, ComboBoxCopy3.SelectedIndex);
             Model.RefreshGrids(ref GridMonday, ref GridTuesday, ref GridWednesday, ref GridThursday, ref GridFriday, ref GridSaturday, ref GridSunday, originalIndex, ComboBoxCopy1.SelectedIndex, ComboBoxCopy2.SelectedIndex);
             InputSubject.Clear();
             InputTeacher.Clear();
