@@ -422,7 +422,7 @@ namespace Schedule.Model
             lesson.SetRowSpan(endTimeIndex);
             return lesson;
         }
-        public int AddLessonToDays(Lesson lesson, int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo, int dayTo, int copy1Index, int copy2Index, int copy3Index)
+        public void AddLessonToDays(Lesson lesson, int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo, int dayTo, int copy1Index, int copy2Index, int copy3Index)
         {
             int start = FindDay(yearFrom, monthFrom, dayFrom);
             int stop = FindDay(yearTo, monthTo, dayTo);
@@ -473,7 +473,6 @@ namespace Schedule.Model
                     }
                 }
             }
-            return start;
         }
         public void AddAllCardsToMondayGrid(ref Grid grid)
         {
@@ -548,87 +547,6 @@ namespace Schedule.Model
         {
             var selectedDay = new DateTime(year,month,date);
             return selectedDay.DayOfWeek.ToString();
-        }
-        public void RefreshGrids(ref Grid grid0, ref Grid grid1, ref Grid grid2, ref Grid grid3, ref Grid grid4, ref Grid grid5, ref Grid grid6, int index1, int index2, int index3)
-        {
-            switch (index1)
-            {
-                case 0:
-                    AddAllCardsToMondayGrid(ref grid0);
-                    break;
-                case 1:
-                    AddAllCardsToTuesdayGrid(ref grid1);
-                    break;
-                case 2:
-                    AddAllCardsToWednesdayGrid(ref grid2);
-                    break;
-                case 3:
-                    AddAllCardsToThursdayGrid(ref grid3);
-                    break;
-                case 4:
-                    AddAllCardsToFridayGrid(ref grid4);
-                    break;
-                case 5:
-                    AddAllCardsToSaturdayGrid(ref grid5);
-                    break;
-                case 6:
-                    AddAllCardsToSundayGrid(ref grid6);
-                    break;
-            }
-            if (index2!=-1)
-            {
-                switch (index2)
-                {
-                    case 0:
-                        AddAllCardsToMondayGrid(ref grid0);
-                        break;
-                    case 1:
-                        AddAllCardsToTuesdayGrid(ref grid1);
-                        break;
-                    case 2:
-                        AddAllCardsToWednesdayGrid(ref grid2);
-                        break;
-                    case 3:
-                        AddAllCardsToThursdayGrid(ref grid3);
-                        break;
-                    case 4:
-                        AddAllCardsToFridayGrid(ref grid4);
-                        break;
-                    case 5:
-                        AddAllCardsToSaturdayGrid(ref grid5);
-                        break;
-                    case 6:
-                        AddAllCardsToSundayGrid(ref grid6);
-                        break;
-                }
-            }
-            if (index3 != -1)
-            {
-                switch (index3)
-                {
-                    case 0:
-                        AddAllCardsToMondayGrid(ref grid0);
-                        break;
-                    case 1:
-                        AddAllCardsToTuesdayGrid(ref grid1);
-                        break;
-                    case 2:
-                        AddAllCardsToWednesdayGrid(ref grid2);
-                        break;
-                    case 3:
-                        AddAllCardsToThursdayGrid(ref grid3);
-                        break;
-                    case 4:
-                        AddAllCardsToFridayGrid(ref grid4);
-                        break;
-                    case 5:
-                        AddAllCardsToSaturdayGrid(ref grid5);
-                        break;
-                    case 6:
-                        AddAllCardsToSundayGrid(ref grid6);
-                        break;
-                }
-            }             
         }
     }
 }
