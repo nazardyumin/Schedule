@@ -1,6 +1,7 @@
 ﻿using MaterialDesignThemes.Wpf;
 using Schedule.Model;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -9,11 +10,13 @@ namespace Schedule
     public partial class MainWindow : Window
     {
         public WeekTemplate Model { get; set; }
+        public CalendarTemplate AddingSection { get; set; }
         public string ButtonBackContent { get; set; }
         public string ButtonForwardContent { get; set; }
         public MainWindow()
         {
             Model = new();
+            AddingSection = new();
             ButtonBackContent = "<<";
             ButtonForwardContent =">>";
             InitializeComponent();
@@ -65,9 +68,11 @@ namespace Schedule
 
         private void ButtonToday_Click(object sender, RoutedEventArgs e)
         {
-            var result = Model.GetTodayIndexesAndDay();
+            var result = AddingSection.GetTodayIndexesAndDay();
             ComboBoxYearFrom.SelectedIndex = result.year;
-            ComboBoxMonthFrom.SelectedIndex = result.month;
+            AddingSection.SetMonthsFromDependOnCalendar(ComboBoxYearFrom.SelectedIndex + 2022);
+            ComboBoxMonthFrom.SelectedIndex = ComboBoxMonthFrom.Items.IndexOf(AddingSection.MonthToString(result.month+1));
+            AddingSection.SetDatesFromDependOnCalendar(ComboBoxYearFrom.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue));
             ComboBoxDayFrom.SelectedIndex = result.day;
             ButtonToday.Content = result.name;
             ButtonToday.IsEnabled = false;
@@ -99,7 +104,8 @@ namespace Schedule
         {
             //TODO прописать проверки!!!!!!!!!
             var lesson = Model.CreateLesson(InputSubject.Text, InputTeacher.Text, InputAuditorium.Text, ComboBoxStartTime.SelectedIndex, ComboBoxEndTime.SelectedIndex, $"{ComboBoxStartTime.SelectedValue} - {ComboBoxEndTime.SelectedValue}");
-            Model.AddLessonToDays(lesson, ComboBoxYearFrom.SelectedIndex + 2022, ComboBoxMonthFrom.SelectedIndex + 1, ComboBoxDayFrom.SelectedIndex + 1, ComboBoxYearTo.SelectedIndex + 2022, ComboBoxMonthTo.SelectedIndex + 1, ComboBoxDayTo.SelectedIndex + 1, ComboBoxCopy1.SelectedIndex, ComboBoxCopy2.SelectedIndex, ComboBoxCopy3.SelectedIndex);
+            Model.AddLessonToDays(lesson, ComboBoxYearFrom.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), ComboBoxDayFrom.SelectedIndex + 1, 
+                                            ComboBoxYearTo.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue), ComboBoxDayTo.SelectedIndex + 1, ComboBoxCopy1.SelectedIndex, ComboBoxCopy2.SelectedIndex, ComboBoxCopy3.SelectedIndex);
             Model.AddAllCardsToMondayGrid(ref GridMonday);
             Model.AddAllCardsToTuesdayGrid(ref GridTuesday);
             Model.AddAllCardsToWednesdayGrid(ref GridWednesday);
@@ -137,12 +143,18 @@ namespace Schedule
 
         private void ComboBoxYearFrom_DropDownClosed(object sender, EventArgs e)
         {
-            ChangeButtonTodayContent();
+            if (ComboBoxYearFrom.SelectedIndex != -1)
+            {
+                AddingSection.SetMonthsFromDependOnCalendar(ComboBoxYearFrom.SelectedIndex + 2022);
+            }
         }
 
         private void ComboBoxMonthFrom_DropDownClosed(object sender, EventArgs e)
         {
-            ChangeButtonTodayContent();
+            if (ComboBoxYearFrom.SelectedIndex != -1 && ComboBoxMonthFrom.SelectedIndex != -1)
+            {
+                AddingSection.SetDatesFromDependOnCalendar(ComboBoxYearFrom.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue));
+            }            
         }
 
         private void ComboBoxDayFrom_DropDownClosed(object sender, EventArgs e)
@@ -152,12 +164,18 @@ namespace Schedule
 
         private void ComboBoxYearTo_DropDownClosed(object sender, EventArgs e)
         {
-            ChangeButtonTargetDayContent();
+            if (ComboBoxYearTo.SelectedIndex != -1)
+            {
+                AddingSection.SetMonthsToDependOnCalendar(ComboBoxYearTo.SelectedIndex + 2022);
+            }
         }
 
         private void ComboBoxMonthTo_DropDownClosed(object sender, EventArgs e)
         {
-            ChangeButtonTargetDayContent();
+            if (ComboBoxYearTo.SelectedIndex != -1 && ComboBoxMonthTo.SelectedIndex != -1)
+            {
+                AddingSection.SetDatesToDependOnCalendar(ComboBoxYearTo.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue));
+            }         
         }
 
         private void ComboBoxDayTo_DropDownClosed(object sender, EventArgs e)
@@ -168,7 +186,7 @@ namespace Schedule
         {
             if (ComboBoxYearFrom.SelectedIndex!=-1&& ComboBoxMonthFrom.SelectedIndex!=-1&& ComboBoxDayFrom.SelectedIndex!=-1)
             {
-                ButtonToday.Content = Model.GetSelectedDay(ComboBoxYearFrom.SelectedIndex + 2022, ComboBoxMonthFrom.SelectedIndex + 1, ComboBoxDayFrom.SelectedIndex + 1);
+                ButtonToday.Content = AddingSection.GetSelectedDay(ComboBoxYearFrom.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), ComboBoxDayFrom.SelectedIndex + 1);
                 ButtonToday.IsEnabled = false;
             }           
         }
@@ -176,7 +194,7 @@ namespace Schedule
         {
             if (ComboBoxYearTo.SelectedIndex != -1 && ComboBoxMonthTo.SelectedIndex != -1 && ComboBoxDayTo.SelectedIndex != -1)
             {
-                ButtonTargetDay.Content = Model.GetSelectedDay(ComboBoxYearTo.SelectedIndex + 2022, ComboBoxMonthTo.SelectedIndex + 1, ComboBoxDayTo.SelectedIndex + 1);
+                ButtonTargetDay.Content = AddingSection.GetSelectedDay(ComboBoxYearTo.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue), ComboBoxDayTo.SelectedIndex + 1);
             }
         }
 
