@@ -710,36 +710,36 @@
             </StackPanel>
             <StackPanel Grid.Row="4" Margin="10,10,10,10">
                 <TextBlock Text="Start Time"/>
-                <ComboBox x:Name="ComboBoxStartTime" ItemsSource="{Binding AddingSection.ComboBoxTime}"/>
+                <ComboBox x:Name="ComboBoxStartTime" ItemsSource="{Binding AddingSection.Time}"/>
             </StackPanel>
             <StackPanel Grid.Row="5" Margin="10,10,10,10">
                 <TextBlock Text="End Time"/>
-                <ComboBox x:Name="ComboBoxEndTime" ItemsSource="{Binding AddingSection.ComboBoxTime}"/>
+                <ComboBox x:Name="ComboBoxEndTime" ItemsSource="{Binding AddingSection.Time}"/>
             </StackPanel>
             <StackPanel Grid.Row="6" Margin="10,10,10,10">
                 <TextBlock Text="From"/>
                 <StackPanel Orientation="Horizontal" >
-                    <ComboBox x:Name="ComboBoxYearFrom" Width="50" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.ComboBoxYears}" DropDownClosed="ComboBoxYearFrom_DropDownClosed"/>
-                    <ComboBox x:Name="ComboBoxMonthFrom" Width="80" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.ComboBoxMonthsFrom}" DropDownClosed="ComboBoxMonthFrom_DropDownClosed"/>
-                    <ComboBox x:Name="ComboBoxDayFrom" Width="40" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.ComboBoxDatesFrom}" DropDownClosed="ComboBoxDayFrom_DropDownClosed"/>
+                    <ComboBox x:Name="ComboBoxYearFrom" Width="50" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.Years}" DropDownClosed="ComboBoxYearFrom_DropDownClosed"/>
+                    <ComboBox x:Name="ComboBoxMonthFrom" Width="80" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.MonthsFrom}" DropDownClosed="ComboBoxMonthFrom_DropDownClosed"/>
+                    <ComboBox x:Name="ComboBoxDayFrom" Width="40" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.DatesFrom}" DropDownClosed="ComboBoxDayFrom_DropDownClosed"/>
                     <Button x:Name="ButtonToday" Content="Today" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Padding="4" Click="ButtonToday_Click" Foreground="Gray"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="7" Margin="10,10,10,10">
                 <TextBlock Text="To"/>
                 <StackPanel Orientation="Horizontal" >
-                    <ComboBox x:Name="ComboBoxYearTo" Width="50" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.ComboBoxYears}" DropDownClosed="ComboBoxYearTo_DropDownClosed"/>
-                    <ComboBox x:Name="ComboBoxMonthTo" Width="80" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.ComboBoxMonthsTo}" DropDownClosed="ComboBoxMonthTo_DropDownClosed"/>
-                    <ComboBox x:Name="ComboBoxDayTo" Width="40" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.ComboBoxDatesTo}" DropDownClosed="ComboBoxDayTo_DropDownClosed"/>
+                    <ComboBox x:Name="ComboBoxYearTo" Width="50" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.Years}" DropDownClosed="ComboBoxYearTo_DropDownClosed"/>
+                    <ComboBox x:Name="ComboBoxMonthTo" Width="80" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.MonthsTo}" DropDownClosed="ComboBoxMonthTo_DropDownClosed"/>
+                    <ComboBox x:Name="ComboBoxDayTo" Width="40" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.DatesTo}" DropDownClosed="ComboBoxDayTo_DropDownClosed"/>
                     <Button x:Name="ButtonTargetDay" Content="" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Padding="4" Foreground="Gray" IsEnabled="False"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="8" Margin="10,10,10,10">
                 <TextBlock Text="Copy To Every..."/>
                 <StackPanel Orientation="Horizontal" >
-                    <ComboBox x:Name="ComboBoxCopy1" Width="85" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.ComboBoxDays}" DropDownClosed="ComboBoxCopy1_DropDownClosed"/>
-                    <ComboBox x:Name="ComboBoxCopy2" Width="85" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.ComboBoxDays}" Visibility="Hidden" DropDownClosed="ComboBoxCopy2_DropDownClosed"/>
-                    <ComboBox x:Name="ComboBoxCopy3" Width="85" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.ComboBoxDays}" Visibility="Hidden"/>
+                    <ComboBox x:Name="ComboBoxCopy1" Width="85" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.Days}" DropDownClosed="ComboBoxCopy1_DropDownClosed"/>
+                    <ComboBox x:Name="ComboBoxCopy2" Width="85" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.Days}" Visibility="Hidden" DropDownClosed="ComboBoxCopy2_DropDownClosed"/>
+                    <ComboBox x:Name="ComboBoxCopy3" Width="85" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.Days}" Visibility="Hidden"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="9" Margin="10,10,10,10" Orientation="Horizontal" HorizontalAlignment="Center">

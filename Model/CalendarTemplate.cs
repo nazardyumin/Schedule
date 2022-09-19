@@ -9,30 +9,30 @@ namespace Schedule.Model
 {
     public class CalendarTemplate
     {
-        public List<int>? ComboBoxYears { get; set; }
-        public List<string>? ComboBoxTime { get; set; }
-        public List<string>? ComboBoxDays { get; set; }
-        public ObservableCollection<string>? ComboBoxMonthsFrom { get; set; }
-        public ObservableCollection<int>? ComboBoxDatesFrom { get; set; }
-        public ObservableCollection<string>? ComboBoxMonthsTo { get; set; }
-        public ObservableCollection<int>? ComboBoxDatesTo { get; set; }
+        public List<int>? Years { get; set; }
+        public List<string>? Time { get; set; }
+        public List<string>? Days { get; set; }
+        public ObservableCollection<string>? MonthsFrom { get; set; }
+        public ObservableCollection<int>? DatesFrom { get; set; }
+        public ObservableCollection<string>? MonthsTo { get; set; }
+        public ObservableCollection<int>? DatesTo { get; set; }
 
         public CalendarTemplate()
         {
             SetComboBoxYears();
             SetComboBoxTime();
             SetComboBoxDays();
-            ComboBoxMonthsFrom = new();
-            ComboBoxDatesFrom = new();
-            ComboBoxMonthsTo = new();
-            ComboBoxDatesTo = new();
+            MonthsFrom = new();
+            DatesFrom = new();
+            MonthsTo = new();
+            DatesTo = new();
         }
 
         private void SetComboBoxYears()
         {
-            ComboBoxYears = new();
-            ComboBoxYears.Add(2022);
-            ComboBoxYears.Add(2023);
+            Years = new();
+            Years.Add(2022);
+            Years.Add(2023);
         }
         public string MonthToString(int month)
         {
@@ -100,37 +100,37 @@ namespace Schedule.Model
         }
         private void SetComboBoxTime()
         {
-            ComboBoxTime = new();
-            ComboBoxTime.Add("08:00");
-            ComboBoxTime.Add("08:10");
-            ComboBoxTime.Add("08:20");
-            ComboBoxTime.Add("08:30");
-            ComboBoxTime.Add("08:40");
-            ComboBoxTime.Add("08:50");
-            ComboBoxTime.Add("09:00");
-            ComboBoxTime.Add("09:10");
-            ComboBoxTime.Add("09:20");
-            ComboBoxTime.Add("09:30");
-            ComboBoxTime.Add("09:40");
-            ComboBoxTime.Add("09:50");
-            ComboBoxTime.Add("10:00");
-            ComboBoxTime.Add("10:10");
-            ComboBoxTime.Add("10:20");
-            ComboBoxTime.Add("10:30");
-            ComboBoxTime.Add("10:40");
-            ComboBoxTime.Add("10:50");
-            ComboBoxTime.Add("11:00");
+            Time = new();
+            Time.Add("08:00");
+            Time.Add("08:10");
+            Time.Add("08:20");
+            Time.Add("08:30");
+            Time.Add("08:40");
+            Time.Add("08:50");
+            Time.Add("09:00");
+            Time.Add("09:10");
+            Time.Add("09:20");
+            Time.Add("09:30");
+            Time.Add("09:40");
+            Time.Add("09:50");
+            Time.Add("10:00");
+            Time.Add("10:10");
+            Time.Add("10:20");
+            Time.Add("10:30");
+            Time.Add("10:40");
+            Time.Add("10:50");
+            Time.Add("11:00");
         }
         private void SetComboBoxDays()
         {
-            ComboBoxDays = new();
-            ComboBoxDays.Add("Monday");
-            ComboBoxDays.Add("Tuesday");
-            ComboBoxDays.Add("Wednesday");
-            ComboBoxDays.Add("Thursday");
-            ComboBoxDays.Add("Friday");
-            ComboBoxDays.Add("Saturday");
-            ComboBoxDays.Add("Sunday");
+            Days = new();
+            Days.Add("Monday");
+            Days.Add("Tuesday");
+            Days.Add("Wednesday");
+            Days.Add("Thursday");
+            Days.Add("Friday");
+            Days.Add("Saturday");
+            Days.Add("Sunday");
         }
         public string GetSelectedDay(int year, int month, int date)
         {
@@ -144,28 +144,28 @@ namespace Schedule.Model
         }
         public void SetDatesFromDependOnCalendar(int year, int month)
         {
-            ComboBoxDatesFrom!.Clear();
+            DatesFrom!.Clear();
             var date = new DateTime(year, month, 1);
             for (int i = 0; i < 31; i++)
             {
                 var timeSpan = new TimeSpan(i, 0, 0, 0);
                 if ((date + timeSpan).Month == month)
                 {
-                    ComboBoxDatesFrom!.Add((date + timeSpan).Day);
+                    DatesFrom!.Add((date + timeSpan).Day);
                 }
                 else break;             
             }
         }
         public void SetMonthsFromDependOnCalendar(int year)
         {
-            ComboBoxMonthsFrom!.Clear();
+            MonthsFrom!.Clear();
             var date = new DateTime(year, 1, 1);
             DateTime now = DateTime.Now;
             if (year>now.Year)
             {
                 for (int i=1; i <= 12; i++)
                 {
-                    ComboBoxMonthsFrom!.Add(MonthToString(i));
+                    MonthsFrom!.Add(MonthToString(i));
                 }
             }
             else
@@ -175,9 +175,9 @@ namespace Schedule.Model
                     var timeSpan = new TimeSpan(i, 0, 0, 0);
                     if ((date + timeSpan).Month >= now.Month)
                     {
-                        if (!ComboBoxMonthsFrom.Contains(MonthToString((date + timeSpan).Month)))
+                        if (!MonthsFrom.Contains(MonthToString((date + timeSpan).Month)))
                         {
-                            ComboBoxMonthsFrom.Add(MonthToString((date + timeSpan).Month));
+                            MonthsFrom.Add(MonthToString((date + timeSpan).Month));
                         }
                     }
                 }
@@ -185,28 +185,28 @@ namespace Schedule.Model
         }
         public void SetDatesToDependOnCalendar(int year, int month)
         {
-            ComboBoxDatesTo!.Clear();
+            DatesTo!.Clear();
             var date = new DateTime(year, month, 1);
             for (int i = 0; i < 31; i++)
             {
                 var timeSpan = new TimeSpan(i, 0, 0, 0);
                 if ((date + timeSpan).Month == month)
                 {
-                    ComboBoxDatesTo!.Add((date + timeSpan).Day);
+                    DatesTo!.Add((date + timeSpan).Day);
                 }
                 else break;
             }
         }
         public void SetMonthsToDependOnCalendar(int year)
         {
-            ComboBoxMonthsTo!.Clear();
+            MonthsTo!.Clear();
             var date = new DateTime(year, 1, 1);
             DateTime now = DateTime.Now;
             if (year > now.Year)
             {
                 for (int i = 1; i <= 12; i++)
                 {
-                    ComboBoxMonthsTo!.Add(MonthToString(i));
+                    MonthsTo!.Add(MonthToString(i));
                 }
             }
             else
@@ -216,9 +216,9 @@ namespace Schedule.Model
                     var timeSpan = new TimeSpan(i, 0, 0, 0);
                     if ((date + timeSpan).Month >= now.Month)
                     {
-                        if (!ComboBoxMonthsTo!.Contains(MonthToString((date + timeSpan).Month)))
+                        if (!MonthsTo!.Contains(MonthToString((date + timeSpan).Month)))
                         {
-                            ComboBoxMonthsTo!.Add(MonthToString((date + timeSpan).Month));
+                            MonthsTo!.Add(MonthToString((date + timeSpan).Month));
                         }
                     }
                 }
@@ -226,10 +226,10 @@ namespace Schedule.Model
         }
         public void ClearMothsAndDates()
         {
-            ComboBoxMonthsFrom!.Clear();
-            ComboBoxDatesFrom!.Clear();
-            ComboBoxMonthsTo!.Clear();
-            ComboBoxDatesTo!.Clear();
+            MonthsFrom!.Clear();
+            DatesFrom!.Clear();
+            MonthsTo!.Clear();
+            DatesTo!.Clear();
         }
     }
 }
