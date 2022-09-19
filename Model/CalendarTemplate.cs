@@ -224,5 +224,12 @@ namespace Schedule.Model
                 }
             }
         }
+        public void ClearMothsAndDates()
+        {
+            ComboBoxMonthsFrom!.Clear();
+            ComboBoxDatesFrom!.Clear();
+            ComboBoxMonthsTo!.Clear();
+            ComboBoxDatesTo!.Clear();
+        }
     }
 }
