@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Schedule
 {
@@ -27,24 +28,27 @@ namespace Schedule
             Model.AddAllCardsToFridayGrid(ref GridFriday);
             Model.AddAllCardsToSaturdayGrid(ref GridSaturday);
             Model.AddAllCardsToSundayGrid(ref GridSunday);
-            //TestFunction();
+            HighligthedBackground(Model.GetCurrentDayIndex());
+
 
         }
 
-        public void TestFunction ()
-        {
-            var text = new Card();
-            text.Content = "Sex Lesson";
-            text.HorizontalContentAlignment= HorizontalAlignment.Center;
-            Grid.SetColumn(text, 2);
-            Grid.SetRow(text, 12);
-            Grid.SetRowSpan(text, 20);
-            GridFriday.Children.Add(text);
-        }
+        //public void TestFunction ()
+        //{
+        //    var text = new Card();
+        //    text.Content = "Sex Lesson";
+        //    text.HorizontalContentAlignment= HorizontalAlignment.Center;
+        //    Grid.SetColumn(text, 2);
+        //    Grid.SetRow(text, 12);
+        //    Grid.SetRowSpan(text, 20);
+        //    GridFriday.Children.Add(text);
+        //}
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
-            Model.PreviousWeek();
+            var result = Model.PreviousWeek();
+            if (result.isCurrentWeek) HighligthedBackground(result.index);
+            else DefaultBackground();
             Model.AddAllCardsToMondayGrid(ref GridMonday);
             Model.AddAllCardsToTuesdayGrid(ref GridTuesday);
             Model.AddAllCardsToWednesdayGrid(ref GridWednesday);
@@ -56,7 +60,9 @@ namespace Schedule
 
         private void ButtonForward_Click(object sender, RoutedEventArgs e)
         {
-            Model.NextWeek();
+            var result = Model.NextWeek();
+            if (result.isCurrentWeek) HighligthedBackground(result.index);
+            else DefaultBackground();
             Model.AddAllCardsToMondayGrid(ref GridMonday);
             Model.AddAllCardsToTuesdayGrid(ref GridTuesday);
             Model.AddAllCardsToWednesdayGrid(ref GridWednesday);
@@ -105,8 +111,8 @@ namespace Schedule
         {
             //TODO прописать проверки!!!!!!!!!
             var lesson = Model.CreateLesson(InputSubject.Text, InputTeacher.Text, InputAuditorium.Text, ComboBoxStartTime.SelectedIndex, ComboBoxEndTime.SelectedIndex, $"{ComboBoxStartTime.SelectedValue} - {ComboBoxEndTime.SelectedValue}");
-            Model.AddLessonToDays(lesson, ComboBoxYearFrom.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), (int)ComboBoxDayFrom.SelectedValue, 
-                                            ComboBoxYearTo.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue), (int)ComboBoxDayTo.SelectedValue, ComboBoxCopy1.SelectedIndex, ComboBoxCopy2.SelectedIndex, ComboBoxCopy3.SelectedIndex);
+            Model.AddLessonToDays(lesson, (int)ComboBoxYearFrom.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), (int)ComboBoxDayFrom.SelectedValue,
+                                            (int)ComboBoxYearTo.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue), (int)ComboBoxDayTo.SelectedValue, ComboBoxCopy1.SelectedIndex, ComboBoxCopy2.SelectedIndex, ComboBoxCopy3.SelectedIndex);
             Model.AddAllCardsToMondayGrid(ref GridMonday);
             Model.AddAllCardsToTuesdayGrid(ref GridTuesday);
             Model.AddAllCardsToWednesdayGrid(ref GridWednesday);
@@ -188,7 +194,7 @@ namespace Schedule
         {
             if (ComboBoxYearFrom.SelectedIndex!=-1&& ComboBoxMonthFrom.SelectedIndex!=-1&& ComboBoxDayFrom.SelectedIndex!=-1)
             {
-                ButtonToday.Content = AddingSection.GetSelectedDay(ComboBoxYearFrom.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), (int)ComboBoxDayTo.SelectedValue);
+                ButtonToday.Content = AddingSection.GetSelectedDay(ComboBoxYearFrom.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), (int)ComboBoxDayFrom.SelectedValue);
                 ButtonToday.IsEnabled = false;
             }           
         }
@@ -206,6 +212,45 @@ namespace Schedule
             {
                 ComboBoxCopy3.Visibility = Visibility.Visible;
             }
+        }
+        private void HighligthedBackground(int column)
+        {
+            switch (column)
+            {
+                case 0:
+                    GridMonday.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 100, 150, 100));
+                    break;
+                case 1:
+                    GridTuesday.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 100, 150, 100));
+                    break;
+                case 2:
+                    GridWednesday.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 100, 150, 100));
+                    break;
+                case 3:
+                    GridThursday.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 100, 150, 100));
+                    break;
+                case 4:
+                    GridFriday.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 100, 150, 100));
+                    break;
+                case 5:
+                    GridSaturday.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 100, 150, 100));
+                    break;
+                case 6:
+                    GridSunday.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 100, 150, 100));
+                    break;
+                default:
+                    break;
+            }
+        }
+        private void DefaultBackground()
+        {
+            GridMonday.Background = null;
+            GridTuesday.Background = null;
+            GridWednesday.Background = null;
+            GridThursday.Background = null;
+            GridFriday.Background = null;
+            GridSaturday.Background = null;
+            GridSunday.Background = null;
         }
     }
 }
