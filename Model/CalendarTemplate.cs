@@ -10,7 +10,8 @@ namespace Schedule.Model
     public class CalendarTemplate
     {
         public List<int>? Years { get; set; }
-        public List<string>? Time { get; set; }
+        public ObservableCollection<string>? StartTime { get; set; }
+        public ObservableCollection<string>? EndTime { get; set; }
         public List<string>? Days { get; set; }
         public ObservableCollection<string>? MonthsFrom { get; set; }
         public ObservableCollection<int>? DatesFrom { get; set; }
@@ -19,16 +20,17 @@ namespace Schedule.Model
 
         public CalendarTemplate()
         {
-            SetComboBoxYears();
-            SetComboBoxTime();
-            SetComboBoxDays();
+            SetYears();
+            SetStartTime();
+            EndTime = new();
+            SetDays();
             MonthsFrom = new();
             DatesFrom = new();
             MonthsTo = new();
             DatesTo = new();
         }
 
-        private void SetComboBoxYears()
+        private void SetYears()
         {
             Years = new();
             Years.Add(2022);
@@ -98,30 +100,38 @@ namespace Schedule.Model
                     return -1;
             }
         }
-        private void SetComboBoxTime()
+        private void SetStartTime()
         {
-            Time = new();
-            Time.Add("08:00");
-            Time.Add("08:10");
-            Time.Add("08:20");
-            Time.Add("08:30");
-            Time.Add("08:40");
-            Time.Add("08:50");
-            Time.Add("09:00");
-            Time.Add("09:10");
-            Time.Add("09:20");
-            Time.Add("09:30");
-            Time.Add("09:40");
-            Time.Add("09:50");
-            Time.Add("10:00");
-            Time.Add("10:10");
-            Time.Add("10:20");
-            Time.Add("10:30");
-            Time.Add("10:40");
-            Time.Add("10:50");
-            Time.Add("11:00");
+            StartTime = new();
+            StartTime.Add("08:00");
+            StartTime.Add("08:10");
+            StartTime.Add("08:20");
+            StartTime.Add("08:30");
+            StartTime.Add("08:40");
+            StartTime.Add("08:50");
+            StartTime.Add("09:00");
+            StartTime.Add("09:10");
+            StartTime.Add("09:20");
+            StartTime.Add("09:30");
+            StartTime.Add("09:40");
+            StartTime.Add("09:50");
+            StartTime.Add("10:00");
+            StartTime.Add("10:10");
+            StartTime.Add("10:20");
+            StartTime.Add("10:30");
+            StartTime.Add("10:40");
+            StartTime.Add("10:50");
+            StartTime.Add("11:00");
         }
-        private void SetComboBoxDays()
+        public void SetEndTime(int selectedIndex)
+        {
+            EndTime!.Clear();
+            for(int i= selectedIndex+1; i<StartTime!.Count;i++)
+            {
+                EndTime.Add(StartTime[i]);
+            }
+        }
+        private void SetDays()
         {
             Days = new();
             Days.Add("Monday");

@@ -406,5 +406,10 @@ namespace Schedule
             }          
             SetTimer();
         }
+
+        private void ComboBoxStartTime_DropDownClosed(object sender, EventArgs e)
+        {
+            AddingSection.SetEndTime(ComboBoxStartTime.SelectedIndex);
+        }
     }
 }

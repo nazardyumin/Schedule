@@ -730,11 +730,11 @@
             </StackPanel>
             <StackPanel Grid.Row="4" Margin="10,10,10,10">
                 <TextBlock Text="Start Time"/>
-                <ComboBox x:Name="ComboBoxStartTime" ItemsSource="{Binding AddingSection.Time}"/>
+                <ComboBox x:Name="ComboBoxStartTime" ItemsSource="{Binding AddingSection.StartTime}" DropDownClosed="ComboBoxStartTime_DropDownClosed"/>
             </StackPanel>
             <StackPanel Grid.Row="5" Margin="10,10,10,10">
                 <TextBlock Text="End Time"/>
-                <ComboBox x:Name="ComboBoxEndTime" ItemsSource="{Binding AddingSection.Time}"/>
+                <ComboBox x:Name="ComboBoxEndTime" ItemsSource="{Binding AddingSection.EndTime}"/>
             </StackPanel>
             <StackPanel Grid.Row="6" Margin="10,10,10,10">
                 <TextBlock Text="From"/>
