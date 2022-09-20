@@ -93,5 +93,11 @@ namespace Schedule.Model
         {
             return year == _year && month == _month && date == _date;
         }
+        public bool IsFuture()
+        {
+            DateTime now = DateTime.Now;
+            var thisDay = new DateTime(_year, _month, _date);
+            return thisDay>now;
+        }
     }
 }

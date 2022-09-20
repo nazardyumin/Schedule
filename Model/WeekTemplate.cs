@@ -311,7 +311,7 @@ namespace Schedule.Model
             return _currentDayIndex;
         }
       
-        public (bool isCurrentWeek, int index) NextWeek()
+        public (bool isCurrentWeek, bool isFuture, int index) NextWeek()
         {
             DateTime now = DateTime.Now;
             Monday = Days![Days.IndexOf(Monday) + 7];
@@ -322,16 +322,23 @@ namespace Schedule.Model
             Saturday = Days![Days.IndexOf(Saturday) + 7];
             Sunday = Days![Days.IndexOf(Sunday) + 7];
             Header = SetHeader();
-            if (Monday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, 0);
-            if (Tuesday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, 1);
-            if (Wednesday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, 2);
-            if (Thursday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, 3);
-            if (Friday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, 4);
-            if (Saturday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, 5);
-            if (Sunday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, 6);
-            return (false,-1);
+            if (Monday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 0);
+            if (Tuesday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 1);
+            if (Wednesday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 2);
+            if (Thursday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 3);
+            if (Friday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 4);
+            if (Saturday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 5);
+            if (Sunday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 6);
+            if (Monday.IsFuture()) return (false, true, 0);
+            if (Tuesday.IsFuture()) return (false, true, 1);
+            if (Wednesday.IsFuture()) return (false, true, 2);
+            if (Thursday.IsFuture()) return (false, true, 3);
+            if (Friday.IsFuture()) return (false, true, 4);
+            if (Saturday.IsFuture()) return (false, true, 5);
+            if (Sunday.IsFuture()) return (false, true, 6);
+            return (false, false, -1);
         }
-        public (bool isCurrentWeek, int index) PreviousWeek()
+        public (bool isCurrentWeek, bool isFuture, int index) PreviousWeek()
         {
             DateTime now = DateTime.Now;
             Monday = Days![Days.IndexOf(Monday) - 7];
@@ -342,15 +349,21 @@ namespace Schedule.Model
             Saturday = Days![Days.IndexOf(Saturday) - 7];
             Sunday = Days![Days.IndexOf(Sunday) - 7];
             Header = SetHeader();
-            Header = SetHeader();
-            if (Monday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, 0);
-            if (Tuesday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, 1);
-            if (Wednesday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, 2);
-            if (Thursday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, 3);
-            if (Friday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, 4);
-            if (Saturday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, 5);
-            if (Sunday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, 6);
-            return (false, -1);
+            if (Monday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 0);
+            if (Tuesday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 1);           
+            if (Wednesday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 2);
+            if (Thursday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 3);
+            if (Friday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 4);
+            if (Saturday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 5);
+            if (Sunday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 6);
+            if (Monday.IsFuture()) return (false, true, 0);
+            if (Tuesday.IsFuture()) return (false, true, 1);
+            if (Wednesday.IsFuture()) return (false, true, 2);
+            if (Thursday.IsFuture()) return (false, true, 3);
+            if (Friday.IsFuture()) return (false, true, 4);
+            if (Saturday.IsFuture()) return (false, true, 5);
+            if (Sunday.IsFuture()) return (false, true, 6);
+            return (false, false, -1);
         }
 
         public List<Day> GetDays()

@@ -48,6 +48,7 @@ namespace Schedule
         {
             var result = Model.PreviousWeek();
             if (result.isCurrentWeek) HighligthedBackground(result.index);
+            else if (result.isFuture) FutureBackground(result.index);
             else DefaultBackground();
             Model.AddAllCardsToMondayGrid(ref GridMonday);
             Model.AddAllCardsToTuesdayGrid(ref GridTuesday);
@@ -62,6 +63,7 @@ namespace Schedule
         {
             var result = Model.NextWeek();
             if (result.isCurrentWeek) HighligthedBackground(result.index);
+            else if (result.isFuture) FutureBackground(result.index);
             else DefaultBackground();
             Model.AddAllCardsToMondayGrid(ref GridMonday);
             Model.AddAllCardsToTuesdayGrid(ref GridTuesday);
@@ -218,25 +220,138 @@ namespace Schedule
             switch (column)
             {
                 case 0:
-                    GridMonday.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 100, 150, 100));
+                    Border0.Background=new SolidColorBrush(Colors.LightYellow);
+                    Border1.Background = new SolidColorBrush(Colors.White);
+                    Border2.Background = new SolidColorBrush(Colors.White);
+                    Border3.Background = new SolidColorBrush(Colors.White);
+                    Border4.Background = new SolidColorBrush(Colors.White);
+                    Border5.Background = new SolidColorBrush(Colors.White);
+                    Border6.Background = new SolidColorBrush(Colors.White);
                     break;
                 case 1:
-                    GridTuesday.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 100, 150, 100));
+                    Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border1.Background = new SolidColorBrush(Colors.LightYellow);
+                    Border2.Background = new SolidColorBrush(Colors.White);
+                    Border3.Background = new SolidColorBrush(Colors.White);
+                    Border4.Background = new SolidColorBrush(Colors.White);
+                    Border5.Background = new SolidColorBrush(Colors.White);
+                    Border6.Background = new SolidColorBrush(Colors.White);
                     break;
                 case 2:
-                    GridWednesday.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 100, 150, 100));
+                    Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border1.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border2.Background = new SolidColorBrush(Colors.LightYellow);
+                    Border3.Background = new SolidColorBrush(Colors.White);
+                    Border4.Background = new SolidColorBrush(Colors.White);
+                    Border5.Background = new SolidColorBrush(Colors.White);
+                    Border6.Background = new SolidColorBrush(Colors.White);
                     break;
                 case 3:
-                    GridThursday.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 100, 150, 100));
+                    Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border1.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border2.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border3.Background = new SolidColorBrush(Colors.LightYellow);
+                    Border4.Background = new SolidColorBrush(Colors.White);
+                    Border5.Background = new SolidColorBrush(Colors.White);
+                    Border6.Background = new SolidColorBrush(Colors.White);
                     break;
                 case 4:
-                    GridFriday.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 100, 150, 100));
+                    Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border1.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border2.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border3.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border4.Background = new SolidColorBrush(Colors.LightYellow);
+                    Border5.Background = new SolidColorBrush(Colors.White);
+                    Border6.Background = new SolidColorBrush(Colors.White);
                     break;
                 case 5:
-                    GridSaturday.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 100, 150, 100));
+                    Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border1.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border2.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border3.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border4.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border5.Background = new SolidColorBrush(Colors.LightYellow);
+                    Border6.Background = new SolidColorBrush(Colors.White);
                     break;
                 case 6:
-                    GridSunday.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(50, 100, 150, 100));
+                    Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border1.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border2.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border3.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border4.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border5.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border6.Background = new SolidColorBrush(Colors.LightYellow);
+                    break;
+                default:
+                    break;
+            }
+        }
+        private void FutureBackground(int column)
+        {
+            switch (column)
+            {
+                case 0:
+                    Border0.Background = new SolidColorBrush(Colors.White);
+                    Border1.Background = new SolidColorBrush(Colors.White);
+                    Border2.Background = new SolidColorBrush(Colors.White);
+                    Border3.Background = new SolidColorBrush(Colors.White);
+                    Border4.Background = new SolidColorBrush(Colors.White);
+                    Border5.Background = new SolidColorBrush(Colors.White);
+                    Border6.Background = new SolidColorBrush(Colors.White);
+                    break;
+                case 1:
+                    Border0.Background = new SolidColorBrush(Colors.LightYellow);
+                    Border1.Background = new SolidColorBrush(Colors.White);
+                    Border2.Background = new SolidColorBrush(Colors.White);
+                    Border3.Background = new SolidColorBrush(Colors.White);
+                    Border4.Background = new SolidColorBrush(Colors.White);
+                    Border5.Background = new SolidColorBrush(Colors.White);
+                    Border6.Background = new SolidColorBrush(Colors.White);
+                    break;
+                case 2:
+                    Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border1.Background = new SolidColorBrush(Colors.LightYellow);
+                    Border2.Background = new SolidColorBrush(Colors.White);
+                    Border3.Background = new SolidColorBrush(Colors.White);
+                    Border4.Background = new SolidColorBrush(Colors.White);
+                    Border5.Background = new SolidColorBrush(Colors.White);
+                    Border6.Background = new SolidColorBrush(Colors.White);
+                    break;
+                case 3:
+                    Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border1.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border2.Background = new SolidColorBrush(Colors.LightYellow);
+                    Border3.Background = new SolidColorBrush(Colors.White);
+                    Border4.Background = new SolidColorBrush(Colors.White);
+                    Border5.Background = new SolidColorBrush(Colors.White);
+                    Border6.Background = new SolidColorBrush(Colors.White);
+                    break;
+                case 4:
+                    Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border1.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border2.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border3.Background = new SolidColorBrush(Colors.LightYellow);
+                    Border4.Background = new SolidColorBrush(Colors.White);
+                    Border5.Background = new SolidColorBrush(Colors.White);
+                    Border6.Background = new SolidColorBrush(Colors.White);
+                    break;
+                case 5:
+                    Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border1.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border2.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border3.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border4.Background = new SolidColorBrush(Colors.LightYellow);
+                    Border5.Background = new SolidColorBrush(Colors.White);
+                    Border6.Background = new SolidColorBrush(Colors.White);
+                    break;
+                case 6:
+                    Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border1.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border2.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border3.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border4.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                    Border5.Background = new SolidColorBrush(Colors.LightYellow);
+                    Border6.Background = new SolidColorBrush(Colors.White);
                     break;
                 default:
                     break;
@@ -244,13 +359,13 @@ namespace Schedule
         }
         private void DefaultBackground()
         {
-            GridMonday.Background = null;
-            GridTuesday.Background = null;
-            GridWednesday.Background = null;
-            GridThursday.Background = null;
-            GridFriday.Background = null;
-            GridSaturday.Background = null;
-            GridSunday.Background = null;
+            Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
+            Border1.Background = new SolidColorBrush(Colors.WhiteSmoke);
+            Border2.Background = new SolidColorBrush(Colors.WhiteSmoke);
+            Border3.Background = new SolidColorBrush(Colors.WhiteSmoke);
+            Border4.Background = new SolidColorBrush(Colors.WhiteSmoke);
+            Border5.Background = new SolidColorBrush(Colors.WhiteSmoke);
+            Border6.Background = new SolidColorBrush(Colors.WhiteSmoke);
         }
     }
 }
