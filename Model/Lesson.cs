@@ -21,9 +21,9 @@ namespace Schedule.Model
 
         public Lesson (string subject, string teacher, string auditorium, string time)
         {
-            _subject = subject;
-            _teacher = teacher;
-            _auditorium = auditorium;
+            _subject = $"Subject: {subject}";
+            _teacher = $"Teacher: {teacher}";
+            _auditorium = $"Auditorium: {auditorium}";
             _time = time;
         }
 
@@ -37,13 +37,14 @@ namespace Schedule.Model
         }
         public void SetRowSpan(int index)
         {
-            RowSpan = PositionRow + index;
+            RowSpan = index - PositionRow;
         }
-        public Card ConvertToCard()
+        public Card ConvertToCard()  //move to view
         {
             var card = new Card();
             card.Content = $"{_subject}\n{_teacher}\n{_auditorium}\n{_time}";
             card.HorizontalContentAlignment = HorizontalAlignment.Center;
+            card.VerticalContentAlignment = VerticalAlignment.Center;
             Grid.SetColumn(card, PositionColumn);
             Grid.SetRow(card, PositionRow);
             Grid.SetRowSpan(card, RowSpan);
