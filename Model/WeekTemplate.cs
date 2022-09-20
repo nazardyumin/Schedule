@@ -93,7 +93,7 @@ namespace Schedule.Model
             int currentDayOfTheWeek = 0;
             foreach (var item in Days!)
             {
-                if (item.IsCurrentDay(currentDate.Year, currentDate.Month, currentDate.Day))
+                if (item.IsThisDay(currentDate.Year, currentDate.Month, currentDate.Day))
                 {
                     index = Days!.IndexOf(item);
                     currentDayOfTheWeek = Days[index].GetDayIndex();
@@ -322,13 +322,13 @@ namespace Schedule.Model
             Saturday = Days![Days.IndexOf(Saturday) + 7];
             Sunday = Days![Days.IndexOf(Sunday) + 7];
             Header = SetHeader();
-            if (Monday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 0);
-            if (Tuesday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 1);
-            if (Wednesday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 2);
-            if (Thursday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 3);
-            if (Friday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 4);
-            if (Saturday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 5);
-            if (Sunday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 6);
+            if (Monday.IsThisDay(now.Year, now.Month, now.Day)) return (true, false, 0);
+            if (Tuesday.IsThisDay(now.Year, now.Month, now.Day)) return (true, false, 1);
+            if (Wednesday.IsThisDay(now.Year, now.Month, now.Day)) return (true, false, 2);
+            if (Thursday.IsThisDay(now.Year, now.Month, now.Day)) return (true, false, 3);
+            if (Friday.IsThisDay(now.Year, now.Month, now.Day)) return (true, false, 4);
+            if (Saturday.IsThisDay(now.Year, now.Month, now.Day)) return (true, false, 5);
+            if (Sunday.IsThisDay(now.Year, now.Month, now.Day)) return (true, false, 6);
             if (Monday.IsFuture()) return (false, true, 0);
             if (Tuesday.IsFuture()) return (false, true, 1);
             if (Wednesday.IsFuture()) return (false, true, 2);
@@ -349,13 +349,13 @@ namespace Schedule.Model
             Saturday = Days![Days.IndexOf(Saturday) - 7];
             Sunday = Days![Days.IndexOf(Sunday) - 7];
             Header = SetHeader();
-            if (Monday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 0);
-            if (Tuesday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 1);
-            if (Wednesday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 2);
-            if (Thursday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 3);
-            if (Friday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 4);
-            if (Saturday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 5);
-            if (Sunday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 6);
+            if (Monday.IsThisDay(now.Year, now.Month, now.Day)) return (true, false, 0);
+            if (Tuesday.IsThisDay(now.Year, now.Month, now.Day)) return (true, false, 1);
+            if (Wednesday.IsThisDay(now.Year, now.Month, now.Day)) return (true, false, 2);
+            if (Thursday.IsThisDay(now.Year, now.Month, now.Day)) return (true, false, 3);
+            if (Friday.IsThisDay(now.Year, now.Month, now.Day)) return (true, false, 4);
+            if (Saturday.IsThisDay(now.Year, now.Month, now.Day)) return (true, false, 5);
+            if (Sunday.IsThisDay(now.Year, now.Month, now.Day)) return (true, false, 6);
             if (Monday.IsFuture()) return (false, true, 0);
             if (Tuesday.IsFuture()) return (false, true, 1);
             if (Wednesday.IsFuture()) return (false, true, 2);
@@ -493,7 +493,7 @@ namespace Schedule.Model
             int index = -1;
             for (int i = 0; i < Days!.Count; i++)
             {
-                if (Days[i].IsCurrentDay(year, month, date))
+                if (Days[i].IsThisDay(year, month, date))
                 {
                     index = i;
                     break;
@@ -504,9 +504,9 @@ namespace Schedule.Model
         public bool IsCurrentWeek()
         {
             DateTime now = DateTime.Now;
-            return Monday.IsCurrentDay(now.Year, now.Month, now.Day) || Tuesday.IsCurrentDay(now.Year, now.Month, now.Day) || Wednesday.IsCurrentDay(now.Year, now.Month, now.Day) ||
-                   Thursday.IsCurrentDay(now.Year, now.Month, now.Day) || Friday.IsCurrentDay(now.Year, now.Month, now.Day) || Saturday.IsCurrentDay(now.Year, now.Month, now.Day) ||
-                   Sunday.IsCurrentDay(now.Year, now.Month, now.Day);
+            return Monday.IsThisDay(now.Year, now.Month, now.Day) || Tuesday.IsThisDay(now.Year, now.Month, now.Day) || Wednesday.IsThisDay(now.Year, now.Month, now.Day) ||
+                   Thursday.IsThisDay(now.Year, now.Month, now.Day) || Friday.IsThisDay(now.Year, now.Month, now.Day) || Saturday.IsThisDay(now.Year, now.Month, now.Day) ||
+                   Sunday.IsThisDay(now.Year, now.Month, now.Day);
         }
     }
 }

@@ -89,7 +89,7 @@ namespace Schedule.Model
         {
             return _index;
         }
-        public bool IsCurrentDay(int year,int month, int date)
+        public bool IsThisDay(int year,int month, int date)
         {
             return year == _year && month == _month && date == _date;
         }

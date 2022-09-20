@@ -16,7 +16,7 @@ namespace Schedule
         public string ButtonBackContent { get; set; }
         public string ButtonForwardContent { get; set; }
 
-        private Timer _timer;
+        private Timer? _timer;
         public MainWindow()
         {
             Model = new();
@@ -36,17 +36,6 @@ namespace Schedule
 
 
         }
-
-        //public void TestFunction ()
-        //{
-        //    var text = new Card();
-        //    text.Content = "Sex Lesson";
-        //    text.HorizontalContentAlignment= HorizontalAlignment.Center;
-        //    Grid.SetColumn(text, 2);
-        //    Grid.SetRow(text, 12);
-        //    Grid.SetRowSpan(text, 20);
-        //    GridFriday.Children.Add(text);
-        //}
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
@@ -386,7 +375,7 @@ namespace Schedule
 
         private void Timer_ChangeDay(Object source, ElapsedEventArgs e)
         {
-            _timer.Stop();
+            _timer!.Stop();
             if (Model.IsCurrentWeek())
             {
                 Model.FocuseOnCurrentWeek();
