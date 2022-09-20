@@ -64,13 +64,13 @@ namespace Schedule.Model
             get => _header!;
             set => SetField(ref _header, value);
         }
-        public List<int>? ComboBoxYears{ get; set; }
+        public List<int>? ComboBoxYears { get; set; }
         public List<string>? ComboBoxMonths { get; set; }
-        public List<int>? ComboBoxDates{get;set;}
+        public List<int>? ComboBoxDates { get; set; }
         public List<string>? ComboBoxTime { get; set; }
         public List<string>? ComboBoxDays { get; set; }
 
-        public WeekTemplate ()
+        public WeekTemplate()
         {
             SetDays();
             FocuseOnCurrentWeek();
@@ -79,9 +79,9 @@ namespace Schedule.Model
         private void SetDays()
         {
             Days = new();
-            for (int i=0;i<1000;i++)
+            for (int i = 0; i < 1000; i++)
             {
-                var timeSpan = new TimeSpan(i,0,0,0);
+                var timeSpan = new TimeSpan(i, 0, 0, 0);
                 var date = new DateTime(2022, 1, 1);
                 Days.Add(new Day(date + timeSpan));
             }
@@ -90,7 +90,7 @@ namespace Schedule.Model
         {
             DateTime currentDate = DateTime.Now;
             int index;
-            int currentDayOfTheWeek=0;
+            int currentDayOfTheWeek = 0;
             foreach (var item in Days!)
             {
                 if (item.IsCurrentDay(currentDate.Year, currentDate.Month, currentDate.Day))
@@ -299,8 +299,8 @@ namespace Schedule.Model
                     }
                     break;
                 }
-            }                        
-            _currentDayIndex= currentDayOfTheWeek;
+            }
+            _currentDayIndex = currentDayOfTheWeek;
         }
         private string SetHeader()
         {
@@ -310,7 +310,7 @@ namespace Schedule.Model
         {
             return _currentDayIndex;
         }
-      
+
         public (bool isCurrentWeek, bool isFuture, int index) NextWeek()
         {
             DateTime now = DateTime.Now;
@@ -350,7 +350,7 @@ namespace Schedule.Model
             Sunday = Days![Days.IndexOf(Sunday) - 7];
             Header = SetHeader();
             if (Monday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 0);
-            if (Tuesday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 1);           
+            if (Tuesday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 1);
             if (Wednesday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 2);
             if (Thursday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 3);
             if (Friday.IsCurrentDay(now.Year, now.Month, now.Day)) return (true, false, 4);
@@ -382,23 +382,23 @@ namespace Schedule.Model
             int start = FindDay(yearFrom, monthFrom, dayFrom);
             int stop = FindDay(yearTo, monthTo, dayTo);
             lesson.SetPositionColumn(Days![start].GetDayIndex());
-            for (int i = start; i <= stop; i+=7)
+            for (int i = start; i <= stop; i += 7)
             {
                 Days[i].Lessons.Add(lesson);
             }
             if (copy1Index != -1)
             {
                 lesson.SetPositionColumn(copy1Index);
-                for (int i = start; i <= stop; i ++)
+                for (int i = start; i <= stop; i++)
                 {
-                    if(Days[i].GetDayIndex()== copy1Index)
+                    if (Days[i].GetDayIndex() == copy1Index)
                     {
                         for (int j = i; j <= stop; j += 7)
                         {
                             Days[j].Lessons.Add(lesson);
                         }
                         break;
-                    }                   
+                    }
                 }
             }
             if (copy2Index != -1)
@@ -500,6 +500,13 @@ namespace Schedule.Model
                 }
             }
             return index;
+        }
+        public bool IsCurrentWeek()
+        {
+            DateTime now = DateTime.Now;
+            return Monday.IsCurrentDay(now.Year, now.Month, now.Day) || Tuesday.IsCurrentDay(now.Year, now.Month, now.Day) || Wednesday.IsCurrentDay(now.Year, now.Month, now.Day) ||
+                   Thursday.IsCurrentDay(now.Year, now.Month, now.Day) || Friday.IsCurrentDay(now.Year, now.Month, now.Day) || Saturday.IsCurrentDay(now.Year, now.Month, now.Day) ||
+                   Sunday.IsCurrentDay(now.Year, now.Month, now.Day);
         }
     }
 }

@@ -387,15 +387,18 @@ namespace Schedule
         private void Timer_ChangeDay(Object source, ElapsedEventArgs e)
         {
             _timer.Stop();
-            Model.FocuseOnCurrentWeek();
-            Model.AddAllCardsToMondayGrid(ref GridMonday);
-            Model.AddAllCardsToTuesdayGrid(ref GridTuesday);
-            Model.AddAllCardsToWednesdayGrid(ref GridWednesday);
-            Model.AddAllCardsToThursdayGrid(ref GridThursday);
-            Model.AddAllCardsToFridayGrid(ref GridFriday);
-            Model.AddAllCardsToSaturdayGrid(ref GridSaturday);
-            Model.AddAllCardsToSundayGrid(ref GridSunday);
-            HighligthedBackground(Model.GetCurrentDayIndex());
+            if (Model.IsCurrentWeek())
+            {
+                Model.FocuseOnCurrentWeek();
+                Model.AddAllCardsToMondayGrid(ref GridMonday);
+                Model.AddAllCardsToTuesdayGrid(ref GridTuesday);
+                Model.AddAllCardsToWednesdayGrid(ref GridWednesday);
+                Model.AddAllCardsToThursdayGrid(ref GridThursday);
+                Model.AddAllCardsToFridayGrid(ref GridFriday);
+                Model.AddAllCardsToSaturdayGrid(ref GridSaturday);
+                Model.AddAllCardsToSundayGrid(ref GridSunday);
+                HighligthedBackground(Model.GetCurrentDayIndex());
+            }          
             SetTimer();
         }
     }
