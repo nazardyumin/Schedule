@@ -137,20 +137,27 @@ namespace Schedule.Model
             var selectedDay = new DateTime(year, month, date);
             return selectedDay.DayOfWeek.ToString();
         }
-        public (int year, int month, int day, string name) GetTodayIndexesAndDay()
+        public (int year, int month, int day, string name) GetTodayDateAndDay()
         {
             DateTime today = DateTime.Now;
-            return (today.Year - 2022, today.Month - 1, today.Day - 1, today.DayOfWeek.ToString());
+            return (today.Year, today.Month, today.Day, today.DayOfWeek.ToString());
         }
         public void SetDatesFromDependOnCalendar(int year, int month)
         {
             DatesFrom!.Clear();
             var date = new DateTime(year, month, 1);
-            for (int i = 0; i < 31; i++)
+            DateTime now = DateTime.Now;
+            int i = 0;
+            if (month == now.Month)
+            {
+                i = now.Day-1;
+            }
+            for (; i < 31; i++)
             {
                 var timeSpan = new TimeSpan(i, 0, 0, 0);
                 if ((date + timeSpan).Month == month)
                 {
+                    
                     DatesFrom!.Add((date + timeSpan).Day);
                 }
                 else break;             
@@ -187,7 +194,13 @@ namespace Schedule.Model
         {
             DatesTo!.Clear();
             var date = new DateTime(year, month, 1);
-            for (int i = 0; i < 31; i++)
+            DateTime now = DateTime.Now;
+            int i = 0;
+            if (month == now.Month)
+            {
+                i = now.Day;
+            }
+            for (; i < 31; i++)
             {
                 var timeSpan = new TimeSpan(i, 0, 0, 0);
                 if ((date + timeSpan).Month == month)

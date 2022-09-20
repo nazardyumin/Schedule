@@ -68,12 +68,12 @@ namespace Schedule
 
         private void ButtonToday_Click(object sender, RoutedEventArgs e)
         {
-            var result = AddingSection.GetTodayIndexesAndDay();
-            ComboBoxYearFrom.SelectedIndex = result.year;
-            AddingSection.SetMonthsFromDependOnCalendar(ComboBoxYearFrom.SelectedIndex + 2022);
-            ComboBoxMonthFrom.SelectedIndex = ComboBoxMonthFrom.Items.IndexOf(AddingSection.MonthToString(result.month+1));
+            var result = AddingSection.GetTodayDateAndDay();
+            ComboBoxYearFrom.SelectedIndex = ComboBoxYearFrom.Items.IndexOf(result.year);
+            AddingSection.SetMonthsFromDependOnCalendar(result.year);
+            ComboBoxMonthFrom.SelectedIndex = ComboBoxMonthFrom.Items.IndexOf(AddingSection.MonthToString(result.month));
             AddingSection.SetDatesFromDependOnCalendar(ComboBoxYearFrom.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue));
-            ComboBoxDayFrom.SelectedIndex = result.day;
+            ComboBoxDayFrom.SelectedIndex = ComboBoxDayFrom.Items.IndexOf(result.day);
             ButtonToday.Content = result.name;
             ButtonToday.IsEnabled = false;
         }
@@ -188,7 +188,7 @@ namespace Schedule
         {
             if (ComboBoxYearFrom.SelectedIndex!=-1&& ComboBoxMonthFrom.SelectedIndex!=-1&& ComboBoxDayFrom.SelectedIndex!=-1)
             {
-                ButtonToday.Content = AddingSection.GetSelectedDay(ComboBoxYearFrom.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), ComboBoxDayFrom.SelectedIndex + 1);
+                ButtonToday.Content = AddingSection.GetSelectedDay(ComboBoxYearFrom.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), (int)ComboBoxDayTo.SelectedValue);
                 ButtonToday.IsEnabled = false;
             }           
         }
@@ -196,7 +196,7 @@ namespace Schedule
         {
             if (ComboBoxYearTo.SelectedIndex != -1 && ComboBoxMonthTo.SelectedIndex != -1 && ComboBoxDayTo.SelectedIndex != -1)
             {
-                ButtonTargetDay.Content = AddingSection.GetSelectedDay(ComboBoxYearTo.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue), ComboBoxDayTo.SelectedIndex + 1);
+                ButtonTargetDay.Content = AddingSection.GetSelectedDay(ComboBoxYearTo.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue), (int)ComboBoxDayTo.SelectedValue);
             }
         }
 
