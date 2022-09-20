@@ -432,6 +432,10 @@ namespace Schedule.Model
                 }
             }
         }
+        public void AddLessonToOneDay(Lesson lesson, int yearFrom, int monthFrom, int dayFrom)
+        {
+            Days![FindDay(yearFrom, monthFrom, dayFrom)].Lessons.Add(lesson);
+        }
         public void AddAllCardsToMondayGrid(ref Grid grid)
         {
             grid.Children.Clear();

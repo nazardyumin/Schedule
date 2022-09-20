@@ -42,7 +42,15 @@ namespace Schedule.Model
         public Card ConvertToCard()  //move to view
         {
             var card = new Card();
-            card.Content = $"{_subject}\n{_teacher}\n{_auditorium}\n{_time}";
+            if (RowSpan<7)
+            {
+                card.Content = $"{_subject}\n{_teacher}";
+                card.FontSize = 11; 
+            }
+            else
+            {
+                card.Content = $"{_subject}\n{_teacher}\n{_auditorium}\n{_time}";
+            }           
             card.HorizontalContentAlignment = HorizontalAlignment.Center;
             card.VerticalContentAlignment = VerticalAlignment.Center;
             Grid.SetColumn(card, PositionColumn);
