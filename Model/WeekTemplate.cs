@@ -86,7 +86,7 @@ namespace Schedule.Model
                 Days.Add(new Day(date + timeSpan));
             }
         }
-        private void FocuseOnCurrentWeek()
+        public void FocuseOnCurrentWeek()
         {
             DateTime currentDate = DateTime.Now;
             int index;

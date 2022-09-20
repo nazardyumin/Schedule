@@ -2,6 +2,7 @@
 using Schedule.Model;
 using System;
 using System.Collections.Generic;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -14,12 +15,15 @@ namespace Schedule
         public CalendarTemplate AddingSection { get; set; }
         public string ButtonBackContent { get; set; }
         public string ButtonForwardContent { get; set; }
+
+        private Timer _timer;
         public MainWindow()
         {
             Model = new();
             AddingSection = new();
             ButtonBackContent = "<<";
             ButtonForwardContent =">>";
+            SetTimer();
             InitializeComponent();
             Model.AddAllCardsToMondayGrid(ref GridMonday);
             Model.AddAllCardsToTuesdayGrid(ref GridTuesday);
@@ -366,6 +370,32 @@ namespace Schedule
             Border4.Background = new SolidColorBrush(Colors.WhiteSmoke);
             Border5.Background = new SolidColorBrush(Colors.WhiteSmoke);
             Border6.Background = new SolidColorBrush(Colors.WhiteSmoke);
+        }
+
+        private void SetTimer()
+        {
+            var timeSpan = new TimeSpan(1, 0, 0, 0);
+            DateTime tmp = DateTime.Now + timeSpan;
+            var tomorrow=new DateTime(tmp.Year,tmp.Month,tmp.Day,0,0,0,0);
+            DateTime now = DateTime.Now;
+            var timeToNewDay = new TimeSpan(tomorrow.Ticks - now.Ticks);
+            _timer = new Timer(timeToNewDay.TotalMilliseconds);
+            _timer.Start();
+            _timer.Elapsed += Timer_ChangeDay!;
+        }
+
+        private void Timer_ChangeDay(Object source, ElapsedEventArgs e)
+        {
+            Model.FocuseOnCurrentWeek();
+            Model.AddAllCardsToMondayGrid(ref GridMonday);
+            Model.AddAllCardsToTuesdayGrid(ref GridTuesday);
+            Model.AddAllCardsToWednesdayGrid(ref GridWednesday);
+            Model.AddAllCardsToThursdayGrid(ref GridThursday);
+            Model.AddAllCardsToFridayGrid(ref GridFriday);
+            Model.AddAllCardsToSaturdayGrid(ref GridSaturday);
+            Model.AddAllCardsToSundayGrid(ref GridSunday);
+            HighligthedBackground(Model.GetCurrentDayIndex());
+            SetTimer();
         }
     }
 }
