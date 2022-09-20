@@ -35,7 +35,7 @@ namespace Schedule
             Model.AddAllCardsToFridayGrid(ref GridFriday);
             Model.AddAllCardsToSaturdayGrid(ref GridSaturday);
             Model.AddAllCardsToSundayGrid(ref GridSunday);
-            HighligthedBackground(Model.GetCurrentDayIndex());
+            TodayBackground(Model.GetCurrentDayIndex());
 
 
         }
@@ -43,9 +43,9 @@ namespace Schedule
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             var result = Model.PreviousWeek();
-            if (result.isCurrentWeek) HighligthedBackground(result.index);
+            if (result.isCurrentWeek) TodayBackground(result.index);
             else if (result.isFuture) FutureBackground(result.index);
-            else DefaultBackground();
+            else PastBackground();
             Model.AddAllCardsToMondayGrid(ref GridMonday);
             Model.AddAllCardsToTuesdayGrid(ref GridTuesday);
             Model.AddAllCardsToWednesdayGrid(ref GridWednesday);
@@ -58,9 +58,9 @@ namespace Schedule
         private void ButtonForward_Click(object sender, RoutedEventArgs e)
         {
             var result = Model.NextWeek();
-            if (result.isCurrentWeek) HighligthedBackground(result.index);
+            if (result.isCurrentWeek) TodayBackground(result.index);
             else if (result.isFuture) FutureBackground(result.index);
-            else DefaultBackground();
+            else PastBackground();
             Model.AddAllCardsToMondayGrid(ref GridMonday);
             Model.AddAllCardsToTuesdayGrid(ref GridTuesday);
             Model.AddAllCardsToWednesdayGrid(ref GridWednesday);
@@ -76,7 +76,7 @@ namespace Schedule
             ComboBoxYearFrom.SelectedIndex = ComboBoxYearFrom.Items.IndexOf(result.year);
             AddingSection.SetMonthsFromDependOnCalendar(result.year);
             ComboBoxMonthFrom.SelectedIndex = ComboBoxMonthFrom.Items.IndexOf(AddingSection.MonthToString(result.month));
-            AddingSection.SetDatesFromDependOnCalendar(ComboBoxYearFrom.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), monthFromMemory);
+            AddingSection.SetDatesFromDependOnCalendar((int)ComboBoxYearFrom.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), monthFromMemory);
             ComboBoxDayFrom.SelectedIndex = ComboBoxDayFrom.Items.IndexOf(result.day);
             ButtonToday.Content = result.name;
             ButtonToday.IsEnabled = false;
@@ -118,7 +118,8 @@ namespace Schedule
             else
             {
                 Model.AddLessonToDays(lesson, (int)ComboBoxYearFrom.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), (int)ComboBoxDayFrom.SelectedValue,
-                                                            (int)ComboBoxYearTo.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue), (int)ComboBoxDayTo.SelectedValue, ComboBoxCopy1.SelectedIndex, ComboBoxCopy2.SelectedIndex, ComboBoxCopy3.SelectedIndex);
+                                                            (int)ComboBoxYearTo.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue), (int)ComboBoxDayTo.SelectedValue,
+                                                            ComboBoxCopy1.SelectedIndex, ComboBoxCopy2.SelectedIndex, ComboBoxCopy3.SelectedIndex);
             }                     
             Model.AddAllCardsToMondayGrid(ref GridMonday);
             Model.AddAllCardsToTuesdayGrid(ref GridTuesday);
@@ -162,7 +163,7 @@ namespace Schedule
         {
             if (ComboBoxYearFrom.SelectedIndex != -1)
             {
-                AddingSection.SetMonthsFromDependOnCalendar(ComboBoxYearFrom.SelectedIndex + 2022);
+                AddingSection.SetMonthsFromDependOnCalendar((int)ComboBoxYearFrom.SelectedValue);
             }
         }
 
@@ -170,7 +171,7 @@ namespace Schedule
         {
             if (ComboBoxYearFrom.SelectedIndex != -1 && ComboBoxMonthFrom.SelectedIndex != -1)
             {
-                AddingSection.SetDatesFromDependOnCalendar(ComboBoxYearFrom.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), monthFromMemory);
+                AddingSection.SetDatesFromDependOnCalendar((int)ComboBoxYearFrom.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), monthFromMemory);
                 monthFromMemory = AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue);
             }            
         }
@@ -184,7 +185,7 @@ namespace Schedule
         {
             if (ComboBoxYearTo.SelectedIndex != -1)
             {
-                AddingSection.SetMonthsToDependOnCalendar(ComboBoxYearTo.SelectedIndex + 2022);
+                AddingSection.SetMonthsToDependOnCalendar((int)ComboBoxYearTo.SelectedValue);
             }
         }
 
@@ -192,7 +193,7 @@ namespace Schedule
         {
             if (ComboBoxYearTo.SelectedIndex != -1 && ComboBoxMonthTo.SelectedIndex != -1)
             {
-                AddingSection.SetDatesToDependOnCalendar(ComboBoxYearTo.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue), monthToMemory);
+                AddingSection.SetDatesToDependOnCalendar((int)ComboBoxYearTo.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue), monthToMemory);
                 monthToMemory = AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue);
             }         
         }
@@ -205,7 +206,9 @@ namespace Schedule
         {
             if (ComboBoxYearFrom.SelectedIndex!=-1&& ComboBoxMonthFrom.SelectedIndex!=-1&& ComboBoxDayFrom.SelectedIndex!=-1)
             {
-                ButtonToday.Content = AddingSection.GetSelectedDay(ComboBoxYearFrom.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), (int)ComboBoxDayFrom.SelectedValue);
+                ButtonToday.Content = AddingSection.GetSelectedDay((int)ComboBoxYearFrom.SelectedValue,
+                                                                   AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue),
+                                                                   (int)ComboBoxDayFrom.SelectedValue);
                 ButtonToday.IsEnabled = false;
             }           
         }
@@ -213,7 +216,9 @@ namespace Schedule
         {
             if (ComboBoxYearTo.SelectedIndex != -1 && ComboBoxMonthTo.SelectedIndex != -1 && ComboBoxDayTo.SelectedIndex != -1)
             {
-                ButtonTargetDay.Content = AddingSection.GetSelectedDay(ComboBoxYearTo.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue), (int)ComboBoxDayTo.SelectedValue);
+                ButtonTargetDay.Content = AddingSection.GetSelectedDay((int)ComboBoxYearTo.SelectedValue, 
+                                                                       AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue), 
+                                                                       (int)ComboBoxDayTo.SelectedValue);
             }
         }
 
@@ -224,7 +229,7 @@ namespace Schedule
                 ComboBoxCopy3.Visibility = Visibility.Visible;
             }
         }
-        private void HighligthedBackground(int column)
+        private void TodayBackground(int column)
         {
             switch (column)
             {
@@ -366,7 +371,7 @@ namespace Schedule
                     break;
             }
         }
-        private void DefaultBackground()
+        private void PastBackground()
         {
             Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
             Border1.Background = new SolidColorBrush(Colors.WhiteSmoke);
@@ -380,8 +385,8 @@ namespace Schedule
         private void SetTimer()
         {
             var timeSpan = new TimeSpan(1, 0, 0, 0);
-            DateTime tmp = DateTime.Now + timeSpan;
-            var tomorrow=new DateTime(tmp.Year,tmp.Month,tmp.Day,0,0,0,0);
+            DateTime temp = DateTime.Now + timeSpan;
+            var tomorrow=new DateTime(temp.Year,temp.Month,temp.Day,0,0,0,0);
             DateTime now = DateTime.Now;
             var timeToNewDay = new TimeSpan(tomorrow.Ticks - now.Ticks);
             _timer = new Timer(timeToNewDay.TotalMilliseconds);
@@ -402,7 +407,7 @@ namespace Schedule
                 Model.AddAllCardsToFridayGrid(ref GridFriday);
                 Model.AddAllCardsToSaturdayGrid(ref GridSaturday);
                 Model.AddAllCardsToSundayGrid(ref GridSunday);
-                HighligthedBackground(Model.GetCurrentDayIndex());
+                TodayBackground(Model.GetCurrentDayIndex());
             }          
             SetTimer();
         }
