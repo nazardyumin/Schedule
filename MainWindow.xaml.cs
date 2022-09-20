@@ -386,6 +386,7 @@ namespace Schedule
 
         private void Timer_ChangeDay(Object source, ElapsedEventArgs e)
         {
+            _timer.Stop();
             Model.FocuseOnCurrentWeek();
             Model.AddAllCardsToMondayGrid(ref GridMonday);
             Model.AddAllCardsToTuesdayGrid(ref GridTuesday);
