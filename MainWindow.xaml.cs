@@ -15,14 +15,17 @@ namespace Schedule
         public CalendarTemplate AddingSection { get; set; }
         public string ButtonBackContent { get; set; }
         public string ButtonForwardContent { get; set; }
-
         private Timer? _timer;
+        private int monthFromMemory;
+        private int monthToMemory;
         public MainWindow()
         {
             Model = new();
             AddingSection = new();
             ButtonBackContent = "<<";
             ButtonForwardContent =">>";
+            monthFromMemory = 0;
+            monthToMemory = 0;
             SetTimer();
             InitializeComponent();
             Model.AddAllCardsToMondayGrid(ref GridMonday);
@@ -73,7 +76,7 @@ namespace Schedule
             ComboBoxYearFrom.SelectedIndex = ComboBoxYearFrom.Items.IndexOf(result.year);
             AddingSection.SetMonthsFromDependOnCalendar(result.year);
             ComboBoxMonthFrom.SelectedIndex = ComboBoxMonthFrom.Items.IndexOf(AddingSection.MonthToString(result.month));
-            AddingSection.SetDatesFromDependOnCalendar(ComboBoxYearFrom.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue));
+            AddingSection.SetDatesFromDependOnCalendar(ComboBoxYearFrom.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), monthFromMemory);
             ComboBoxDayFrom.SelectedIndex = ComboBoxDayFrom.Items.IndexOf(result.day);
             ButtonToday.Content = result.name;
             ButtonToday.IsEnabled = false;
@@ -100,6 +103,8 @@ namespace Schedule
             ComboBoxCopy2.Visibility = Visibility.Hidden;
             ComboBoxCopy3.Visibility = Visibility.Hidden;
             AddingSection.ClearMonthsAndDates();
+            monthFromMemory = 0;
+            monthToMemory = 0;
         }
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
@@ -141,6 +146,8 @@ namespace Schedule
             ComboBoxCopy2.Visibility = Visibility.Hidden;
             ComboBoxCopy3.Visibility = Visibility.Hidden;
             AddingSection.ClearMonthsAndDates();
+            monthFromMemory = 0;
+            monthToMemory = 0;
         }
 
         private void ComboBoxCopy1_DropDownClosed(object sender, EventArgs e)
@@ -163,7 +170,8 @@ namespace Schedule
         {
             if (ComboBoxYearFrom.SelectedIndex != -1 && ComboBoxMonthFrom.SelectedIndex != -1)
             {
-                AddingSection.SetDatesFromDependOnCalendar(ComboBoxYearFrom.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue));
+                AddingSection.SetDatesFromDependOnCalendar(ComboBoxYearFrom.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), monthFromMemory);
+                monthFromMemory = AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue);
             }            
         }
 
@@ -184,7 +192,8 @@ namespace Schedule
         {
             if (ComboBoxYearTo.SelectedIndex != -1 && ComboBoxMonthTo.SelectedIndex != -1)
             {
-                AddingSection.SetDatesToDependOnCalendar(ComboBoxYearTo.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue));
+                AddingSection.SetDatesToDependOnCalendar(ComboBoxYearTo.SelectedIndex + 2022, AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue), monthToMemory);
+                monthToMemory = AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue);
             }         
         }
 

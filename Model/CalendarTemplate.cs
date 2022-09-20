@@ -142,9 +142,12 @@ namespace Schedule.Model
             DateTime today = DateTime.Now;
             return (today.Year, today.Month, today.Day, today.DayOfWeek.ToString());
         }
-        public void SetDatesFromDependOnCalendar(int year, int month)
+        public void SetDatesFromDependOnCalendar(int year, int month, int memoryMonth)
         {
-            DatesFrom!.Clear();
+            if (month != memoryMonth)
+            {
+                DatesFrom!.Clear();
+            }         
             var date = new DateTime(year, month, 1);
             DateTime now = DateTime.Now;
             int i = 0;
@@ -166,7 +169,6 @@ namespace Schedule.Model
         public void SetMonthsFromDependOnCalendar(int year)
         {
             MonthsFrom!.Clear();
-            var date = new DateTime(year, 1, 1);
             DateTime now = DateTime.Now;
             if (year>now.Year)
             {
@@ -177,22 +179,18 @@ namespace Schedule.Model
             }
             else
             {
-                for (int i = 0; i < 335; i++)
+                for (int i = now.Month; i <= 12; i++)
                 {
-                    var timeSpan = new TimeSpan(i, 0, 0, 0);
-                    if ((date + timeSpan).Month >= now.Month)
-                    {
-                        if (!MonthsFrom.Contains(MonthToString((date + timeSpan).Month)))
-                        {
-                            MonthsFrom.Add(MonthToString((date + timeSpan).Month));
-                        }
-                    }
+                    MonthsFrom!.Add(MonthToString(i));
                 }
             }          
         }
-        public void SetDatesToDependOnCalendar(int year, int month)
+        public void SetDatesToDependOnCalendar(int year, int month, int memoryMonth)
         {
-            DatesTo!.Clear();
+            if (month!=memoryMonth)
+            {
+                DatesTo!.Clear();
+            }
             var date = new DateTime(year, month, 1);
             DateTime now = DateTime.Now;
             int i = 0;
@@ -213,7 +211,6 @@ namespace Schedule.Model
         public void SetMonthsToDependOnCalendar(int year)
         {
             MonthsTo!.Clear();
-            var date = new DateTime(year, 1, 1);
             DateTime now = DateTime.Now;
             if (year > now.Year)
             {
@@ -224,16 +221,9 @@ namespace Schedule.Model
             }
             else
             {
-                for (int i = 0; i < 335; i++)
+                for (int i = now.Month; i <= 12; i++)
                 {
-                    var timeSpan = new TimeSpan(i, 0, 0, 0);
-                    if ((date + timeSpan).Month >= now.Month)
-                    {
-                        if (!MonthsTo!.Contains(MonthToString((date + timeSpan).Month)))
-                        {
-                            MonthsTo!.Add(MonthToString((date + timeSpan).Month));
-                        }
-                    }
+                    MonthsTo!.Add(MonthToString(i));
                 }
             }
         }
