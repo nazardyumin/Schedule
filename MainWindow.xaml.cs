@@ -15,7 +15,7 @@ namespace Schedule
         public CalendarTemplate AddingSection { get; set; }
         public string ButtonBackContent { get; set; }
         public string ButtonForwardContent { get; set; }
-        private Timer? _timer;
+        //private Timer? _timer;
         private int monthFromMemory;
         private int monthToMemory;
         public MainWindow()
@@ -668,8 +668,10 @@ namespace Schedule
         }
         private void ComboBoxCopy1_DropDownClosed(object sender, EventArgs e)
         {
+            
             if (ComboBoxCopy1.SelectedIndex > -1)
             {
+                AddingSection.SetCopyDays2(ComboBoxCopy1.SelectedIndex);
                 ComboBoxCopy2.Visibility = Visibility.Visible;
             }
             if (InputSubject.Text.Length > 0 && InputTeacher.Text.Length > 0 && InputAuditorium.Text.Length > 0 && ComboBoxStartTime.SelectedIndex > -1 && ComboBoxEndTime.SelectedIndex > -1 &&
@@ -710,6 +712,7 @@ namespace Schedule
         {
             if (ComboBoxCopy2.SelectedIndex > -1)
             {
+                AddingSection.SetCopyDays3(ComboBoxCopy2.SelectedIndex);
                 ComboBoxCopy3.Visibility = Visibility.Visible;
             }
             if (InputSubject.Text.Length > 0 && InputTeacher.Text.Length > 0 && InputAuditorium.Text.Length > 0 && ComboBoxStartTime.SelectedIndex > -1 && ComboBoxEndTime.SelectedIndex > -1 &&

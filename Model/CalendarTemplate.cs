@@ -12,18 +12,22 @@ namespace Schedule.Model
         public List<int>? Years { get; set; }
         public ObservableCollection<string>? StartTime { get; set; }
         public ObservableCollection<string>? EndTime { get; set; }
-        public List<string>? Days { get; set; }
+        //public List<string>? Days { get; set; }
         public ObservableCollection<string>? MonthsFrom { get; set; }
         public ObservableCollection<int>? DatesFrom { get; set; }
         public ObservableCollection<string>? MonthsTo { get; set; }
         public ObservableCollection<int>? DatesTo { get; set; }
-
+        public ObservableCollection<string>? CopyDays1 { get; set; }
+        public ObservableCollection<string>? CopyDays2 { get; set; }
+        public ObservableCollection<string>? CopyDays3 { get; set; }
         public CalendarTemplate()
         {
             SetYears();
             SetStartTime();
             EndTime = new();
-            SetDays();
+            SetCopyDays1();
+            CopyDays2 = new();
+            CopyDays3 = new();
             MonthsFrom = new();
             DatesFrom = new();
             MonthsTo = new();
@@ -131,17 +135,6 @@ namespace Schedule.Model
                 EndTime.Add(StartTime[i]);
             }
         }
-        private void SetDays()
-        {
-            Days = new();
-            Days.Add("Monday");
-            Days.Add("Tuesday");
-            Days.Add("Wednesday");
-            Days.Add("Thursday");
-            Days.Add("Friday");
-            Days.Add("Saturday");
-            Days.Add("Sunday");
-        }
         public string GetSelectedDay(int year, int month, int date)
         {
             var selectedDay = new DateTime(year, month, date);
@@ -243,6 +236,35 @@ namespace Schedule.Model
             DatesFrom!.Clear();
             MonthsTo!.Clear();
             DatesTo!.Clear();
+        }
+        private void SetCopyDays1()
+        {
+            CopyDays1 = new()
+            {
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+            };
+        }
+        public void SetCopyDays2(int selectedIndex)
+        {
+            CopyDays2!.Clear();
+            for (int i=0;i<7;i++)
+            {          
+                if (i!=selectedIndex) CopyDays2!.Add(CopyDays1![i]);
+            }
+        }
+        public void SetCopyDays3(int selectedIndex)
+        {
+            CopyDays3!.Clear();
+            for (int i = 0; i < 6; i++)
+            {
+                if (i != selectedIndex) CopyDays3!.Add(CopyDays2![i]);
+            }
         }
     }
 }
