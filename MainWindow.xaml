@@ -718,15 +718,15 @@
             <TextBlock Grid.Row="0"  Text="Add Lesson" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
             <StackPanel Grid.Row="1" Margin="10,10,10,10">
                 <TextBlock Text="Subject" />
-                <TextBox x:Name="InputSubject" />
+                <TextBox x:Name="InputSubject" TextChanged="InputSubject_TextChanged"/>
             </StackPanel>
             <StackPanel Grid.Row="2" Margin="10,10,10,10">
                 <TextBlock Text="Teacher"/>
-                <TextBox x:Name="InputTeacher" />
+                <TextBox x:Name="InputTeacher" TextChanged="InputTeacher_TextChanged" />
             </StackPanel>
             <StackPanel Grid.Row="3" Margin="10,10,10,10">
                 <TextBlock Text="Auditorium"/>
-                <TextBox x:Name="InputAuditorium" />
+                <TextBox x:Name="InputAuditorium" TextChanged="InputAuditorium_TextChanged"/>
             </StackPanel>
             <StackPanel Grid.Row="4" Margin="10,10,10,10">
                 <TextBlock Text="Start Time"/>
@@ -734,7 +734,7 @@
             </StackPanel>
             <StackPanel Grid.Row="5" Margin="10,10,10,10">
                 <TextBlock Text="End Time"/>
-                <ComboBox x:Name="ComboBoxEndTime" ItemsSource="{Binding AddingSection.EndTime}"/>
+                <ComboBox x:Name="ComboBoxEndTime" ItemsSource="{Binding AddingSection.EndTime}" DropDownClosed="ComboBoxEndTime_DropDownClosed"/>
             </StackPanel>
             <StackPanel Grid.Row="6" Margin="10,10,10,10">
                 <TextBlock Text="From"/>
@@ -759,12 +759,12 @@
                 <StackPanel Orientation="Horizontal" >
                     <ComboBox x:Name="ComboBoxCopy1" Width="85" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.Days}" DropDownClosed="ComboBoxCopy1_DropDownClosed"/>
                     <ComboBox x:Name="ComboBoxCopy2" Width="85" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.Days}" Visibility="Hidden" DropDownClosed="ComboBoxCopy2_DropDownClosed"/>
-                    <ComboBox x:Name="ComboBoxCopy3" Width="85" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.Days}" Visibility="Hidden"/>
+                    <ComboBox x:Name="ComboBoxCopy3" Width="85" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.Days}" Visibility="Hidden" DropDownClosed="ComboBoxCopy3_DropDownClosed"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="9" Margin="10,10,10,10" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button x:Name="ButtonClear" Content="Clear" Margin="0,0,5,0" Style="{DynamicResource MaterialDesignPaperButton}" Click="ButtonClear_Click"/>
-                <Button x:Name="ButtonAdd" Content="Add" Margin="5,0,0,0" Style="{DynamicResource MaterialDesignPaperButton}" Click="ButtonAdd_Click"/>
+                <Button x:Name="ButtonClear" Content="Clear" Margin="0,0,5,0" Style="{DynamicResource MaterialDesignPaperButton}" Click="ButtonClear_Click" IsEnabled="false"/>
+                <Button x:Name="ButtonAdd" Content="Add" Margin="5,0,0,0" Style="{DynamicResource MaterialDesignPaperButton}" Click="ButtonAdd_Click" IsEnabled="false"/>
             </StackPanel>
         </Grid>
     </Grid>
