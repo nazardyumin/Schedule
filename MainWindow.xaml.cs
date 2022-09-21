@@ -806,6 +806,8 @@ namespace Schedule
                                                                        (int)ComboBoxDayTo.SelectedValue);
             }
         }
+
+        //переписать, так как если future все backgrounds одинаковые!
         private void TodayBackground(int column)
         {
             switch (column)

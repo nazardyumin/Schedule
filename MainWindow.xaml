@@ -709,11 +709,12 @@
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="60"/>
-                <RowDefinition Height="60"/>
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="60"/>
+                <RowDefinition Height="190"/>
+                <RowDefinition Height="16"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0"  Text="Add Lesson" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
             <StackPanel Grid.Row="1" Margin="10,10,10,10">
@@ -728,15 +729,17 @@
                 <TextBlock Text="Auditorium"/>
                 <TextBox x:Name="InputAuditorium" TextChanged="InputAuditorium_TextChanged"/>
             </StackPanel>
-            <StackPanel Grid.Row="4" Margin="10,10,10,10">
-                <TextBlock Text="Start Time"/>
-                <ComboBox x:Name="ComboBoxStartTime" ItemsSource="{Binding AddingSection.StartTime}" DropDownClosed="ComboBoxStartTime_DropDownClosed"/>
+            <StackPanel Grid.Row="4" Orientation="Horizontal">
+                <StackPanel Margin="10,10,10,10">
+                    <TextBlock Text="Start Time"/>
+                    <ComboBox x:Name="ComboBoxStartTime" ItemsSource="{Binding AddingSection.StartTime}" DropDownClosed="ComboBoxStartTime_DropDownClosed"/>
+                </StackPanel>
+                <StackPanel  Margin="10,10,10,10">
+                    <TextBlock Text=" End Time"/>
+                    <ComboBox x:Name="ComboBoxEndTime" ItemsSource="{Binding AddingSection.EndTime}" DropDownClosed="ComboBoxEndTime_DropDownClosed"/>
+                </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="5" Margin="10,10,10,10">
-                <TextBlock Text="End Time"/>
-                <ComboBox x:Name="ComboBoxEndTime" ItemsSource="{Binding AddingSection.EndTime}" DropDownClosed="ComboBoxEndTime_DropDownClosed"/>
-            </StackPanel>
-            <StackPanel Grid.Row="6" Margin="10,10,10,10">
                 <TextBlock Text="From"/>
                 <StackPanel Orientation="Horizontal" >
                     <ComboBox x:Name="ComboBoxYearFrom" Width="50" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.Years}" DropDownClosed="ComboBoxYearFrom_DropDownClosed"/>
@@ -745,7 +748,7 @@
                     <Button x:Name="ButtonToday" Content="Today" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Padding="4" Click="ButtonToday_Click" Foreground="Gray"/>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Grid.Row="7" Margin="10,10,10,10">
+            <StackPanel Grid.Row="6" Margin="10,10,10,10">
                 <TextBlock Text="To"/>
                 <StackPanel Orientation="Horizontal" >
                     <ComboBox x:Name="ComboBoxYearTo" Width="50" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.Years}" DropDownClosed="ComboBoxYearTo_DropDownClosed"/>
@@ -754,7 +757,7 @@
                     <Button x:Name="ButtonTargetDay" Content="" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Padding="4" Foreground="Gray" IsEnabled="False"/>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Grid.Row="8" Margin="10,10,10,10">
+            <StackPanel Grid.Row="7" Margin="10,10,10,10">
                 <TextBlock Text="Copy To Every..."/>
                 <StackPanel Orientation="Horizontal" >
                     <ComboBox x:Name="ComboBoxCopy1" Width="85" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.CopyDays1}" DropDownClosed="ComboBoxCopy1_DropDownClosed"/>
@@ -762,9 +765,19 @@
                     <ComboBox x:Name="ComboBoxCopy3" Width="85" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.CopyDays3}" Visibility="Hidden" DropDownClosed="ComboBoxCopy3_DropDownClosed"/>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Grid.Row="9" Margin="10,10,10,10" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button x:Name="ButtonClear" Content="Clear" Margin="0,0,5,0" Style="{DynamicResource MaterialDesignPaperButton}" Click="ButtonClear_Click" IsEnabled="false"/>
-                <Button x:Name="ButtonAdd" Content="Add" Margin="5,0,0,0" Style="{DynamicResource MaterialDesignPaperButton}" Click="ButtonAdd_Click" IsEnabled="false"/>
+            <StackPanel Grid.Row="8">
+                <StackPanel  Margin="10,10,10,10" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="ButtonClear" Content="Clear" Margin="0,0,5,0" Style="{DynamicResource MaterialDesignPaperButton}" Click="ButtonClear_Click" IsEnabled="false"/>
+                    <Button x:Name="ButtonAdd" Content="Add" Margin="5,0,0,0" Style="{DynamicResource MaterialDesignPaperButton}" Click="ButtonAdd_Click" IsEnabled="false"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="9" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Image Height="103" Source="/Icons/Logo.png" Stretch="Fill" Width="200"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Image Source="icons/github.png" Margin="18,0,0,0"/>
+                <TextBlock Margin="4,0,10,0" Text="nazar-photo © 2022"/>
             </StackPanel>
         </Grid>
     </Grid>
