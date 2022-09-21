@@ -772,12 +772,16 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="9" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Image Height="103" Source="/Icons/Logo.png" Stretch="Fill" Width="200"/>
+                <Image Height="103" Source="/Icons/Logo.png" Stretch="Fill" Width="200" PreviewMouseLeftButtonUp="Image_PreviewMouseLeftButtonUp"/>
             </StackPanel>
 
             <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Image Source="icons/github.png" Margin="18,0,0,0"/>
-                <TextBlock Margin="4,0,10,0" Text="nazar-photo © 2022"/>
+                <TextBlock Margin="4,0,10,0" >
+                    <Hyperlink NavigateUri="https://github.com/nazar-photo/Schedule" RequestNavigate="Hyperlink_RequestNavigate">
+                                    nazar-photo © 2022
+                            </Hyperlink>
+                </TextBlock>
             </StackPanel>
         </Grid>
     </Grid>

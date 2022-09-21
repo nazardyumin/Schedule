@@ -2,9 +2,11 @@
 using Schedule.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media;
 
 namespace Schedule
@@ -959,6 +961,17 @@ namespace Schedule
             Border4.Background = new SolidColorBrush(Colors.WhiteSmoke);
             Border5.Background = new SolidColorBrush(Colors.WhiteSmoke);
             Border6.Background = new SolidColorBrush(Colors.WhiteSmoke);
+        }
+        private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            Hyperlink link = (Hyperlink)sender;
+            string navigateUri = link.NavigateUri.ToString();
+            Process.Start("explorer",navigateUri);
+            e.Handled = true;
+        }
+        private void Image_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Process.Start("explorer", "https://online.top-academy.ru/");
         }
     }
 }
