@@ -135,6 +135,7 @@ namespace Schedule
             ComboBoxCopy2.Visibility = Visibility.Hidden;
             ComboBoxCopy3.Visibility = Visibility.Hidden;
             AddingSection.ClearMonthsAndDates();
+            AddingSection.ClearCopyDays();
             monthFromMemory = 0;
             monthToMemory = 0;
             ButtonAdd.IsEnabled = false;
@@ -179,6 +180,7 @@ namespace Schedule
             ComboBoxCopy2.Visibility = Visibility.Hidden;
             ComboBoxCopy3.Visibility = Visibility.Hidden;
             AddingSection.ClearMonthsAndDates();
+            AddingSection.ClearCopyDays();
             monthFromMemory = 0;
             monthToMemory = 0;
             ButtonAdd.IsEnabled = false;

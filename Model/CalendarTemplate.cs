@@ -266,5 +266,10 @@ namespace Schedule.Model
                 if (i != selectedIndex) CopyDays3!.Add(CopyDays2![i]);
             }
         }
+        public void ClearCopyDays()
+        {
+            CopyDays2!.Clear();
+            CopyDays3!.Clear();
+        }
     }
 }
