@@ -373,22 +373,22 @@ namespace Schedule.Model
         public Lesson CreateLesson(string subject, string teacher, string auditorium, int startTimeIndex, int endTimeIndex, string time)
         {
             var lesson = new Lesson(subject, teacher, auditorium, time);
-            lesson.SetPositionRow(startTimeIndex);
-            lesson.SetRowSpan(endTimeIndex);
+            lesson.SetPositionInDayStart(startTimeIndex);
+            lesson.SetPositionInDayEnd(endTimeIndex);
             return lesson;
         }
         public void AddLessonToDays(Lesson lesson, int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo, int dayTo, int copy1Index, int copy2Index, int copy3Index)
         {
             int start = FindDay(yearFrom, monthFrom, dayFrom);
             int stop = FindDay(yearTo, monthTo, dayTo);
-            lesson.SetPositionColumn(Days![start].GetDayIndex());
+            lesson.SetPositionInWeek(Days![start].GetDayIndex());
             for (int i = start; i <= stop; i += 7)
             {
                 Days[i].Lessons.Add(lesson);
             }
             if (copy1Index != -1)
             {
-                lesson.SetPositionColumn(copy1Index);
+                lesson.SetPositionInWeek(copy1Index);
                 for (int i = start; i <= stop; i++)
                 {
                     if (Days[i].GetDayIndex() == copy1Index)
@@ -403,7 +403,7 @@ namespace Schedule.Model
             }
             if (copy2Index != -1)
             {
-                lesson.SetPositionColumn(copy2Index);
+                lesson.SetPositionInWeek(copy2Index);
                 for (int i = start; i <= stop; i++)
                 {
                     if (Days[i].GetDayIndex() == copy2Index)
@@ -418,7 +418,7 @@ namespace Schedule.Model
             }
             if (copy3Index != -1)
             {
-                lesson.SetPositionColumn(copy3Index);
+                lesson.SetPositionInWeek(copy3Index);
                 for (int i = start; i <= stop; i++)
                 {
                     if (Days[i].GetDayIndex() == copy3Index)

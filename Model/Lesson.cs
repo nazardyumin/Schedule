@@ -2,10 +2,10 @@
 {
     public class Lesson
     {
-        public string? Subject { get; set; }
-        public string? Teacher { get; set; }
-        public string? Auditorium { get; set; }
-        public string? Time { get; set; }
+        public string Subject { get; set; }
+        public string Teacher { get; set; }
+        public string Auditorium { get; set; }
+        public string Time { get; set; }
         public int PositionInWeek { get; set; }
         public int PositionInDayStart { get; set; }
         public int PositionInDayEnd { get; set; }
@@ -16,15 +16,15 @@
             Auditorium = $"Auditorium: {auditorium}";
             Time = time;
         }
-        public void SetPositionColumn(int index)
+        public void SetPositionInWeek(int index)
         {
             PositionInWeek = index;
         }
-        public void SetPositionRow(int index)
+        public void SetPositionInDayStart(int index)
         {
             PositionInDayStart = index;
         }
-        public void SetRowSpan(int index)
+        public void SetPositionInDayEnd(int index)
         {
             PositionInDayEnd = index - PositionInDayStart;
         }
