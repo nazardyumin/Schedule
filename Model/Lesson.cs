@@ -48,6 +48,7 @@ namespace Schedule.Model
             }           
             card.HorizontalContentAlignment = HorizontalAlignment.Center;
             card.VerticalContentAlignment = VerticalAlignment.Center;
+            ElevationAssist.SetElevation(card,Elevation.Dp8);
             Grid.SetColumn(card, PositionColumn);
             Grid.SetRow(card, PositionRow);
             Grid.SetRowSpan(card, RowSpan);
