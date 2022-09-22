@@ -751,9 +751,9 @@
             <StackPanel Grid.Row="6" Margin="10,10,10,10">
                 <TextBlock Text="To"/>
                 <StackPanel Orientation="Horizontal" >
-                    <ComboBox x:Name="ComboBoxYearTo" Width="50" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.Years}" DropDownClosed="ComboBoxYearTo_DropDownClosed"/>
-                    <ComboBox x:Name="ComboBoxMonthTo" Width="80" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.MonthsTo}" DropDownClosed="ComboBoxMonthTo_DropDownClosed"/>
-                    <ComboBox x:Name="ComboBoxDayTo" Width="40" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.DatesTo}" DropDownClosed="ComboBoxDayTo_DropDownClosed"/>
+                    <ComboBox x:Name="ComboBoxYearTo" Width="50" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.Years}" DropDownClosed="ComboBoxYearTo_DropDownClosed" IsEnabled="False"/>
+                    <ComboBox x:Name="ComboBoxMonthTo" Width="80" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.MonthsTo}" DropDownClosed="ComboBoxMonthTo_DropDownClosed" IsEnabled="False"/>
+                    <ComboBox x:Name="ComboBoxDayTo" Width="40" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.DatesTo}" DropDownClosed="ComboBoxDayTo_DropDownClosed" IsEnabled="False"/>
                     <Button x:Name="ButtonTargetDay" Content="" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Padding="4" Foreground="Gray" IsEnabled="False"/>
                 </StackPanel>
             </StackPanel>

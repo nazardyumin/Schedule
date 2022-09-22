@@ -212,7 +212,7 @@ namespace Schedule.Model
             var date = new DateTime(year, month, 1);
             DateTime now = DateTime.Now;
             int i = 0;
-            if (month == now.Month)
+            if (month == now.Month && year==now.Year)
             {
                 i = now.Day;
             }
@@ -224,6 +224,14 @@ namespace Schedule.Model
                     DatesTo!.Add((date + timeSpan).Day);
                 }
                 else break;
+            }
+        }
+        public void SetDatesToDependOnDatesFrom(int selectedDay)
+        {
+            DatesTo!.Clear();
+            for (int i = selectedDay+1; i < DatesFrom!.Count; i++)
+            {
+                DatesTo!.Add(DatesFrom[i]);
             }
         }
         public void SetMonthsToDependOnCalendar(int year)
@@ -245,12 +253,28 @@ namespace Schedule.Model
                 }
             }
         }
-        public void ClearMonthsAndDates()
+        public void SetMonthsToDependOnMonthsFrom(int selectedMonth)
         {
-            MonthsFrom!.Clear();
-            DatesFrom!.Clear();
             MonthsTo!.Clear();
-            DatesTo!.Clear();
+            for (int i = selectedMonth; i<MonthsFrom!.Count;i++)
+            {
+                MonthsTo!.Add(MonthsFrom[i]);
+            }    
+        }
+        public void ClearMonthsAndDates(string key)
+        {
+            if (key == "all")
+            {
+                MonthsFrom!.Clear();
+                DatesFrom!.Clear();
+                MonthsTo!.Clear();
+                DatesTo!.Clear();
+            }
+            else
+            {
+                MonthsTo!.Clear();
+                DatesTo!.Clear();
+            }          
         }
         private void SetCopyDays1()
         {
@@ -335,6 +359,17 @@ namespace Schedule.Model
 
                 default: return -1;
             }
+        }
+        public bool FromExceedsTo(int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo, int dayTo)
+        {
+            var from = new DateTime(yearFrom, monthFrom, dayFrom);
+            var to = new DateTime(yearTo, monthTo, dayTo);
+            return from > to;
+        }
+        public void ClearDates(string key)
+        {
+            if (key=="from") DatesFrom!.Clear();
+            else DatesTo!.Clear();
         }
     }
 }

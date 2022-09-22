@@ -79,9 +79,22 @@ namespace Schedule
             AddingSection.SetMonthsFromDependOnCalendar(result.year);
             ComboBoxMonthFrom.SelectedIndex = ComboBoxMonthFrom.Items.IndexOf(AddingSection.MonthToString(result.month));
             AddingSection.SetDatesFromDependOnCalendar((int)ComboBoxYearFrom.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), monthFromMemory);
+            monthFromMemory = AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue);
             ComboBoxDayFrom.SelectedIndex = ComboBoxDayFrom.Items.IndexOf(result.day);
             ButtonToday.Content = result.name;
             ButtonToday.IsEnabled = false;
+            if (ComboBoxYearFrom.SelectedIndex >= -1 && ComboBoxMonthFrom.SelectedIndex >= -1 && ComboBoxDayFrom.SelectedIndex >= -1)
+            {
+                ComboBoxYearTo.IsEnabled = true;
+                ComboBoxMonthTo.IsEnabled = true;
+                ComboBoxDayTo.IsEnabled = true;
+            }
+            else
+            {
+                ComboBoxYearTo.IsEnabled = false;
+                ComboBoxMonthTo.IsEnabled = false;
+                ComboBoxDayTo.IsEnabled = false;
+            }
             if (InputSubject.Text.Length > 0 && InputTeacher.Text.Length > 0 && InputAuditorium.Text.Length > 0 && ComboBoxStartTime.SelectedIndex > -1 && ComboBoxEndTime.SelectedIndex > -1 &&
                  ComboBoxYearFrom.SelectedIndex > -1 && ComboBoxMonthFrom.SelectedIndex > -1 && ComboBoxDayFrom.SelectedIndex > -1)
             {
@@ -136,7 +149,7 @@ namespace Schedule
             ComboBoxCopy2.SelectedIndex = -1;
             ComboBoxCopy2.Visibility = Visibility.Hidden;
             ComboBoxCopy3.Visibility = Visibility.Hidden;
-            AddingSection.ClearMonthsAndDates();
+            AddingSection.ClearMonthsAndDates("all");
             AddingSection.ClearCopyDays();
             monthFromMemory = 0;
             monthToMemory = 0;
@@ -145,6 +158,9 @@ namespace Schedule
             ComboBoxCopy1.IsEnabled = false;
             ComboBoxCopy2.IsEnabled = false;
             ComboBoxCopy3.IsEnabled = false;
+            ComboBoxYearTo.IsEnabled = false;
+            ComboBoxMonthTo.IsEnabled = false;
+            ComboBoxDayTo.IsEnabled = false;
         }
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
@@ -184,7 +200,7 @@ namespace Schedule
             ComboBoxCopy2.SelectedIndex = -1;
             ComboBoxCopy2.Visibility = Visibility.Hidden;
             ComboBoxCopy3.Visibility = Visibility.Hidden;
-            AddingSection.ClearMonthsAndDates();
+            AddingSection.ClearMonthsAndDates("all");
             AddingSection.ClearCopyDays();
             monthFromMemory = 0;
             monthToMemory = 0;
@@ -193,6 +209,9 @@ namespace Schedule
             ComboBoxCopy1.IsEnabled = false;
             ComboBoxCopy2.IsEnabled = false;
             ComboBoxCopy3.IsEnabled = false;
+            ComboBoxYearTo.IsEnabled = false;
+            ComboBoxMonthTo.IsEnabled = false;
+            ComboBoxDayTo.IsEnabled = false;
         }
         //private void SetTimer()
         //{
@@ -225,6 +244,18 @@ namespace Schedule
         //}
         private void InputSubject_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (ComboBoxYearFrom.SelectedIndex>=1 && ComboBoxMonthFrom.SelectedIndex >= 1 && ComboBoxDayFrom.SelectedIndex >= 1)
+            {
+                ComboBoxYearTo.IsEnabled=true;
+                ComboBoxMonthTo.IsEnabled = true;
+                ComboBoxDayTo.IsEnabled = true;
+            }
+            else
+            {
+                ComboBoxYearTo.IsEnabled = false;
+                ComboBoxMonthTo.IsEnabled = false;
+                ComboBoxDayTo.IsEnabled = false;
+            }
             if (InputSubject.Text.Length>0)
             {
                 ButtonClear.IsEnabled = true;
@@ -288,6 +319,18 @@ namespace Schedule
         }
         private void InputTeacher_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (ComboBoxYearFrom.SelectedIndex >= 1 && ComboBoxMonthFrom.SelectedIndex >= 1 && ComboBoxDayFrom.SelectedIndex >= 1)
+            {
+                ComboBoxYearTo.IsEnabled = true;
+                ComboBoxMonthTo.IsEnabled = true;
+                ComboBoxDayTo.IsEnabled = true;
+            }
+            else
+            {
+                ComboBoxYearTo.IsEnabled = false;
+                ComboBoxMonthTo.IsEnabled = false;
+                ComboBoxDayTo.IsEnabled = false;
+            }
             if (InputTeacher.Text.Length > 0)
             {
                 ButtonClear.IsEnabled = true;
@@ -351,6 +394,18 @@ namespace Schedule
         }
         private void InputAuditorium_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (ComboBoxYearFrom.SelectedIndex >= 1 && ComboBoxMonthFrom.SelectedIndex >= 1 && ComboBoxDayFrom.SelectedIndex >= 1)
+            {
+                ComboBoxYearTo.IsEnabled = true;
+                ComboBoxMonthTo.IsEnabled = true;
+                ComboBoxDayTo.IsEnabled = true;
+            }
+            else
+            {
+                ComboBoxYearTo.IsEnabled = false;
+                ComboBoxMonthTo.IsEnabled = false;
+                ComboBoxDayTo.IsEnabled = false;
+            }
             if (InputAuditorium.Text.Length > 0)
             {
                 ButtonClear.IsEnabled = true;
@@ -415,6 +470,18 @@ namespace Schedule
         private void ComboBoxStartTime_DropDownClosed(object sender, EventArgs e)
         {
             AddingSection.SetEndTime(ComboBoxStartTime.SelectedIndex);
+            if (ComboBoxYearFrom.SelectedIndex >= -1 && ComboBoxMonthFrom.SelectedIndex >= -1 && ComboBoxDayFrom.SelectedIndex >= -1)
+            {
+                ComboBoxYearTo.IsEnabled = true;
+                ComboBoxMonthTo.IsEnabled = true;
+                ComboBoxDayTo.IsEnabled = true;
+            }
+            else
+            {
+                ComboBoxYearTo.IsEnabled = false;
+                ComboBoxMonthTo.IsEnabled = false;
+                ComboBoxDayTo.IsEnabled = false;
+            }
             if (InputSubject.Text.Length > 0 && InputTeacher.Text.Length > 0 && InputAuditorium.Text.Length > 0 && ComboBoxStartTime.SelectedIndex > -1 && ComboBoxEndTime.SelectedIndex > -1 &&
                    ComboBoxYearFrom.SelectedIndex > -1 && ComboBoxMonthFrom.SelectedIndex > -1 && ComboBoxDayFrom.SelectedIndex > -1)
             {
@@ -463,6 +530,18 @@ namespace Schedule
         }
         private void ComboBoxEndTime_DropDownClosed(object sender, EventArgs e)
         {
+            if (ComboBoxYearFrom.SelectedIndex >= -1 && ComboBoxMonthFrom.SelectedIndex >= -1 && ComboBoxDayFrom.SelectedIndex >= -1)
+            {
+                ComboBoxYearTo.IsEnabled = true;
+                ComboBoxMonthTo.IsEnabled = true;
+                ComboBoxDayTo.IsEnabled = true;
+            }
+            else
+            {
+                ComboBoxYearTo.IsEnabled = false;
+                ComboBoxMonthTo.IsEnabled = false;
+                ComboBoxDayTo.IsEnabled = false;
+            }
             if (InputSubject.Text.Length > 0 && InputTeacher.Text.Length > 0 && InputAuditorium.Text.Length > 0 && ComboBoxStartTime.SelectedIndex > -1 && ComboBoxEndTime.SelectedIndex > -1 &&
                    ComboBoxYearFrom.SelectedIndex > -1 && ComboBoxMonthFrom.SelectedIndex > -1 && ComboBoxDayFrom.SelectedIndex > -1)
             {
@@ -511,9 +590,34 @@ namespace Schedule
         }
         private void ComboBoxYearFrom_DropDownClosed(object sender, EventArgs e)
         {
+            if (ComboBoxYearFrom.SelectedIndex >= -1 && ComboBoxMonthFrom.SelectedIndex >= -1 && ComboBoxDayFrom.SelectedIndex >= -1)
+            {
+                ComboBoxYearTo.IsEnabled = true;
+                ComboBoxMonthTo.IsEnabled = true;
+                ComboBoxDayTo.IsEnabled = true;
+            }
+            else
+            {
+                ComboBoxYearTo.IsEnabled = false;
+                ComboBoxMonthTo.IsEnabled = false;
+                ComboBoxDayTo.IsEnabled = false;
+            }
+            if (ComboBoxYearFrom.SelectedIndex > -1 && ComboBoxMonthFrom.SelectedIndex > -1 && ComboBoxDayFrom.SelectedIndex > -1 &&
+               ComboBoxYearTo.SelectedIndex > -1 && ComboBoxMonthTo.SelectedIndex > -1 && ComboBoxDayTo.SelectedIndex > -1)
+            {
+                if (AddingSection.FromExceedsTo((int)ComboBoxYearFrom.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), (int)ComboBoxDayFrom.SelectedValue,
+                                    (int)ComboBoxYearTo.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue), (int)ComboBoxDayTo.SelectedValue))
+                {
+                    ComboBoxYearTo.SelectedIndex = -1;
+                    AddingSection.ClearMonthsAndDates("to");
+                    ButtonTargetDay.Content = string.Empty;
+                }
+            }
             if (ComboBoxYearFrom.SelectedIndex != -1)
             {
                 AddingSection.SetMonthsFromDependOnCalendar((int)ComboBoxYearFrom.SelectedValue);
+                AddingSection.ClearDates("from");
+                ButtonToday.Content = "Today";
             }
             if (InputSubject.Text.Length > 0 && InputTeacher.Text.Length > 0 && InputAuditorium.Text.Length > 0 && ComboBoxStartTime.SelectedIndex > -1 && ComboBoxEndTime.SelectedIndex > -1 &&
                    ComboBoxYearFrom.SelectedIndex > -1 && ComboBoxMonthFrom.SelectedIndex > -1 && ComboBoxDayFrom.SelectedIndex > -1)
@@ -563,10 +667,34 @@ namespace Schedule
         }
         private void ComboBoxMonthFrom_DropDownClosed(object sender, EventArgs e)
         {
+            if (ComboBoxYearFrom.SelectedIndex >= -1 && ComboBoxMonthFrom.SelectedIndex >= -1 && ComboBoxDayFrom.SelectedIndex >= -1)
+            {
+                ComboBoxYearTo.IsEnabled = true;
+                ComboBoxMonthTo.IsEnabled = true;
+                ComboBoxDayTo.IsEnabled = true;
+            }
+            else
+            {
+                ComboBoxYearTo.IsEnabled = false;
+                ComboBoxMonthTo.IsEnabled = false;
+                ComboBoxDayTo.IsEnabled = false;
+            }
+            if (ComboBoxYearFrom.SelectedIndex > -1 && ComboBoxMonthFrom.SelectedIndex > -1 && ComboBoxDayFrom.SelectedIndex > -1 &&
+               ComboBoxYearTo.SelectedIndex > -1 && ComboBoxMonthTo.SelectedIndex > -1 && ComboBoxDayTo.SelectedIndex > -1)
+            {
+                if (AddingSection.FromExceedsTo((int)ComboBoxYearFrom.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), (int)ComboBoxDayFrom.SelectedValue,
+                                    (int)ComboBoxYearTo.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue), (int)ComboBoxDayTo.SelectedValue))
+                {
+                    ComboBoxYearTo.SelectedIndex = -1;
+                    AddingSection.ClearMonthsAndDates("to");
+                    ButtonTargetDay.Content = string.Empty;
+                }
+            }
             if (ComboBoxYearFrom.SelectedIndex != -1 && ComboBoxMonthFrom.SelectedIndex != -1)
             {
                 AddingSection.SetDatesFromDependOnCalendar((int)ComboBoxYearFrom.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), monthFromMemory);
                 monthFromMemory = AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue);
+                ButtonToday.Content = "Today";
             }
             if (InputSubject.Text.Length > 0 && InputTeacher.Text.Length > 0 && InputAuditorium.Text.Length > 0 && ComboBoxStartTime.SelectedIndex > -1 && ComboBoxEndTime.SelectedIndex > -1 &&
                    ComboBoxYearFrom.SelectedIndex > -1 && ComboBoxMonthFrom.SelectedIndex > -1 && ComboBoxDayFrom.SelectedIndex > -1)
@@ -587,6 +715,15 @@ namespace Schedule
                 }
                 else
                 {
+                    if (AddingSection.FromExceedsTo((int)ComboBoxYearFrom.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), (int)ComboBoxDayFrom.SelectedValue,
+                    (int)ComboBoxYearTo.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue), (int)ComboBoxDayTo.SelectedValue))
+                    {
+                        if ((int)ComboBoxYearFrom.SelectedValue == (int)ComboBoxYearTo.SelectedValue)
+                        {
+                            ComboBoxYearFrom.SelectedIndex = -1;
+                        }
+                        AddingSection.ClearMonthsAndDates("to");
+                    }
                     ButtonAdd.IsEnabled = true;
                     ComboBoxCopy1.IsEnabled = true;
                     ComboBoxCopy2.IsEnabled = true;
@@ -617,6 +754,18 @@ namespace Schedule
         private void ComboBoxDayFrom_DropDownClosed(object sender, EventArgs e)
         {
             ChangeButtonTodayContent();
+            if (ComboBoxYearFrom.SelectedIndex >= -1 && ComboBoxMonthFrom.SelectedIndex >= -1 && ComboBoxDayFrom.SelectedIndex >= -1)
+            {
+                ComboBoxYearTo.IsEnabled = true;
+                ComboBoxMonthTo.IsEnabled = true;
+                ComboBoxDayTo.IsEnabled = true;
+            }
+            else
+            {
+                ComboBoxYearTo.IsEnabled = false;
+                ComboBoxMonthTo.IsEnabled = false;
+                ComboBoxDayTo.IsEnabled = false;
+            }
             if (InputSubject.Text.Length > 0 && InputTeacher.Text.Length > 0 && InputAuditorium.Text.Length > 0 && ComboBoxStartTime.SelectedIndex > -1 && ComboBoxEndTime.SelectedIndex > -1 &&
                    ComboBoxYearFrom.SelectedIndex > -1 && ComboBoxMonthFrom.SelectedIndex > -1 && ComboBoxDayFrom.SelectedIndex > -1)
             {
@@ -665,9 +814,31 @@ namespace Schedule
         }
         private void ComboBoxYearTo_DropDownClosed(object sender, EventArgs e)
         {
+            if (ComboBoxYearFrom.SelectedIndex >= -1 && ComboBoxMonthFrom.SelectedIndex >= -1 && ComboBoxDayFrom.SelectedIndex >= -1)
+            {
+                ComboBoxYearTo.IsEnabled = true;
+                ComboBoxMonthTo.IsEnabled = true;
+                ComboBoxDayTo.IsEnabled = true;
+            }
+            else
+            {
+                ComboBoxYearTo.IsEnabled = false;
+                ComboBoxMonthTo.IsEnabled = false;
+                ComboBoxDayTo.IsEnabled = false;
+            }
             if (ComboBoxYearTo.SelectedIndex != -1)
             {
-                AddingSection.SetMonthsToDependOnCalendar((int)ComboBoxYearTo.SelectedValue);
+                AddingSection.ClearMonthsAndDates("to");
+                ButtonTargetDay.Content = string.Empty;
+                if ((int)ComboBoxYearFrom.SelectedValue==(int)ComboBoxYearTo.SelectedValue)
+                {
+                    AddingSection.SetMonthsToDependOnMonthsFrom(ComboBoxMonthFrom.SelectedIndex);
+                }
+                else
+                {
+                    AddingSection.SetMonthsToDependOnCalendar((int)ComboBoxYearTo.SelectedValue);
+                }
+                
             }
             if (InputSubject.Text.Length > 0 && InputTeacher.Text.Length > 0 && InputAuditorium.Text.Length > 0 && ComboBoxStartTime.SelectedIndex > -1 && ComboBoxEndTime.SelectedIndex > -1 &&
                   ComboBoxYearFrom.SelectedIndex > -1 && ComboBoxMonthFrom.SelectedIndex > -1 && ComboBoxDayFrom.SelectedIndex > -1)
@@ -717,9 +888,31 @@ namespace Schedule
         }
         private void ComboBoxMonthTo_DropDownClosed(object sender, EventArgs e)
         {
+            if (ComboBoxYearFrom.SelectedIndex >= -1 && ComboBoxMonthFrom.SelectedIndex >= -1 && ComboBoxDayFrom.SelectedIndex >= -1)
+            {
+                ComboBoxYearTo.IsEnabled = true;
+                ComboBoxMonthTo.IsEnabled = true;
+                ComboBoxDayTo.IsEnabled = true;
+            }
+            else
+            {
+                ComboBoxYearTo.IsEnabled = false;
+                ComboBoxMonthTo.IsEnabled = false;
+                ComboBoxDayTo.IsEnabled = false;
+            }
             if (ComboBoxYearTo.SelectedIndex != -1 && ComboBoxMonthTo.SelectedIndex != -1)
             {
-                AddingSection.SetDatesToDependOnCalendar((int)ComboBoxYearTo.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue), monthToMemory);
+                AddingSection.ClearDates("to");
+                ButtonTargetDay.Content = string.Empty;
+                if ((int)ComboBoxYearFrom.SelectedValue == (int)ComboBoxYearTo.SelectedValue&&(string)ComboBoxMonthFrom.SelectedValue == (string)ComboBoxMonthTo.SelectedValue)
+                {
+                    AddingSection.SetDatesToDependOnDatesFrom(ComboBoxMonthFrom.SelectedIndex);
+                }
+                else
+                {
+                    AddingSection.SetDatesToDependOnCalendar((int)ComboBoxYearTo.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue), monthToMemory);
+                }
+                
                 monthToMemory = AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue);
             }
             if (InputSubject.Text.Length > 0 && InputTeacher.Text.Length > 0 && InputAuditorium.Text.Length > 0 && ComboBoxStartTime.SelectedIndex > -1 && ComboBoxEndTime.SelectedIndex > -1 &&
@@ -769,8 +962,20 @@ namespace Schedule
             }
         }
         private void ComboBoxDayTo_DropDownClosed(object sender, EventArgs e)
-        {
+        {            
             ChangeButtonTargetDayContent();
+            if (ComboBoxYearFrom.SelectedIndex >= -1 && ComboBoxMonthFrom.SelectedIndex >= -1 && ComboBoxDayFrom.SelectedIndex >= -1)
+            {
+                ComboBoxYearTo.IsEnabled = true;
+                ComboBoxMonthTo.IsEnabled = true;
+                ComboBoxDayTo.IsEnabled = true;
+            }
+            else
+            {
+                ComboBoxYearTo.IsEnabled = false;
+                ComboBoxMonthTo.IsEnabled = false;
+                ComboBoxDayTo.IsEnabled = false;
+            }
             if (InputSubject.Text.Length > 0 && InputTeacher.Text.Length > 0 && InputAuditorium.Text.Length > 0 && ComboBoxStartTime.SelectedIndex > -1 && ComboBoxEndTime.SelectedIndex > -1 &&
                   ComboBoxYearFrom.SelectedIndex > -1 && ComboBoxMonthFrom.SelectedIndex > -1 && ComboBoxDayFrom.SelectedIndex > -1)
             {
@@ -819,7 +1024,18 @@ namespace Schedule
         }
         private void ComboBoxCopy1_DropDownClosed(object sender, EventArgs e)
         {
-            
+            if (ComboBoxYearFrom.SelectedIndex >= -1 && ComboBoxMonthFrom.SelectedIndex >= -1 && ComboBoxDayFrom.SelectedIndex >= -1)
+            {
+                ComboBoxYearTo.IsEnabled = true;
+                ComboBoxMonthTo.IsEnabled = true;
+                ComboBoxDayTo.IsEnabled = true;
+            }
+            else
+            {
+                ComboBoxYearTo.IsEnabled = false;
+                ComboBoxMonthTo.IsEnabled = false;
+                ComboBoxDayTo.IsEnabled = false;
+            }
             if (ComboBoxCopy1.SelectedIndex > -1)
             {
                 AddingSection.SetCopyDays2(ComboBoxCopy1.SelectedIndex);
@@ -873,6 +1089,18 @@ namespace Schedule
         }
         private void ComboBoxCopy2_DropDownClosed(object sender, EventArgs e)
         {
+            if (ComboBoxYearFrom.SelectedIndex >= -1 && ComboBoxMonthFrom.SelectedIndex >= -1 && ComboBoxDayFrom.SelectedIndex >= -1)
+            {
+                ComboBoxYearTo.IsEnabled = true;
+                ComboBoxMonthTo.IsEnabled = true;
+                ComboBoxDayTo.IsEnabled = true;
+            }
+            else
+            {
+                ComboBoxYearTo.IsEnabled = false;
+                ComboBoxMonthTo.IsEnabled = false;
+                ComboBoxDayTo.IsEnabled = false;
+            }
             if (ComboBoxCopy2.SelectedIndex > -1)
             {
                 AddingSection.SetCopyDays3(ComboBoxCopy2.SelectedIndex);
@@ -926,6 +1154,18 @@ namespace Schedule
         }
         private void ComboBoxCopy3_DropDownClosed(object sender, EventArgs e)
         {
+            if (ComboBoxYearFrom.SelectedIndex >= -1 && ComboBoxMonthFrom.SelectedIndex >= -1 && ComboBoxDayFrom.SelectedIndex >= -1)
+            {
+                ComboBoxYearTo.IsEnabled = true;
+                ComboBoxMonthTo.IsEnabled = true;
+                ComboBoxDayTo.IsEnabled = true;
+            }
+            else
+            {
+                ComboBoxYearTo.IsEnabled = false;
+                ComboBoxMonthTo.IsEnabled = false;
+                ComboBoxDayTo.IsEnabled = false;
+            }
             if (InputSubject.Text.Length > 0 && InputTeacher.Text.Length > 0 && InputAuditorium.Text.Length > 0 && ComboBoxStartTime.SelectedIndex > -1 && ComboBoxEndTime.SelectedIndex > -1 &&
                   ComboBoxYearFrom.SelectedIndex > -1 && ComboBoxMonthFrom.SelectedIndex > -1 && ComboBoxDayFrom.SelectedIndex > -1)
             {
