@@ -371,7 +371,7 @@
                         </Border>
 
                         <Border x:Name="Border3" Grid.Column="3" Background="WhiteSmoke">
-                            <Grid x:Name="GridThursday">
+                            <Grid x:Name="GridThursday" ShowGridLines="True">
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
                                     <RowDefinition/>
@@ -760,9 +760,9 @@
             <StackPanel Grid.Row="7" Margin="10,10,10,10">
                 <TextBlock Text="Copy To Every..."/>
                 <StackPanel Orientation="Horizontal" >
-                    <ComboBox x:Name="ComboBoxCopy1" Width="85" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.CopyDays1}" DropDownClosed="ComboBoxCopy1_DropDownClosed"/>
-                    <ComboBox x:Name="ComboBoxCopy2" Width="85" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.CopyDays2}" Visibility="Hidden" DropDownClosed="ComboBoxCopy2_DropDownClosed"/>
-                    <ComboBox x:Name="ComboBoxCopy3" Width="85" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.CopyDays3}" Visibility="Hidden" DropDownClosed="ComboBoxCopy3_DropDownClosed"/>
+                    <ComboBox x:Name="ComboBoxCopy1" Width="85" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.CopyDays1}" DropDownClosed="ComboBoxCopy1_DropDownClosed" IsEnabled="False"/>
+                    <ComboBox x:Name="ComboBoxCopy2" Width="85" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.CopyDays2}" Visibility="Hidden" DropDownClosed="ComboBoxCopy2_DropDownClosed" IsEnabled="False"/>
+                    <ComboBox x:Name="ComboBoxCopy3" Width="85" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.CopyDays3}" Visibility="Hidden" DropDownClosed="ComboBoxCopy3_DropDownClosed" IsEnabled="False"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="8">

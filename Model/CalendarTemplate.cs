@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Schedule.Model
 {
@@ -12,7 +9,6 @@ namespace Schedule.Model
         public List<int>? Years { get; set; }
         public ObservableCollection<string>? StartTime { get; set; }
         public ObservableCollection<string>? EndTime { get; set; }
-        //public List<string>? Days { get; set; }
         public ObservableCollection<string>? MonthsFrom { get; set; }
         public ObservableCollection<int>? DatesFrom { get; set; }
         public ObservableCollection<string>? MonthsTo { get; set; }
@@ -33,7 +29,6 @@ namespace Schedule.Model
             MonthsTo = new();
             DatesTo = new();
         }
-
         private void SetYears()
         {
             Years = new();
@@ -106,26 +101,46 @@ namespace Schedule.Model
         }
         private void SetStartTime()
         {
-            StartTime = new();
-            StartTime.Add("08:00");
-            StartTime.Add("08:10");
-            StartTime.Add("08:20");
-            StartTime.Add("08:30");
-            StartTime.Add("08:40");
-            StartTime.Add("08:50");
-            StartTime.Add("09:00");
-            StartTime.Add("09:10");
-            StartTime.Add("09:20");
-            StartTime.Add("09:30");
-            StartTime.Add("09:40");
-            StartTime.Add("09:50");
-            StartTime.Add("10:00");
-            StartTime.Add("10:10");
-            StartTime.Add("10:20");
-            StartTime.Add("10:30");
-            StartTime.Add("10:40");
-            StartTime.Add("10:50");
-            StartTime.Add("11:00");
+            StartTime = new()
+            {
+                "08:00",
+                "08:10",
+                "08:20",
+                "08:30",
+                "08:40",
+                "08:50",
+                "09:00",
+                "09:10",
+                "09:20",
+                "09:30",
+                "09:40",
+                "09:50",
+                "10:00",
+                "10:10",
+                "10:20",
+                "10:30",
+                "10:40",
+                "10:50",
+                "11:00",
+                "11:10",
+                "11:20",
+                "11:30",
+                "11:40",
+                "11:50",
+                "12:00",
+                "12:10",
+                "12:20",
+                "12:30",
+                "12:40",
+                "12:50",
+                "13:00",
+                "13:10",
+                "13:20",
+                "13:30",
+                "13:40",
+                "13:50",
+                "14:00",
+            };
         }
         public void SetEndTime(int selectedIndex)
         {
@@ -270,6 +285,56 @@ namespace Schedule.Model
         {
             CopyDays2!.Clear();
             CopyDays3!.Clear();
+        }
+        public int GetEndTimeIndex(string selectedValue)
+        {
+            switch (selectedValue)
+            {
+                case "08:00": return 0;
+                case "08:10": return 1;
+                case "08:20": return 2;
+                case "08:30": return 3;
+                case "08:40": return 4;
+                case "08:50": return 5;
+                case "09:00": return 6;
+                case "09:10": return 7;
+                case "09:20": return 8;
+                case "09:30": return 9;
+                case "09:40": return 10;
+                case "09:50": return 11;
+                case "10:00": return 12;
+                case "10:10": return 13;
+                case "10:20": return 14;
+                case "10:30": return 15;
+                case "10:40": return 16;
+                case "10:50": return 17;
+                case "11:00": return 18;
+                case "11:10": return 19;
+                case "11:20": return 20;
+                case "11:30": return 21;
+                case "11:50": return 22;
+                case "12:00": return 23;
+                case "12:20": return 24;
+                case "12:30": return 25;
+                case "12:40": return 26;
+                case "12:50": return 27;
+                case "13:00": return 28;
+                case "13:10": return 29;
+                case "13:20": return 30;
+                case "13:30": return 31;
+                case "13:40": return 32;
+                case "13:50": return 33;
+                case "14:00": return 34;
+
+
+
+
+
+
+
+
+                default: return -1;
+            }
         }
     }
 }

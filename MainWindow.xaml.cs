@@ -142,10 +142,13 @@ namespace Schedule
             monthToMemory = 0;
             ButtonAdd.IsEnabled = false;
             ButtonClear.IsEnabled = false;
+            ComboBoxCopy1.IsEnabled = false;
+            ComboBoxCopy2.IsEnabled = false;
+            ComboBoxCopy3.IsEnabled = false;
         }
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            var lesson = Model.CreateLesson(InputSubject.Text, InputTeacher.Text, InputAuditorium.Text, ComboBoxStartTime.SelectedIndex, ComboBoxEndTime.SelectedIndex, $"{ComboBoxStartTime.SelectedValue} - {ComboBoxEndTime.SelectedValue}");
+            var lesson = Model.CreateLesson(InputSubject.Text, InputTeacher.Text, InputAuditorium.Text, ComboBoxStartTime.SelectedIndex, AddingSection.GetEndTimeIndex((string)ComboBoxEndTime.SelectedValue), $"{ComboBoxStartTime.SelectedValue} - {ComboBoxEndTime.SelectedValue}");
             if (ComboBoxYearTo.SelectedIndex==-1|| ComboBoxMonthTo.SelectedIndex==-1|| ComboBoxDayTo.SelectedIndex==-1)
             {
                 Model.AddLessonToOneDay(lesson, (int)ComboBoxYearFrom.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), (int)ComboBoxDayFrom.SelectedValue);
@@ -187,6 +190,9 @@ namespace Schedule
             monthToMemory = 0;
             ButtonAdd.IsEnabled = false;
             ButtonClear.IsEnabled = false;
+            ComboBoxCopy1.IsEnabled = false;
+            ComboBoxCopy2.IsEnabled = false;
+            ComboBoxCopy3.IsEnabled = false;
         }
         //private void SetTimer()
         //{
@@ -231,6 +237,9 @@ namespace Schedule
                 if (!hasLetters)
                 {
                     ButtonAdd.IsEnabled = false;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                     return;
                 }
                 if (InputTeacher.Text.Length > 0 && InputAuditorium.Text.Length > 0 && ComboBoxStartTime.SelectedIndex>-1 && ComboBoxEndTime.SelectedIndex > -1 && ComboBoxYearFrom.SelectedIndex>-1 && ComboBoxMonthFrom.SelectedIndex > -1 && ComboBoxDayFrom.SelectedIndex > -1)
@@ -238,14 +247,23 @@ namespace Schedule
                     if (ComboBoxYearTo.SelectedIndex==-1 && ComboBoxMonthTo.SelectedIndex == -1 && ComboBoxDayTo.SelectedIndex == -1)
                     {
                         ButtonAdd.IsEnabled = true;
+                        ComboBoxCopy1.IsEnabled = false;
+                        ComboBoxCopy2.IsEnabled = false;
+                        ComboBoxCopy3.IsEnabled = false;
                     }
                     else if (ComboBoxYearTo.SelectedIndex == -1 || ComboBoxMonthTo.SelectedIndex == -1 || ComboBoxDayTo.SelectedIndex == -1)
                     {
                         ButtonAdd.IsEnabled = false;
+                        ComboBoxCopy1.IsEnabled = false;
+                        ComboBoxCopy2.IsEnabled = false;
+                        ComboBoxCopy3.IsEnabled = false;
                     }
                     else
                     {
                         ButtonAdd.IsEnabled = true;
+                        ComboBoxCopy1.IsEnabled = true;
+                        ComboBoxCopy2.IsEnabled = true;
+                        ComboBoxCopy3.IsEnabled = true;
                     }
                 }                             
             }
@@ -263,6 +281,9 @@ namespace Schedule
                     ButtonClear.IsEnabled = false;
                 }                   
                 ButtonAdd.IsEnabled = false;
+                ComboBoxCopy1.IsEnabled = false;
+                ComboBoxCopy2.IsEnabled = false;
+                ComboBoxCopy3.IsEnabled = false;
             }
         }
         private void InputTeacher_TextChanged(object sender, TextChangedEventArgs e)
@@ -279,6 +300,9 @@ namespace Schedule
                 if (!hasLetters)
                 {
                     ButtonAdd.IsEnabled = false;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                     return;
                 }
                 if (InputSubject.Text.Length > 0 && InputAuditorium.Text.Length > 0 && ComboBoxStartTime.SelectedIndex > -1 && ComboBoxEndTime.SelectedIndex > -1 && ComboBoxYearFrom.SelectedIndex > -1 && ComboBoxMonthFrom.SelectedIndex > -1 && ComboBoxDayFrom.SelectedIndex > -1)
@@ -286,14 +310,23 @@ namespace Schedule
                     if (ComboBoxYearTo.SelectedIndex == -1 && ComboBoxMonthTo.SelectedIndex == -1 && ComboBoxDayTo.SelectedIndex == -1)
                     {
                         ButtonAdd.IsEnabled = true;
+                        ComboBoxCopy1.IsEnabled = false;
+                        ComboBoxCopy2.IsEnabled = false;
+                        ComboBoxCopy3.IsEnabled = false;
                     }
                     else if (ComboBoxYearTo.SelectedIndex == -1 || ComboBoxMonthTo.SelectedIndex == -1 || ComboBoxDayTo.SelectedIndex == -1)
                     {
                         ButtonAdd.IsEnabled = false;
+                        ComboBoxCopy1.IsEnabled = false;
+                        ComboBoxCopy2.IsEnabled = false;
+                        ComboBoxCopy3.IsEnabled = false;
                     }
                     else
                     {
                         ButtonAdd.IsEnabled = true;
+                        ComboBoxCopy1.IsEnabled = true;
+                        ComboBoxCopy2.IsEnabled = true;
+                        ComboBoxCopy3.IsEnabled = true;
                     }
                 }
             }
@@ -311,6 +344,9 @@ namespace Schedule
                     ButtonClear.IsEnabled = false;
                 }
                 ButtonAdd.IsEnabled = false;
+                ComboBoxCopy1.IsEnabled = false;
+                ComboBoxCopy2.IsEnabled = false;
+                ComboBoxCopy3.IsEnabled = false;
             }
         }
         private void InputAuditorium_TextChanged(object sender, TextChangedEventArgs e)
@@ -327,6 +363,9 @@ namespace Schedule
                 if (!hasLetters)
                 {
                     ButtonAdd.IsEnabled = false;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                     return;
                 }
                 if (InputSubject.Text.Length > 0 && InputTeacher.Text.Length > 0 && ComboBoxStartTime.SelectedIndex > -1 && ComboBoxEndTime.SelectedIndex > -1 && ComboBoxYearFrom.SelectedIndex > -1 && ComboBoxMonthFrom.SelectedIndex > -1 && ComboBoxDayFrom.SelectedIndex > -1)
@@ -334,14 +373,23 @@ namespace Schedule
                     if (ComboBoxYearTo.SelectedIndex == -1 && ComboBoxMonthTo.SelectedIndex == -1 && ComboBoxDayTo.SelectedIndex == -1)
                     {
                         ButtonAdd.IsEnabled = true;
+                        ComboBoxCopy1.IsEnabled = false;
+                        ComboBoxCopy2.IsEnabled = false;
+                        ComboBoxCopy3.IsEnabled = false;
                     }
                     else if (ComboBoxYearTo.SelectedIndex == -1 || ComboBoxMonthTo.SelectedIndex == -1 || ComboBoxDayTo.SelectedIndex == -1)
                     {
                         ButtonAdd.IsEnabled = false;
+                        ComboBoxCopy1.IsEnabled = false;
+                        ComboBoxCopy2.IsEnabled = false;
+                        ComboBoxCopy3.IsEnabled = false;
                     }
                     else
                     {
                         ButtonAdd.IsEnabled = true;
+                        ComboBoxCopy1.IsEnabled = true;
+                        ComboBoxCopy2.IsEnabled = true;
+                        ComboBoxCopy3.IsEnabled = true;
                     }
                 }
             }
@@ -359,6 +407,9 @@ namespace Schedule
                     ButtonClear.IsEnabled = false;
                 }
                 ButtonAdd.IsEnabled = false;
+                ComboBoxCopy1.IsEnabled = false;
+                ComboBoxCopy2.IsEnabled = false;
+                ComboBoxCopy3.IsEnabled = false;
             }
         }
         private void ComboBoxStartTime_DropDownClosed(object sender, EventArgs e)
@@ -370,19 +421,31 @@ namespace Schedule
                 if (ComboBoxYearTo.SelectedIndex == -1 && ComboBoxMonthTo.SelectedIndex == -1 && ComboBoxDayTo.SelectedIndex == -1)
                 {
                     ButtonAdd.IsEnabled = true;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                 }
                 else if (ComboBoxYearTo.SelectedIndex == -1 || ComboBoxMonthTo.SelectedIndex == -1 || ComboBoxDayTo.SelectedIndex == -1)
                 {
                     ButtonAdd.IsEnabled = false;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                 }
                 else
                 {
                     ButtonAdd.IsEnabled = true;
+                    ComboBoxCopy1.IsEnabled = true;
+                    ComboBoxCopy2.IsEnabled = true;
+                    ComboBoxCopy3.IsEnabled = true;
                 }
                 ButtonClear.IsEnabled = true;
             }
             else
             {
+                ComboBoxCopy1.IsEnabled = false;
+                ComboBoxCopy2.IsEnabled = false;
+                ComboBoxCopy3.IsEnabled = false;
                 ButtonAdd.IsEnabled = false;
                 if (InputSubject.Text.Length > 0 || InputTeacher.Text.Length > 0 || InputAuditorium.Text.Length > 0 || 
                     ComboBoxStartTime.SelectedIndex > -1 || ComboBoxEndTime.SelectedIndex > -1 ||
@@ -406,19 +469,31 @@ namespace Schedule
                 if (ComboBoxYearTo.SelectedIndex == -1 && ComboBoxMonthTo.SelectedIndex == -1 && ComboBoxDayTo.SelectedIndex == -1)
                 {
                     ButtonAdd.IsEnabled = true;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                 }
                 else if (ComboBoxYearTo.SelectedIndex == -1 || ComboBoxMonthTo.SelectedIndex == -1 || ComboBoxDayTo.SelectedIndex == -1)
                 {
                     ButtonAdd.IsEnabled = false;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                 }
                 else
                 {
                     ButtonAdd.IsEnabled = true;
+                    ComboBoxCopy1.IsEnabled = true;
+                    ComboBoxCopy2.IsEnabled = true;
+                    ComboBoxCopy3.IsEnabled = true;
                 }
                 ButtonClear.IsEnabled = true;
             }
             else
             {
+                ComboBoxCopy1.IsEnabled = false;
+                ComboBoxCopy2.IsEnabled = false;
+                ComboBoxCopy3.IsEnabled = false;
                 ButtonAdd.IsEnabled = false;
                 if (InputSubject.Text.Length > 0 || InputTeacher.Text.Length > 0 || InputAuditorium.Text.Length > 0 ||
                     ComboBoxStartTime.SelectedIndex > -1 || ComboBoxEndTime.SelectedIndex > -1 ||
@@ -446,19 +521,31 @@ namespace Schedule
                 if (ComboBoxYearTo.SelectedIndex == -1 && ComboBoxMonthTo.SelectedIndex == -1 && ComboBoxDayTo.SelectedIndex == -1)
                 {
                     ButtonAdd.IsEnabled = true;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                 }
                 else if (ComboBoxYearTo.SelectedIndex == -1 || ComboBoxMonthTo.SelectedIndex == -1 || ComboBoxDayTo.SelectedIndex == -1)
                 {
                     ButtonAdd.IsEnabled = false;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                 }
                 else
                 {
                     ButtonAdd.IsEnabled = true;
+                    ComboBoxCopy1.IsEnabled = true;
+                    ComboBoxCopy2.IsEnabled = true;
+                    ComboBoxCopy3.IsEnabled = true;
                 }
                 ButtonClear.IsEnabled = true;
             }
             else
             {
+                ComboBoxCopy1.IsEnabled = false;
+                ComboBoxCopy2.IsEnabled = false;
+                ComboBoxCopy3.IsEnabled = false;
                 ButtonAdd.IsEnabled = false;
                 if (InputSubject.Text.Length > 0 || InputTeacher.Text.Length > 0 || InputAuditorium.Text.Length > 0 ||
                     ComboBoxStartTime.SelectedIndex > -1 || ComboBoxEndTime.SelectedIndex > -1 ||
@@ -487,19 +574,31 @@ namespace Schedule
                 if (ComboBoxYearTo.SelectedIndex == -1 && ComboBoxMonthTo.SelectedIndex == -1 && ComboBoxDayTo.SelectedIndex == -1)
                 {
                     ButtonAdd.IsEnabled = true;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                 }
                 else if (ComboBoxYearTo.SelectedIndex == -1 || ComboBoxMonthTo.SelectedIndex == -1 || ComboBoxDayTo.SelectedIndex == -1)
                 {
                     ButtonAdd.IsEnabled = false;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                 }
                 else
                 {
                     ButtonAdd.IsEnabled = true;
+                    ComboBoxCopy1.IsEnabled = true;
+                    ComboBoxCopy2.IsEnabled = true;
+                    ComboBoxCopy3.IsEnabled = true;
                 }
                 ButtonClear.IsEnabled = true;
             }
             else
             {
+                ComboBoxCopy1.IsEnabled = false;
+                ComboBoxCopy2.IsEnabled = false;
+                ComboBoxCopy3.IsEnabled = false;
                 ButtonAdd.IsEnabled = false;
                 if (InputSubject.Text.Length > 0 || InputTeacher.Text.Length > 0 || InputAuditorium.Text.Length > 0 ||
                     ComboBoxStartTime.SelectedIndex > -1 || ComboBoxEndTime.SelectedIndex > -1 ||
@@ -524,19 +623,31 @@ namespace Schedule
                 if (ComboBoxYearTo.SelectedIndex == -1 && ComboBoxMonthTo.SelectedIndex == -1 && ComboBoxDayTo.SelectedIndex == -1)
                 {
                     ButtonAdd.IsEnabled = true;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                 }
                 else if (ComboBoxYearTo.SelectedIndex == -1 || ComboBoxMonthTo.SelectedIndex == -1 || ComboBoxDayTo.SelectedIndex == -1)
                 {
                     ButtonAdd.IsEnabled = false;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                 }
                 else
                 {
                     ButtonAdd.IsEnabled = true;
+                    ComboBoxCopy1.IsEnabled = true;
+                    ComboBoxCopy2.IsEnabled = true;
+                    ComboBoxCopy3.IsEnabled = true;
                 }
                 ButtonClear.IsEnabled = true;
             }
             else
             {
+                ComboBoxCopy1.IsEnabled = false;
+                ComboBoxCopy2.IsEnabled = false;
+                ComboBoxCopy3.IsEnabled = false;
                 ButtonAdd.IsEnabled = false;
                 if (InputSubject.Text.Length > 0 || InputTeacher.Text.Length > 0 || InputAuditorium.Text.Length > 0 ||
                     ComboBoxStartTime.SelectedIndex > -1 || ComboBoxEndTime.SelectedIndex > -1 ||
@@ -564,19 +675,31 @@ namespace Schedule
                 if (ComboBoxYearTo.SelectedIndex == -1 && ComboBoxMonthTo.SelectedIndex == -1 && ComboBoxDayTo.SelectedIndex == -1)
                 {
                     ButtonAdd.IsEnabled = true;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                 }
                 else if (ComboBoxYearTo.SelectedIndex == -1 || ComboBoxMonthTo.SelectedIndex == -1 || ComboBoxDayTo.SelectedIndex == -1)
                 {
                     ButtonAdd.IsEnabled = false;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                 }
                 else
                 {
                     ButtonAdd.IsEnabled = true;
+                    ComboBoxCopy1.IsEnabled = true;
+                    ComboBoxCopy2.IsEnabled = true;
+                    ComboBoxCopy3.IsEnabled = true;
                 }
                 ButtonClear.IsEnabled = true;
             }
             else
             {
+                ComboBoxCopy1.IsEnabled = false;
+                ComboBoxCopy2.IsEnabled = false;
+                ComboBoxCopy3.IsEnabled = false;
                 ButtonAdd.IsEnabled = false;
                 if (InputSubject.Text.Length > 0 || InputTeacher.Text.Length > 0 || InputAuditorium.Text.Length > 0 ||
                     ComboBoxStartTime.SelectedIndex > -1 || ComboBoxEndTime.SelectedIndex > -1 ||
@@ -605,19 +728,31 @@ namespace Schedule
                 if (ComboBoxYearTo.SelectedIndex == -1 && ComboBoxMonthTo.SelectedIndex == -1 && ComboBoxDayTo.SelectedIndex == -1)
                 {
                     ButtonAdd.IsEnabled = true;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                 }
                 else if (ComboBoxYearTo.SelectedIndex == -1 || ComboBoxMonthTo.SelectedIndex == -1 || ComboBoxDayTo.SelectedIndex == -1)
                 {
                     ButtonAdd.IsEnabled = false;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                 }
                 else
                 {
                     ButtonAdd.IsEnabled = true;
+                    ComboBoxCopy1.IsEnabled = true;
+                    ComboBoxCopy2.IsEnabled = true;
+                    ComboBoxCopy3.IsEnabled = true;
                 }
                 ButtonClear.IsEnabled = true;
             }
             else
             {
+                ComboBoxCopy1.IsEnabled = false;
+                ComboBoxCopy2.IsEnabled = false;
+                ComboBoxCopy3.IsEnabled = false;
                 ButtonAdd.IsEnabled = false;
                 if (InputSubject.Text.Length > 0 || InputTeacher.Text.Length > 0 || InputAuditorium.Text.Length > 0 ||
                     ComboBoxStartTime.SelectedIndex > -1 || ComboBoxEndTime.SelectedIndex > -1 ||
@@ -642,19 +777,31 @@ namespace Schedule
                 if (ComboBoxYearTo.SelectedIndex == -1 && ComboBoxMonthTo.SelectedIndex == -1 && ComboBoxDayTo.SelectedIndex == -1)
                 {
                     ButtonAdd.IsEnabled = true;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;                  
                 }
                 else if (ComboBoxYearTo.SelectedIndex == -1 || ComboBoxMonthTo.SelectedIndex == -1 || ComboBoxDayTo.SelectedIndex == -1)
                 {
                     ButtonAdd.IsEnabled = false;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                 }
                 else
                 {
                     ButtonAdd.IsEnabled = true;
+                    ComboBoxCopy1.IsEnabled = true;
+                    ComboBoxCopy2.IsEnabled = true;
+                    ComboBoxCopy3.IsEnabled = true;
                 }
                 ButtonClear.IsEnabled = true;
             }
             else
             {
+                ComboBoxCopy1.IsEnabled = false;
+                ComboBoxCopy2.IsEnabled = false;
+                ComboBoxCopy3.IsEnabled = false;
                 ButtonAdd.IsEnabled = false;
                 if (InputSubject.Text.Length > 0 || InputTeacher.Text.Length > 0 || InputAuditorium.Text.Length > 0 ||
                     ComboBoxStartTime.SelectedIndex > -1 || ComboBoxEndTime.SelectedIndex > -1 ||
@@ -684,19 +831,31 @@ namespace Schedule
                 if (ComboBoxYearTo.SelectedIndex == -1 && ComboBoxMonthTo.SelectedIndex == -1 && ComboBoxDayTo.SelectedIndex == -1)
                 {
                     ButtonAdd.IsEnabled = true;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                 }
                 else if (ComboBoxYearTo.SelectedIndex == -1 || ComboBoxMonthTo.SelectedIndex == -1 || ComboBoxDayTo.SelectedIndex == -1)
                 {
                     ButtonAdd.IsEnabled = false;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                 }
                 else
                 {
                     ButtonAdd.IsEnabled = true;
+                    ComboBoxCopy1.IsEnabled = true;
+                    ComboBoxCopy2.IsEnabled = true;
+                    ComboBoxCopy3.IsEnabled = true;
                 }
                 ButtonClear.IsEnabled = true;
             }
             else
             {
+                ComboBoxCopy1.IsEnabled = false;
+                ComboBoxCopy2.IsEnabled = false;
+                ComboBoxCopy3.IsEnabled = false;
                 ButtonAdd.IsEnabled = false;
                 if (InputSubject.Text.Length > 0 || InputTeacher.Text.Length > 0 || InputAuditorium.Text.Length > 0 ||
                     ComboBoxStartTime.SelectedIndex > -1 || ComboBoxEndTime.SelectedIndex > -1 ||
@@ -725,19 +884,31 @@ namespace Schedule
                 if (ComboBoxYearTo.SelectedIndex == -1 && ComboBoxMonthTo.SelectedIndex == -1 && ComboBoxDayTo.SelectedIndex == -1)
                 {
                     ButtonAdd.IsEnabled = true;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                 }
                 else if (ComboBoxYearTo.SelectedIndex == -1 || ComboBoxMonthTo.SelectedIndex == -1 || ComboBoxDayTo.SelectedIndex == -1)
                 {
                     ButtonAdd.IsEnabled = false;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                 }
                 else
                 {
                     ButtonAdd.IsEnabled = true;
+                    ComboBoxCopy1.IsEnabled = true;
+                    ComboBoxCopy2.IsEnabled = true;
+                    ComboBoxCopy3.IsEnabled = true;
                 }
                 ButtonClear.IsEnabled = true;
             }
             else
             {
+                ComboBoxCopy1.IsEnabled = false;
+                ComboBoxCopy2.IsEnabled = false;
+                ComboBoxCopy3.IsEnabled = false;
                 ButtonAdd.IsEnabled = false;
                 if (InputSubject.Text.Length > 0 || InputTeacher.Text.Length > 0 || InputAuditorium.Text.Length > 0 ||
                     ComboBoxStartTime.SelectedIndex > -1 || ComboBoxEndTime.SelectedIndex > -1 ||
@@ -761,19 +932,31 @@ namespace Schedule
                 if (ComboBoxYearTo.SelectedIndex == -1 && ComboBoxMonthTo.SelectedIndex == -1 && ComboBoxDayTo.SelectedIndex == -1)
                 {
                     ButtonAdd.IsEnabled = true;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                 }
                 else if (ComboBoxYearTo.SelectedIndex == -1 || ComboBoxMonthTo.SelectedIndex == -1 || ComboBoxDayTo.SelectedIndex == -1)
-                {
+                {                
                     ButtonAdd.IsEnabled = false;
+                    ComboBoxCopy1.IsEnabled = false;
+                    ComboBoxCopy2.IsEnabled = false;
+                    ComboBoxCopy3.IsEnabled = false;
                 }
                 else
                 {
                     ButtonAdd.IsEnabled = true;
+                    ComboBoxCopy1.IsEnabled = true;
+                    ComboBoxCopy2.IsEnabled = true;
+                    ComboBoxCopy3.IsEnabled = true;
                 }
                 ButtonClear.IsEnabled = true;
             }
             else
             {
+                ComboBoxCopy1.IsEnabled = false;
+                ComboBoxCopy2.IsEnabled = false;
+                ComboBoxCopy3.IsEnabled = false;
                 ButtonAdd.IsEnabled = false;
                 if (InputSubject.Text.Length > 0 || InputTeacher.Text.Length > 0 || InputAuditorium.Text.Length > 0 ||
                     ComboBoxStartTime.SelectedIndex > -1 || ComboBoxEndTime.SelectedIndex > -1 ||
