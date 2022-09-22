@@ -20,13 +20,13 @@
         {
             PositionInWeek = index;
         }
-        public void SetPositionInDayStart(int index)
+        public void SetPositionInDayStart(int startIndex)
         {
-            PositionInDayStart = index;
+            PositionInDayStart = startIndex;
         }
-        public void SetPositionInDayEnd(int index)
+        public void SetPositionInDayEnd(int endIndex)
         {
-            PositionInDayEnd = index - PositionInDayStart;
+            PositionInDayEnd = endIndex - PositionInDayStart;
         }
     }
 }
