@@ -436,62 +436,6 @@ namespace Schedule.Model
         {
             Days![FindDay(yearFrom, monthFrom, dayFrom)].Lessons.Add(lesson);
         }
-        public void AddAllCardsToMondayGrid(ref Grid grid)
-        {
-            grid.Children.Clear();
-            foreach (var item in Monday.Lessons)
-            {
-                grid.Children.Add(item.ConvertToCard());
-            }
-        }
-        public void AddAllCardsToTuesdayGrid(ref Grid grid)
-        {
-            grid.Children.Clear();
-            foreach (var item in Tuesday.Lessons)
-            {
-                grid.Children.Add(item.ConvertToCard());
-            }
-        }
-        public void AddAllCardsToWednesdayGrid(ref Grid grid)
-        {
-            grid.Children.Clear();
-            foreach (var item in Wednesday.Lessons)
-            {
-                grid.Children.Add(item.ConvertToCard());
-            }
-        }
-        public void AddAllCardsToThursdayGrid(ref Grid grid)
-        {
-            grid.Children.Clear();
-            foreach (var item in Thursday.Lessons)
-            {
-                grid.Children.Add(item.ConvertToCard());
-            }
-        }
-        public void AddAllCardsToFridayGrid(ref Grid grid)
-        {
-            grid.Children.Clear();
-            foreach (var item in Friday.Lessons)
-            {
-                grid.Children.Add(item.ConvertToCard());
-            }
-        }
-        public void AddAllCardsToSaturdayGrid(ref Grid grid)
-        {
-            grid.Children.Clear();
-            foreach (var item in Saturday.Lessons)
-            {
-                grid.Children.Add(item.ConvertToCard());
-            }
-        }
-        public void AddAllCardsToSundayGrid(ref Grid grid)
-        {
-            grid.Children.Clear();
-            foreach (var item in Sunday.Lessons)
-            {
-                grid.Children.Add(item.ConvertToCard());
-            }
-        }
         private int FindDay(int year, int month, int date)
         {
             int index = -1;

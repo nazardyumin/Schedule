@@ -1,58 +1,32 @@
-﻿using MaterialDesignThemes.Wpf;
-using System.Windows;
-using System.Windows.Controls;
-
-namespace Schedule.Model
+﻿namespace Schedule.Model
 {
     public class Lesson
     {
-        private readonly string? _subject;
-        private readonly string? _teacher;
-        private readonly string? _auditorium;
-        private readonly string? _time;
-        private int PositionColumn;
-        private int PositionRow;
-        private int RowSpan;
-
+        public string? Subject { get; set; }
+        public string? Teacher { get; set; }
+        public string? Auditorium { get; set; }
+        public string? Time { get; set; }
+        public int PositionInWeek { get; set; }
+        public int PositionInDayStart { get; set; }
+        public int PositionInDayEnd { get; set; }
         public Lesson (string subject, string teacher, string auditorium, string time)
         {
-            _subject = $"Subject: {subject}";
-            _teacher = $"Teacher: {teacher}";
-            _auditorium = $"Auditorium: {auditorium}";
-            _time = time;
+            Subject = $"Subject: {subject}";
+            Teacher = $"Teacher: {teacher}";
+            Auditorium = $"Auditorium: {auditorium}";
+            Time = time;
         }
-
         public void SetPositionColumn(int index)
         {
-            PositionColumn = index;
+            PositionInWeek = index;
         }
         public void SetPositionRow(int index)
         {
-            PositionRow = index;
+            PositionInDayStart = index;
         }
         public void SetRowSpan(int index)
         {
-            RowSpan = index - PositionRow;
-        }
-        public Card ConvertToCard()  //move to view
-        {
-            var card = new Card();
-            if (RowSpan<7)
-            {
-                card.Content = $"{_subject}\n{_teacher}";
-                card.FontSize = 11; 
-            }
-            else
-            {
-                card.Content = $"{_subject}\n{_teacher}\n{_auditorium}\n{_time}";
-            }           
-            card.HorizontalContentAlignment = HorizontalAlignment.Center;
-            card.VerticalContentAlignment = VerticalAlignment.Center;
-            ElevationAssist.SetElevation(card,Elevation.Dp8);
-            Grid.SetColumn(card, PositionColumn);
-            Grid.SetRow(card, PositionRow);
-            Grid.SetRowSpan(card, RowSpan);
-            return card;
+            PositionInDayEnd = index - PositionInDayStart;
         }
     }
 }

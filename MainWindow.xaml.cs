@@ -30,16 +30,8 @@ namespace Schedule
             monthToMemory = 0;
             //SetTimer();
             InitializeComponent();
-            Model.AddAllCardsToMondayGrid(ref GridMonday);
-            Model.AddAllCardsToTuesdayGrid(ref GridTuesday);
-            Model.AddAllCardsToWednesdayGrid(ref GridWednesday);
-            Model.AddAllCardsToThursdayGrid(ref GridThursday);
-            Model.AddAllCardsToFridayGrid(ref GridFriday);
-            Model.AddAllCardsToSaturdayGrid(ref GridSaturday);
-            Model.AddAllCardsToSundayGrid(ref GridSunday);
+            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
             TodayBackground(Model.GetCurrentDayIndex());
-
-
         }
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
@@ -48,13 +40,7 @@ namespace Schedule
             if (result.isCurrentWeek) TodayBackground(result.index);
             else if (result.isFuture) FutureBackground();
             else PastBackground();
-            Model.AddAllCardsToMondayGrid(ref GridMonday);
-            Model.AddAllCardsToTuesdayGrid(ref GridTuesday);
-            Model.AddAllCardsToWednesdayGrid(ref GridWednesday);
-            Model.AddAllCardsToThursdayGrid(ref GridThursday);
-            Model.AddAllCardsToFridayGrid(ref GridFriday);
-            Model.AddAllCardsToSaturdayGrid(ref GridSaturday);
-            Model.AddAllCardsToSundayGrid(ref GridSunday);
+            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
         }
 
         private void ButtonForward_Click(object sender, RoutedEventArgs e)
@@ -63,13 +49,7 @@ namespace Schedule
             if (result.isCurrentWeek) TodayBackground(result.index);
             else if (result.isFuture) FutureBackground();
             else PastBackground();
-            Model.AddAllCardsToMondayGrid(ref GridMonday);
-            Model.AddAllCardsToTuesdayGrid(ref GridTuesday);
-            Model.AddAllCardsToWednesdayGrid(ref GridWednesday);
-            Model.AddAllCardsToThursdayGrid(ref GridThursday);
-            Model.AddAllCardsToFridayGrid(ref GridFriday);
-            Model.AddAllCardsToSaturdayGrid(ref GridSaturday);
-            Model.AddAllCardsToSundayGrid(ref GridSunday);
+            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
         }
 
         private void ButtonToday_Click(object sender, RoutedEventArgs e)
@@ -173,14 +153,8 @@ namespace Schedule
                 Model.AddLessonToDays(lesson, (int)ComboBoxYearFrom.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), (int)ComboBoxDayFrom.SelectedValue,
                                                             (int)ComboBoxYearTo.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthTo.SelectedValue), (int)ComboBoxDayTo.SelectedValue,
                                                             ComboBoxCopy1.SelectedIndex, ComboBoxCopy2.SelectedIndex, ComboBoxCopy3.SelectedIndex);
-            }                     
-            Model.AddAllCardsToMondayGrid(ref GridMonday);
-            Model.AddAllCardsToTuesdayGrid(ref GridTuesday);
-            Model.AddAllCardsToWednesdayGrid(ref GridWednesday);
-            Model.AddAllCardsToThursdayGrid(ref GridThursday);
-            Model.AddAllCardsToFridayGrid(ref GridFriday);
-            Model.AddAllCardsToSaturdayGrid(ref GridSaturday);
-            Model.AddAllCardsToSundayGrid(ref GridSunday);
+            }
+            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
             InputSubject.Clear();
             InputTeacher.Clear();
             InputAuditorium.Clear();
@@ -1274,6 +1248,105 @@ namespace Schedule
         private void Image_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             Process.Start("explorer", "https://online.top-academy.ru/");
+        }
+        private Card ConvertLessonToCard(Lesson lesson) 
+        {
+            var card = new Card();
+            var stack = new StackPanel();
+            var header = new TextBlock { Text = lesson.Subject };
+            var text = new TextBlock { Text = $"{lesson.Teacher}\n{lesson.Auditorium}\n{lesson.Time}" };
+            header.FontWeight = FontWeights.Heavy;
+
+            if (lesson.PositionInDayEnd <= 7)
+            {
+                header.FontSize = 11;
+                text.FontSize = 11;
+            }
+            if (lesson.PositionInDayEnd < 4)
+            {
+                header.FontSize = 11;
+                stack.Children.Add(header);
+            }
+            else
+            {
+                stack.Children.Add(header);
+                stack.Children.Add(text);
+            }
+            card.Content = stack;
+
+            card.HorizontalContentAlignment = HorizontalAlignment.Center;
+            card.VerticalContentAlignment = VerticalAlignment.Center;
+            ElevationAssist.SetElevation(card, Elevation.Dp6);
+            Grid.SetColumn(card, lesson.PositionInWeek);
+            Grid.SetRow(card, lesson.PositionInDayStart);
+            Grid.SetRowSpan(card, lesson.PositionInDayEnd);
+            return card;
+        }
+        private void AddCardsToMondayGrid(Day monday)
+        {
+            GridMonday.Children.Clear();
+            foreach (var item in monday.Lessons)
+            {
+                GridMonday.Children.Add(ConvertLessonToCard(item));
+            }
+        }
+        private void AddCardsToTuesdayGrid(Day tuesday)
+        {
+            GridTuesday.Children.Clear();
+            foreach (var item in tuesday.Lessons)
+            {
+                GridTuesday.Children.Add(ConvertLessonToCard(item));
+            }
+        }
+        private void AddCardsToWednesdayGrid(Day wednesday)
+        {
+            GridWednesday.Children.Clear();
+            foreach (var item in wednesday.Lessons)
+            {
+                GridWednesday.Children.Add(ConvertLessonToCard(item));
+            }
+        }
+        private void AddCardsToThursdayGrid(Day thursday)
+        {
+            GridThursday.Children.Clear();
+            foreach (var item in thursday.Lessons)
+            {
+                GridThursday.Children.Add(ConvertLessonToCard(item));
+            }
+        }
+        private void AddCardsToFridayGrid(Day friday)
+        {
+            GridFriday.Children.Clear();
+            foreach (var item in friday.Lessons)
+            {
+                GridFriday.Children.Add(ConvertLessonToCard(item));
+            }
+        }
+        private void AddCardsToSaturdayGrid(Day saturday)
+        {
+            GridSaturday.Children.Clear();
+            foreach (var item in saturday.Lessons)
+            {
+                GridSaturday.Children.Add(ConvertLessonToCard(item));
+            }
+        }
+        private void AddCardsToSundayGrid(Day sunday)
+        {
+            GridSunday.Children.Clear();
+            foreach (var item in sunday.Lessons)
+            {
+                GridSunday.Children.Add(ConvertLessonToCard(item));
+            }
+        }
+        private void AddCardsToGrid(Day monday, Day tuesday, Day wednesday, Day thursday, Day friday, Day saturday, Day sunday)
+        {
+            AddCardsToMondayGrid(monday);
+            AddCardsToTuesdayGrid(tuesday);
+            AddCardsToWednesdayGrid(wednesday);
+            AddCardsToThursdayGrid(thursday);
+            AddCardsToFridayGrid(friday);
+            AddCardsToSaturdayGrid(saturday);
+            AddCardsToSundayGrid(sunday);
         }
     }
 }
