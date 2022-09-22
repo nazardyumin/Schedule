@@ -305,7 +305,7 @@ namespace Schedule.Model
                 if (i != selectedIndex) CopyDays3!.Add(CopyDays2![i]);
             }
         }
-        public void ClearCopyDays()
+        private void ClearCopyDays()
         {
             CopyDays2!.Clear();
             CopyDays3!.Clear();
@@ -336,19 +336,21 @@ namespace Schedule.Model
                 case "11:10": return 19;
                 case "11:20": return 20;
                 case "11:30": return 21;
-                case "11:50": return 22;
-                case "12:00": return 23;
-                case "12:20": return 24;
-                case "12:30": return 25;
-                case "12:40": return 26;
-                case "12:50": return 27;
-                case "13:00": return 28;
-                case "13:10": return 29;
-                case "13:20": return 30;
-                case "13:30": return 31;
-                case "13:40": return 32;
-                case "13:50": return 33;
-                case "14:00": return 34;
+                case "11:40": return 22;
+                case "11:50": return 23;
+                case "12:00": return 24;
+                case "12:10": return 25;
+                case "12:20": return 26;
+                case "12:30": return 27;
+                case "12:40": return 28;
+                case "12:50": return 29;
+                case "13:00": return 30;
+                case "13:10": return 31;
+                case "13:20": return 32;
+                case "13:30": return 33;
+                case "13:40": return 34;
+                case "13:50": return 35;
+                case "14:00": return 36;
 
 
 
@@ -370,6 +372,16 @@ namespace Schedule.Model
         {
             if (key=="from") DatesFrom!.Clear();
             else DatesTo!.Clear();
+        }
+        private void ClearEndTime()
+        {
+            EndTime!.Clear();
+        }
+        public void ResetAndClear()
+        {
+            ClearMonthsAndDates("all");
+            ClearCopyDays();
+            ClearEndTime();
         }
     }
 }

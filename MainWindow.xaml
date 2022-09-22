@@ -22,7 +22,7 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0" Background="AliceBlue" BorderThickness="1" BorderBrush="WhiteSmoke">
-            <Grid Grid.Column="0" ShowGridLines="True">
+            <Grid Grid.Column="0" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="20"/>
@@ -34,7 +34,7 @@
                     <Button x:Name="ButtonForward" Content="{Binding ButtonForwardContent}" Margin="8,0,0,0" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Click="ButtonForward_Click"/>
                 </StackPanel>
 
-                <Grid Grid.Row="1" ShowGridLines="True">
+                <Grid Grid.Row="1" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="40"/>
                         <ColumnDefinition Width="*"/>
@@ -54,13 +54,13 @@
                     <TextBlock Grid.Column="7" Text="{Binding Model.Sunday.ShortDayInfo}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
 
-                <Grid Grid.Row="2" ShowGridLines="True">
+                <Grid Grid.Row="2" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="40"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <Grid Grid.Column="0" ShowGridLines="True">
+                    <Grid Grid.Column="0" >
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
@@ -74,45 +74,19 @@
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Text="08:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="1" Text="08:30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="2" Text="09:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="3" Text="09:30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="4" Text="10:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="5" Text="10:30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="6" Text="11:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="7" Text="11:30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="8" Text="12:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="9" Text="12:30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="10" Text="13:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="11" Text="13:30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="12" Text="14:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="13" Text="14:30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="14" Text="15:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="15" Text="15:30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="16" Text="16:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="17" Text="16:30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="18" Text="17:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="19" Text="17:30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="20" Text="18:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="21" Text="18:30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="22" Text="19:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="23" Text="19:30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="24" Text="20:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Row="0" Text="08:00" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <TextBlock Grid.Row="1" Text="09:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Row="2" Text="10:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Row="3" Text="11:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Row="4" Text="12:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Row="5" Text="13:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Row="6" Text="14:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Row="7" Text="15:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Row="8" Text="16:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Row="9" Text="17:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Row="10" Text="18:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Row="11" Text="19:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                     <Grid Grid.Column="2">
                         <Grid.ColumnDefinitions>
@@ -124,7 +98,7 @@
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <Border x:Name="Border0" Grid.Column="0" Background="WhiteSmoke">
+                        <Border x:Name="Border0" Grid.Column="0" BorderThickness="1" BorderBrush="WhiteSmoke">
                             <Grid  x:Name="GridMonday">
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
@@ -199,14 +173,11 @@
                                     <RowDefinition/>
                                     <RowDefinition/>
                                     <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
                                 </Grid.RowDefinitions>
                             </Grid>
                         </Border>
 
-                        <Border x:Name="Border1" Grid.Column="1" Background="WhiteSmoke">
+                        <Border x:Name="Border1" Grid.Column="1" BorderThickness="1" BorderBrush="WhiteSmoke">
                             <Grid  x:Name="GridTuesday">
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
@@ -281,14 +252,11 @@
                                     <RowDefinition/>
                                     <RowDefinition/>
                                     <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
                                 </Grid.RowDefinitions>
                             </Grid>
                         </Border>
 
-                        <Border x:Name="Border2" Grid.Column="2" Background="WhiteSmoke">
+                        <Border x:Name="Border2" Grid.Column="2" BorderThickness="1" BorderBrush="WhiteSmoke">
                             <Grid x:Name="GridWednesday">
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
@@ -363,15 +331,12 @@
                                     <RowDefinition/>
                                     <RowDefinition/>
                                     <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
                                 </Grid.RowDefinitions>
                             </Grid>
                         </Border>
 
-                        <Border x:Name="Border3" Grid.Column="3" Background="WhiteSmoke">
-                            <Grid x:Name="GridThursday" ShowGridLines="True">
+                        <Border x:Name="Border3" Grid.Column="3" BorderThickness="1" BorderBrush="WhiteSmoke">
+                            <Grid x:Name="GridThursday">
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
                                     <RowDefinition/>
@@ -445,14 +410,11 @@
                                     <RowDefinition/>
                                     <RowDefinition/>
                                     <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
                                 </Grid.RowDefinitions>
                             </Grid>
                         </Border>
 
-                        <Border x:Name="Border4" Grid.Column="4" Background="WhiteSmoke">
+                        <Border x:Name="Border4" Grid.Column="4" BorderThickness="1" BorderBrush="WhiteSmoke">
                             <Grid x:Name="GridFriday">
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
@@ -527,14 +489,11 @@
                                     <RowDefinition/>
                                     <RowDefinition/>
                                     <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
                                 </Grid.RowDefinitions>
                             </Grid>
                         </Border>
 
-                        <Border x:Name="Border5" Grid.Column="5" Background="WhiteSmoke">
+                        <Border x:Name="Border5" Grid.Column="5" BorderThickness="1" BorderBrush="WhiteSmoke"> 
                             <Grid x:Name="GridSaturday">
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
@@ -609,19 +568,13 @@
                                     <RowDefinition/>
                                     <RowDefinition/>
                                     <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
                                 </Grid.RowDefinitions>
                             </Grid>
                         </Border>
 
-                        <Border x:Name="Border6" Grid.Column="6" Background="WhiteSmoke">
+                        <Border x:Name="Border6" Grid.Column="6" BorderThickness="1" BorderBrush="WhiteSmoke">
                             <Grid x:Name="GridSunday">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
                                     <RowDefinition/>
                                     <RowDefinition/>
                                     <RowDefinition/>

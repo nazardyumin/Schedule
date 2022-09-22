@@ -46,7 +46,7 @@ namespace Schedule
         {
             var result = Model.PreviousWeek();
             if (result.isCurrentWeek) TodayBackground(result.index);
-            else if (result.isFuture) FutureBackground(result.index);
+            else if (result.isFuture) FutureBackground();
             else PastBackground();
             Model.AddAllCardsToMondayGrid(ref GridMonday);
             Model.AddAllCardsToTuesdayGrid(ref GridTuesday);
@@ -61,7 +61,7 @@ namespace Schedule
         {
             var result = Model.NextWeek();
             if (result.isCurrentWeek) TodayBackground(result.index);
-            else if (result.isFuture) FutureBackground(result.index);
+            else if (result.isFuture) FutureBackground();
             else PastBackground();
             Model.AddAllCardsToMondayGrid(ref GridMonday);
             Model.AddAllCardsToTuesdayGrid(ref GridTuesday);
@@ -149,8 +149,7 @@ namespace Schedule
             ComboBoxCopy2.SelectedIndex = -1;
             ComboBoxCopy2.Visibility = Visibility.Hidden;
             ComboBoxCopy3.Visibility = Visibility.Hidden;
-            AddingSection.ClearMonthsAndDates("all");
-            AddingSection.ClearCopyDays();
+            AddingSection.ResetAndClear();
             monthFromMemory = 0;
             monthToMemory = 0;
             ButtonAdd.IsEnabled = false;
@@ -200,8 +199,7 @@ namespace Schedule
             ComboBoxCopy2.SelectedIndex = -1;
             ComboBoxCopy2.Visibility = Visibility.Hidden;
             ComboBoxCopy3.Visibility = Visibility.Hidden;
-            AddingSection.ClearMonthsAndDates("all");
-            AddingSection.ClearCopyDays();
+            AddingSection.ResetAndClear();
             monthFromMemory = 0;
             monthToMemory = 0;
             ButtonAdd.IsEnabled = false;
@@ -1154,63 +1152,7 @@ namespace Schedule
         }
         private void ComboBoxCopy3_DropDownClosed(object sender, EventArgs e)
         {
-            if (ComboBoxYearFrom.SelectedIndex >= -1 && ComboBoxMonthFrom.SelectedIndex >= -1 && ComboBoxDayFrom.SelectedIndex >= -1)
-            {
-                ComboBoxYearTo.IsEnabled = true;
-                ComboBoxMonthTo.IsEnabled = true;
-                ComboBoxDayTo.IsEnabled = true;
-            }
-            else
-            {
-                ComboBoxYearTo.IsEnabled = false;
-                ComboBoxMonthTo.IsEnabled = false;
-                ComboBoxDayTo.IsEnabled = false;
-            }
-            if (InputSubject.Text.Length > 0 && InputTeacher.Text.Length > 0 && InputAuditorium.Text.Length > 0 && ComboBoxStartTime.SelectedIndex > -1 && ComboBoxEndTime.SelectedIndex > -1 &&
-                  ComboBoxYearFrom.SelectedIndex > -1 && ComboBoxMonthFrom.SelectedIndex > -1 && ComboBoxDayFrom.SelectedIndex > -1)
-            {
-                if (ComboBoxYearTo.SelectedIndex == -1 && ComboBoxMonthTo.SelectedIndex == -1 && ComboBoxDayTo.SelectedIndex == -1)
-                {
-                    ButtonAdd.IsEnabled = true;
-                    ComboBoxCopy1.IsEnabled = false;
-                    ComboBoxCopy2.IsEnabled = false;
-                    ComboBoxCopy3.IsEnabled = false;
-                }
-                else if (ComboBoxYearTo.SelectedIndex == -1 || ComboBoxMonthTo.SelectedIndex == -1 || ComboBoxDayTo.SelectedIndex == -1)
-                {                
-                    ButtonAdd.IsEnabled = false;
-                    ComboBoxCopy1.IsEnabled = false;
-                    ComboBoxCopy2.IsEnabled = false;
-                    ComboBoxCopy3.IsEnabled = false;
-                }
-                else
-                {
-                    ButtonAdd.IsEnabled = true;
-                    ComboBoxCopy1.IsEnabled = true;
-                    ComboBoxCopy2.IsEnabled = true;
-                    ComboBoxCopy3.IsEnabled = true;
-                }
-                ButtonClear.IsEnabled = true;
-            }
-            else
-            {
-                ComboBoxCopy1.IsEnabled = false;
-                ComboBoxCopy2.IsEnabled = false;
-                ComboBoxCopy3.IsEnabled = false;
-                ButtonAdd.IsEnabled = false;
-                if (InputSubject.Text.Length > 0 || InputTeacher.Text.Length > 0 || InputAuditorium.Text.Length > 0 ||
-                    ComboBoxStartTime.SelectedIndex > -1 || ComboBoxEndTime.SelectedIndex > -1 ||
-                    ComboBoxYearFrom.SelectedIndex > -1 || ComboBoxMonthFrom.SelectedIndex > -1 || ComboBoxDayFrom.SelectedIndex > -1 ||
-                    ComboBoxYearTo.SelectedIndex > -1 || ComboBoxMonthTo.SelectedIndex > -1 || ComboBoxDayTo.SelectedIndex > -1 ||
-                    ComboBoxCopy1.SelectedIndex > -1 || ComboBoxCopy2.SelectedIndex > -1 || ComboBoxCopy3.SelectedIndex > -1)
-                {
-                    ButtonClear.IsEnabled = true;
-                }
-                else
-                {
-                    ButtonClear.IsEnabled = false;
-                }
-            }
+            ComboBoxEndTime_DropDownClosed(sender, e);       
         }
         private void ChangeButtonTodayContent()
         {
@@ -1231,14 +1173,12 @@ namespace Schedule
                                                                        (int)ComboBoxDayTo.SelectedValue);
             }
         }
-
-        //переписать, так как если future все backgrounds одинаковые!
         private void TodayBackground(int column)
         {
             switch (column)
             {
                 case 0:
-                    Border0.Background = new SolidColorBrush(Colors.LightYellow);
+                    Border0.Background = new SolidColorBrush(Colors.Linen);
                     Border1.Background = new SolidColorBrush(Colors.White);
                     Border2.Background = new SolidColorBrush(Colors.White);
                     Border3.Background = new SolidColorBrush(Colors.White);
@@ -1247,8 +1187,8 @@ namespace Schedule
                     Border6.Background = new SolidColorBrush(Colors.White);
                     break;
                 case 1:
-                    Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border1.Background = new SolidColorBrush(Colors.LightYellow);
+                    Border0.Background = new SolidColorBrush(Colors.Gainsboro);
+                    Border1.Background = new SolidColorBrush(Colors.Linen);
                     Border2.Background = new SolidColorBrush(Colors.White);
                     Border3.Background = new SolidColorBrush(Colors.White);
                     Border4.Background = new SolidColorBrush(Colors.White);
@@ -1256,134 +1196,73 @@ namespace Schedule
                     Border6.Background = new SolidColorBrush(Colors.White);
                     break;
                 case 2:
-                    Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border1.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border2.Background = new SolidColorBrush(Colors.LightYellow);
+                    Border0.Background = new SolidColorBrush(Colors.Gainsboro);
+                    Border1.Background = new SolidColorBrush(Colors.Gainsboro);
+                    Border2.Background = new SolidColorBrush(Colors.Linen);
                     Border3.Background = new SolidColorBrush(Colors.White);
                     Border4.Background = new SolidColorBrush(Colors.White);
                     Border5.Background = new SolidColorBrush(Colors.White);
                     Border6.Background = new SolidColorBrush(Colors.White);
                     break;
                 case 3:
-                    Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border1.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border2.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border3.Background = new SolidColorBrush(Colors.LightYellow);
+                    Border0.Background = new SolidColorBrush(Colors.Gainsboro);
+                    Border1.Background = new SolidColorBrush(Colors.Gainsboro);
+                    Border2.Background = new SolidColorBrush(Colors.Gainsboro);
+                    Border3.Background = new SolidColorBrush(Colors.Linen);
                     Border4.Background = new SolidColorBrush(Colors.White);
                     Border5.Background = new SolidColorBrush(Colors.White);
                     Border6.Background = new SolidColorBrush(Colors.White);
                     break;
                 case 4:
-                    Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border1.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border2.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border3.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border4.Background = new SolidColorBrush(Colors.LightYellow);
+                    Border0.Background = new SolidColorBrush(Colors.Gainsboro);
+                    Border1.Background = new SolidColorBrush(Colors.Gainsboro);
+                    Border2.Background = new SolidColorBrush(Colors.Gainsboro);
+                    Border3.Background = new SolidColorBrush(Colors.Gainsboro);
+                    Border4.Background = new SolidColorBrush(Colors.Linen);
                     Border5.Background = new SolidColorBrush(Colors.White);
                     Border6.Background = new SolidColorBrush(Colors.White);
                     break;
                 case 5:
-                    Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border1.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border2.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border3.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border4.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border5.Background = new SolidColorBrush(Colors.LightYellow);
+                    Border0.Background = new SolidColorBrush(Colors.Gainsboro);
+                    Border1.Background = new SolidColorBrush(Colors.Gainsboro);
+                    Border2.Background = new SolidColorBrush(Colors.Gainsboro);
+                    Border3.Background = new SolidColorBrush(Colors.Gainsboro);
+                    Border4.Background = new SolidColorBrush(Colors.Gainsboro);
+                    Border5.Background = new SolidColorBrush(Colors.Linen);
                     Border6.Background = new SolidColorBrush(Colors.White);
                     break;
                 case 6:
-                    Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border1.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border2.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border3.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border4.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border5.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border6.Background = new SolidColorBrush(Colors.LightYellow);
+                    Border0.Background = new SolidColorBrush(Colors.Gainsboro);
+                    Border1.Background = new SolidColorBrush(Colors.Gainsboro);
+                    Border2.Background = new SolidColorBrush(Colors.Gainsboro);
+                    Border3.Background = new SolidColorBrush(Colors.Gainsboro);
+                    Border4.Background = new SolidColorBrush(Colors.Gainsboro);
+                    Border5.Background = new SolidColorBrush(Colors.Gainsboro);
+                    Border6.Background = new SolidColorBrush(Colors.Linen);
                     break;
                 default:
                     break;
             }
         }
-        private void FutureBackground(int column)
+        private void FutureBackground()
         {
-            switch (column)
-            {
-                case 0:
-                    Border0.Background = new SolidColorBrush(Colors.White);
-                    Border1.Background = new SolidColorBrush(Colors.White);
-                    Border2.Background = new SolidColorBrush(Colors.White);
-                    Border3.Background = new SolidColorBrush(Colors.White);
-                    Border4.Background = new SolidColorBrush(Colors.White);
-                    Border5.Background = new SolidColorBrush(Colors.White);
-                    Border6.Background = new SolidColorBrush(Colors.White);
-                    break;
-                case 1:
-                    Border0.Background = new SolidColorBrush(Colors.LightYellow);
-                    Border1.Background = new SolidColorBrush(Colors.White);
-                    Border2.Background = new SolidColorBrush(Colors.White);
-                    Border3.Background = new SolidColorBrush(Colors.White);
-                    Border4.Background = new SolidColorBrush(Colors.White);
-                    Border5.Background = new SolidColorBrush(Colors.White);
-                    Border6.Background = new SolidColorBrush(Colors.White);
-                    break;
-                case 2:
-                    Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border1.Background = new SolidColorBrush(Colors.LightYellow);
-                    Border2.Background = new SolidColorBrush(Colors.White);
-                    Border3.Background = new SolidColorBrush(Colors.White);
-                    Border4.Background = new SolidColorBrush(Colors.White);
-                    Border5.Background = new SolidColorBrush(Colors.White);
-                    Border6.Background = new SolidColorBrush(Colors.White);
-                    break;
-                case 3:
-                    Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border1.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border2.Background = new SolidColorBrush(Colors.LightYellow);
-                    Border3.Background = new SolidColorBrush(Colors.White);
-                    Border4.Background = new SolidColorBrush(Colors.White);
-                    Border5.Background = new SolidColorBrush(Colors.White);
-                    Border6.Background = new SolidColorBrush(Colors.White);
-                    break;
-                case 4:
-                    Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border1.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border2.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border3.Background = new SolidColorBrush(Colors.LightYellow);
-                    Border4.Background = new SolidColorBrush(Colors.White);
-                    Border5.Background = new SolidColorBrush(Colors.White);
-                    Border6.Background = new SolidColorBrush(Colors.White);
-                    break;
-                case 5:
-                    Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border1.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border2.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border3.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border4.Background = new SolidColorBrush(Colors.LightYellow);
-                    Border5.Background = new SolidColorBrush(Colors.White);
-                    Border6.Background = new SolidColorBrush(Colors.White);
-                    break;
-                case 6:
-                    Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border1.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border2.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border3.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border4.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                    Border5.Background = new SolidColorBrush(Colors.LightYellow);
-                    Border6.Background = new SolidColorBrush(Colors.White);
-                    break;
-                default:
-                    break;
-            }
+            Border0.Background = new SolidColorBrush(Colors.White);
+            Border1.Background = new SolidColorBrush(Colors.White);
+            Border2.Background = new SolidColorBrush(Colors.White);
+            Border3.Background = new SolidColorBrush(Colors.White);
+            Border4.Background = new SolidColorBrush(Colors.White);
+            Border5.Background = new SolidColorBrush(Colors.White);
+            Border6.Background = new SolidColorBrush(Colors.White);
         }
         private void PastBackground()
         {
-            Border0.Background = new SolidColorBrush(Colors.WhiteSmoke);
-            Border1.Background = new SolidColorBrush(Colors.WhiteSmoke);
-            Border2.Background = new SolidColorBrush(Colors.WhiteSmoke);
-            Border3.Background = new SolidColorBrush(Colors.WhiteSmoke);
-            Border4.Background = new SolidColorBrush(Colors.WhiteSmoke);
-            Border5.Background = new SolidColorBrush(Colors.WhiteSmoke);
-            Border6.Background = new SolidColorBrush(Colors.WhiteSmoke);
+            Border0.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border1.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border2.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border3.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border4.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border5.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border6.Background = new SolidColorBrush(Colors.Gainsboro);
         }
         private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
