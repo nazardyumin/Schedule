@@ -442,7 +442,7 @@ namespace Schedule
         }
         private void ComboBoxStartTime_DropDownClosed(object sender, EventArgs e)
         {
-            AddingSection.SetEndTime(ComboBoxStartTime.SelectedIndex);
+            //AddingSection.SetEndTime(ComboBoxStartTime.SelectedIndex);
             if (ComboBoxYearFrom.SelectedIndex >= -1 && ComboBoxMonthFrom.SelectedIndex >= -1 && ComboBoxDayFrom.SelectedIndex >= -1)
             {
                 ComboBoxYearTo.IsEnabled = true;
@@ -575,7 +575,7 @@ namespace Schedule
                 ComboBoxMonthTo.IsEnabled = false;
                 ComboBoxDayTo.IsEnabled = false;
             }
-            if (ComboBoxYearFrom.SelectedIndex > -1 && ComboBoxMonthFrom.SelectedIndex > -1 && ComboBoxDayFrom.SelectedIndex > -1 &&
+            /*if (ComboBoxYearFrom.SelectedIndex > -1 && ComboBoxMonthFrom.SelectedIndex > -1 && ComboBoxDayFrom.SelectedIndex > -1 &&
                ComboBoxYearTo.SelectedIndex > -1 && ComboBoxMonthTo.SelectedIndex > -1 && ComboBoxDayTo.SelectedIndex > -1)
             {
                 if (AddingSection.FromExceedsTo((int)ComboBoxYearFrom.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), (int)ComboBoxDayFrom.SelectedValue,
@@ -591,7 +591,7 @@ namespace Schedule
                 AddingSection.SetMonthsFromDependOnCalendar((int)ComboBoxYearFrom.SelectedValue);
                 AddingSection.ClearDates("from");
                 ButtonToday.Content = "Today";
-            }
+            }*/
             if (InputSubject.Text.Length > 0 && InputTeacher.Text.Length > 0 && InputAuditorium.Text.Length > 0 && ComboBoxStartTime.SelectedIndex > -1 && ComboBoxEndTime.SelectedIndex > -1 &&
                    ComboBoxYearFrom.SelectedIndex > -1 && ComboBoxMonthFrom.SelectedIndex > -1 && ComboBoxDayFrom.SelectedIndex > -1)
             {
@@ -652,7 +652,7 @@ namespace Schedule
                 ComboBoxMonthTo.IsEnabled = false;
                 ComboBoxDayTo.IsEnabled = false;
             }
-            if (ComboBoxYearFrom.SelectedIndex > -1 && ComboBoxMonthFrom.SelectedIndex > -1 && ComboBoxDayFrom.SelectedIndex > -1 &&
+            /*if (ComboBoxYearFrom.SelectedIndex > -1 && ComboBoxMonthFrom.SelectedIndex > -1 && ComboBoxDayFrom.SelectedIndex > -1 &&
                ComboBoxYearTo.SelectedIndex > -1 && ComboBoxMonthTo.SelectedIndex > -1 && ComboBoxDayTo.SelectedIndex > -1)
             {
                 if (AddingSection.FromExceedsTo((int)ComboBoxYearFrom.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), (int)ComboBoxDayFrom.SelectedValue,
@@ -668,7 +668,7 @@ namespace Schedule
                 AddingSection.SetDatesFromDependOnCalendar((int)ComboBoxYearFrom.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), monthFromMemory);
                 monthFromMemory = AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue);
                 ButtonToday.Content = "Today";
-            }
+            }*/
             if (InputSubject.Text.Length > 0 && InputTeacher.Text.Length > 0 && InputAuditorium.Text.Length > 0 && ComboBoxStartTime.SelectedIndex > -1 && ComboBoxEndTime.SelectedIndex > -1 &&
                    ComboBoxYearFrom.SelectedIndex > -1 && ComboBoxMonthFrom.SelectedIndex > -1 && ComboBoxDayFrom.SelectedIndex > -1)
             {

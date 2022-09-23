@@ -1,33 +1,72 @@
 ﻿using Schedule.ViewModel.Bindings;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Schedule.Model
 {
-    public class AddingSectionTemplate
+    public class AddingSectionTemplate : Notifier
     {
-        public SubjectBinding Subject { get; set; }
-        public TeacherBinding Teacher { get; set; }
-        public AuditoriumBinding Auditorium { get; set; }
-        public List<int>? Years { get; set; }
+        public InputBinding Subject { get; set; }
+        public InputBinding Teacher { get; set; }
+        public InputBinding Auditorium { get; set; }
+
         public ObservableCollection<string>? StartTime { get; set; }
-        public StartTimeBinding StartTimeBinding { get; set; }
+        public ListStringBindingChangeValue StartTimeSelectedItem { get; set; }           
         public ObservableCollection<string>? EndTime { get; set; }
+        public ListStringBinding EndTimeSelectedItem { get; set; }
+
+        public ObservableCollection<int>? YearsFrom { get; set; }
         public ObservableCollection<string>? MonthsFrom { get; set; }
         public ObservableCollection<int>? DatesFrom { get; set; }
+        public ListIntBindingChangeValue YearsFromSelectedItem { get; set; }      
+        public ListStringBindingChangeValue MonthsFromSelectedItem { get; set; }     
+        public ListIntBinding DatesFromSelectedItem { get; set; }
+
+        public ObservableCollection<int>? YearsTo { get; set; }
         public ObservableCollection<string>? MonthsTo { get; set; }
         public ObservableCollection<int>? DatesTo { get; set; }
+        public ListIntBindingChangeValue YearsToSelectedItem { get; set; }     
+        public ListStringBindingChangeValue MonthsToSelectedItem { get; set; }       
+        public ListIntBinding DatesToSelectedItem { get; set; } 
+
         public ObservableCollection<string>? CopyDays1 { get; set; }
         public ObservableCollection<string>? CopyDays2 { get; set; }
         public ObservableCollection<string>? CopyDays3 { get; set; }
+
+        private string _today;
+        public string Today
+        {
+            get => _today;
+            set => SetField(ref _today, value);
+        }
+        private string _targetDay;
+        public string TargetDay
+        {
+            get => _targetDay;
+            set => SetField(ref _targetDay, value);
+        }
+
+        private int monthFromMemory;
+        private int monthToMemory;
+
         public AddingSectionTemplate()
         {
             Subject = new();
             Teacher = new();
             Auditorium = new();
-            StartTimeBinding = new();
-            SetYears();
+            StartTimeSelectedItem = new(SetEndTime);
+            EndTimeSelectedItem = new();
+            YearsFromSelectedItem = new(SetMonthsFrom);
+            MonthsFromSelectedItem = new(SetDatesFrom);
+            DatesFromSelectedItem = new();
+
+            Today = "Today";
+            TargetDay = string.Empty;
+            monthFromMemory = 0;
+            monthToMemory = 0;
+
+            SetYearsFrom();
+            YearsTo = new();
             SetStartTime();
             EndTime = new();
             SetCopyDays1();
@@ -38,11 +77,22 @@ namespace Schedule.Model
             MonthsTo = new();
             DatesTo = new();
         }
-        private void SetYears()
+        private void SetYearsFrom()
         {
-            Years = new();
-            Years.Add(2022);
-            Years.Add(2023);
+            YearsFrom = new()
+            {
+                2022,
+                2023,
+                2024
+            };
+        }
+        public void SetYearsTo(int selectedIndex)
+        {
+            YearsTo!.Clear();
+            for (int i = selectedIndex + 1; i < YearsFrom!.Count; i++)
+            {
+                YearsTo.Add(YearsFrom[i]);
+            }
         }
         public string MonthToString(int month)
         {
@@ -151,10 +201,10 @@ namespace Schedule.Model
                 "14:00",
             };
         }
-        public void SetEndTime(int selectedIndex)
+        public void SetEndTime()
         {
             EndTime!.Clear();
-            for(int i= selectedIndex+1; i<StartTime!.Count;i++)
+            for (int i = StartTimeSelectedItem.SelectedIndex + 1; i < StartTime!.Count; i++)
             {
                 EndTime.Add(StartTime[i]);
             }
@@ -398,6 +448,45 @@ namespace Schedule.Model
 
         }
 
-
+        private void SetMonthsFrom()
+        {
+            if (YearsFromSelectedItem.IsOk && MonthsFromSelectedItem.IsOk && DatesFromSelectedItem.IsOk &&
+                YearsToSelectedItem.IsOk && MonthsToSelectedItem.IsOk && DatesToSelectedItem.IsOk)
+            {
+                if (FromExceedsTo(YearsFromSelectedItem.SelectedValue, MonthToInt(MonthsFromSelectedItem.SelectedValue), DatesFromSelectedItem.SelectedValue,
+                                  YearsToSelectedItem.SelectedValue, MonthToInt(MonthsToSelectedItem.SelectedValue), DatesToSelectedItem.SelectedValue))
+                {
+                    YearsToSelectedItem.SelectedIndex = -1;
+                    ClearMonthsAndDates("to");
+                    TargetDay = string.Empty;
+                }
+            }
+            if (YearsFromSelectedItem.IsOk)
+            {
+                SetMonthsFromDependOnCalendar(YearsFromSelectedItem.SelectedValue);
+                ClearDates("from");
+                Today = "Today";
+            }
+        }
+        private void SetDatesFrom()
+        {
+            if (YearsFromSelectedItem.IsOk && MonthsFromSelectedItem.IsOk && DatesFromSelectedItem.IsOk &&
+                YearsToSelectedItem.IsOk && MonthsToSelectedItem.IsOk && DatesToSelectedItem.IsOk)
+            {
+                if (FromExceedsTo(YearsFromSelectedItem.SelectedValue, MonthToInt(MonthsFromSelectedItem.SelectedValue), DatesFromSelectedItem.SelectedValue,
+                                   YearsToSelectedItem.SelectedValue, MonthToInt(MonthsToSelectedItem.SelectedValue), DatesToSelectedItem.SelectedValue))
+                {
+                    YearsToSelectedItem.SelectedIndex = -1;
+                    ClearMonthsAndDates("to");
+                    TargetDay = string.Empty;
+                }
+            }
+            if (YearsFromSelectedItem.IsOk && MonthsFromSelectedItem.IsOk)
+            {
+                SetDatesFromDependOnCalendar(YearsFromSelectedItem.SelectedValue, MonthToInt(MonthsFromSelectedItem.SelectedValue), monthFromMemory);
+                monthFromMemory = MonthToInt(MonthsFromSelectedItem.SelectedValue);
+                Today = "Today";
+            }
+        }
     }
 }

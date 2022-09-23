@@ -1,34 +1,34 @@
 ﻿using Schedule.Model;
 
-namespace Schedule.ViewModel.Bindings.BaseBindings
+namespace Schedule.ViewModel.Bindings
 {
-    public abstract class BaseInputBinding : Notifier
+    public class InputBinding : Notifier
     {
-        protected string enteredValue;
+        private string enteredValue;
         public string EnteredValue
         {
             get => enteredValue;
-            set 
+            set
             {
                 SetField(ref enteredValue, value);
                 IsAllOk();
-            }      
+            }
         }
 
-        protected bool isOk;
+        private bool _isOk;
         public bool IsOk
         {
-            get => isOk;
-            set => SetField(ref isOk, value);       
+            get => _isOk;
+            set => SetField(ref _isOk, value);
         }
 
-        protected BaseInputBinding()
+        public InputBinding()
         {
             enteredValue = string.Empty;
         }
-        protected void IsAllOk()
+        private void IsAllOk()
         {
-            var isNotEmpty=string.IsNullOrEmpty(EnteredValue);
+            var isNotEmpty = string.IsNullOrEmpty(EnteredValue);
             var check = EnteredValue.ToCharArray();
             bool hasLetters = false;
             foreach (var item in check)
