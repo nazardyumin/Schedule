@@ -8,7 +8,11 @@ namespace Schedule.ViewModel.Bindings.BaseBindings
         public string EnteredValue
         {
             get => enteredValue;
-            set => SetField(ref enteredValue, value);
+            set 
+            {
+                SetField(ref enteredValue, value);
+                IsAllOk();
+            }      
         }
 
         protected bool isOk;
@@ -21,18 +25,6 @@ namespace Schedule.ViewModel.Bindings.BaseBindings
         protected BaseInputBinding()
         {
             enteredValue = string.Empty;
-        }
-
-        protected bool HasLetters()
-        {
-            var check = EnteredValue.ToCharArray();
-            bool hasLetters = false;
-            foreach (var item in check)
-            {
-                hasLetters = char.IsLetter(item);
-                if (hasLetters) return hasLetters;
-            }
-            return hasLetters;
         }
         protected void IsAllOk()
         {
