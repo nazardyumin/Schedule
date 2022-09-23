@@ -1,18 +1,9 @@
-﻿using Schedule.Model;
-
-namespace Schedule.ViewModel
+﻿namespace Schedule.ViewModel
 {
-    public class AuditoriumBinding : Notifier
+    public class AuditoriumBinding : BaseInputBinding
     {
-        private string enteredValue;
-        public string EnteredValue
-        {
-            get => enteredValue!;
-            set => SetField(ref enteredValue, value);
-        }
-        public AuditoriumBinding()
-        {
-            enteredValue = string.Empty;
+        public AuditoriumBinding():base()
+        {           
         }
     }
 }

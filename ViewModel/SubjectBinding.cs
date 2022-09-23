@@ -1,18 +1,9 @@
-﻿using Schedule.Model;
-
-namespace Schedule.ViewModel
+﻿namespace Schedule.ViewModel
 {
-    public class SubjectBinding : Notifier
+    public class SubjectBinding : BaseInputBinding
     {
-        private string? enteredValue;
-        public string EnteredValue
+        public SubjectBinding() : base()
         {
-            get => enteredValue!;
-            set => SetField(ref enteredValue, value);
-        }
-        public SubjectBinding()
-        {
-            enteredValue = string.Empty;
         }
     }
 }
