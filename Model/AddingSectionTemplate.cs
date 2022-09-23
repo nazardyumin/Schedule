@@ -1,4 +1,4 @@
-﻿using Schedule.ViewModel;
+﻿using Schedule.ViewModel.Bindings;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,6 +12,7 @@ namespace Schedule.Model
         public AuditoriumBinding Auditorium { get; set; }
         public List<int>? Years { get; set; }
         public ObservableCollection<string>? StartTime { get; set; }
+        public StartTimeBinding StartTimeBinding { get; set; }
         public ObservableCollection<string>? EndTime { get; set; }
         public ObservableCollection<string>? MonthsFrom { get; set; }
         public ObservableCollection<int>? DatesFrom { get; set; }
@@ -25,6 +26,7 @@ namespace Schedule.Model
             Subject = new();
             Teacher = new();
             Auditorium = new();
+            StartTimeBinding = new();
             SetYears();
             SetStartTime();
             EndTime = new();

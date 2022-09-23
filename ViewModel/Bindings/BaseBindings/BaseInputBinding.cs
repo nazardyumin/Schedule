@@ -1,13 +1,13 @@
 ﻿using Schedule.Model;
 
-namespace Schedule.ViewModel
+namespace Schedule.ViewModel.Bindings.BaseBindings
 {
     public abstract class BaseInputBinding : Notifier
     {
         protected string enteredValue;
         public string EnteredValue
         {
-            get => enteredValue!;
+            get => enteredValue;
             set => SetField(ref enteredValue, value);
         }
         protected BaseInputBinding()

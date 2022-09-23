@@ -709,7 +709,15 @@
                 <StackPanel Grid.Row="4" Orientation="Horizontal">
                     <StackPanel Margin="10,10,10,10">
                         <TextBlock Text="Start Time"/>
-                        <ComboBox x:Name="ComboBoxStartTime" ItemsSource="{Binding AddingSection.StartTime}" DropDownClosed="ComboBoxStartTime_DropDownClosed"/>
+                        <ComboBox x:Name="ComboBoxStartTime" 
+                                  ItemsSource="{Binding AddingSection.StartTime}"
+                                  SelectedValue="{Binding AddingSection.StartTimeBinding.SelectedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedIndex="{Binding AddingSection.StartTimeBinding.SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  
+                                 
+
+                                  
+                                  DropDownClosed="ComboBoxStartTime_DropDownClosed"/>
                     </StackPanel>
                     <StackPanel  Margin="10,10,10,10">
                         <TextBlock Text=" End Time"/>
