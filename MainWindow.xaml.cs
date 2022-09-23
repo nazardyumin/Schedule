@@ -1,5 +1,6 @@
 ﻿using MaterialDesignThemes.Wpf;
 using Schedule.Model;
+using Schedule.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,7 +15,7 @@ namespace Schedule
     public partial class MainWindow : Window
     {
         public WeekTemplate Model { get; set; }
-        public CalendarTemplate AddingSection { get; set; }
+        public AddingSectionTemplate AddingSection { get; set; }
         public string ButtonBackContent { get; set; }
         public string ButtonForwardContent { get; set; }
         //private Timer? _timer;

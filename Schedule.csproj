@@ -8,10 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Icons\github.png" />
-    <None Remove="Icons\icon.png" />
-    <None Remove="Icons\Logo.png" />
-    <None Remove="Icons\Logo_cr.jpg" />
+    <None Remove="View\Icons\github.png" />
+    <None Remove="View\Icons\icon.png" />
+    <None Remove="View\Icons\Logo_cr.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,13 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Icons\github.png">
+    <Resource Include="View\Icons\github.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Icons\icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Icons\Logo.png">
+    <Resource Include="View\Icons\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

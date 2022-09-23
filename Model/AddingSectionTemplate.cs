@@ -1,11 +1,15 @@
-﻿using System;
+﻿using Schedule.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Schedule.Model
 {
-    public class CalendarTemplate
+    public class AddingSectionTemplate
     {
+        public SubjectBinding Subject { get; set; }
+        public TeacherBinding Teacher { get; set; }
+        public AuditoriumBinding Auditorium { get; set; }
         public List<int>? Years { get; set; }
         public ObservableCollection<string>? StartTime { get; set; }
         public ObservableCollection<string>? EndTime { get; set; }
@@ -16,8 +20,11 @@ namespace Schedule.Model
         public ObservableCollection<string>? CopyDays1 { get; set; }
         public ObservableCollection<string>? CopyDays2 { get; set; }
         public ObservableCollection<string>? CopyDays3 { get; set; }
-        public CalendarTemplate()
+        public AddingSectionTemplate()
         {
+            Subject = new();
+            Teacher = new();
+            Auditorium = new();
             SetYears();
             SetStartTime();
             EndTime = new();
@@ -383,5 +390,12 @@ namespace Schedule.Model
             ClearCopyDays();
             ClearEndTime();
         }
+
+        public void RefreshBindingsState()
+        {
+
+        }
+
+
     }
 }

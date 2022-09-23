@@ -14,7 +14,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Top Academy Lesson Schedule" Height="800" Width="1700" Icon="Icons/icon.png"
+        Title="Lesson Schedule" Height="800" Width="1700"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -696,15 +696,15 @@
                 <TextBlock Grid.Row="0"  Text="Add Lesson" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
                 <StackPanel Grid.Row="1" Margin="10,10,10,10">
                     <TextBlock Text="Subject" />
-                    <TextBox x:Name="InputSubject" TextChanged="InputSubject_TextChanged"/>
+                    <TextBox x:Name="InputSubject" Text="{Binding AddingSection.Subject.EnteredValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="InputSubject_TextChanged"/>
                 </StackPanel>
                 <StackPanel Grid.Row="2" Margin="10,10,10,10">
                     <TextBlock Text="Teacher"/>
-                    <TextBox x:Name="InputTeacher" TextChanged="InputTeacher_TextChanged" />
+                    <TextBox x:Name="InputTeacher" Text="{Binding AddingSection.Teacher.EnteredValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="InputTeacher_TextChanged" />
                 </StackPanel>
                 <StackPanel Grid.Row="3" Margin="10,10,10,10">
                     <TextBlock Text="Auditorium"/>
-                    <TextBox x:Name="InputAuditorium" TextChanged="InputAuditorium_TextChanged"/>
+                    <TextBox x:Name="InputAuditorium" Text="{Binding AddingSection.Auditorium.EnteredValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="InputAuditorium_TextChanged"/>
                 </StackPanel>
                 <StackPanel Grid.Row="4" Orientation="Horizontal">
                     <StackPanel Margin="10,10,10,10">
@@ -748,12 +748,10 @@
                         <Button x:Name="ButtonAdd" Content="Add" Margin="5,0,0,0" Style="{DynamicResource MaterialDesignPaperButton}" Click="ButtonAdd_Click" IsEnabled="false"/>
                     </StackPanel>
                 </StackPanel>
-                <StackPanel Grid.Row="9" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Image Height="103" Source="/Icons/Logo.png" Stretch="Fill" Width="200" PreviewMouseLeftButtonUp="Image_PreviewMouseLeftButtonUp" />
-                </StackPanel>
+             
 
                 <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Image Source="icons/github.png" Margin="18,0,0,0"/>
+                    <Image Source="View/Icons/github.png" Margin="18,0,0,0"/>
                     <TextBlock Margin="4,0,10,0" >
                     <Hyperlink NavigateUri="https://github.com/nazar-photo/Schedule" RequestNavigate="Hyperlink_RequestNavigate">
                                     nazar-photo © 2022
