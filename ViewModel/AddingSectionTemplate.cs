@@ -13,30 +13,30 @@ namespace Schedule.ViewModel
         public InputBinding Auditorium { get; set; }
 
         public ObservableCollection<string>? StartTime { get; set; }
-        public ListStringBinding StartTimeSelectedItem { get; set; }
+        public ItemBinding StartTimeSelectedItem { get; set; }
         public ObservableCollection<string> EndTime { get; set; }
-        public ListStringBinding EndTimeSelectedItem { get; set; }
+        public ItemBinding EndTimeSelectedItem { get; set; }
 
         public ObservableCollection<int>? YearsFrom { get; set; }
         public ObservableCollection<string> MonthsFrom { get; set; }
         public ObservableCollection<int> DatesFrom { get; set; }
-        public ListStringBinding YearsFromSelectedItem { get; set; }
-        public ListStringBinding MonthsFromSelectedItem { get; set; }
-        public ListStringBinding DatesFromSelectedItem { get; set; }
+        public ItemBinding YearsFromSelectedItem { get; set; }
+        public ItemBinding MonthsFromSelectedItem { get; set; }
+        public ItemBinding DatesFromSelectedItem { get; set; }
 
         public ObservableCollection<int> YearsTo { get; set; }
         public ObservableCollection<string> MonthsTo { get; set; }
         public ObservableCollection<int> DatesTo { get; set; }
-        public ListStringBinding YearsToSelectedItem { get; set; }
-        public ListStringBinding MonthsToSelectedItem { get; set; }
-        public ListStringBinding DatesToSelectedItem { get; set; }
+        public ItemBinding YearsToSelectedItem { get; set; }
+        public ItemBinding MonthsToSelectedItem { get; set; }
+        public ItemBinding DatesToSelectedItem { get; set; }
 
         public ObservableCollection<string>? CopyDays1 { get; set; }
         public ObservableCollection<string> CopyDays2 { get; set; }
         public ObservableCollection<string> CopyDays3 { get; set; }
-        public ListStringBinding CopyDays1SelectedItem { get; set; }
-        public ListStringBinding CopyDays2SelectedItem { get; set; }
-        public ListStringBinding CopyDays3SelectedItem { get; set; }
+        public ItemBinding CopyDays1SelectedItem { get; set; }
+        public ItemBinding CopyDays2SelectedItem { get; set; }
+        public ItemBinding CopyDays3SelectedItem { get; set; }
 
         private string? _today;
         public string Today

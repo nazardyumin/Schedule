@@ -3,7 +3,7 @@ using System;
 
 namespace Schedule.ViewModel.Bindings
 {
-    public class ListStringBinding : Notifier
+    public class ItemBinding : Notifier
     {
         private string _value;
         private readonly Action _action;
@@ -35,7 +35,7 @@ namespace Schedule.ViewModel.Bindings
             set => SetField(ref _isOk, value);
         }
 
-        public ListStringBinding(Action action)
+        public ItemBinding(Action action)
         {
             _value = string.Empty;
             _index = -1;
