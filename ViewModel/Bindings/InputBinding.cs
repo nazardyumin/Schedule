@@ -34,7 +34,7 @@ namespace Schedule.ViewModel.Bindings
 
         private void IsAllOk()
         {
-            var isNotEmpty = string.IsNullOrEmpty(Value);
+            var isEmpty = string.IsNullOrEmpty(Value);
             var check = Value.ToCharArray();
             bool hasLetters = false;
             foreach (var item in check)
@@ -42,7 +42,7 @@ namespace Schedule.ViewModel.Bindings
                 hasLetters = char.IsLetterOrDigit(item);
                 if (hasLetters) break;
             }
-            if (!isNotEmpty && hasLetters) IsOk = true;
+            if (!isEmpty && hasLetters) IsOk = true;
             else IsOk = false;
         }
     }

@@ -730,7 +730,6 @@
                                   ItemsSource="{Binding AddingSection.YearsFrom}" 
                                   SelectedValue="{Binding AddingSection.YearsFromSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                   SelectedIndex="{Binding AddingSection.YearsFromSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
                         <ComboBox x:Name="ComboBoxMonthFrom" Width="80" Margin="0,0,10,0" 
                                   ItemsSource="{Binding AddingSection.MonthsFrom, Mode=TwoWay}" 
                                   SelectedValue="{Binding AddingSection.MonthsFromSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
