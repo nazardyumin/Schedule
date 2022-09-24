@@ -370,9 +370,9 @@ namespace Schedule.ViewModel
         {
             return Days!;
         }
-        public Lesson CreateLesson(string subject, string teacher, string auditorium, int startTimeIndex, int endTimeIndex, string time)
+        public Lesson CreateLesson(string subject, string teacher, string auditorium, int startTimeIndex, int endTimeIndex, string duration)
         {
-            var lesson = new Lesson(subject, teacher, auditorium, time);
+            var lesson = new Lesson(subject, teacher, auditorium, duration);
             lesson.SetPositionInDayStart(startTimeIndex);
             lesson.SetPositionInDayEnd(endTimeIndex);
             return lesson;

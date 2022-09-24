@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Schedule"
-        xmlns:c1="http://schemas.componentone.com/winfx/2006/xaml" x:Class="Schedule.MainWindow"
+        xmlns:c1="http://schemas.componentone.com/winfx/2006/xaml" 
+        x:Class="Schedule.MainWindow"
         mc:Ignorable="d"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -517,7 +518,7 @@
                             </Grid>
                         </Border>
 
-                        <Border x:Name="Border5" Grid.Column="5" BorderThickness="1" BorderBrush="WhiteSmoke"> 
+                        <Border x:Name="Border5" Grid.Column="5" BorderThickness="1" BorderBrush="WhiteSmoke">
                             <Grid x:Name="GridSaturday">
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
@@ -696,15 +697,15 @@
                 <TextBlock Grid.Row="0"  Text="Add Lesson" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
                 <StackPanel Grid.Row="1" Margin="10,10,10,10">
                     <TextBlock Text="Subject" />
-                    <TextBox x:Name="InputSubject" Text="{Binding AddingSection.Subject.EnteredValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="InputSubject_TextChanged"/>
+                    <TextBox x:Name="InputSubject" Text="{Binding AddingSection.Subject.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="2" Margin="10,10,10,10">
                     <TextBlock Text="Teacher"/>
-                    <TextBox x:Name="InputTeacher" Text="{Binding AddingSection.Teacher.EnteredValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="InputTeacher_TextChanged" />
+                    <TextBox x:Name="InputTeacher" Text="{Binding AddingSection.Teacher.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="3" Margin="10,10,10,10">
                     <TextBlock Text="Auditorium"/>
-                    <TextBox x:Name="InputAuditorium" Text="{Binding AddingSection.Auditorium.EnteredValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="InputAuditorium_TextChanged"/>
+                    <TextBox x:Name="InputAuditorium" Text="{Binding AddingSection.Auditorium.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="4" Orientation="Horizontal">
                     <StackPanel Margin="10,10,10,10">
@@ -712,16 +713,14 @@
                         <ComboBox x:Name="ComboBoxStartTime" 
                                   ItemsSource="{Binding AddingSection.StartTime}"
                                   SelectedValue="{Binding AddingSection.StartTimeSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedIndex="{Binding AddingSection.StartTimeSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                                                   
-                                  DropDownClosed="ComboBoxStartTime_DropDownClosed"/>
+                                  SelectedIndex="{Binding AddingSection.StartTimeSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                     <StackPanel  Margin="10,10,10,10">
                         <TextBlock Text=" End Time"/>
                         <ComboBox x:Name="ComboBoxEndTime"
                                   ItemsSource="{Binding AddingSection.EndTime}" 
                                   SelectedValue="{Binding AddingSection.EndTimeSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedIndex="{Binding AddingSection.EndTimeSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                                                  
-                                  DropDownClosed="ComboBoxEndTime_DropDownClosed"/>
+                                  SelectedIndex="{Binding AddingSection.EndTimeSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Row="5" Margin="10,10,10,10">
@@ -730,23 +729,21 @@
                         <ComboBox x:Name="ComboBoxYearFrom" Width="50" Margin="0,0,10,0" 
                                   ItemsSource="{Binding AddingSection.YearsFrom}" 
                                   SelectedValue="{Binding AddingSection.YearsFromSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedIndex="{Binding AddingSection.YearsFromSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  DropDownClosed="ComboBoxYearFrom_DropDownClosed"/>
+                                  SelectedIndex="{Binding AddingSection.YearsFromSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
                         <ComboBox x:Name="ComboBoxMonthFrom" Width="80" Margin="0,0,10,0" 
                                   ItemsSource="{Binding AddingSection.MonthsFrom, Mode=TwoWay}" 
                                   SelectedValue="{Binding AddingSection.MonthsFromSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedIndex="{Binding AddingSection.MonthsFromSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  DropDownClosed="ComboBoxMonthFrom_DropDownClosed"/>
+                                  SelectedIndex="{Binding AddingSection.MonthsFromSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <ComboBox x:Name="ComboBoxDayFrom" Width="40" Margin="0,0,10,0" 
                                   ItemsSource="{Binding AddingSection.DatesFrom, Mode=TwoWay}" 
                                   SelectedValue="{Binding AddingSection.DatesFromSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedIndex="{Binding AddingSection.DatesFromSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  DropDownClosed="ComboBoxDayFrom_DropDownClosed"/>
-                        <Button x:Name="ButtonToday" Content="{Binding AddingSection.Today, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" 
-                                Padding="4" 
-                                Foreground="Gray"
-                                Command="{Binding AddingSection.CommandToday}"/>
+                                  SelectedIndex="{Binding AddingSection.DatesFromSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button x:Name="ButtonToday" 
+                                Content="{Binding AddingSection.Today, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Padding="4" Foreground="Gray"
+                                Command="{Binding AddingSection.CommandToday}"
+                                IsEnabled="{Binding AddingSection.CanPressToday, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Row="6" Margin="10,10,10,10">
@@ -756,38 +753,53 @@
                                   ItemsSource="{Binding AddingSection.YearsTo, Mode=TwoWay}" 
                                   SelectedValue="{Binding AddingSection.YearsToSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                   SelectedIndex="{Binding AddingSection.YearsToSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  DropDownClosed="ComboBoxYearTo_DropDownClosed" 
-                                  IsEnabled="False"/>
+                                  IsEnabled="{Binding AddingSection.CanPressTo, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                         <ComboBox x:Name="ComboBoxMonthTo" Width="80" Margin="0,0,10,0" 
                                   ItemsSource="{Binding AddingSection.MonthsTo, Mode=TwoWay}" 
                                   SelectedValue="{Binding AddingSection.MonthsToSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                   SelectedIndex="{Binding AddingSection.MonthsToSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  DropDownClosed="ComboBoxMonthTo_DropDownClosed" 
-                                  IsEnabled="False"/>
+                                  IsEnabled="{Binding AddingSection.CanPressTo, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                         <ComboBox x:Name="ComboBoxDayTo" Width="40" Margin="0,0,10,0" 
                                   ItemsSource="{Binding AddingSection.DatesTo, Mode=TwoWay}" 
                                   SelectedValue="{Binding AddingSection.DatesToSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                   SelectedIndex="{Binding AddingSection.DatesToSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  DropDownClosed="ComboBoxDayTo_DropDownClosed" 
-                                  IsEnabled="False"/>
-                        <Button x:Name="ButtonTargetDay" Content="{Binding AddingSection.TargetDay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Padding="4" Foreground="Gray" IsEnabled="False"/>
+                                  IsEnabled="{Binding AddingSection.CanPressTo, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button x:Name="ButtonTargetDay" Content="{Binding AddingSection.TargetDay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Padding="4" Foreground="Gray" 
+                                IsEnabled="False"/>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Row="7" Margin="10,10,10,10">
                     <TextBlock Text="Copy To Every..."/>
                     <StackPanel Orientation="Horizontal" >
-                        <ComboBox x:Name="ComboBoxCopy1" Width="85" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.CopyDays1}" DropDownClosed="ComboBoxCopy1_DropDownClosed" IsEnabled="False"/>
-                        <ComboBox x:Name="ComboBoxCopy2" Width="85" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.CopyDays2}" Visibility="Hidden" DropDownClosed="ComboBoxCopy2_DropDownClosed" IsEnabled="False"/>
-                        <ComboBox x:Name="ComboBoxCopy3" Width="85" Margin="0,0,10,0" ItemsSource="{Binding AddingSection.CopyDays3}" Visibility="Hidden" DropDownClosed="ComboBoxCopy3_DropDownClosed" IsEnabled="False"/>
+                        <ComboBox x:Name="ComboBoxCopy1" Width="85" Margin="0,0,10,0" 
+                                  ItemsSource="{Binding AddingSection.CopyDays1}" 
+                                  SelectedValue="{Binding AddingSection.CopyDays1SelectedItem.Value}"
+                                  SelectedIndex="{Binding AddingSection.CopyDays1SelectedItem.Index}"
+                                  DropDownClosed="ComboBoxCopy1_DropDownClosed"
+                                  IsEnabled="{Binding AddingSection.CanPressCopy, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        <ComboBox x:Name="ComboBoxCopy2" Width="85" Margin="0,0,10,0" 
+                                  ItemsSource="{Binding AddingSection.CopyDays2}" 
+                                  SelectedValue="{Binding AddingSection.CopyDays2SelectedItem.Value}"
+                                  SelectedIndex="{Binding AddingSection.CopyDays2SelectedItem.Index}"
+                                  Visibility="Hidden" 
+                                  DropDownClosed="ComboBoxCopy2_DropDownClosed" 
+                                  IsEnabled="{Binding AddingSection.CanPressCopy, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        <ComboBox x:Name="ComboBoxCopy3" Width="85" Margin="0,0,10,0" 
+                                  ItemsSource="{Binding AddingSection.CopyDays3}"
+                                  SelectedValue="{Binding AddingSection.CopyDays3SelectedItem.Value}"
+                                  SelectedIndex="{Binding AddingSection.CopyDays3SelectedItem.Index}"
+                                  Visibility="Hidden"  
+                                  IsEnabled="{Binding AddingSection.CanPressCopy, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Row="8">
                     <StackPanel  Margin="10,10,10,10" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button x:Name="ButtonClear" Content="Clear" Margin="0,0,5,0" Style="{DynamicResource MaterialDesignPaperButton}" Click="ButtonClear_Click" IsEnabled="false"/>
-                        <Button x:Name="ButtonAdd" Content="Add" Margin="5,0,0,0" Style="{DynamicResource MaterialDesignPaperButton}" Click="ButtonAdd_Click" IsEnabled="false"/>
+                        <Button x:Name="ButtonClear" Content="Clear" Margin="0,0,5,0" Style="{DynamicResource MaterialDesignPaperButton}" Command="{Binding AddingSection.CommandClear}" 
+                                IsEnabled="{Binding AddingSection.CanPressClear, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Click="ButtonClear_Click"/>
+                        <Button x:Name="ButtonAdd" Content="Add" Margin="5,0,0,0" Style="{DynamicResource MaterialDesignPaperButton}" Click="ButtonAdd_Click"
+                                IsEnabled="{Binding AddingSection.CanPressAdd, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                 </StackPanel>
-             
 
                 <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Image Source="View/Icons/github.png" Margin="18,0,0,0"/>
@@ -799,7 +811,5 @@
                 </StackPanel>
             </Grid>
         </Border>
-        
     </Grid>
-
 </Window>

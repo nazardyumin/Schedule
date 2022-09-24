@@ -9,7 +9,7 @@
         public int PositionInWeek { get; set; }
         public int PositionInDayStart { get; set; }
         public int PositionInDayEnd { get; set; }
-        public Lesson (string subject, string teacher, string auditorium, string time)
+        public Lesson(string subject, string teacher, string auditorium, string time)
         {
             Subject = $"Subject: {subject}";
             Teacher = $"Teacher: {teacher}";

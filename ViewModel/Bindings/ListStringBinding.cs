@@ -1,17 +1,23 @@
 ﻿using Schedule.Model;
+using System;
 
 namespace Schedule.ViewModel.Bindings
 {
     public class ListStringBinding : Notifier
     {
-        protected string _value;
+        private string _value;
+        private readonly Action _action;
         public string Value
         {
             get => _value;
-            set => SetField(ref _value, value);
+            set
+            {
+                SetField(ref _value, value);
+                _action.Invoke();
+            }
         }
 
-        protected int _index;
+        private int _index;
         public int Index
         {
             get => _index;
@@ -22,19 +28,21 @@ namespace Schedule.ViewModel.Bindings
             }
         }
 
-        protected bool _isOk;
+        private bool _isOk;
         public bool IsOk
         {
             get => _isOk;
             set => SetField(ref _isOk, value);
         }
-        public ListStringBinding()
+
+        public ListStringBinding(Action action)
         {
             _value = string.Empty;
             _index = -1;
+            _action = action;
         }
 
-        protected void IsAllOk()
+        private void IsAllOk()
         {
             if (Index != -1) IsOk = true;
             else IsOk = false;

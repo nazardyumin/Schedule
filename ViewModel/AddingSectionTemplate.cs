@@ -13,27 +13,30 @@ namespace Schedule.ViewModel
         public InputBinding Auditorium { get; set; }
 
         public ObservableCollection<string>? StartTime { get; set; }
-        public ListStringBindingChangeValue StartTimeSelectedItem { get; set; }
-        public ObservableCollection<string>? EndTime { get; set; }
+        public ListStringBinding StartTimeSelectedItem { get; set; }
+        public ObservableCollection<string> EndTime { get; set; }
         public ListStringBinding EndTimeSelectedItem { get; set; }
 
         public ObservableCollection<int>? YearsFrom { get; set; }
-        public ObservableCollection<string>? MonthsFrom { get; set; }
-        public ObservableCollection<int>? DatesFrom { get; set; }
-        public ListStringBindingChangeValue YearsFromSelectedItem { get; set; }
-        public ListStringBindingChangeValue MonthsFromSelectedItem { get; set; }
-        public ListStringBindingChangeValue DatesFromSelectedItem { get; set; }
+        public ObservableCollection<string> MonthsFrom { get; set; }
+        public ObservableCollection<int> DatesFrom { get; set; }
+        public ListStringBinding YearsFromSelectedItem { get; set; }
+        public ListStringBinding MonthsFromSelectedItem { get; set; }
+        public ListStringBinding DatesFromSelectedItem { get; set; }
 
-        public ObservableCollection<int>? YearsTo { get; set; }
-        public ObservableCollection<string>? MonthsTo { get; set; }
-        public ObservableCollection<int>? DatesTo { get; set; }
-        public ListStringBindingChangeValue YearsToSelectedItem { get; set; }
-        public ListStringBindingChangeValue MonthsToSelectedItem { get; set; }
-        public ListStringBindingChangeValue DatesToSelectedItem { get; set; }
+        public ObservableCollection<int> YearsTo { get; set; }
+        public ObservableCollection<string> MonthsTo { get; set; }
+        public ObservableCollection<int> DatesTo { get; set; }
+        public ListStringBinding YearsToSelectedItem { get; set; }
+        public ListStringBinding MonthsToSelectedItem { get; set; }
+        public ListStringBinding DatesToSelectedItem { get; set; }
 
         public ObservableCollection<string>? CopyDays1 { get; set; }
-        public ObservableCollection<string>? CopyDays2 { get; set; }
-        public ObservableCollection<string>? CopyDays3 { get; set; }
+        public ObservableCollection<string> CopyDays2 { get; set; }
+        public ObservableCollection<string> CopyDays3 { get; set; }
+        public ListStringBinding CopyDays1SelectedItem { get; set; }
+        public ListStringBinding CopyDays2SelectedItem { get; set; }
+        public ListStringBinding CopyDays3SelectedItem { get; set; }
 
         private string? _today;
         public string Today
@@ -41,6 +44,7 @@ namespace Schedule.ViewModel
             get => _today!;
             set => SetField(ref _today, value);
         }
+
         private string? _targetDay;
         public string TargetDay
         {
@@ -48,46 +52,95 @@ namespace Schedule.ViewModel
             set => SetField(ref _targetDay, value);
         }
 
+        private bool _canPressAdd;
+        public bool CanPressAdd
+        {
+            get => _canPressAdd;
+            set => SetField(ref _canPressAdd, value);
+        }
+
+        private bool _canPressClear;
+        public bool CanPressClear
+        {
+            get => _canPressClear;
+            set => SetField(ref _canPressClear, value);
+        }
+
+        private bool _canPressCopy;
+        public bool CanPressCopy
+        {
+            get => _canPressCopy;
+            set => SetField(ref _canPressCopy, value);
+        }
+
+        private bool _canPressToday;
+        public bool CanPressToday
+        {
+            get => _canPressToday;
+            set => SetField(ref _canPressToday, value);
+        }
+
+        private bool _canPressTo;
+        public bool CanPressTo
+        {
+            get => _canPressTo;
+            set => SetField(ref _canPressTo, value);
+        }
+
         private int monthFromMemory;
         private int monthToMemory;
 
         public MyCommand CommandToday { get; }
+        public MyCommand CommandClear { get; }
 
         public AddingSectionTemplate()
         {
-            Subject = new();
-            Teacher = new();
-            Auditorium = new();
+            Subject = new(RefreshStates);
+            Teacher = new(RefreshStates);
+            Auditorium = new(RefreshStates);
 
             SetStartTime();
             EndTime = new();
-            StartTimeSelectedItem = new(SetEndTime);
-            EndTimeSelectedItem = new();
+            StartTimeSelectedItem = new(() => { SetEndTime(); RefreshStates(); });
+            EndTimeSelectedItem = new(RefreshStates);
 
-            YearsFromSelectedItem = new(SetMonthsFrom);
-            MonthsFromSelectedItem = new(SetDatesFrom);
-            DatesFromSelectedItem = new(ChangeToday);
+            SetYearsFrom();
+            MonthsFrom = new();
+            DatesFrom = new();
 
-            YearsToSelectedItem = new(SetMonthsTo);
-            MonthsToSelectedItem = new(SetDatesTo);
-            DatesToSelectedItem = new(ChangeTargetDay);
+            YearsTo = new();
+            MonthsTo = new();
+            DatesTo = new();
+
+            YearsFromSelectedItem = new(() => { SetMonthsFrom(); RefreshStates(); });
+            MonthsFromSelectedItem = new(() => { SetDatesFrom(); RefreshStates(); });
+            DatesFromSelectedItem = new(() => { ChangeToday(); RefreshStates(); });
+
+            YearsToSelectedItem = new(() => { SetMonthsTo(); RefreshStates(); });
+            MonthsToSelectedItem = new(() => { SetDatesTo(); RefreshStates(); });
+            DatesToSelectedItem = new(() => { ChangeTargetDay(); RefreshStates(); });
+
+            SetCopyDays1();
+            CopyDays2 = new();
+            CopyDays3 = new();
+
+            CopyDays1SelectedItem = new(() => { SetCopyDays2(); RefreshStates(); });
+            CopyDays2SelectedItem = new(() => { SetCopyDays3(); RefreshStates(); });
+            CopyDays3SelectedItem = new(RefreshStates);
 
             Today = "Today";
             TargetDay = string.Empty;
             monthFromMemory = 0;
             monthToMemory = 0;
 
-            SetYearsFrom();
-            YearsTo = new();
+            CommandToday = new(_ => { CommandTodayFunction(); RefreshStates(); }, _ => true);
+            CommandClear = new(_ => { CommandClearFunction(); RefreshStates(); }, _ => true);
 
-            SetCopyDays1();
-            CopyDays2 = new();
-            CopyDays3 = new();
-            MonthsFrom = new();
-            DatesFrom = new();
-            MonthsTo = new();
-            DatesTo = new();
-            CommandToday = new(_ => { CommandTodayFunction(); }, _ => true);
+            CanPressToday = true;
+            CanPressAdd = false;
+            CanPressClear = false;
+            CanPressCopy = false;
+            CanPressTo = false;
         }
 
         private void SetStartTime()
@@ -210,7 +263,6 @@ namespace Schedule.ViewModel
                 monthFromMemory = MonthToInt(MonthsFromSelectedItem.Value);
                 Today = "Today";
             }
-
         }
         private void SetDatesFromDependOnCalendar()
         {
@@ -345,128 +397,6 @@ namespace Schedule.ViewModel
             }
         }
 
-
-
-
-
-
-
-        public string MonthToString(int month)
-        {
-            switch (month)
-            {
-                case 1:
-                    return "January";
-                case 2:
-                    return "February";
-                case 3:
-                    return "March";
-                case 4:
-                    return "April";
-                case 5:
-                    return "May";
-                case 6:
-                    return "June";
-                case 7:
-                    return "July";
-                case 8:
-                    return "August";
-                case 9:
-                    return "September";
-                case 10:
-                    return "October";
-                case 11:
-                    return "November";
-                case 12:
-                    return "December";
-                default:
-                    return "";
-            }
-        }
-        public int MonthToInt(string month)
-        {
-            switch (month)
-            {
-                case "January":
-                    return 1;
-                case "February":
-                    return 2;
-                case "March":
-                    return 3;
-                case "April":
-                    return 4;
-                case "May":
-                    return 5;
-                case "June":
-                    return 6;
-                case "July":
-                    return 7;
-                case "August":
-                    return 8;
-                case "September":
-                    return 9;
-                case "October":
-                    return 10;
-                case "November":
-                    return 11;
-                case "December":
-                    return 12;
-                default:
-                    return -1;
-            }
-        }
-
-        public string GetSelectedDay(int year, int month, int date)
-        {
-            var selectedDay = new DateTime(year, month, date);
-            return selectedDay.DayOfWeek.ToString();
-        }
-        public (int year, int month, int day, string name) GetTodayDateAndDay()
-        {
-            DateTime today = DateTime.Now;
-            return (today.Year, today.Month, today.Day, today.DayOfWeek.ToString());
-        }
-
-
-
-
-        private void ChangeToday()
-        {
-            if (YearsFromSelectedItem.IsOk && MonthsFromSelectedItem.IsOk && DatesFromSelectedItem.IsOk)
-            {
-                Today = GetSelectedDay(YearsFromSelectedItem.ValueToInt(), MonthToInt(MonthsFromSelectedItem.Value), DatesFromSelectedItem.ValueToInt());
-                //ButtonToday.IsEnabled = false;
-            }
-        }
-        private void ChangeTargetDay()
-        {
-            if (YearsToSelectedItem.IsOk && MonthsToSelectedItem.IsOk && DatesToSelectedItem.IsOk)
-            {
-                TargetDay = GetSelectedDay(YearsToSelectedItem.ValueToInt(), MonthToInt(MonthsToSelectedItem.Value), DatesToSelectedItem.ValueToInt());
-            }
-        }
-
-
-        public void ClearMonthsAndDates(string key)
-        {
-            if (key == "all")
-            {
-                MonthsFromSelectedItem.Index = -1;
-                DatesFromSelectedItem.Index = -1;
-                MonthsToSelectedItem.Index = -1;
-                DatesToSelectedItem.Index = -1;
-
-                /*MonthsFrom =new();                
-                DatesFrom = new();              
-                MonthsTo = new();                
-                DatesTo = new();*/
-            }
-            else
-            {
-                MonthsTo!.Clear();
-                DatesTo!.Clear();
-            }
-        }
         private void SetCopyDays1()
         {
             CopyDays1 = new()
@@ -480,78 +410,186 @@ namespace Schedule.ViewModel
                 "Sunday"
             };
         }
-        public void SetCopyDays2(int selectedIndex)
+        private void SetCopyDays2()
         {
             CopyDays2!.Clear();
             for (int i = 0; i < 7; i++)
             {
-                if (i != selectedIndex) CopyDays2!.Add(CopyDays1![i]);
+                if (i != CopyDays1SelectedItem.Index) CopyDays2!.Add(CopyDays1![i]);
             }
         }
-        public void SetCopyDays3(int selectedIndex)
+        private void SetCopyDays3()
         {
             CopyDays3!.Clear();
             for (int i = 0; i < 6; i++)
             {
-                if (i != selectedIndex) CopyDays3!.Add(CopyDays2![i]);
+                if (i != CopyDays2SelectedItem.Index) CopyDays3!.Add(CopyDays2![i]);
             }
+        }
+
+        private void ClearYearsTo()
+        {
+            YearsTo!.Clear();
+        }
+        private void ClearMonthsAndDates(string key)
+        {
+            if (key == "all")
+            {
+                DatesTo!.Clear();
+                DatesFrom!.Clear();
+                MonthsTo!.Clear();
+                MonthsFrom!.Clear();
+            }
+            else
+            {
+                DatesTo!.Clear();
+                MonthsTo!.Clear();
+            }
+        }
+        private void ClearDates(string key)
+        {
+            if (key == "from") DatesFrom!.Clear();
+            else DatesTo!.Clear();
+        }
+        private void ClearEndTime()
+        {
+            EndTime!.Clear();
         }
         private void ClearCopyDays()
         {
             CopyDays2!.Clear();
             CopyDays3!.Clear();
         }
-        public int GetEndTimeIndex(string selectedValue)
+        private void ResetAndClear()
         {
-            switch (selectedValue)
+            ClearMonthsAndDates("all");
+            ClearYearsTo();
+            ClearCopyDays();
+            ClearEndTime();
+        }
+
+        private void ChangeToday()
+        {
+            if (YearsFromSelectedItem.IsOk && MonthsFromSelectedItem.IsOk && DatesFromSelectedItem.IsOk)
             {
-                case "08:00": return 0;
-                case "08:10": return 1;
-                case "08:20": return 2;
-                case "08:30": return 3;
-                case "08:40": return 4;
-                case "08:50": return 5;
-                case "09:00": return 6;
-                case "09:10": return 7;
-                case "09:20": return 8;
-                case "09:30": return 9;
-                case "09:40": return 10;
-                case "09:50": return 11;
-                case "10:00": return 12;
-                case "10:10": return 13;
-                case "10:20": return 14;
-                case "10:30": return 15;
-                case "10:40": return 16;
-                case "10:50": return 17;
-                case "11:00": return 18;
-                case "11:10": return 19;
-                case "11:20": return 20;
-                case "11:30": return 21;
-                case "11:40": return 22;
-                case "11:50": return 23;
-                case "12:00": return 24;
-                case "12:10": return 25;
-                case "12:20": return 26;
-                case "12:30": return 27;
-                case "12:40": return 28;
-                case "12:50": return 29;
-                case "13:00": return 30;
-                case "13:10": return 31;
-                case "13:20": return 32;
-                case "13:30": return 33;
-                case "13:40": return 34;
-                case "13:50": return 35;
-                case "14:00": return 36;
-
-
-
-
-
-
-
-
-                default: return -1;
+                Today = GetSelectedDay(YearsFromSelectedItem.ValueToInt(), MonthToInt(MonthsFromSelectedItem.Value), DatesFromSelectedItem.ValueToInt());
+                CanPressToday = false;
             }
+        }
+        private void ChangeTargetDay()
+        {
+            if (YearsToSelectedItem.IsOk && MonthsToSelectedItem.IsOk && DatesToSelectedItem.IsOk)
+            {
+                TargetDay = GetSelectedDay(YearsToSelectedItem.ValueToInt(), MonthToInt(MonthsToSelectedItem.Value), DatesToSelectedItem.ValueToInt());
+            }
+        }
+
+        private string MonthToString(int month)
+        {
+            return month switch
+            {
+                1 => "January",
+                2 => "February",
+                3 => "March",
+                4 => "April",
+                5 => "May",
+                6 => "June",
+                7 => "July",
+                8 => "August",
+                9 => "September",
+                10 => "October",
+                11 => "November",
+                12 => "December",
+                _ => "",
+            };
+        }
+        private int MonthToInt(string month)
+        {
+            return month switch
+            {
+                "January" => 1,
+                "February" => 2,
+                "March" => 3,
+                "April" => 4,
+                "May" => 5,
+                "June" => 6,
+                "July" => 7,
+                "August" => 8,
+                "September" => 9,
+                "October" => 10,
+                "November" => 11,
+                "December" => 12,
+                _ => -1,
+            };
+        }
+        private int CopyDayToIndex(string dayOfTheWeek)
+        {
+            return dayOfTheWeek switch
+            {
+                "Monday" => 0,
+                "Tuesday" => 1,
+                "Wednesday" => 2,
+                "Thursday" => 3,
+                "Friday" => 4,
+                "Saturday" => 5,
+                "Sunday" => 6,
+                _ => -1,
+            };
+        }
+
+        private int GetEndTimeIndex(string selectedValue)
+        {
+            return selectedValue switch
+            {
+                "08:00" => 0,
+                "08:10" => 1,
+                "08:20" => 2,
+                "08:30" => 3,
+                "08:40" => 4,
+                "08:50" => 5,
+                "09:00" => 6,
+                "09:10" => 7,
+                "09:20" => 8,
+                "09:30" => 9,
+                "09:40" => 10,
+                "09:50" => 11,
+                "10:00" => 12,
+                "10:10" => 13,
+                "10:20" => 14,
+                "10:30" => 15,
+                "10:40" => 16,
+                "10:50" => 17,
+                "11:00" => 18,
+                "11:10" => 19,
+                "11:20" => 20,
+                "11:30" => 21,
+                "11:40" => 22,
+                "11:50" => 23,
+                "12:00" => 24,
+                "12:10" => 25,
+                "12:20" => 26,
+                "12:30" => 27,
+                "12:40" => 28,
+                "12:50" => 29,
+                "13:00" => 30,
+                "13:10" => 31,
+                "13:20" => 32,
+                "13:30" => 33,
+                "13:40" => 34,
+                "13:50" => 35,
+                "14:00" => 36,
+                _ => -1,
+            };
+        }
+        private (int year, int month, int day, string name) GetTodayDateAndDay()
+        {
+            DateTime today = DateTime.Now;
+            return (today.Year, today.Month, today.Day, today.DayOfWeek.ToString());
+        }
+        private string GetSelectedDay(int year, int month, int date)
+        {
+            var selectedDay = new DateTime(year, month, date);
+            return selectedDay.DayOfWeek.ToString();
         }
         private bool FromExceedsTo()
         {
@@ -561,39 +599,119 @@ namespace Schedule.ViewModel
             var to = new DateTime(YearsToSelectedItem.ValueToInt(), monthTo, DatesToSelectedItem.ValueToInt());
             return from > to;
         }
-        public void ClearDates(string key)
-        {
-            if (key == "from") DatesFrom!.Clear();
-            else DatesTo!.Clear();
-        }
-        private void ClearEndTime()
-        {
-            EndTime!.Clear();
-        }
-        public void ResetAndClear()
-        {
-            ClearMonthsAndDates("all");
-            ClearCopyDays();
-            ClearEndTime();
-        }
 
-        public void RefreshBindingsState()
+        private void RefreshCanAddState()
         {
-
+            if (Subject.IsOk && Teacher.IsOk && Auditorium.IsOk &&
+                StartTimeSelectedItem.IsOk && EndTimeSelectedItem.IsOk &&
+                YearsFromSelectedItem.IsOk && MonthsFromSelectedItem.IsOk && DatesFromSelectedItem.IsOk &&
+                YearsToSelectedItem.IsOk && MonthsToSelectedItem.IsOk && DatesToSelectedItem.IsOk)
+            {
+                CanPressAdd = true;
+            }
+            else if (Subject.IsOk && Teacher.IsOk && Auditorium.IsOk &&
+                StartTimeSelectedItem.IsOk && EndTimeSelectedItem.IsOk &&
+                YearsFromSelectedItem.IsOk && MonthsFromSelectedItem.IsOk && DatesFromSelectedItem.IsOk)
+            {
+                CanPressAdd = true;
+            }
+            else CanPressAdd = false;
+        }
+        private void RefreshCanClearState()
+        {
+            if (Subject.IsOk || Teacher.IsOk || Auditorium.IsOk || StartTimeSelectedItem.IsOk || YearsFromSelectedItem.IsOk || YearsToSelectedItem.IsOk || CopyDays1SelectedItem.IsOk)
+            {
+                CanPressClear = true;
+            }
+            else
+            {
+                CanPressClear = false;
+            }
+        }
+        private void RefreshCanCopyState()
+        {
+            if (Subject.IsOk && Teacher.IsOk && Auditorium.IsOk &&
+                StartTimeSelectedItem.IsOk && EndTimeSelectedItem.IsOk &&
+                YearsFromSelectedItem.IsOk && MonthsFromSelectedItem.IsOk && DatesFromSelectedItem.IsOk &&
+                YearsToSelectedItem.IsOk && MonthsToSelectedItem.IsOk && DatesToSelectedItem.IsOk)
+            {
+                CanPressCopy = true;
+            }
+            else
+            {
+                CanPressCopy = false;
+            }
+        }
+        private void RefreshToState()
+        {
+            if (Subject.IsOk && Teacher.IsOk && Auditorium.IsOk &&
+                            StartTimeSelectedItem.IsOk && EndTimeSelectedItem.IsOk &&
+                            YearsFromSelectedItem.IsOk && MonthsFromSelectedItem.IsOk && DatesFromSelectedItem.IsOk)
+            {
+                CanPressTo = true;
+            }
+            else
+            {
+                CanPressTo = false;
+            }
+        }
+        private void RefreshStates()
+        {
+            RefreshCanAddState();
+            RefreshCanClearState();
+            RefreshCanCopyState();
+            RefreshToState();
         }
 
         private void CommandTodayFunction()
         {
-            var result = GetTodayDateAndDay();
-            YearsFromSelectedItem.Index = YearsFrom!.IndexOf(result.year);
+            (int year, int month, int day, string name) = GetTodayDateAndDay();
+            YearsFromSelectedItem.Index = YearsFrom!.IndexOf(year);
+            SetYearsTo();
             SetMonthsFromDependOnCalendar();
-            MonthsFromSelectedItem.Index = MonthsFrom!.IndexOf(MonthToString(result.month));
+            MonthsFromSelectedItem.Index = MonthsFrom!.IndexOf(MonthToString(month));
             SetDatesFromDependOnCalendar();
             monthFromMemory = MonthToInt(MonthsFromSelectedItem.Value);
-            DatesFromSelectedItem.Index = DatesFrom!.IndexOf(result.day);
-            Today = result.name;
-            //ButtonToday.IsEnabled = false;
+            DatesFromSelectedItem.Index = DatesFrom!.IndexOf(day);
+            Today = name;
+            CanPressToday = false;
+        }
+        public void CommandClearFunction()
+        {
+            Subject.Value = Teacher.Value = Auditorium.Value = string.Empty;
+            ResetAndClear();
+            StartTimeSelectedItem.Index = EndTimeSelectedItem.Index = -1;
+            YearsFromSelectedItem.Index = MonthsFromSelectedItem.Index = DatesFromSelectedItem.Index = -1;
+            YearsToSelectedItem.Index = MonthsToSelectedItem.Index = DatesToSelectedItem.Index = -1;
+            Today = "Today";
+            TargetDay = string.Empty;
+            monthFromMemory = 0;
+            monthToMemory = 0;
+            CopyDays1SelectedItem.Index = -1;
+            ClearCopyDays();
+            CanPressToday = true;
+            CanPressAdd = CanPressClear = CanPressCopy = CanPressTo = false;
         }
 
+        public (int year, int month, int day) GetFromValues()
+        {
+            return (YearsFromSelectedItem.ValueToInt(), MonthToInt(MonthsFromSelectedItem.Value), DatesFromSelectedItem.ValueToInt());
+        }
+        public (int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo, int dayTo, int copy1, int copy2, int copy3) GetFromAndToValues()
+        {
+            return (YearsFromSelectedItem.ValueToInt(), MonthToInt(MonthsFromSelectedItem.Value), DatesFromSelectedItem.ValueToInt(),
+                    YearsToSelectedItem.ValueToInt(), MonthToInt(MonthsToSelectedItem.Value), DatesToSelectedItem.ValueToInt(),
+                    CopyDays1SelectedItem.Index, CopyDayToIndex(CopyDays2SelectedItem.Value), CopyDayToIndex(CopyDays3SelectedItem.Value));
+        }
+        public (string subject, string teacher, string auditorium, int startTimeIndex, int endTimeIndex, string duration) GetSetupInfo()
+        {
+            return (Subject.Value, Teacher.Value, Auditorium.Value,
+                    StartTimeSelectedItem.Index, GetEndTimeIndex(EndTimeSelectedItem.Value),
+                    $"{StartTimeSelectedItem.Value} - {EndTimeSelectedItem.Value}");
+        }
+        public bool IsPeriodSelected()
+        {
+            return YearsToSelectedItem.IsOk && MonthsToSelectedItem.IsOk && DatesToSelectedItem.IsOk;
+        }
     }
 }

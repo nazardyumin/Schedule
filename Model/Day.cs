@@ -26,7 +26,7 @@ namespace Schedule.Model
         {
             switch (month)
             {
-                case 1: 
+                case 1:
                     return "January";
                 case 2:
                     return "February";
@@ -78,7 +78,7 @@ namespace Schedule.Model
         }
         private string GetShortDayInfo(DateTime dateTime)
         {
-            return $"{dateTime.DayOfWeek} {SetMonth(_month).Substring(0,3)}, {_date}";
+            return $"{dateTime.DayOfWeek} {SetMonth(_month).Substring(0, 3)}, {_date}";
         }
         public string GetDayInfo()
         {
@@ -88,7 +88,7 @@ namespace Schedule.Model
         {
             return _index;
         }
-        public bool IsThisDay(int year,int month, int date)
+        public bool IsThisDay(int year, int month, int date)
         {
             return year == _year && month == _month && date == _date;
         }
@@ -96,7 +96,7 @@ namespace Schedule.Model
         {
             DateTime now = DateTime.Now;
             var thisDay = new DateTime(_year, _month, _date);
-            return thisDay>now;
+            return thisDay > now;
         }
     }
 }
