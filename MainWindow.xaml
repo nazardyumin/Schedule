@@ -742,7 +742,11 @@
                                   SelectedValue="{Binding AddingSection.DatesFromSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                   SelectedIndex="{Binding AddingSection.DatesFromSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                   DropDownClosed="ComboBoxDayFrom_DropDownClosed"/>
-                        <Button x:Name="ButtonToday" Content="{Binding AddingSection.Today, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Padding="4" Click="ButtonToday_Click" Foreground="Gray"/>
+                        <Button x:Name="ButtonToday" Content="{Binding AddingSection.Today, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" 
+                                Padding="4" 
+                                Foreground="Gray"
+                                Command="{Binding AddingSection.CommandToday}"/>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Row="6" Margin="10,10,10,10">

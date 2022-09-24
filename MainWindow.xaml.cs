@@ -55,15 +55,7 @@ namespace Schedule
 
         private void ButtonToday_Click(object sender, RoutedEventArgs e)
         {
-            var result = AddingSection.GetTodayDateAndDay();
-            ComboBoxYearFrom.SelectedIndex = ComboBoxYearFrom.Items.IndexOf(result.year);
-            //AddingSection.SetMonthsFromDependOnCalendar(result.year);
-            ComboBoxMonthFrom.SelectedIndex = ComboBoxMonthFrom.Items.IndexOf(AddingSection.MonthToString(result.month));
-            //AddingSection.SetDatesFromDependOnCalendar((int)ComboBoxYearFrom.SelectedValue, AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue), monthFromMemory);
-            monthFromMemory = AddingSection.MonthToInt((string)ComboBoxMonthFrom.SelectedValue);
-            ComboBoxDayFrom.SelectedIndex = ComboBoxDayFrom.Items.IndexOf(result.day);
-            ButtonToday.Content = result.name;
-            ButtonToday.IsEnabled = false;
+
             if (ComboBoxYearFrom.SelectedIndex >= -1 && ComboBoxMonthFrom.SelectedIndex >= -1 && ComboBoxDayFrom.SelectedIndex >= -1)
             {
                 ComboBoxYearTo.IsEnabled = true;

@@ -1,8 +1,10 @@
-﻿using Schedule.ViewModel.Bindings;
+﻿using Schedule.Model;
+using Schedule.ViewModel.Bindings;
+using Schedule.ViewModel.Commands;
 using System;
 using System.Collections.ObjectModel;
 
-namespace Schedule.Model
+namespace Schedule.ViewModel
 {
     public class AddingSectionTemplate : Notifier
     {
@@ -11,23 +13,23 @@ namespace Schedule.Model
         public InputBinding Auditorium { get; set; }
 
         public ObservableCollection<string>? StartTime { get; set; }
-        public ListStringBindingChangeValue StartTimeSelectedItem { get; set; }           
+        public ListStringBindingChangeValue StartTimeSelectedItem { get; set; }
         public ObservableCollection<string>? EndTime { get; set; }
         public ListStringBinding EndTimeSelectedItem { get; set; }
 
         public ObservableCollection<int>? YearsFrom { get; set; }
         public ObservableCollection<string>? MonthsFrom { get; set; }
         public ObservableCollection<int>? DatesFrom { get; set; }
-        public ListStringBindingChangeValue YearsFromSelectedItem { get; set; }      
-        public ListStringBindingChangeValue MonthsFromSelectedItem { get; set; }     
+        public ListStringBindingChangeValue YearsFromSelectedItem { get; set; }
+        public ListStringBindingChangeValue MonthsFromSelectedItem { get; set; }
         public ListStringBindingChangeValue DatesFromSelectedItem { get; set; }
 
         public ObservableCollection<int>? YearsTo { get; set; }
         public ObservableCollection<string>? MonthsTo { get; set; }
         public ObservableCollection<int>? DatesTo { get; set; }
-        public ListStringBindingChangeValue YearsToSelectedItem { get; set; }     
-        public ListStringBindingChangeValue MonthsToSelectedItem { get; set; }       
-        public ListStringBindingChangeValue DatesToSelectedItem { get; set; } 
+        public ListStringBindingChangeValue YearsToSelectedItem { get; set; }
+        public ListStringBindingChangeValue MonthsToSelectedItem { get; set; }
+        public ListStringBindingChangeValue DatesToSelectedItem { get; set; }
 
         public ObservableCollection<string>? CopyDays1 { get; set; }
         public ObservableCollection<string>? CopyDays2 { get; set; }
@@ -48,6 +50,8 @@ namespace Schedule.Model
 
         private int monthFromMemory;
         private int monthToMemory;
+
+        public MyCommand CommandToday { get; }
 
         public AddingSectionTemplate()
         {
@@ -75,7 +79,7 @@ namespace Schedule.Model
 
             SetYearsFrom();
             YearsTo = new();
-            
+
             SetCopyDays1();
             CopyDays2 = new();
             CopyDays3 = new();
@@ -83,6 +87,7 @@ namespace Schedule.Model
             DatesFrom = new();
             MonthsTo = new();
             DatesTo = new();
+            CommandToday = new(_ => { CommandTodayFunction(); }, _ => true);
         }
 
         private void SetStartTime()
@@ -145,9 +150,9 @@ namespace Schedule.Model
                 2023,
                 2024
             };
-        }        
+        }
         private void SetMonthsFrom()
-        {          
+        {
             if (YearsFromSelectedItem.IsOk && MonthsFromSelectedItem.IsOk && DatesFromSelectedItem.IsOk &&
                 YearsToSelectedItem.IsOk && MonthsToSelectedItem.IsOk && DatesToSelectedItem.IsOk)
             {
@@ -410,7 +415,7 @@ namespace Schedule.Model
                     return -1;
             }
         }
-        
+
         public string GetSelectedDay(int year, int month, int date)
         {
             var selectedDay = new DateTime(year, month, date);
@@ -421,9 +426,9 @@ namespace Schedule.Model
             DateTime today = DateTime.Now;
             return (today.Year, today.Month, today.Day, today.DayOfWeek.ToString());
         }
-       
-        
-       
+
+
+
 
         private void ChangeToday()
         {
@@ -460,7 +465,7 @@ namespace Schedule.Model
             {
                 MonthsTo!.Clear();
                 DatesTo!.Clear();
-            }          
+            }
         }
         private void SetCopyDays1()
         {
@@ -478,9 +483,9 @@ namespace Schedule.Model
         public void SetCopyDays2(int selectedIndex)
         {
             CopyDays2!.Clear();
-            for (int i=0;i<7;i++)
-            {          
-                if (i!=selectedIndex) CopyDays2!.Add(CopyDays1![i]);
+            for (int i = 0; i < 7; i++)
+            {
+                if (i != selectedIndex) CopyDays2!.Add(CopyDays1![i]);
             }
         }
         public void SetCopyDays3(int selectedIndex)
@@ -558,7 +563,7 @@ namespace Schedule.Model
         }
         public void ClearDates(string key)
         {
-            if (key=="from") DatesFrom!.Clear();
+            if (key == "from") DatesFrom!.Clear();
             else DatesTo!.Clear();
         }
         private void ClearEndTime()
@@ -577,7 +582,18 @@ namespace Schedule.Model
 
         }
 
-        
-        
+        private void CommandTodayFunction()
+        {
+            var result = GetTodayDateAndDay();
+            YearsFromSelectedItem.Index = YearsFrom!.IndexOf(result.year);
+            SetMonthsFromDependOnCalendar();
+            MonthsFromSelectedItem.Index = MonthsFrom!.IndexOf(MonthToString(result.month));
+            SetDatesFromDependOnCalendar();
+            monthFromMemory = MonthToInt(MonthsFromSelectedItem.Value);
+            DatesFromSelectedItem.Index = DatesFrom!.IndexOf(result.day);
+            Today = result.name;
+            //ButtonToday.IsEnabled = false;
+        }
+
     }
 }
