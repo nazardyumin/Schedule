@@ -5,12 +5,12 @@ namespace Schedule.ViewModel.Bindings
     public class ListStringBindingChangeValue : ListStringBinding
     {
         private readonly Action _action;
-        public new string SelectedValue
+        public new string Value
         {
-            get => _selectedValue;
+            get => _value;
             set
             {
-                SetField(ref _selectedValue, value);
+                SetField(ref _value, value);
                 _action.Invoke();
             }
         }

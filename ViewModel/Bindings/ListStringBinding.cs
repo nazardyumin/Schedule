@@ -4,20 +4,20 @@ namespace Schedule.ViewModel.Bindings
 {
     public class ListStringBinding : Notifier
     {
-        protected string _selectedValue;
-        public string SelectedValue
+        protected string _value;
+        public string Value
         {
-            get => _selectedValue;
-            set => SetField(ref _selectedValue, value);
+            get => _value;
+            set => SetField(ref _value, value);
         }
 
-        protected int _selectedIndex;
-        public int SelectedIndex
+        protected int _index;
+        public int Index
         {
-            get => _selectedIndex;
+            get => _index;
             set
             {
-                SetField(ref _selectedIndex, value);
+                SetField(ref _index, value);
                 IsAllOk();
             }
         }
@@ -30,14 +30,18 @@ namespace Schedule.ViewModel.Bindings
         }
         public ListStringBinding()
         {
-            _selectedValue = string.Empty;
-            _selectedIndex = -1;
+            _value = string.Empty;
+            _index = -1;
         }
 
         protected void IsAllOk()
         {
-            if (SelectedIndex != -1) IsOk = true;
+            if (Index != -1) IsOk = true;
             else IsOk = false;
+        }
+        public int ValueToInt()
+        {
+            return int.Parse(_value);
         }
     }
 }
