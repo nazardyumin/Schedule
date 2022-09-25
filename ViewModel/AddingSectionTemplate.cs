@@ -611,7 +611,8 @@ namespace Schedule.ViewModel
             }
             else if (Subject.IsOk && Teacher.IsOk && Auditorium.IsOk &&
                 StartTimeSelectedItem.IsOk && EndTimeSelectedItem.IsOk &&
-                YearsFromSelectedItem.IsOk && MonthsFromSelectedItem.IsOk && DatesFromSelectedItem.IsOk)
+                YearsFromSelectedItem.IsOk && MonthsFromSelectedItem.IsOk && DatesFromSelectedItem.IsOk &&
+                !YearsToSelectedItem.IsOk && !MonthsToSelectedItem.IsOk && !DatesToSelectedItem.IsOk)
             {
                 CanPressAdd = true;
             }
