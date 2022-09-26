@@ -16,6 +16,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="Lesson Schedule" Height="800" Width="1700"
+        Icon="View/Icons/icon.png"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <Grid.ColumnDefinitions>
