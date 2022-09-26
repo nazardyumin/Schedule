@@ -30,10 +30,20 @@
         {
             PositionInDayEnd = endIndex - PositionInDayStart;
         }
+        public Lesson GetCopy()
+        {
+            var newLesson = new Lesson(Subject,Teacher,Auditorium,Time);
+            newLesson.PositionInWeek = PositionInWeek;
+            newLesson.PositionInDayStart = PositionInDayStart;
+            newLesson.PositionInDayEnd = PositionInDayEnd;
+            newLesson.DayIndex = DayIndex;
+            newLesson.LessonIndex = LessonIndex;
+            return newLesson;
+        }
         public void SetConnectionIndexes(int dayIndex, int lessonIndex)
         {
-            DayIndex=dayIndex;
-            LessonIndex=lessonIndex;
+            DayIndex = dayIndex;
+            LessonIndex = lessonIndex;
         }
     }
 }

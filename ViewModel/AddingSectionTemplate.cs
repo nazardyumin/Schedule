@@ -704,7 +704,7 @@ namespace Schedule.ViewModel
         {
             return (YearsFromSelectedItem.ValueToInt(), MonthToInt(MonthsFromSelectedItem.Value), DatesFromSelectedItem.ValueToInt(),
                     YearsToSelectedItem.ValueToInt(), MonthToInt(MonthsToSelectedItem.Value), DatesToSelectedItem.ValueToInt(),
-                    CopyDays1SelectedItem.Index, CopyDayToIndex(CopyDays2SelectedItem.Value), CopyDayToIndex(CopyDays3SelectedItem.Value));
+                    CopyDayToIndex(CopyDays1SelectedItem.Value), CopyDayToIndex(CopyDays2SelectedItem.Value), CopyDayToIndex(CopyDays3SelectedItem.Value));
         }
         public (string subject, string teacher, string auditorium, int startTimeIndex, int endTimeIndex, string duration) GetSetupInfo()
         {
