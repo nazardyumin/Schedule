@@ -401,7 +401,7 @@ namespace Schedule.ViewModel
                             var lessonToAdd = lesson.GetCopy();
                             Days[j].Lessons.Add(lessonToAdd);
                             var lesIndex = Days[j].Lessons.IndexOf(lessonToAdd);
-                            Days[j].Lessons[lesIndex].SetConnectionIndexes(i, lesIndex);
+                            Days[j].Lessons[lesIndex].SetConnectionIndexes(j, lesIndex);
                         }
                         break;
                     }
@@ -419,7 +419,7 @@ namespace Schedule.ViewModel
                             var lessonToAdd = lesson.GetCopy();
                             Days[j].Lessons.Add(lessonToAdd);
                             var lesIndex = Days[j].Lessons.IndexOf(lessonToAdd);
-                            Days[j].Lessons[lesIndex].SetConnectionIndexes(i, lesIndex);
+                            Days[j].Lessons[lesIndex].SetConnectionIndexes(j, lesIndex);
                         }
                         break;
                     }
@@ -437,7 +437,7 @@ namespace Schedule.ViewModel
                             var lessonToAdd = lesson.GetCopy();
                             Days[j].Lessons.Add(lessonToAdd);
                             var lesIndex = Days[j].Lessons.IndexOf(lessonToAdd);
-                            Days[j].Lessons[lesIndex].SetConnectionIndexes(i, lesIndex);
+                            Days[j].Lessons[lesIndex].SetConnectionIndexes(j, lesIndex);
                         }
                         break;
                     }

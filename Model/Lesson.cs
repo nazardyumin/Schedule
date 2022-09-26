@@ -13,9 +13,9 @@
         public int LessonIndex { get; set; }
         public Lesson(string subject, string teacher, string auditorium, string time)
         {
-            Subject = $"Subject: {subject}";
-            Teacher = $"Teacher: {teacher}";
-            Auditorium = $"Auditorium: {auditorium}";
+            Subject = subject;
+            Teacher = teacher;
+            Auditorium = auditorium;
             Time = time;
         }
         public void SetPositionInWeek(int index)
@@ -33,6 +33,9 @@
         public Lesson GetCopy()
         {
             var newLesson = new Lesson(Subject,Teacher,Auditorium,Time);
+            newLesson.Subject = $"Subject: {Subject}";
+            newLesson.Teacher = $"Teacher: {Teacher}";
+            newLesson.Auditorium = $"Auditorium: {Auditorium}";
             newLesson.PositionInWeek = PositionInWeek;
             newLesson.PositionInDayStart = PositionInDayStart;
             newLesson.PositionInDayEnd = PositionInDayEnd;

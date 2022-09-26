@@ -408,7 +408,7 @@ namespace Schedule.ViewModel
         {
             CopyDays1!.Clear();
             if (Today != "Monday") CopyDays1!.Add("Monday");
-            if (Today != "Tuesday") CopyDays1!.Add("Tuedsay");
+            if (Today != "Tuesday") CopyDays1!.Add("Tuesday");
             if (Today != "Wednesday") CopyDays1!.Add("Wednesday");
             if (Today != "Thursday") CopyDays1!.Add("Thursday");
             if (Today != "Friday") CopyDays1!.Add("Friday");
@@ -418,21 +418,29 @@ namespace Schedule.ViewModel
         private void SetCopyDays2()
         {
             CopyDays2!.Clear();
-            for (int i = 0; i < 6; i++)
-            {
-                if (i != CopyDays1SelectedItem.Index) CopyDays2!.Add(CopyDays1![i]);
-            }
+            if (CopyDays1SelectedItem.Value != "Monday") CopyDays2!.Add("Monday");
+            if (CopyDays1SelectedItem.Value != "Tuesday") CopyDays2!.Add("Tuesday");
+            if (CopyDays1SelectedItem.Value != "Wednesday") CopyDays2!.Add("Wednesday");
+            if (CopyDays1SelectedItem.Value != "Thursday") CopyDays2!.Add("Thursday");
+            if (CopyDays1SelectedItem.Value != "Friday") CopyDays2!.Add("Friday");
+            if (CopyDays1SelectedItem.Value != "Saturday") CopyDays2!.Add("Saturday");
+            if (CopyDays1SelectedItem.Value != "Sunday") CopyDays2!.Add("Sunday");
+            CopyDays2.Remove(Today);
+            CopyDays2.Remove(CopyDays1SelectedItem.Value);
         }
         private void SetCopyDays3()
         {
             CopyDays3!.Clear();
-            if (CopyDays2SelectedItem.IsOk)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    if (i != CopyDays2SelectedItem.Index) CopyDays3!.Add(CopyDays2![i]);
-                }
-            }    
+            if (CopyDays2SelectedItem.Value != "Monday") CopyDays3!.Add("Monday");
+            if (CopyDays2SelectedItem.Value != "Tuesday") CopyDays3!.Add("Tuesday");
+            if (CopyDays2SelectedItem.Value != "Wednesday") CopyDays3!.Add("Wednesday");
+            if (CopyDays2SelectedItem.Value != "Thursday") CopyDays3!.Add("Thursday");
+            if (CopyDays2SelectedItem.Value != "Friday") CopyDays3!.Add("Friday");
+            if (CopyDays2SelectedItem.Value != "Saturday") CopyDays3!.Add("Saturday");
+            if (CopyDays2SelectedItem.Value != "Sunday") CopyDays3!.Add("Sunday");
+            CopyDays3.Remove(Today);
+            CopyDays3.Remove(CopyDays1SelectedItem.Value);
+            CopyDays3.Remove(CopyDays2SelectedItem.Value);
         }
 
         private void ClearYearsTo()
