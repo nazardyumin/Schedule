@@ -189,10 +189,13 @@ namespace Schedule.ViewModel
         private void SetEndTime()
         {
             EndTime!.Clear();
-            for (int i = StartTimeSelectedItem.Index + 1; i < StartTime!.Count; i++)
+            if (StartTimeSelectedItem.Index>=0)
             {
-                EndTime.Add(StartTime[i]);
-            }
+                for (int i = StartTimeSelectedItem.Index + 1; i < StartTime!.Count; i++)
+                {
+                    EndTime.Add(StartTime[i]);
+                }
+            }    
         }
 
         private void SetYearsFrom()
@@ -294,11 +297,14 @@ namespace Schedule.ViewModel
         private void SetYearsTo()
         {
             YearsTo!.Clear();
-            for (int i = YearsFromSelectedItem.Index; i < YearsFrom!.Count; i++)
+            if (YearsFromSelectedItem.IsOk)
             {
-                YearsTo.Add(YearsFrom[i]);
-            }
-            YearsToSelectedItem.Index = -1;
+                for (int i = YearsFromSelectedItem.Index; i < YearsFrom!.Count; i++)
+                {
+                    YearsTo.Add(YearsFrom[i]);
+                }
+                YearsToSelectedItem.Index = -1;
+            }         
         }
         private void SetMonthsTo()
         {
@@ -451,10 +457,6 @@ namespace Schedule.ViewModel
             if (key == "from") DatesFrom!.Clear();
             else DatesTo!.Clear();
         }
-        private void ClearEndTime()
-        {
-            EndTime!.Clear();
-        }
         private void ClearCopyDays()
         {
             CopyDays2!.Clear();
@@ -465,7 +467,6 @@ namespace Schedule.ViewModel
             ClearMonthsAndDates("all");
             ClearYearsTo();
             ClearCopyDays();
-            ClearEndTime();
         }
 
         private void ChangeToday()
@@ -681,9 +682,8 @@ namespace Schedule.ViewModel
         {
             Subject.Value = Teacher.Value = Auditorium.Value = string.Empty;
             ResetAndClear();
-            StartTimeSelectedItem.Index = EndTimeSelectedItem.Index = -1;
-            YearsFromSelectedItem.Index = MonthsFromSelectedItem.Index = DatesFromSelectedItem.Index = -1;
-            YearsToSelectedItem.Index = MonthsToSelectedItem.Index = DatesToSelectedItem.Index = -1;
+            StartTimeSelectedItem.Index = -1;
+            YearsFromSelectedItem.Index = -1;
             Today = "Today";
             TargetDay = string.Empty;
             monthFromMemory = 0;
