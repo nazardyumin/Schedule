@@ -9,6 +9,8 @@
         public int PositionInWeek { get; set; }
         public int PositionInDayStart { get; set; }
         public int PositionInDayEnd { get; set; }
+        public int DayIndex { get; set; }
+        public int LessonIndex { get; set; }
         public Lesson(string subject, string teacher, string auditorium, string time)
         {
             Subject = $"Subject: {subject}";
@@ -27,6 +29,11 @@
         public void SetPositionInDayEnd(int endIndex)
         {
             PositionInDayEnd = endIndex - PositionInDayStart;
+        }
+        public void SetConnectionIndexes(int dayIndex, int lessonIndex)
+        {
+            DayIndex=dayIndex;
+            LessonIndex=lessonIndex;
         }
     }
 }

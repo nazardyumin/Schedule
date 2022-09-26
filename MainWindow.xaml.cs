@@ -1,5 +1,6 @@
 ﻿using MaterialDesignThemes.Wpf;
 using Schedule.Model;
+using Schedule.View;
 using Schedule.ViewModel;
 using System;
 using System.Diagnostics;
@@ -176,9 +177,10 @@ namespace Schedule
             Border6.Background = new SolidColorBrush(Colors.Gainsboro);
         }
 
-        private Card ConvertLessonToCard(Lesson lesson)
+        private MyCard ConvertLessonToCard(Lesson lesson)
         {
-            var card = new Card();
+            var card = new MyCard();
+            card.SetConnectionIndexes(lesson.DayIndex,lesson.LessonIndex);
             var stack = new StackPanel();
             var header = new TextBlock { Text = lesson.Subject };
             var text = new TextBlock { Text = $"{lesson.Teacher}\n{lesson.Auditorium}\n{lesson.Time}" };
