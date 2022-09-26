@@ -180,10 +180,10 @@ namespace Schedule
         private MyCard ConvertLessonToCard(Lesson lesson)
         {
             var card = new MyCard();
-            card.SetConnectionIndexes(lesson.DayIndex,lesson.LessonIndex);
+            card.SetConnectionIndexes(lesson.ConnectionDayIndex,lesson.ConnectionLessonIndex);
             var stack = new StackPanel();
-            var header = new TextBlock { Text = lesson.Subject };
-            var text = new TextBlock { Text = $"{lesson.Teacher}\n{lesson.Auditorium}\n{lesson.Time}" };
+            var header = new TextBlock { Text = $"Subject: {lesson.Subject}" };
+            var text = new TextBlock { Text = $"Teacher: {lesson.Teacher}\nAuditorium: {lesson.Auditorium}\n{lesson.Time}" };
             header.FontWeight = FontWeights.Heavy;
 
             if (lesson.PositionInDayEnd <= 7)

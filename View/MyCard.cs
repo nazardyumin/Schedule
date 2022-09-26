@@ -4,16 +4,16 @@ namespace Schedule.View
 {
     public class MyCard : Card
     {
-        private int _dayIndex;
-        private int _lessonIndex;
+        private int _connectionDayIndex;
+        private int _connectionLessonIndex;
         public void SetConnectionIndexes(int dayIndex, int lessonIndex)
         {
-            _dayIndex=dayIndex;
-            _lessonIndex=lessonIndex;
+            _connectionDayIndex=dayIndex;
+            _connectionLessonIndex=lessonIndex;
         }
         public (int dayIndex, int lessonIndex) GetConnectionIndexes()
         {
-            return (_dayIndex, _lessonIndex);
+            return (_connectionDayIndex, _connectionLessonIndex);
         }
     }
 }

@@ -418,29 +418,20 @@ namespace Schedule.ViewModel
         private void SetCopyDays2()
         {
             CopyDays2!.Clear();
-            if (CopyDays1SelectedItem.Value != "Monday") CopyDays2!.Add("Monday");
-            if (CopyDays1SelectedItem.Value != "Tuesday") CopyDays2!.Add("Tuesday");
-            if (CopyDays1SelectedItem.Value != "Wednesday") CopyDays2!.Add("Wednesday");
-            if (CopyDays1SelectedItem.Value != "Thursday") CopyDays2!.Add("Thursday");
-            if (CopyDays1SelectedItem.Value != "Friday") CopyDays2!.Add("Friday");
-            if (CopyDays1SelectedItem.Value != "Saturday") CopyDays2!.Add("Saturday");
-            if (CopyDays1SelectedItem.Value != "Sunday") CopyDays2!.Add("Sunday");
-            CopyDays2.Remove(Today);
-            CopyDays2.Remove(CopyDays1SelectedItem.Value);
+            foreach(var day in CopyDays1!)
+            {
+                if (day == Today || day == CopyDays1SelectedItem.Value) continue;
+                else CopyDays2!.Add(day);
+            }
         }
         private void SetCopyDays3()
         {
             CopyDays3!.Clear();
-            if (CopyDays2SelectedItem.Value != "Monday") CopyDays3!.Add("Monday");
-            if (CopyDays2SelectedItem.Value != "Tuesday") CopyDays3!.Add("Tuesday");
-            if (CopyDays2SelectedItem.Value != "Wednesday") CopyDays3!.Add("Wednesday");
-            if (CopyDays2SelectedItem.Value != "Thursday") CopyDays3!.Add("Thursday");
-            if (CopyDays2SelectedItem.Value != "Friday") CopyDays3!.Add("Friday");
-            if (CopyDays2SelectedItem.Value != "Saturday") CopyDays3!.Add("Saturday");
-            if (CopyDays2SelectedItem.Value != "Sunday") CopyDays3!.Add("Sunday");
-            CopyDays3.Remove(Today);
-            CopyDays3.Remove(CopyDays1SelectedItem.Value);
-            CopyDays3.Remove(CopyDays2SelectedItem.Value);
+            foreach (var day in CopyDays2!)
+            {
+                if (day == Today || day == CopyDays1SelectedItem.Value || day == CopyDays2SelectedItem.Value) continue;
+                else CopyDays3!.Add(day);
+            }
         }
 
         private void ClearYearsTo()
