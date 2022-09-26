@@ -49,7 +49,14 @@ namespace Schedule.ViewModel.Bindings
         }
         public int ValueToInt()
         {
-            return int.Parse(_value);
+            if (_value is not null)
+            {
+                return int.Parse(_value);
+            }
+            else
+            {
+                return -1;
+            }          
         }
     }
 }

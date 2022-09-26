@@ -464,5 +464,40 @@ namespace Schedule.ViewModel
                    Thursday.IsThisDay(now.Year, now.Month, now.Day) || Friday.IsThisDay(now.Year, now.Month, now.Day) || Saturday.IsThisDay(now.Year, now.Month, now.Day) ||
                    Sunday.IsThisDay(now.Year, now.Month, now.Day);
         }
+        public void DeleteSelectedLesson(int dayIndex, int lessonIndex)
+        {
+            var lesson = Days![dayIndex].Lessons[lessonIndex];
+            var dayOfTheWeek = Days![dayIndex].GetDayIndex();
+            RemoveLessonFromCurrentWeek(dayOfTheWeek, lesson);
+            Days[dayIndex].Lessons.Remove(lesson);
+        }
+
+        private void RemoveLessonFromCurrentWeek(int dayOfTheWeek, Lesson lesson)
+        {
+            switch (dayOfTheWeek)
+            {
+                case 0:
+                    Monday.Lessons.Remove(lesson);
+                    break;
+                case 1:
+                    Tuesday.Lessons.Remove(lesson);
+                    break;
+                case 2:
+                    Wednesday.Lessons.Remove(lesson);
+                    break;
+                case 3:
+                    Thursday.Lessons.Remove(lesson);
+                    break;
+                case 4:
+                    Friday.Lessons.Remove(lesson);
+                    break;
+                case 5:
+                    Saturday.Lessons.Remove(lesson);
+                    break;
+                case 6:
+                    Sunday.Lessons.Remove(lesson);
+                    break;
+            }
+        }
     }
 }

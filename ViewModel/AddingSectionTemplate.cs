@@ -297,7 +297,7 @@ namespace Schedule.ViewModel
         private void SetYearsTo()
         {
             YearsTo!.Clear();
-            if (YearsFromSelectedItem.IsOk)
+            if (YearsFromSelectedItem.Index>-1)
             {
                 for (int i = YearsFromSelectedItem.Index; i < YearsFrom!.Count; i++)
                 {
@@ -427,10 +427,13 @@ namespace Schedule.ViewModel
         private void SetCopyDays3()
         {
             CopyDays3!.Clear();
-            for (int i = 0; i < 6; i++)
+            if (CopyDays2SelectedItem.IsOk)
             {
-                if (i != CopyDays2SelectedItem.Index) CopyDays3!.Add(CopyDays2![i]);
-            }
+                for (int i = 0; i < 6; i++)
+                {
+                    if (i != CopyDays2SelectedItem.Index) CopyDays3!.Add(CopyDays2![i]);
+                }
+            }    
         }
 
         private void ClearYearsTo()

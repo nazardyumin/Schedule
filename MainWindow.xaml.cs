@@ -202,7 +202,7 @@ namespace Schedule
                 stack.Children.Add(text);
             }
             card.Content = stack;
-
+            card.MouseRightButtonUp += MyCard_MouseDoubleClick; //testing!!!!!!!!
             card.HorizontalContentAlignment = HorizontalAlignment.Center;
             card.VerticalContentAlignment = VerticalAlignment.Center;
             ElevationAssist.SetElevation(card, Elevation.Dp6);
@@ -276,6 +276,41 @@ namespace Schedule
             AddCardsToFridayGrid(friday);
             AddCardsToSaturdayGrid(saturday);
             AddCardsToSundayGrid(sunday);
+        }
+        private void DeleteCardFromGrid(int dayIndex, MyCard card)
+        {
+            switch (dayIndex)
+            {
+                case 0:
+                    GridMonday.Children.Remove(card);
+                    break;
+                case 1:
+                    GridTuesday.Children.Remove(card);
+                    break;
+                case 2:
+                    GridWednesday.Children.Remove(card);
+                    break;
+                case 3:
+                    GridThursday.Children.Remove(card);
+                    break;
+                case 4:
+                    GridFriday.Children.Remove(card);
+                    break;
+                case 5:
+                    GridSaturday.Children.Remove(card);
+                    break;
+                case 6:
+                    GridSunday.Children.Remove(card);
+                    break;
+            }
+        }
+
+        //testing!!!!
+        private void MyCard_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var indexes = ((MyCard)sender).GetConnectionIndexes();
+            Model.DeleteSelectedLesson(indexes.dayIndex, indexes.lessonIndex);
+            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
         }
     }
 }
