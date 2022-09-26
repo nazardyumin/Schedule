@@ -120,7 +120,7 @@ namespace Schedule.ViewModel
             MonthsToSelectedItem = new(() => { SetDatesTo(); RefreshStates(); });
             DatesToSelectedItem = new(() => { ChangeTargetDay(); RefreshStates(); });
 
-            SetCopyDays1();
+            CopyDays1 = new();
             CopyDays2 = new();
             CopyDays3 = new();
 
@@ -367,6 +367,7 @@ namespace Schedule.ViewModel
                 }
 
                 monthToMemory = MonthToInt(MonthsToSelectedItem.Value);
+                SetCopyDays1();
             }
         }
         private void SetDatesToDependOnCalendar()
@@ -405,21 +406,19 @@ namespace Schedule.ViewModel
 
         private void SetCopyDays1()
         {
-            CopyDays1 = new()
-            {
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday",
-                "Sunday"
-            };
+            CopyDays1!.Clear();
+            if (Today != "Monday") CopyDays1!.Add("Monday");
+            if (Today != "Tuesday") CopyDays1!.Add("Tuedsay");
+            if (Today != "Wednesday") CopyDays1!.Add("Wednesday");
+            if (Today != "Thursday") CopyDays1!.Add("Thursday");
+            if (Today != "Friday") CopyDays1!.Add("Friday");
+            if (Today != "Saturday") CopyDays1!.Add("Saturday");
+            if (Today != "Sunday") CopyDays1!.Add("Sunday");
         }
         private void SetCopyDays2()
         {
             CopyDays2!.Clear();
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 6; i++)
             {
                 if (i != CopyDays1SelectedItem.Index) CopyDays2!.Add(CopyDays1![i]);
             }
@@ -429,7 +428,7 @@ namespace Schedule.ViewModel
             CopyDays3!.Clear();
             if (CopyDays2SelectedItem.IsOk)
             {
-                for (int i = 0; i < 6; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     if (i != CopyDays2SelectedItem.Index) CopyDays3!.Add(CopyDays2![i]);
                 }
