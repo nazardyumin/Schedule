@@ -207,7 +207,6 @@ namespace Schedule.Views.Windows.ScheduleWindow
 
             card.Content = stack;
             card.Margin=new Thickness(2, 0, 2, 0);
-            card.MouseRightButtonUp += MyCard_MouseDoubleClick; //testing!!!!!!!!
             card.HorizontalContentAlignment = HorizontalAlignment.Center;
             card.VerticalContentAlignment = VerticalAlignment.Center;
             ElevationAssist.SetElevation(card, Elevation.Dp6);
@@ -311,13 +310,50 @@ namespace Schedule.Views.Windows.ScheduleWindow
             }
             else if (day.IsFuture())
             {
-                card.Background = new SolidColorBrush(Colors.Ivory);
+                card.Background = new SolidColorBrush(Colors.Ivory);               
+                card.MouseEnter += CardFuture_MouseEnter;
+                card.MouseLeave += CardFuture_MouseLeave;
             }
             else
             {
                 card.Background = new SolidColorBrush(Colors.Wheat);
+                card.MouseEnter += CardToday_MouseEnter;
+                card.MouseLeave += CardToday_MouseLeave;
             }
         }
+
+        private void CardFuture_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            ((MyCard)sender).Background = new SolidColorBrush(Colors.Ivory);
+            ((MyCard)sender).Margin= new Thickness(2,0,2,0);
+            ((MyCard)sender).FontSize = 13;
+            ElevationAssist.SetElevation((MyCard)sender, Elevation.Dp6);
+        }
+
+        private void CardFuture_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {         
+            ((MyCard)sender).Background=new SolidColorBrush(Colors.LightYellow);
+            ((MyCard)sender).Margin = new Thickness(0);
+            ((MyCard)sender).FontSize = 13.1;
+            ElevationAssist.SetElevation((MyCard)sender, Elevation.Dp16);
+        }
+
+        private void CardToday_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            ((MyCard)sender).Background = new SolidColorBrush(Colors.Wheat);
+            ((MyCard)sender).Margin = new Thickness(2, 0, 2, 0);
+            ((MyCard)sender).FontSize = 13;
+            ElevationAssist.SetElevation((MyCard)sender, Elevation.Dp6);
+        }
+
+        private void CardToday_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            ((MyCard)sender).Background = new SolidColorBrush(Colors.Moccasin);
+            ((MyCard)sender).Margin = new Thickness(0);
+            ((MyCard)sender).FontSize = 13.1;
+            ElevationAssist.SetElevation((MyCard)sender, Elevation.Dp16);           
+        }
+
         private void SetContextMenu(ref MyCard card)
         {
             var connection = card.GetConnectionIndexes();

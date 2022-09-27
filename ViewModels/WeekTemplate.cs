@@ -519,5 +519,10 @@ namespace Schedule.ViewModels
                     break;
             }
         }
+
+        public Lesson GetSelectedLesson(int dayIndex, int lessonIndex)
+        {
+            return Days![dayIndex].Lessons![lessonIndex];
+        }
     }
 }
