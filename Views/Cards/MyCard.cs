@@ -1,6 +1,6 @@
 ﻿using MaterialDesignThemes.Wpf;
 
-namespace Schedule.View
+namespace Schedule.Views.Cards
 {
     public class MyCard : Card
     {
@@ -8,8 +8,8 @@ namespace Schedule.View
         private int _connectionLessonIndex;
         public void SetConnectionIndexes(int dayIndex, int lessonIndex)
         {
-            _connectionDayIndex=dayIndex;
-            _connectionLessonIndex=lessonIndex;
+            _connectionDayIndex = dayIndex;
+            _connectionLessonIndex = lessonIndex;
         }
         public (int dayIndex, int lessonIndex) GetConnectionIndexes()
         {

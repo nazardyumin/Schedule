@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Schedule.ViewModel.Commands
+namespace Schedule.ViewModels.Commands
 {
     public class MyCommand : ICommand
     {

@@ -1,10 +1,10 @@
-﻿using Schedule.Model;
-using Schedule.ViewModel.Bindings;
-using Schedule.ViewModel.Commands;
+﻿using Schedule.Models;
+using Schedule.ViewModels.Bindings;
+using Schedule.ViewModels.Commands;
 using System;
 using System.Collections.ObjectModel;
 
-namespace Schedule.ViewModel
+namespace Schedule.ViewModels
 {
     public class AddingSectionTemplate : Notifier
     {
@@ -189,13 +189,13 @@ namespace Schedule.ViewModel
         private void SetEndTime()
         {
             EndTime!.Clear();
-            if (StartTimeSelectedItem.Index>=0)
+            if (StartTimeSelectedItem.Index >= 0)
             {
                 for (int i = StartTimeSelectedItem.Index + 1; i < StartTime!.Count; i++)
                 {
                     EndTime.Add(StartTime[i]);
                 }
-            }    
+            }
         }
 
         private void SetYearsFrom()
@@ -297,14 +297,14 @@ namespace Schedule.ViewModel
         private void SetYearsTo()
         {
             YearsTo!.Clear();
-            if (YearsFromSelectedItem.Index>-1)
+            if (YearsFromSelectedItem.Index > -1)
             {
                 for (int i = YearsFromSelectedItem.Index; i < YearsFrom!.Count; i++)
                 {
                     YearsTo.Add(YearsFrom[i]);
                 }
                 YearsToSelectedItem.Index = -1;
-            }         
+            }
         }
         private void SetMonthsTo()
         {
@@ -418,7 +418,7 @@ namespace Schedule.ViewModel
         private void SetCopyDays2()
         {
             CopyDays2!.Clear();
-            foreach(var day in CopyDays1!)
+            foreach (var day in CopyDays1!)
             {
                 if (day == Today || day == CopyDays1SelectedItem.Value) continue;
                 else CopyDays2!.Add(day);

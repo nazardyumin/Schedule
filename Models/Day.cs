@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 
-namespace Schedule.Model
+namespace Schedule.Models
 {
     public class Day : Notifier
     {

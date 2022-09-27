@@ -1,4 +1,4 @@
-﻿namespace Schedule.Model
+﻿namespace Schedule.Models
 {
     public class Lesson
     {
@@ -32,7 +32,7 @@
         }
         public Lesson GetCopy()
         {
-            var newLesson = new Lesson(Subject, Teacher,Auditorium, Time);
+            var newLesson = new Lesson(Subject, Teacher, Auditorium, Time);
             newLesson.PositionInWeek = PositionInWeek;
             newLesson.PositionInDayStart = PositionInDayStart;
             newLesson.PositionInDayEnd = PositionInDayEnd;

@@ -1,7 +1,7 @@
-﻿using Schedule.Model;
+﻿using Schedule.Models;
 using System;
 
-namespace Schedule.ViewModel.Bindings
+namespace Schedule.ViewModels.Bindings
 {
     public class ItemBinding : Notifier
     {
@@ -56,7 +56,7 @@ namespace Schedule.ViewModel.Bindings
             else
             {
                 return -1;
-            }          
+            }
         }
     }
 }

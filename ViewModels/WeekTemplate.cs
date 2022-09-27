@@ -1,8 +1,8 @@
-﻿using Schedule.Model;
+﻿using Schedule.Models;
 using System;
 using System.Collections.Generic;
 
-namespace Schedule.ViewModel
+namespace Schedule.ViewModels
 {
     public class WeekTemplate : Notifier
     {

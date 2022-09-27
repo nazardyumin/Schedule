@@ -1,7 +1,7 @@
 ﻿using MaterialDesignThemes.Wpf;
-using Schedule.Model;
-using Schedule.View;
-using Schedule.ViewModel;
+using Schedule.Models;
+using Schedule.ViewModels;
+using Schedule.Views.Cards;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -9,15 +9,15 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 
-namespace Schedule
+namespace Schedule.Views.Windows.ScheduleWindow
 {
-    public partial class MainWindow : Window
+    public partial class ScheduleWindow : Window
     {
-        public WeekTemplate Model { get; set; }
+        public WeekTemplate Model {get; set; }
         public AddingSectionTemplate AddingSection { get; set; }
         public string ButtonBackContent { get; set; }
         public string ButtonForwardContent { get; set; }
-        public MainWindow()
+        public ScheduleWindow()
         {
             Model = new();
             AddingSection = new();
@@ -180,7 +180,7 @@ namespace Schedule
         private MyCard ConvertLessonToCard(Lesson lesson)
         {
             var card = new MyCard();
-            card.SetConnectionIndexes(lesson.ConnectionDayIndex,lesson.ConnectionLessonIndex);
+            card.SetConnectionIndexes(lesson.ConnectionDayIndex, lesson.ConnectionLessonIndex);
             var stack = new StackPanel();
             var header = new TextBlock { Text = $"Subject: {lesson.Subject}" };
             var text = new TextBlock { Text = $"Teacher: {lesson.Teacher}\nAuditorium: {lesson.Auditorium}\n{lesson.Time}" };
