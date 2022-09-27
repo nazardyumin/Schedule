@@ -217,7 +217,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             foreach (var item in monday.Lessons!)
             {
                 var card = ConvertLessonToCard(item);
-                if (monday.IsPast()) card.IsEnabled = false;
+                SetColor(ref card, monday);
                 GridMonday.Children.Add(card);
             }
         }
@@ -227,7 +227,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             foreach (var item in tuesday.Lessons!)
             {
                 var card = ConvertLessonToCard(item);
-                if (tuesday.IsPast()) card.IsEnabled = false;
+                SetColor(ref card, tuesday);
                 GridTuesday.Children.Add(card);
             }
         }
@@ -237,7 +237,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             foreach (var item in wednesday.Lessons!)
             {
                 var card = ConvertLessonToCard(item);
-                if (wednesday.IsPast()) card.IsEnabled = false;
+                SetColor(ref card, wednesday);
                 GridWednesday.Children.Add(card);
             }
         }
@@ -247,7 +247,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             foreach (var item in thursday.Lessons!)
             {
                 var card = ConvertLessonToCard(item);
-                if (thursday.IsPast()) card.IsEnabled = false;
+                SetColor(ref card, thursday);
                 GridThursday.Children.Add(card);
             }
         }
@@ -257,7 +257,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             foreach (var item in friday.Lessons!)
             {
                 var card = ConvertLessonToCard(item);
-                if (friday.IsPast()) card.IsEnabled = false;
+                SetColor(ref card, friday);
                 GridFriday.Children.Add(card);
             }
         }
@@ -267,7 +267,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             foreach (var item in saturday.Lessons!)
             {
                 var card = ConvertLessonToCard(item);
-                if (saturday.IsPast()) card.IsEnabled = false;
+                SetColor(ref card, saturday);
                 GridSaturday.Children.Add(card);
             }
         }
@@ -277,7 +277,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             foreach (var item in sunday.Lessons!)
             {
                 var card = ConvertLessonToCard(item);
-                if (sunday.IsPast()) card.IsEnabled = false;
+                SetColor(ref card, sunday);
                 GridSunday.Children.Add(card);
             }
         }
@@ -298,6 +298,22 @@ namespace Schedule.Views.Windows.ScheduleWindow
             var indexes = ((MyCard)sender).GetConnectionIndexes();
             Model.DeleteSelectedLesson(indexes.dayIndex, indexes.lessonIndex);
             AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
+        }
+        private void SetColor(ref MyCard card, Day day)
+        {
+            if (day.IsPast())
+            {
+                card.IsEnabled = false;
+                card.Background = new SolidColorBrush(Colors.WhiteSmoke);
+            }
+            else if (day.IsFuture())
+            {
+                card.Background = new SolidColorBrush(Colors.Ivory);
+            }
+            else
+            {
+                card.Background = new SolidColorBrush(Colors.Wheat);
+            }
         }
     }
 }
