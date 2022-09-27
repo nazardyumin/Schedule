@@ -297,13 +297,9 @@ namespace Schedule.Views.Windows.ScheduleWindow
             AddCardsToSundayGrid(sunday);
         }
 
-        //testing!!!!
         private void MyCard_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             ((MyCard)sender).ContextMenu.IsOpen = true;
-            /*var indexes = ((MyCard)sender).GetConnectionIndexes();
-            Model.DeleteSelectedLesson(indexes.dayIndex, indexes.lessonIndex);
-            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);*/
         }
         private void SetColor(ref MyCard card, Day day)
         {
