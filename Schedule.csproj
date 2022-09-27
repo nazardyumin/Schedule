@@ -10,9 +10,6 @@
   <ItemGroup>
     <None Remove="Views\Icons\github.png" />
     <None Remove="Views\Icons\icon.png" />
-    <None Remove="Views\Icons\Logo_cr.jpg" />
-    <None Remove="Views\Windows\ScheduleWindow\Icons\github.png" />
-    <None Remove="Views\Windows\ScheduleWindow\Icons\icon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,12 +21,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Views\Icons\icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Views\Windows\ScheduleWindow\Icons\github.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Views\Windows\ScheduleWindow\Icons\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
