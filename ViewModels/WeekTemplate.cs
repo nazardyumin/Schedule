@@ -78,12 +78,23 @@ namespace Schedule.ViewModels
 
         private void SetDays()
         {
-            Days = new();
-            for (int i = 0; i < 1000; i++)
+            Days = Serializer.Load();
+            var years = Configurator.Load().Years!;
+            foreach (var year in years)
             {
-                var timeSpan = new TimeSpan(i, 0, 0, 0);
-                var date = new DateTime(2022, 1, 1);
-                Days.Add(new Day(date + timeSpan));
+                if (year > Days[^1].Year)
+                {
+                    var firstDay = new DateTime(year, 1, 1);
+                    var lastDay = new DateTime(years[^1], 12, 31);
+                    var result = lastDay - firstDay;
+                    for (int i = 0; i <= result.TotalDays; i++)
+                    {
+                        var timeSpan = new TimeSpan(i, 0, 0, 0);
+                        Days.Add(new Day(firstDay + timeSpan));
+                    }
+                    Serializer.Save(Days);
+                    break;
+                }
             }
         }
         public void FocuseOnCurrentWeek()

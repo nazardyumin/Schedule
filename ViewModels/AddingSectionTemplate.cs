@@ -200,12 +200,7 @@ namespace Schedule.ViewModels
 
         private void SetYearsFrom()
         {
-            YearsFrom = new()
-            {
-                2022,
-                2023,
-                2024
-            };
+            YearsFrom = Configurator.Load().Years;
         }
         private void SetMonthsFrom()
         {

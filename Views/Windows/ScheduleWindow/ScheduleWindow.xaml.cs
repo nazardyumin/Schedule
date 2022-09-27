@@ -311,6 +311,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             var indexes = ((MyCard)sender).GetConnectionIndexes();
             Model.DeleteSelectedLesson(indexes.dayIndex, indexes.lessonIndex);
             AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
+            Serializer.Save(Model.GetDays());
         }
     }
 }
