@@ -15,7 +15,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStartupLocation="CenterScreen"
         Title="Lesson Schedule" Height="800" Width="1700"
-        Icon="\Views\Icons\icon.png"
+        Icon="\Assets\Icons\icon.png"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -801,7 +801,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Image Source="\Views\Icons\github.png" Margin="18,0,0,0"/>
+                    <Image Source="\Assets\Icons\github.png" Margin="18,0,0,0"/>
                     <TextBlock Margin="4,0,10,0" >
                     <Hyperlink NavigateUri="https://github.com/nazar-photo/Schedule" RequestNavigate="Hyperlink_RequestNavigate">
                                     nazar-photo © 2022
