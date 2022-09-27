@@ -214,7 +214,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
         private void AddCardsToMondayGrid(Day monday)
         {
             GridMonday.Children.Clear();
-            foreach (var item in monday.Lessons)
+            foreach (var item in monday.Lessons!)
             {
                 GridMonday.Children.Add(ConvertLessonToCard(item));
             }
@@ -222,7 +222,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
         private void AddCardsToTuesdayGrid(Day tuesday)
         {
             GridTuesday.Children.Clear();
-            foreach (var item in tuesday.Lessons)
+            foreach (var item in tuesday.Lessons!)
             {
                 GridTuesday.Children.Add(ConvertLessonToCard(item));
             }
@@ -230,7 +230,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
         private void AddCardsToWednesdayGrid(Day wednesday)
         {
             GridWednesday.Children.Clear();
-            foreach (var item in wednesday.Lessons)
+            foreach (var item in wednesday.Lessons!)
             {
                 GridWednesday.Children.Add(ConvertLessonToCard(item));
             }
@@ -238,7 +238,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
         private void AddCardsToThursdayGrid(Day thursday)
         {
             GridThursday.Children.Clear();
-            foreach (var item in thursday.Lessons)
+            foreach (var item in thursday.Lessons!)
             {
                 GridThursday.Children.Add(ConvertLessonToCard(item));
             }
@@ -246,7 +246,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
         private void AddCardsToFridayGrid(Day friday)
         {
             GridFriday.Children.Clear();
-            foreach (var item in friday.Lessons)
+            foreach (var item in friday.Lessons!)
             {
                 GridFriday.Children.Add(ConvertLessonToCard(item));
             }
@@ -254,7 +254,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
         private void AddCardsToSaturdayGrid(Day saturday)
         {
             GridSaturday.Children.Clear();
-            foreach (var item in saturday.Lessons)
+            foreach (var item in saturday.Lessons!)
             {
                 GridSaturday.Children.Add(ConvertLessonToCard(item));
             }
@@ -262,7 +262,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
         private void AddCardsToSundayGrid(Day sunday)
         {
             GridSunday.Children.Clear();
-            foreach (var item in sunday.Lessons)
+            foreach (var item in sunday.Lessons!)
             {
                 GridSunday.Children.Add(ConvertLessonToCard(item));
             }
@@ -311,7 +311,6 @@ namespace Schedule.Views.Windows.ScheduleWindow
             var indexes = ((MyCard)sender).GetConnectionIndexes();
             Model.DeleteSelectedLesson(indexes.dayIndex, indexes.lessonIndex);
             AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
-            Serializer.Save(Model.GetDays());
         }
     }
 }

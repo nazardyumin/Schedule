@@ -1,6 +1,7 @@
 ﻿using Schedule.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Schedule.ViewModels
 {
@@ -102,213 +103,211 @@ namespace Schedule.ViewModels
             DateTime currentDate = DateTime.Now;
             int index;
             int currentDayOfTheWeek = 0;
-            foreach (var item in Days!)
+            foreach (var item in from item in Days!
+                                 where item.IsThisDay(currentDate.Year, currentDate.Month, currentDate.Day)
+                                 select item)
             {
-                if (item.IsThisDay(currentDate.Year, currentDate.Month, currentDate.Day))
+                index = Days!.IndexOf(item);
+                currentDayOfTheWeek = Days[index].GetDayIndex();
+                var lastIndex = Days.Count - 1;
+                switch (currentDayOfTheWeek)
                 {
-                    index = Days!.IndexOf(item);
-                    currentDayOfTheWeek = Days[index].GetDayIndex();
-                    var lastIndex = Days.Count - 1;
-                    switch (currentDayOfTheWeek)
-                    {
-                        case 0:
-                            Monday = Days[index];
-                            if (index + 1 <= lastIndex)
-                            {
-                                Tuesday = Days[index + 1];
-                            }
-                            if (index + 2 <= lastIndex)
-                            {
-                                Wednesday = Days[index + 2];
-                            }
-                            if (index + 3 <= lastIndex)
-                            {
-                                Thursday = Days[index + 3];
-                            }
-                            if (index + 4 <= lastIndex)
-                            {
-                                Friday = Days[index + 4];
-                            }
-                            if (index + 5 <= lastIndex)
-                            {
-                                Saturday = Days[index + 5];
-                            }
-                            if (index + 6 <= lastIndex)
-                            {
-                                Sunday = Days[index + 6];
-                            }
-                            Header = SetHeader();
-                            break;
-                        case 1:
-                            if (index - 1 >= 0)
-                            {
-                                Monday = Days[index - 1];
-                            }
-                            Tuesday = Days[index];
-                            if (index + 1 <= lastIndex)
-                            {
-                                Wednesday = Days[index + 1];
-                            }
-                            if (index + 2 <= lastIndex)
-                            {
-                                Thursday = Days[index + 2];
-                            }
-                            if (index + 3 <= lastIndex)
-                            {
-                                Friday = Days[index + 3];
-                            }
-                            if (index + 4 <= lastIndex)
-                            {
-                                Saturday = Days[index + 4];
-                            }
-                            if (index + 5 <= lastIndex)
-                            {
-                                Sunday = Days[index + 5];
-                            }
-                            Header = SetHeader();
-                            break;
-                        case 2:
-                            if (index - 2 >= 0)
-                            {
-                                Monday = Days[index - 2];
-                            }
-                            if (index - 1 >= 0)
-                            {
-                                Tuesday = Days[index - 1];
-                            }
-                            Wednesday = Days[index];
-                            if (index + 1 <= lastIndex)
-                            {
-                                Thursday = Days[index + 1];
-                            }
-                            if (index + 2 <= lastIndex)
-                            {
-                                Friday = Days[index + 2];
-                            }
-                            if (index + 3 <= lastIndex)
-                            {
-                                Saturday = Days[index + 3];
-                            }
-                            if (index + 4 <= lastIndex)
-                            {
-                                Sunday = Days[index + 4];
-                            }
-                            Header = SetHeader();
-                            break;
-                        case 3:
-                            if (index - 3 >= 0)
-                            {
-                                Monday = Days[index - 3];
-                            }
-                            if (index - 2 >= 0)
-                            {
-                                Tuesday = Days[index - 2];
-                            }
-                            if (index - 1 >= 0)
-                            {
-                                Wednesday = Days[index - 1];
-                            }
-                            Thursday = Days[index];
-                            if (index + 1 <= lastIndex)
-                            {
-                                Friday = Days[index + 1];
-                            }
-                            if (index + 2 <= lastIndex)
-                            {
-                                Saturday = Days[index + 2];
-                            }
-                            if (index + 3 <= lastIndex)
-                            {
-                                Sunday = Days[index + 3];
-                            }
-                            Header = SetHeader();
-                            break;
-                        case 4:
-                            if (index - 4 >= 0)
-                            {
-                                Monday = Days[index - 4];
-                            }
-                            if (index - 3 >= 0)
-                            {
-                                Tuesday = Days[index - 3];
-                            }
-                            if (index - 2 >= 0)
-                            {
-                                Wednesday = Days[index - 2];
-                            }
-                            if (index - 1 >= 0)
-                            {
-                                Thursday = Days[index - 1];
-                            }
-                            Friday = Days[index];
-                            if (index + 1 <= lastIndex)
-                            {
-                                Saturday = Days[index + 1];
-                            }
-                            if (index + 2 <= lastIndex)
-                            {
-                                Sunday = Days[index + 2];
-                            }
-                            Header = SetHeader();
-                            break;
-                        case 5:
-                            if (index - 5 >= 0)
-                            {
-                                Monday = Days[index - 5];
-                            }
-                            if (index - 4 >= 0)
-                            {
-                                Tuesday = Days[index - 4];
-                            }
-                            if (index - 3 >= 0)
-                            {
-                                Wednesday = Days[index - 3];
-                            }
-                            if (index - 2 >= 0)
-                            {
-                                Thursday = Days[index - 2];
-                            }
-                            if (index - 1 >= 0)
-                            {
-                                Friday = Days[index - 1];
-                            }
-                            Saturday = Days[index];
-                            if (index + 1 <= lastIndex)
-                            {
-                                Sunday = Days[index + 1];
-                            }
-                            Header = SetHeader();
-                            break;
-                        case 6:
-                            if (index - 6 >= 0)
-                            {
-                                Monday = Days[index - 6];
-                            }
-                            if (index - 5 >= 0)
-                            {
-                                Tuesday = Days[index - 5];
-                            }
-                            if (index - 4 >= 0)
-                            {
-                                Wednesday = Days[index - 4];
-                            }
-                            if (index - 3 >= 0)
-                            {
-                                Thursday = Days[index - 3];
-                            }
-                            if (index - 2 >= 0)
-                            {
-                                Friday = Days[index - 2];
-                            }
-                            if (index - 1 >= 0)
-                            {
-                                Saturday = Days[index - 1];
-                            }
-                            Sunday = Days[index];
-                            Header = SetHeader();
-                            break;
-                    }
-                    break;
+                    case 0:
+                        Monday = Days[index];
+                        if (index + 1 <= lastIndex)
+                        {
+                            Tuesday = Days[index + 1];
+                        }
+                        if (index + 2 <= lastIndex)
+                        {
+                            Wednesday = Days[index + 2];
+                        }
+                        if (index + 3 <= lastIndex)
+                        {
+                            Thursday = Days[index + 3];
+                        }
+                        if (index + 4 <= lastIndex)
+                        {
+                            Friday = Days[index + 4];
+                        }
+                        if (index + 5 <= lastIndex)
+                        {
+                            Saturday = Days[index + 5];
+                        }
+                        if (index + 6 <= lastIndex)
+                        {
+                            Sunday = Days[index + 6];
+                        }
+                        Header = SetHeader();
+                        break;
+                    case 1:
+                        if (index - 1 >= 0)
+                        {
+                            Monday = Days[index - 1];
+                        }
+                        Tuesday = Days[index];
+                        if (index + 1 <= lastIndex)
+                        {
+                            Wednesday = Days[index + 1];
+                        }
+                        if (index + 2 <= lastIndex)
+                        {
+                            Thursday = Days[index + 2];
+                        }
+                        if (index + 3 <= lastIndex)
+                        {
+                            Friday = Days[index + 3];
+                        }
+                        if (index + 4 <= lastIndex)
+                        {
+                            Saturday = Days[index + 4];
+                        }
+                        if (index + 5 <= lastIndex)
+                        {
+                            Sunday = Days[index + 5];
+                        }
+                        Header = SetHeader();
+                        break;
+                    case 2:
+                        if (index - 2 >= 0)
+                        {
+                            Monday = Days[index - 2];
+                        }
+                        if (index - 1 >= 0)
+                        {
+                            Tuesday = Days[index - 1];
+                        }
+                        Wednesday = Days[index];
+                        if (index + 1 <= lastIndex)
+                        {
+                            Thursday = Days[index + 1];
+                        }
+                        if (index + 2 <= lastIndex)
+                        {
+                            Friday = Days[index + 2];
+                        }
+                        if (index + 3 <= lastIndex)
+                        {
+                            Saturday = Days[index + 3];
+                        }
+                        if (index + 4 <= lastIndex)
+                        {
+                            Sunday = Days[index + 4];
+                        }
+                        Header = SetHeader();
+                        break;
+                    case 3:
+                        if (index - 3 >= 0)
+                        {
+                            Monday = Days[index - 3];
+                        }
+                        if (index - 2 >= 0)
+                        {
+                            Tuesday = Days[index - 2];
+                        }
+                        if (index - 1 >= 0)
+                        {
+                            Wednesday = Days[index - 1];
+                        }
+                        Thursday = Days[index];
+                        if (index + 1 <= lastIndex)
+                        {
+                            Friday = Days[index + 1];
+                        }
+                        if (index + 2 <= lastIndex)
+                        {
+                            Saturday = Days[index + 2];
+                        }
+                        if (index + 3 <= lastIndex)
+                        {
+                            Sunday = Days[index + 3];
+                        }
+                        Header = SetHeader();
+                        break;
+                    case 4:
+                        if (index - 4 >= 0)
+                        {
+                            Monday = Days[index - 4];
+                        }
+                        if (index - 3 >= 0)
+                        {
+                            Tuesday = Days[index - 3];
+                        }
+                        if (index - 2 >= 0)
+                        {
+                            Wednesday = Days[index - 2];
+                        }
+                        if (index - 1 >= 0)
+                        {
+                            Thursday = Days[index - 1];
+                        }
+                        Friday = Days[index];
+                        if (index + 1 <= lastIndex)
+                        {
+                            Saturday = Days[index + 1];
+                        }
+                        if (index + 2 <= lastIndex)
+                        {
+                            Sunday = Days[index + 2];
+                        }
+                        Header = SetHeader();
+                        break;
+                    case 5:
+                        if (index - 5 >= 0)
+                        {
+                            Monday = Days[index - 5];
+                        }
+                        if (index - 4 >= 0)
+                        {
+                            Tuesday = Days[index - 4];
+                        }
+                        if (index - 3 >= 0)
+                        {
+                            Wednesday = Days[index - 3];
+                        }
+                        if (index - 2 >= 0)
+                        {
+                            Thursday = Days[index - 2];
+                        }
+                        if (index - 1 >= 0)
+                        {
+                            Friday = Days[index - 1];
+                        }
+                        Saturday = Days[index];
+                        if (index + 1 <= lastIndex)
+                        {
+                            Sunday = Days[index + 1];
+                        }
+                        Header = SetHeader();
+                        break;
+                    case 6:
+                        if (index - 6 >= 0)
+                        {
+                            Monday = Days[index - 6];
+                        }
+                        if (index - 5 >= 0)
+                        {
+                            Tuesday = Days[index - 5];
+                        }
+                        if (index - 4 >= 0)
+                        {
+                            Wednesday = Days[index - 4];
+                        }
+                        if (index - 3 >= 0)
+                        {
+                            Thursday = Days[index - 3];
+                        }
+                        if (index - 2 >= 0)
+                        {
+                            Friday = Days[index - 2];
+                        }
+                        if (index - 1 >= 0)
+                        {
+                            Saturday = Days[index - 1];
+                        }
+                        Sunday = Days[index];
+                        Header = SetHeader();
+                        break;
                 }
             }
             _currentDayIndex = currentDayOfTheWeek;
@@ -396,9 +395,9 @@ namespace Schedule.ViewModels
             for (int i = start; i <= stop; i += 7)
             {
                 var lessonToAdd = lesson.GetCopy();
-                Days[i].Lessons.Add(lessonToAdd);
-                var lesIndex = Days[i].Lessons.IndexOf(lessonToAdd);
-                Days[i].Lessons[lesIndex].SetConnectionIndexes(i, lesIndex);
+                Days[i].Lessons!.Add(lessonToAdd);
+                var lesIndex = Days[i].Lessons!.IndexOf(lessonToAdd);
+                Days[i].Lessons![lesIndex].SetConnectionIndexes(i, lesIndex);
             }
             if (copy1Index != -1)
             {
@@ -410,9 +409,9 @@ namespace Schedule.ViewModels
                         for (int j = i; j <= stop; j += 7)
                         {
                             var lessonToAdd = lesson.GetCopy();
-                            Days[j].Lessons.Add(lessonToAdd);
-                            var lesIndex = Days[j].Lessons.IndexOf(lessonToAdd);
-                            Days[j].Lessons[lesIndex].SetConnectionIndexes(j, lesIndex);
+                            Days[j].Lessons!.Add(lessonToAdd);
+                            var lesIndex = Days[j].Lessons!.IndexOf(lessonToAdd);
+                            Days[j].Lessons![lesIndex].SetConnectionIndexes(j, lesIndex);
                         }
                         break;
                     }
@@ -428,9 +427,9 @@ namespace Schedule.ViewModels
                         for (int j = i; j <= stop; j += 7)
                         {
                             var lessonToAdd = lesson.GetCopy();
-                            Days[j].Lessons.Add(lessonToAdd);
-                            var lesIndex = Days[j].Lessons.IndexOf(lessonToAdd);
-                            Days[j].Lessons[lesIndex].SetConnectionIndexes(j, lesIndex);
+                            Days[j].Lessons!.Add(lessonToAdd);
+                            var lesIndex = Days[j].Lessons!.IndexOf(lessonToAdd);
+                            Days[j].Lessons![lesIndex].SetConnectionIndexes(j, lesIndex);
                         }
                         break;
                     }
@@ -446,21 +445,23 @@ namespace Schedule.ViewModels
                         for (int j = i; j <= stop; j += 7)
                         {
                             var lessonToAdd = lesson.GetCopy();
-                            Days[j].Lessons.Add(lessonToAdd);
-                            var lesIndex = Days[j].Lessons.IndexOf(lessonToAdd);
-                            Days[j].Lessons[lesIndex].SetConnectionIndexes(j, lesIndex);
+                            Days[j].Lessons!.Add(lessonToAdd);
+                            var lesIndex = Days[j].Lessons!.IndexOf(lessonToAdd);
+                            Days[j].Lessons![lesIndex].SetConnectionIndexes(j, lesIndex);
                         }
                         break;
                     }
                 }
             }
+            Serializer.Save(Days);
         }
         public void AddLessonToOneDay(Lesson lesson, int yearFrom, int monthFrom, int dayFrom)
         {
             var dayIndex = FindDay(yearFrom, monthFrom, dayFrom);
-            Days![dayIndex].Lessons.Add(lesson);
-            var lesIndex = Days![dayIndex].Lessons.IndexOf(lesson);
-            Days![dayIndex].Lessons[lesIndex].SetConnectionIndexes(dayIndex, lesIndex);
+            Days![dayIndex].Lessons!.Add(lesson);
+            var lesIndex = Days![dayIndex].Lessons!.IndexOf(lesson);
+            Days![dayIndex].Lessons![lesIndex].SetConnectionIndexes(dayIndex, lesIndex);
+            Serializer.Save(Days);
         }
         private int FindDay(int year, int month, int date)
         {
@@ -484,10 +485,10 @@ namespace Schedule.ViewModels
         }
         public void DeleteSelectedLesson(int dayIndex, int lessonIndex)
         {
-            var lesson = Days![dayIndex].Lessons[lessonIndex];
+            var lesson = Days![dayIndex].Lessons![lessonIndex];
             var dayOfTheWeek = Days![dayIndex].GetDayIndex();
             RemoveLessonFromCurrentWeek(dayOfTheWeek, lesson);
-            Days[dayIndex].Lessons.Remove(lesson);
+            Days[dayIndex].Lessons!.Remove(lesson);
         }
 
         private void RemoveLessonFromCurrentWeek(int dayOfTheWeek, Lesson lesson)
@@ -495,25 +496,25 @@ namespace Schedule.ViewModels
             switch (dayOfTheWeek)
             {
                 case 0:
-                    Monday.Lessons.Remove(lesson);
+                    Monday.Lessons!.Remove(lesson);
                     break;
                 case 1:
-                    Tuesday.Lessons.Remove(lesson);
+                    Tuesday.Lessons!.Remove(lesson);
                     break;
                 case 2:
-                    Wednesday.Lessons.Remove(lesson);
+                    Wednesday.Lessons!.Remove(lesson);
                     break;
                 case 3:
-                    Thursday.Lessons.Remove(lesson);
+                    Thursday.Lessons!.Remove(lesson);
                     break;
                 case 4:
-                    Friday.Lessons.Remove(lesson);
+                    Friday.Lessons!.Remove(lesson);
                     break;
                 case 5:
-                    Saturday.Lessons.Remove(lesson);
+                    Saturday.Lessons!.Remove(lesson);
                     break;
                 case 6:
-                    Sunday.Lessons.Remove(lesson);
+                    Sunday.Lessons!.Remove(lesson);
                     break;
             }
         }
