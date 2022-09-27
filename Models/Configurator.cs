@@ -20,9 +20,17 @@ namespace Schedule.Models
             }
             if (config.Years == null || config.Years.Count==0)
             {
-                config.Years = new ObservableCollection<int>() { 2022, 2023, 2024 };
+                config.Years = new ObservableCollection<int>() { 2022, 2023 };
+                DateTime now = DateTime.Now;
+                var timeSpan = new TimeSpan(182, 0, 0, 0);
+                var endOfTheYear = now + timeSpan;
+                if (endOfTheYear.Year > config.Years[^1])
+                {
+                    var lastYearInList = config.Years[^1];
+                    config.Years.Add(lastYearInList + 1);
+                }
                 var firstDay = new DateTime(2022, 1, 1);
-                var lastDay=new DateTime(2024, 12, 31);
+                var lastDay=new DateTime(config.Years[^1], 12, 31);
                 var result = lastDay - firstDay;
                 config.DaysCount = int.Parse(result.TotalDays.ToString());
             }
