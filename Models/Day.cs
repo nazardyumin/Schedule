@@ -102,5 +102,12 @@ namespace Schedule.Models
             var thisDay = new DateTime(Year, Month, Date);
             return thisDay > now;
         }
+        public bool IsPast()
+        {
+            DateTime now = DateTime.Now;
+            var thisDay = new DateTime(Year, Month, Date);
+            return thisDay < now;
+        }
+
     }
 }

@@ -216,7 +216,9 @@ namespace Schedule.Views.Windows.ScheduleWindow
             GridMonday.Children.Clear();
             foreach (var item in monday.Lessons!)
             {
-                GridMonday.Children.Add(ConvertLessonToCard(item));
+                var card = ConvertLessonToCard(item);
+                if (monday.IsPast()) card.IsEnabled = false;
+                GridMonday.Children.Add(card);
             }
         }
         private void AddCardsToTuesdayGrid(Day tuesday)
@@ -224,7 +226,9 @@ namespace Schedule.Views.Windows.ScheduleWindow
             GridTuesday.Children.Clear();
             foreach (var item in tuesday.Lessons!)
             {
-                GridTuesday.Children.Add(ConvertLessonToCard(item));
+                var card = ConvertLessonToCard(item);
+                if (tuesday.IsPast()) card.IsEnabled = false;
+                GridTuesday.Children.Add(card);
             }
         }
         private void AddCardsToWednesdayGrid(Day wednesday)
@@ -232,7 +236,9 @@ namespace Schedule.Views.Windows.ScheduleWindow
             GridWednesday.Children.Clear();
             foreach (var item in wednesday.Lessons!)
             {
-                GridWednesday.Children.Add(ConvertLessonToCard(item));
+                var card = ConvertLessonToCard(item);
+                if (wednesday.IsPast()) card.IsEnabled = false;
+                GridWednesday.Children.Add(card);
             }
         }
         private void AddCardsToThursdayGrid(Day thursday)
@@ -240,7 +246,9 @@ namespace Schedule.Views.Windows.ScheduleWindow
             GridThursday.Children.Clear();
             foreach (var item in thursday.Lessons!)
             {
-                GridThursday.Children.Add(ConvertLessonToCard(item));
+                var card = ConvertLessonToCard(item);
+                if (thursday.IsPast()) card.IsEnabled = false;
+                GridThursday.Children.Add(card);
             }
         }
         private void AddCardsToFridayGrid(Day friday)
@@ -248,7 +256,9 @@ namespace Schedule.Views.Windows.ScheduleWindow
             GridFriday.Children.Clear();
             foreach (var item in friday.Lessons!)
             {
-                GridFriday.Children.Add(ConvertLessonToCard(item));
+                var card = ConvertLessonToCard(item);
+                if (friday.IsPast()) card.IsEnabled = false;
+                GridFriday.Children.Add(card);
             }
         }
         private void AddCardsToSaturdayGrid(Day saturday)
@@ -256,7 +266,9 @@ namespace Schedule.Views.Windows.ScheduleWindow
             GridSaturday.Children.Clear();
             foreach (var item in saturday.Lessons!)
             {
-                GridSaturday.Children.Add(ConvertLessonToCard(item));
+                var card = ConvertLessonToCard(item);
+                if (saturday.IsPast()) card.IsEnabled = false;
+                GridSaturday.Children.Add(card);
             }
         }
         private void AddCardsToSundayGrid(Day sunday)
@@ -264,7 +276,9 @@ namespace Schedule.Views.Windows.ScheduleWindow
             GridSunday.Children.Clear();
             foreach (var item in sunday.Lessons!)
             {
-                GridSunday.Children.Add(ConvertLessonToCard(item));
+                var card = ConvertLessonToCard(item);
+                if (sunday.IsPast()) card.IsEnabled = false;
+                GridSunday.Children.Add(card);
             }
         }
         private void AddCardsToGrid(Day monday, Day tuesday, Day wednesday, Day thursday, Day friday, Day saturday, Day sunday)
@@ -276,33 +290,6 @@ namespace Schedule.Views.Windows.ScheduleWindow
             AddCardsToFridayGrid(friday);
             AddCardsToSaturdayGrid(saturday);
             AddCardsToSundayGrid(sunday);
-        }
-        private void DeleteCardFromGrid(int dayIndex, MyCard card)
-        {
-            switch (dayIndex)
-            {
-                case 0:
-                    GridMonday.Children.Remove(card);
-                    break;
-                case 1:
-                    GridTuesday.Children.Remove(card);
-                    break;
-                case 2:
-                    GridWednesday.Children.Remove(card);
-                    break;
-                case 3:
-                    GridThursday.Children.Remove(card);
-                    break;
-                case 4:
-                    GridFriday.Children.Remove(card);
-                    break;
-                case 5:
-                    GridSaturday.Children.Remove(card);
-                    break;
-                case 6:
-                    GridSunday.Children.Remove(card);
-                    break;
-            }
         }
 
         //testing!!!!
