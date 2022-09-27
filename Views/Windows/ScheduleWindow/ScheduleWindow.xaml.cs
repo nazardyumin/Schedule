@@ -202,6 +202,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
                 stack.Children.Add(text);
             }
             card.Content = stack;
+            card.Margin=new Thickness(2, 0, 2, 0);
             card.MouseRightButtonUp += MyCard_MouseDoubleClick; //testing!!!!!!!!
             card.HorizontalContentAlignment = HorizontalAlignment.Center;
             card.VerticalContentAlignment = VerticalAlignment.Center;
@@ -305,6 +306,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             {
                 card.IsEnabled = false;
                 card.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                card.Foreground= new SolidColorBrush(Colors.Gray);
             }
             else if (day.IsFuture())
             {
