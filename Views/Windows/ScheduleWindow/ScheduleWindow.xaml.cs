@@ -2,7 +2,9 @@
 using Schedule.Models;
 using Schedule.ViewModels;
 using Schedule.Views.Cards;
+using Schedule.Views.MenuItems;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -201,6 +203,8 @@ namespace Schedule.Views.Windows.ScheduleWindow
                 stack.Children.Add(header);
                 stack.Children.Add(text);
             }
+            SetContextMenu(ref card);
+
             card.Content = stack;
             card.Margin=new Thickness(2, 0, 2, 0);
             card.MouseRightButtonUp += MyCard_MouseDoubleClick; //testing!!!!!!!!
@@ -296,9 +300,10 @@ namespace Schedule.Views.Windows.ScheduleWindow
         //testing!!!!
         private void MyCard_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            var indexes = ((MyCard)sender).GetConnectionIndexes();
+            ((MyCard)sender).ContextMenu.IsOpen = true;
+            /*var indexes = ((MyCard)sender).GetConnectionIndexes();
             Model.DeleteSelectedLesson(indexes.dayIndex, indexes.lessonIndex);
-            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
+            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);*/
         }
         private void SetColor(ref MyCard card, Day day)
         {
@@ -316,6 +321,39 @@ namespace Schedule.Views.Windows.ScheduleWindow
             {
                 card.Background = new SolidColorBrush(Colors.Wheat);
             }
+        }
+        private void SetContextMenu(ref MyCard card)
+        {
+            var connection = card.GetConnectionIndexes();
+
+            var item1 = new MyMenuItem();           
+            item1.Header = "Edit";
+            item1.Click += Item1_Click;
+
+            var item2 = new MyMenuItem();
+            item2.Header = "Delete";
+            item2.SetConnectionIndexes(connection.dayIndex,connection.lessonIndex);
+            item2.Click += Item2_Click;
+            var items = new List<MenuItem>() { item1,item2};
+            var contextMenu = new ContextMenu();
+            contextMenu.ItemsSource = items;
+            contextMenu.FontSize = 13;
+            card.ContextMenu = contextMenu;
+        }
+
+        private void Item1_Click(object sender, RoutedEventArgs e)
+        {
+
+            throw new NotImplementedException();
+           
+            
+        }
+        private void Item2_Click(object sender, RoutedEventArgs e)
+        {
+            var menuItem = (MyMenuItem)e.Source;
+            var connection = menuItem.GetConnectionIndexes();
+            Model.DeleteSelectedLesson(connection.dayIndex, connection.lessonIndex);
+            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
         }
     }
 }
