@@ -203,8 +203,6 @@ namespace Schedule.Views.Windows.ScheduleWindow
                 stack.Children.Add(header);
                 stack.Children.Add(text);
             }
-            SetContextMenu(ref card);
-
             card.Content = stack;
             card.Margin=new Thickness(2, 0, 2, 0);
             card.HorizontalContentAlignment = HorizontalAlignment.Center;
@@ -221,7 +219,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             foreach (var item in monday.Lessons!)
             {
                 var card = ConvertLessonToCard(item);
-                SetColor(ref card, monday);
+                SetColorMenuAndEvents(ref card, monday);
                 GridMonday.Children.Add(card);
             }
         }
@@ -231,7 +229,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             foreach (var item in tuesday.Lessons!)
             {
                 var card = ConvertLessonToCard(item);
-                SetColor(ref card, tuesday);
+                SetColorMenuAndEvents(ref card, tuesday);
                 GridTuesday.Children.Add(card);
             }
         }
@@ -241,7 +239,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             foreach (var item in wednesday.Lessons!)
             {
                 var card = ConvertLessonToCard(item);
-                SetColor(ref card, wednesday);
+                SetColorMenuAndEvents(ref card, wednesday);
                 GridWednesday.Children.Add(card);
             }
         }
@@ -251,7 +249,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             foreach (var item in thursday.Lessons!)
             {
                 var card = ConvertLessonToCard(item);
-                SetColor(ref card, thursday);
+                SetColorMenuAndEvents(ref card, thursday);
                 GridThursday.Children.Add(card);
             }
         }
@@ -261,7 +259,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             foreach (var item in friday.Lessons!)
             {
                 var card = ConvertLessonToCard(item);
-                SetColor(ref card, friday);
+                SetColorMenuAndEvents(ref card, friday);
                 GridFriday.Children.Add(card);
             }
         }
@@ -271,7 +269,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             foreach (var item in saturday.Lessons!)
             {
                 var card = ConvertLessonToCard(item);
-                SetColor(ref card, saturday);
+                SetColorMenuAndEvents(ref card, saturday);
                 GridSaturday.Children.Add(card);
             }
         }
@@ -281,7 +279,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             foreach (var item in sunday.Lessons!)
             {
                 var card = ConvertLessonToCard(item);
-                SetColor(ref card, sunday);
+                SetColorMenuAndEvents(ref card, sunday);
                 GridSunday.Children.Add(card);
             }
         }
@@ -300,23 +298,27 @@ namespace Schedule.Views.Windows.ScheduleWindow
         {
             ((MyCard)sender).ContextMenu.IsOpen = true;
         }
-        private void SetColor(ref MyCard card, Day day)
+        private void SetColorMenuAndEvents(ref MyCard card, Day day)
         {
             if (day.IsPast())
             {
-                card.IsEnabled = false;
+               
                 card.Background = new SolidColorBrush(Colors.WhiteSmoke);
                 card.Foreground= new SolidColorBrush(Colors.Gray);
+                card.MouseEnter += CardPast_MouseEnter;
+                card.MouseLeave += CardPast_MouseLeave;
             }
             else if (day.IsFuture())
             {
-                card.Background = new SolidColorBrush(Colors.Ivory);               
+                card.Background = new SolidColorBrush(Colors.Ivory);
+                SetContextMenu(ref card);
                 card.MouseEnter += CardFuture_MouseEnter;
                 card.MouseLeave += CardFuture_MouseLeave;
             }
             else
             {
                 card.Background = new SolidColorBrush(Colors.Wheat);
+                SetContextMenu(ref card);
                 card.MouseEnter += CardToday_MouseEnter;
                 card.MouseLeave += CardToday_MouseLeave;
             }
@@ -353,6 +355,24 @@ namespace Schedule.Views.Windows.ScheduleWindow
             ((MyCard)sender).FontSize = 13.1;
             ElevationAssist.SetElevation((MyCard)sender, Elevation.Dp16);           
         }
+        private void CardPast_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+  
+            ((MyCard)sender).Margin = new Thickness(2, 0, 2, 0);
+            ((MyCard)sender).FontSize = 13;
+            ElevationAssist.SetElevation((MyCard)sender, Elevation.Dp6);
+        }
+
+        private void CardPast_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+ 
+            ((MyCard)sender).Margin = new Thickness(0);
+            ((MyCard)sender).FontSize = 13.1;
+            ElevationAssist.SetElevation((MyCard)sender, Elevation.Dp16);
+        }
+
+
+
 
         private void SetContextMenu(ref MyCard card)
         {
