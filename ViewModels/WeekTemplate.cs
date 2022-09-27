@@ -489,6 +489,7 @@ namespace Schedule.ViewModels
             var dayOfTheWeek = Days![dayIndex].GetDayIndex();
             RemoveLessonFromCurrentWeek(dayOfTheWeek, lesson);
             Days[dayIndex].Lessons!.Remove(lesson);
+            Serializer.Save(Days);
         }
 
         private void RemoveLessonFromCurrentWeek(int dayOfTheWeek, Lesson lesson)
