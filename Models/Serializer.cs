@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Text.Encodings.Web;
 using System.Text.Json;
@@ -12,7 +11,7 @@ namespace Schedule.Models
         public static List<Day> Load()
         {
             string fileName = "ListDays.json";
-            var path = Configurator.Load().PathToListDays+fileName;
+            var path = Configurator.Load().PathToListDays + fileName;
             var file = File.ReadAllText(path);
             return JsonSerializer.Deserialize<List<Day>>(file)!;
         }
@@ -30,7 +29,7 @@ namespace Schedule.Models
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
                 WriteIndented = true
             });
-            File.WriteAllText(path,file);
+            File.WriteAllText(path, file);
         }
     }
 }
