@@ -426,5 +426,11 @@ namespace Schedule.Views.Windows.ScheduleWindow
             AddingBlock.Visibility = Visibility.Visible;
             EditingBlock.Visibility = Visibility.Hidden;
         }
+
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        {
+            AddingBlock.Visibility = Visibility.Visible;
+            EditingBlock.Visibility = Visibility.Hidden;
+        }
     }
 }

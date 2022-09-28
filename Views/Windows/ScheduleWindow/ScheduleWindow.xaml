@@ -694,8 +694,8 @@
                     <RowDefinition Height="70"/>
                     <RowDefinition Height="70"/>
                     <RowDefinition Height="60"/>
-                    <RowDefinition Height="190"/>
-                    <RowDefinition Height="16"/>
+                    <RowDefinition Height="7*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0"  Text="Add Lesson" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
                 <StackPanel Grid.Row="1" Margin="10,10,10,10">
@@ -804,8 +804,8 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Image Source="\Assets\Icons\github.png" Margin="18,0,0,0"/>
-                    <TextBlock Margin="4,0,10,0" >
+                    <Image Source="\Assets\Icons\github.png" Margin="18,0,0,0" Width="20" Height="20"/>
+                    <TextBlock Margin="4,0,10,0"  VerticalAlignment="Center">
                     <Hyperlink NavigateUri="https://github.com/nazar-photo/Schedule" RequestNavigate="Hyperlink_RequestNavigate">
                                     nazar-photo © 2022
                             </Hyperlink>
@@ -827,8 +827,8 @@
                     <RowDefinition Height="70"/>
                     <RowDefinition Height="70"/>
                     <RowDefinition Height="60"/>
-                    <RowDefinition Height="190"/>
-                    <RowDefinition Height="16"/>
+                    <RowDefinition Height="7*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0"  Text="Edit Lesson" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
                 <StackPanel Grid.Row="1" Margin="10,10,10,10">
@@ -881,7 +881,7 @@
                                 IsEnabled="{Binding AddingSection.CanPressToday, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                 </StackPanel>
-               
+
                 <StackPanel Grid.Row="8">
                     <StackPanel  Margin="10,10,10,10" Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button x:Name="ButtonClearEdit" Content="Clear" Margin="0,0,5,0" Style="{DynamicResource MaterialDesignPaperButton}" Command="{Binding AddingSection.CommandClear}" 
@@ -892,18 +892,20 @@
                                 IsEnabled="{Binding AddingSection.CanPressSave, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                 </StackPanel>
-
+                <StackPanel Grid.Row="9" >
+                    <Button x:Name="ButtonCancel" Content="Cancel" Margin="5,0,0,0" Style="{DynamicResource MaterialDesignPaperButton}" 
+                            HorizontalAlignment="Center" Click="ButtonCancel_Click"
+                            Command="{Binding AddingSection.CommandSave}"/>
+                </StackPanel>
                 <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Image Source="\Assets\Icons\github.png" Margin="18,0,0,0"/>
-                    <TextBlock Margin="4,0,10,0" >
+                    <Image Source="\Assets\Icons\github.png" Margin="18,0,0,0" Width="20" Height="20"/>
+                    <TextBlock Margin="4,0,10,0"  VerticalAlignment="Center">
                     <Hyperlink NavigateUri="https://github.com/nazar-photo/Schedule" RequestNavigate="Hyperlink_RequestNavigate">
                                     nazar-photo © 2022
                             </Hyperlink>
                     </TextBlock>
                 </StackPanel>
             </Grid>
-
-
         </Border>
     </Grid>
 </Window>
