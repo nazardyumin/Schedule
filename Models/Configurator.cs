@@ -20,8 +20,18 @@ namespace Schedule.Models
             }
             if (config.Years == null || config.Years.Count==0)
             {
-                config.Years = new ObservableCollection<int>() { 2022, 2023 };
+                config.Years = new ObservableCollection<int>() { 2022 };
                 DateTime now = DateTime.Now;
+                if (now.Year > config.Years[^1])
+                {
+                    var lastYearInList = config.Years[^1];
+                    var steps = now.Year - lastYearInList;
+                    
+                    for (int i=0;i<steps;i++)
+                    {
+                        config.Years.Add(lastYearInList + 1);
+                    }
+                }
                 var timeSpan = new TimeSpan(182, 0, 0, 0);
                 var endOfTheYear = now + timeSpan;
                 if (endOfTheYear.Year > config.Years[^1])
