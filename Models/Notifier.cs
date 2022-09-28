@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Schedule.Model
+namespace Schedule.Models
 {
     public abstract class Notifier : INotifyPropertyChanged
     {

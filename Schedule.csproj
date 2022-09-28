@@ -8,9 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="View\Icons\github.png" />
-    <None Remove="View\Icons\icon.png" />
-    <None Remove="View\Icons\Logo_cr.jpg" />
+    <None Remove="Assets\Icons\github.png" />
+    <None Remove="Assets\Icons\icon.png" />
+    <None Remove="Assets\ScheduleConfig.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,12 +18,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="View\Icons\github.png">
+    <Resource Include="Assets\Icons\github.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="View\Icons\icon.png">
+    <Resource Include="Assets\Icons\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Models\Configurations\ScheduleConfig.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

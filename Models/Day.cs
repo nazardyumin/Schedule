@@ -1,23 +1,27 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 
-namespace Schedule.Model
+namespace Schedule.Models
 {
     public class Day : Notifier
     {
-        private readonly int _year;
-        private readonly int _month;
-        private readonly int _date;
-        private readonly int _index;
-        public string ShortDayInfo { get; set; }
-        public ObservableCollection<Lesson> Lessons { get; set; }
+        public int Year { get; set; }
+        public int Month { get; set; }
+        public int Date { get; set; }
+        public int Index { get; set; }
+        public string? ShortDayInfo { get; set; }
+        public ObservableCollection<Lesson>? Lessons { get; set; }
 
+        public Day()
+        {
+
+        }
         public Day(DateTime dateTime)
         {
-            _year = dateTime.Year;
-            _month = dateTime.Month;
-            _date = dateTime.Day;
-            _index = SetIndex(dateTime.DayOfWeek.ToString());
+            Year = dateTime.Year;
+            Month = dateTime.Month;
+            Date = dateTime.Day;
+            Index = SetIndex(dateTime.DayOfWeek.ToString());
             ShortDayInfo = GetShortDayInfo(dateTime);
             Lessons = new();
         }
@@ -78,25 +82,36 @@ namespace Schedule.Model
         }
         private string GetShortDayInfo(DateTime dateTime)
         {
-            return $"{dateTime.DayOfWeek} {SetMonth(_month).Substring(0, 3)}, {_date}";
+            return $"{dateTime.DayOfWeek} {SetMonth(Month).Substring(0, 3)}, {Date}";
         }
         public string GetDayInfo()
         {
-            return $"{_year} {SetMonth(_month)}, {_date}";
+            return $"{Year} {SetMonth(Month)}, {Date}";
         }
         public int GetDayIndex()
         {
-            return _index;
+            return Index;
         }
         public bool IsThisDay(int year, int month, int date)
         {
-            return year == _year && month == _month && date == _date;
+            return year == Year && month == Month && date == Date;
         }
         public bool IsFuture()
         {
             DateTime now = DateTime.Now;
-            var thisDay = new DateTime(_year, _month, _date);
+            var thisDay = new DateTime(Year, Month, Date);
             return thisDay > now;
+        }
+        public bool IsPast()
+        {
+            DateTime now = DateTime.Now;
+            var today = new DateTime(now.Year, now.Month, now.Day);
+            var thisDay = new DateTime(Year, Month, Date);
+            return thisDay < today;
+        }
+        public DateTime GetDateTime()
+        {
+            return new DateTime(Year, Month, Date);
         }
     }
 }

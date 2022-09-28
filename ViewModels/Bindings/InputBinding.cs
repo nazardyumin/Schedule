@@ -1,30 +1,21 @@
-﻿using Schedule.Model;
+﻿using Schedule.Models;
 using System;
 
-namespace Schedule.ViewModel.Bindings
+namespace Schedule.ViewModels.Bindings
 {
-    public class ItemBinding : Notifier
+    public class InputBinding : Notifier
     {
-        private string _value;
         private readonly Action _action;
+
+        private string _value;
         public string Value
         {
             get => _value;
             set
             {
                 SetField(ref _value, value);
-                _action.Invoke();
-            }
-        }
-
-        private int _index;
-        public int Index
-        {
-            get => _index;
-            set
-            {
-                SetField(ref _index, value);
                 IsAllOk();
+                _action.Invoke();
             }
         }
 
@@ -35,21 +26,24 @@ namespace Schedule.ViewModel.Bindings
             set => SetField(ref _isOk, value);
         }
 
-        public ItemBinding(Action action)
+        public InputBinding(Action action)
         {
             _value = string.Empty;
-            _index = -1;
             _action = action;
         }
 
         private void IsAllOk()
         {
-            if (Index != -1) IsOk = true;
+            var isEmpty = string.IsNullOrEmpty(Value);
+            var check = Value.ToCharArray();
+            bool hasLetters = false;
+            foreach (var item in check)
+            {
+                hasLetters = char.IsLetterOrDigit(item);
+                if (hasLetters) break;
+            }
+            if (!isEmpty && hasLetters) IsOk = true;
             else IsOk = false;
-        }
-        public int ValueToInt()
-        {
-            return int.Parse(_value);
         }
     }
 }
