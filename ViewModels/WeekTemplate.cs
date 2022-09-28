@@ -490,6 +490,8 @@ namespace Schedule.ViewModels
         public void AddLessonToOneDay(Lesson lesson, int yearFrom, int monthFrom, int dayFrom)
         {
             var dayIndex = FindDay(yearFrom, monthFrom, dayFrom);
+            lesson.SetPositionInWeek(Days![dayIndex].GetDayIndex());
+            lesson.SetDate(Days![dayIndex].GetDateTime());
             Days![dayIndex].Lessons!.Add(lesson);
             var lesIndex = Days![dayIndex].Lessons!.IndexOf(lesson);
             Days![dayIndex].Lessons![lesIndex].SetConnectionIndexes(dayIndex, lesIndex);
