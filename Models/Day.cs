@@ -26,67 +26,46 @@ namespace Schedule.Models
             Lessons = new();
         }
 
-        private string SetMonth(int month)
+        private string MonthToString(int month)
         {
-            switch (month)
+            return month switch
             {
-                case 1:
-                    return "January";
-                case 2:
-                    return "February";
-                case 3:
-                    return "March";
-                case 4:
-                    return "April";
-                case 5:
-                    return "May";
-                case 6:
-                    return "June";
-                case 7:
-                    return "July";
-                case 8:
-                    return "August";
-                case 9:
-                    return "September";
-                case 10:
-                    return "October";
-                case 11:
-                    return "November";
-                case 12:
-                    return "December";
-                default:
-                    return "";
-            }
+                1 => "January",
+                2 => "February",
+                3 => "March",
+                4 => "April",
+                5 => "May",
+                6 => "June",
+                7 => "July",
+                8 => "August",
+                9 => "September",
+                10 => "October",
+                11 => "November",
+                12 => "December",
+                _ => "",
+            };
         }
         private int SetIndex(string dayOfTheWeek)
         {
-            switch (dayOfTheWeek)
+            return dayOfTheWeek switch
             {
-                case "Monday":
-                    return 0;
-                case "Tuesday":
-                    return 1;
-                case "Wednesday":
-                    return 2;
-                case "Thursday":
-                    return 3;
-                case "Friday":
-                    return 4;
-                case "Saturday":
-                    return 5;
-                case "Sunday":
-                    return 6;
-                default:
-                    return -1;
-            }
+                "Monday" => 0,
+                "Tuesday" => 1,
+                "Wednesday" => 2,
+                "Thursday" => 3,
+                "Friday" => 4,
+                "Saturday" => 5,
+                "Sunday" => 6,
+                _ => -1,
+            };
         }
         private string GetShortDayInfo(DateTime dateTime)
         {
-            return $"{dateTime.DayOfWeek} {SetMonth(Month).Substring(0, 3)}, {Date}";
+            return $"{dateTime.DayOfWeek} {MonthToString(Month)[..3]}, {Date}";
         }
         public string GetDayInfo()
         {
-            return $"{Year} {SetMonth(Month)}, {Date}";
+            return $"{Year} {MonthToString(Month)}, {Date}";
         }
         public int GetDayIndex()
         {
