@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Schedule.Views.Windows.ScheduleWindow
@@ -371,25 +372,28 @@ namespace Schedule.Views.Windows.ScheduleWindow
             ElevationAssist.SetElevation((MyCard)sender, Elevation.Dp16);
         }
 
-
-
-
         private void SetContextMenu(ref MyCard card)
         {
             var connection = card.GetConnectionIndexes();
 
             var item1 = new MyMenuItem();           
             item1.Header = "Edit";
+            item1.SetConnectionIndexes(connection.dayIndex, connection.lessonIndex);
             item1.Click += Item1_Click;
+            item1.Style = (Style)ResDic["StyleMenuItem"];
 
             var item2 = new MyMenuItem();
             item2.Header = "Delete";
             item2.SetConnectionIndexes(connection.dayIndex,connection.lessonIndex);
             item2.Click += Item2_Click;
+            item2.Style = (Style)ResDic["StyleMenuItem"];
+
             var items = new List<MenuItem>() { item1,item2};
-            var contextMenu = new ContextMenu();
-            contextMenu.ItemsSource = items;
-            contextMenu.FontSize = 13;
+            var contextMenu = new ContextMenu
+            {
+                ItemsSource = items,
+                FontSize = 13
+            };
             card.ContextMenu = contextMenu;
         }
 

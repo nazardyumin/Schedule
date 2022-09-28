@@ -17,6 +17,9 @@
         Title="Lesson Schedule" Height="800" Width="1700"
         Icon="\Assets\Icons\icon.png"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Window.Resources>
+        <ResourceDictionary x:Name="ResDic"  Source="\Views\Styles\Styles.xaml"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="9*"/>
