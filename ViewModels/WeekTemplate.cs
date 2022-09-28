@@ -1,5 +1,6 @@
 ﻿using Schedule.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -380,12 +381,35 @@ namespace Schedule.ViewModels
         {
             return Days!;
         }
-        public Lesson CreateLesson(string subject, string teacher, string auditorium, int startTimeIndex, int endTimeIndex, string duration)
+        public Lesson CreateLesson(string subject, string teacher, string auditorium, int startTimeIndex, int endTimeIndex, string duration, DateTime date)
         {
             var lesson = new Lesson(subject, teacher, auditorium, duration);
+            lesson.SetDate(date);
             lesson.SetPositionInDayStart(startTimeIndex);
             lesson.SetPositionInDayEnd(endTimeIndex);
             return lesson;
+        }
+        public void EditLesson(int dayIndex, int lessonIndex, string subject, string teacher, string auditorium, int startTimeIndex, int endTimeIndex, string duration, DateTime date, int year, int month, int day)
+        {
+            int newIndex = FindDay(year, month, day);
+            var lesson = new Lesson(subject, teacher, auditorium, duration);
+            lesson.SetDate(date);
+            lesson.SetPositionInDayStart(startTimeIndex);
+            lesson.SetPositionInDayEnd(endTimeIndex);
+
+            if (newIndex == dayIndex)
+            {
+                Days![dayIndex].Lessons![lessonIndex].Edit(lesson);
+            }
+            else
+            {
+                Days![dayIndex].Lessons!.RemoveAt(lessonIndex);
+                lesson.SetPositionInWeek(Days![newIndex].GetDayIndex());
+                Days![newIndex].Lessons!.Add(lesson);
+                var lesIndex = Days[newIndex].Lessons!.IndexOf(lesson);
+                lesson.SetConnectionIndexes(newIndex, lesIndex);
+            }
+            Serializer.Save(Days);
         }
         public void AddLessonToDays(Lesson lesson, int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo, int dayTo, int copy1Index, int copy2Index, int copy3Index)
         {
@@ -395,6 +419,7 @@ namespace Schedule.ViewModels
             for (int i = start; i <= stop; i += 7)
             {
                 var lessonToAdd = lesson.GetCopy();
+                lessonToAdd.SetDate(Days[i].GetDateTime());
                 Days[i].Lessons!.Add(lessonToAdd);
                 var lesIndex = Days[i].Lessons!.IndexOf(lessonToAdd);
                 Days[i].Lessons![lesIndex].SetConnectionIndexes(i, lesIndex);
@@ -409,6 +434,7 @@ namespace Schedule.ViewModels
                         for (int j = i; j <= stop; j += 7)
                         {
                             var lessonToAdd = lesson.GetCopy();
+                            lessonToAdd.SetDate(Days[j].GetDateTime());
                             Days[j].Lessons!.Add(lessonToAdd);
                             var lesIndex = Days[j].Lessons!.IndexOf(lessonToAdd);
                             Days[j].Lessons![lesIndex].SetConnectionIndexes(j, lesIndex);
@@ -427,6 +453,7 @@ namespace Schedule.ViewModels
                         for (int j = i; j <= stop; j += 7)
                         {
                             var lessonToAdd = lesson.GetCopy();
+                            lessonToAdd.SetDate(Days[j].GetDateTime());
                             Days[j].Lessons!.Add(lessonToAdd);
                             var lesIndex = Days[j].Lessons!.IndexOf(lessonToAdd);
                             Days[j].Lessons![lesIndex].SetConnectionIndexes(j, lesIndex);
@@ -445,6 +472,7 @@ namespace Schedule.ViewModels
                         for (int j = i; j <= stop; j += 7)
                         {
                             var lessonToAdd = lesson.GetCopy();
+                            lessonToAdd.SetDate(Days[j].GetDateTime());
                             Days[j].Lessons!.Add(lessonToAdd);
                             var lesIndex = Days[j].Lessons!.IndexOf(lessonToAdd);
                             Days[j].Lessons![lesIndex].SetConnectionIndexes(j, lesIndex);

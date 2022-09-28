@@ -50,7 +50,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             var setup = AddingSection.GetSetupInfo();
-            var lesson = Model.CreateLesson(setup.subject, setup.teacher, setup.auditorium, setup.startTimeIndex, setup.endTimeIndex, setup.duration);
+            var lesson = Model.CreateLesson(setup.subject, setup.teacher, setup.auditorium, setup.startTimeIndex, setup.endTimeIndex, setup.duration, setup.date);
             var isPeriodSelected = AddingSection.IsPeriodSelected();
             if (isPeriodSelected)
             {
@@ -399,10 +399,12 @@ namespace Schedule.Views.Windows.ScheduleWindow
 
         private void Item1_Click(object sender, RoutedEventArgs e)
         {
-
-            throw new NotImplementedException();
-           
-            
+            var menuItem = (MyMenuItem)e.Source;
+            var connection = menuItem.GetConnectionIndexes();
+            var lesson = Model.GetSelectedLesson(connection.dayIndex, connection.lessonIndex);
+            AddingSection.Editor(lesson);
+            AddingBlock.Visibility = Visibility.Hidden;
+            EditingBlock.Visibility = Visibility.Visible;
         }
         private void Item2_Click(object sender, RoutedEventArgs e)
         {
@@ -410,6 +412,19 @@ namespace Schedule.Views.Windows.ScheduleWindow
             var connection = menuItem.GetConnectionIndexes();
             Model.DeleteSelectedLesson(connection.dayIndex, connection.lessonIndex);
             AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
+        }
+
+        private void ButtonSave_Click(object sender, RoutedEventArgs e)
+        {
+            var setup = AddingSection.GetSetupInfo();
+            var updatedDate = AddingSection.GetFromValues();
+            Model.EditLesson(setup.dayIndex, setup.lessonIndex, 
+                setup.subject, setup.teacher, setup.auditorium, 
+                setup.startTimeIndex, setup.endTimeIndex, setup.duration, 
+                setup.date, updatedDate.year, updatedDate.month, updatedDate.day);
+            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
+            AddingBlock.Visibility = Visibility.Visible;
+            EditingBlock.Visibility = Visibility.Hidden;
         }
     }
 }

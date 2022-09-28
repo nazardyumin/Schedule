@@ -13,6 +13,7 @@ namespace Schedule.ViewModels.Bindings
             set
             {
                 SetField(ref _value, value);
+                IsAllOk();
                 _action.Invoke();
             }
         }
@@ -23,8 +24,7 @@ namespace Schedule.ViewModels.Bindings
             get => _index;
             set
             {
-                SetField(ref _index, value);
-                IsAllOk();
+                SetField(ref _index, value);             
             }
         }
 

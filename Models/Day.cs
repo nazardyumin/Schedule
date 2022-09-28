@@ -109,6 +109,9 @@ namespace Schedule.Models
             var thisDay = new DateTime(Year, Month, Date);
             return thisDay < today;
         }
-
+        public DateTime GetDateTime()
+        {
+            return new DateTime(Year, Month, Date);
+        }
     }
 }

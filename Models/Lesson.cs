@@ -1,10 +1,13 @@
-﻿namespace Schedule.Models
+﻿using System;
+
+namespace Schedule.Models
 {
     public class Lesson
     {
         public string Subject { get; set; }
         public string Teacher { get; set; }
         public string Auditorium { get; set; }
+        public DateTime Date { get; set; }
         public string Time { get; set; }
         public int PositionInWeek { get; set; }
         public int PositionInDayStart { get; set; }
@@ -17,6 +20,14 @@
             Teacher = teacher;
             Auditorium = auditorium;
             Time = time;
+        }
+        public void SetDate(DateTime date)
+        {
+            Date = date;
+        }
+        public void SetDate(TimeSpan timeSpan)
+        {
+            Date += timeSpan;
         }
         public void SetPositionInWeek(int index)
         {
@@ -44,6 +55,15 @@
         {
             ConnectionDayIndex = dayIndex;
             ConnectionLessonIndex = lessonIndex;
+        }
+        public void Edit(Lesson lesson)
+        {
+            Subject=lesson.Subject;
+            Teacher=lesson.Teacher;
+            Auditorium=lesson.Auditorium;
+            Time=lesson.Time;
+            PositionInDayStart=lesson.PositionInDayStart;
+            PositionInDayEnd = lesson.PositionInDayEnd;
         }
     }
 }
