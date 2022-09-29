@@ -169,7 +169,7 @@ namespace Schedule.ViewModels
             CanPressCopy = false;
             CanPressTo = false;
             CanPressSave = true;
-            IsAddingMode = true;           
+            IsAddingMode = true;
         }
 
         private void SetStartTime()
