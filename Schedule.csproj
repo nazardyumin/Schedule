@@ -5,12 +5,17 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Assets\Icons\icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Assets\Icons\github.png" />
     <None Remove="Assets\Icons\icon.png" />
     <None Remove="Assets\ScheduleConfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\Icons\icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
