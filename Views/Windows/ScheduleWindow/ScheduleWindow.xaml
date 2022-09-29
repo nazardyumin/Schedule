@@ -804,7 +804,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Image Source="\Assets\Icons\github.png" Margin="18,0,0,0" Width="20" Height="20"/>
+                    <Image Source="\Assets\Icons\github.png" Margin="18,0,0,0" Width="15" Height="15"/>
                     <TextBlock Margin="4,0,10,0"  VerticalAlignment="Center">
                     <Hyperlink NavigateUri="https://github.com/nazar-photo/Schedule" RequestNavigate="Hyperlink_RequestNavigate">
                                     nazar-photo © 2022
@@ -898,7 +898,7 @@
                             Command="{Binding AddingSection.CommandSaveOrCancel}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Image Source="\Assets\Icons\github.png" Margin="18,0,0,0" Width="20" Height="20"/>
+                    <Image Source="\Assets\Icons\github.png" Margin="18,0,0,0" Width="15" Height="15"/>
                     <TextBlock Margin="4,0,10,0"  VerticalAlignment="Center">
                     <Hyperlink NavigateUri="https://github.com/nazar-photo/Schedule" RequestNavigate="Hyperlink_RequestNavigate">
                                     nazar-photo © 2022
