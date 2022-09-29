@@ -26,6 +26,7 @@ namespace Schedule.Models
                 {
                     var lastYearInList = config.Years[^1];
                     var steps = now.Year - lastYearInList;
+
                     for (int i = 0; i < steps; i++)
                     {
                         config.Years.Add(lastYearInList + 1);

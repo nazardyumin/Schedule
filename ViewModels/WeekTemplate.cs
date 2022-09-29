@@ -411,6 +411,28 @@ namespace Schedule.ViewModels
             Sunday = Days![Days.IndexOf(Sunday) - 7];
             Header = SetHeader();
         }
+        public bool IsOverlay(int year, int month, int day, int startTimeIndex, int endTimeIndex)
+        {
+            bool isOverlay = false;
+            var index = FindDay(year, month, day);
+            if (Days![index].Lessons!.Count > 0)
+            {
+                foreach (var lesson in Days![index].Lessons!)
+                {
+                    if (startTimeIndex >= lesson.PositionInDayStart && startTimeIndex <= lesson.PositionInDayEnd)
+                    {
+                        isOverlay = true;
+                        break;
+                    }
+                    if (endTimeIndex > lesson.PositionInDayStart)
+                    {
+                        isOverlay = true;
+                        break;
+                    }
+                }
+            }
+            return isOverlay;
+        }
         public Lesson CreateLesson(string subject, string teacher, string auditorium, int startTimeIndex, int endTimeIndex, string duration, DateTime date)
         {
             var lesson = new Lesson(subject, teacher, auditorium, duration);
