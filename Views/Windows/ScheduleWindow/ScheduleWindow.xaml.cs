@@ -1,4 +1,5 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿using ExtraTools;
+using MaterialDesignThemes.Wpf;
 using Schedule.Models;
 using Schedule.ViewModels;
 using Schedule.Views.Cards;
@@ -53,7 +54,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             var dateToCheck = AddingSection.GetFromValues();
             if (Model.IsOverlay(dateToCheck.year, dateToCheck.month, dateToCheck.day, setup.startTimeIndex, setup.endTimeIndex))
             {
-                MessageBox.Show("Please change the lesson time to avoid overlays!");
+                DialogBox.Show("ERROR", "Please change the lesson time to avoid overlays!", "OK");
             }
             else
             {
@@ -104,10 +105,18 @@ namespace Schedule.Views.Windows.ScheduleWindow
         }
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            var menuItem = (MyMenuItem)e.Source;
-            var connection = menuItem.GetConnectionIndexes();
-            Model.DeleteSelectedLesson(connection.dayIndex, connection.lessonIndex);
-            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
+            var res = DialogBox.Show("DELETE", "Are you shure?", "YES","NO");
+            switch (res)
+            {
+                case DialogBox.Result_.LeftButtonClicked:
+                    var menuItem = (MyMenuItem)e.Source;
+                    var connection = menuItem.GetConnectionIndexes();
+                    Model.DeleteSelectedLesson(connection.dayIndex, connection.lessonIndex);
+                    AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
+                    break;
+                case DialogBox.Result_.RightButtonClicked:
+                    break;
+            }
         }
         private void ComboBoxCopy1_DropDownClosed(object sender, EventArgs e)
         {
