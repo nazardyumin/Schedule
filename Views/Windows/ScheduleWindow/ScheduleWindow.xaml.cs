@@ -9,17 +9,17 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Schedule.Views.Windows.ScheduleWindow
 {
     public partial class ScheduleWindow : Window
     {
-        public WeekTemplate Model {get; set; }
+        public WeekTemplate Model { get; set; }
         public AddingSectionTemplate AddingSection { get; set; }
         public string ButtonBackContent { get; set; }
         public string ButtonForwardContent { get; set; }
+
         public ScheduleWindow()
         {
             Model = new();
@@ -33,17 +33,17 @@ namespace Schedule.Views.Windows.ScheduleWindow
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
-            var result = Model.PreviousWeek();
-            if (result.isCurrentWeek) TodayBackground(result.index);
-            else if (result.isFuture) FutureBackground();
+            var (isCurrentWeek, isFuture, index) = Model.PreviousWeek();
+            if (isCurrentWeek) TodayBackground(index);
+            else if (isFuture) FutureBackground();
             else PastBackground();
             AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
         }
         private void ButtonForward_Click(object sender, RoutedEventArgs e)
         {
-            var result = Model.NextWeek();
-            if (result.isCurrentWeek) TodayBackground(result.index);
-            else if (result.isFuture) FutureBackground();
+            var (isCurrentWeek, isFuture, index) = Model.NextWeek();
+            if (isCurrentWeek) TodayBackground(index);
+            else if (isFuture) FutureBackground();
             else PastBackground();
             AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
         }
@@ -51,16 +51,15 @@ namespace Schedule.Views.Windows.ScheduleWindow
         {
             var setup = AddingSection.GetSetupInfo();
             var lesson = Model.CreateLesson(setup.subject, setup.teacher, setup.auditorium, setup.startTimeIndex, setup.endTimeIndex, setup.duration, setup.date);
-            var isPeriodSelected = AddingSection.IsPeriodSelected();
-            if (isPeriodSelected)
+            if (AddingSection.IsPeriodSelected())
             {
-                var dates = AddingSection.GetFromAndToValues();
-                Model.AddLessonToDays(lesson, dates.yearFrom, dates.monthFrom, dates.dayFrom, dates.yearTo, dates.monthTo, dates.dayTo, dates.copy1, dates.copy2, dates.copy3);
+                var (yearFrom, monthFrom, dayFrom, yearTo, monthTo, dayTo, copy1, copy2, copy3) = AddingSection.GetFromAndToValues();
+                Model.AddLessonToDays(lesson, yearFrom, monthFrom, dayFrom, yearTo, monthTo, dayTo, copy1, copy2, copy3);
             }
             else
             {
-                var date = AddingSection.GetFromValues();
-                Model.AddLessonToOneDay(lesson, date.year, date.month, date.day);
+                var (year, month, day) = AddingSection.GetFromValues();
+                Model.AddLessonToOneDay(lesson, year, month, day);
             }
             AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
             AddingSection.CommandClearFunction();
@@ -71,6 +70,36 @@ namespace Schedule.Views.Windows.ScheduleWindow
         {
             ComboBoxCopy2.Visibility = Visibility.Hidden;
             ComboBoxCopy3.Visibility = Visibility.Hidden;
+        }
+        private void ButtonSave_Click(object sender, RoutedEventArgs e)
+        {
+            var (subject, teacher, auditorium, startTimeIndex, endTimeIndex, duration, date, dayIndex, lessonIndex) = AddingSection.GetSetupInfo();
+            var (year, month, day) = AddingSection.GetFromValues();
+            Model.EditLesson(dayIndex, lessonIndex, subject, teacher, auditorium, startTimeIndex, endTimeIndex, duration, date, year, month, day);
+            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
+            AddingBlock.Visibility = Visibility.Visible;
+            EditingBlock.Visibility = Visibility.Hidden;
+        }
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        {
+            AddingBlock.Visibility = Visibility.Visible;
+            EditingBlock.Visibility = Visibility.Hidden;
+        }
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            var menuItem = (MyMenuItem)e.Source;
+            var connection = menuItem.GetConnectionIndexes();
+            var lesson = Model.GetSelectedLesson(connection.dayIndex, connection.lessonIndex);
+            AddingSection.Editor(lesson);
+            AddingBlock.Visibility = Visibility.Hidden;
+            EditingBlock.Visibility = Visibility.Visible;
+        }
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            var menuItem = (MyMenuItem)e.Source;
+            var connection = menuItem.GetConnectionIndexes();
+            Model.DeleteSelectedLesson(connection.dayIndex, connection.lessonIndex);
+            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
         }
         private void ComboBoxCopy1_DropDownClosed(object sender, EventArgs e)
         {
@@ -87,77 +116,104 @@ namespace Schedule.Views.Windows.ScheduleWindow
             Process.Start("explorer", navigateUri);
             e.Handled = true;
         }
-
         private void TodayBackground(int column)
         {
             switch (column)
             {
                 case 0:
-                    Border0.Background = new SolidColorBrush(Colors.Linen);
-                    Border1.Background = new SolidColorBrush(Colors.White);
-                    Border2.Background = new SolidColorBrush(Colors.White);
-                    Border3.Background = new SolidColorBrush(Colors.White);
-                    Border4.Background = new SolidColorBrush(Colors.White);
-                    Border5.Background = new SolidColorBrush(Colors.White);
-                    Border6.Background = new SolidColorBrush(Colors.White);
+                    TodayIsMondayBackground();
                     break;
                 case 1:
-                    Border0.Background = new SolidColorBrush(Colors.Gainsboro);
-                    Border1.Background = new SolidColorBrush(Colors.Linen);
-                    Border2.Background = new SolidColorBrush(Colors.White);
-                    Border3.Background = new SolidColorBrush(Colors.White);
-                    Border4.Background = new SolidColorBrush(Colors.White);
-                    Border5.Background = new SolidColorBrush(Colors.White);
-                    Border6.Background = new SolidColorBrush(Colors.White);
+                    TodayIsTuesdayBackground();
                     break;
                 case 2:
-                    Border0.Background = new SolidColorBrush(Colors.Gainsboro);
-                    Border1.Background = new SolidColorBrush(Colors.Gainsboro);
-                    Border2.Background = new SolidColorBrush(Colors.Linen);
-                    Border3.Background = new SolidColorBrush(Colors.White);
-                    Border4.Background = new SolidColorBrush(Colors.White);
-                    Border5.Background = new SolidColorBrush(Colors.White);
-                    Border6.Background = new SolidColorBrush(Colors.White);
+                    TodayIsWednesdayBackground();
                     break;
                 case 3:
-                    Border0.Background = new SolidColorBrush(Colors.Gainsboro);
-                    Border1.Background = new SolidColorBrush(Colors.Gainsboro);
-                    Border2.Background = new SolidColorBrush(Colors.Gainsboro);
-                    Border3.Background = new SolidColorBrush(Colors.Linen);
-                    Border4.Background = new SolidColorBrush(Colors.White);
-                    Border5.Background = new SolidColorBrush(Colors.White);
-                    Border6.Background = new SolidColorBrush(Colors.White);
+                    TodayIsThursdayBackground();
                     break;
                 case 4:
-                    Border0.Background = new SolidColorBrush(Colors.Gainsboro);
-                    Border1.Background = new SolidColorBrush(Colors.Gainsboro);
-                    Border2.Background = new SolidColorBrush(Colors.Gainsboro);
-                    Border3.Background = new SolidColorBrush(Colors.Gainsboro);
-                    Border4.Background = new SolidColorBrush(Colors.Linen);
-                    Border5.Background = new SolidColorBrush(Colors.White);
-                    Border6.Background = new SolidColorBrush(Colors.White);
+                    TodayIsFridayBackground();
                     break;
                 case 5:
-                    Border0.Background = new SolidColorBrush(Colors.Gainsboro);
-                    Border1.Background = new SolidColorBrush(Colors.Gainsboro);
-                    Border2.Background = new SolidColorBrush(Colors.Gainsboro);
-                    Border3.Background = new SolidColorBrush(Colors.Gainsboro);
-                    Border4.Background = new SolidColorBrush(Colors.Gainsboro);
-                    Border5.Background = new SolidColorBrush(Colors.Linen);
-                    Border6.Background = new SolidColorBrush(Colors.White);
+                    TodayIsSaturdayBackground();
                     break;
                 case 6:
-                    Border0.Background = new SolidColorBrush(Colors.Gainsboro);
-                    Border1.Background = new SolidColorBrush(Colors.Gainsboro);
-                    Border2.Background = new SolidColorBrush(Colors.Gainsboro);
-                    Border3.Background = new SolidColorBrush(Colors.Gainsboro);
-                    Border4.Background = new SolidColorBrush(Colors.Gainsboro);
-                    Border5.Background = new SolidColorBrush(Colors.Gainsboro);
-                    Border6.Background = new SolidColorBrush(Colors.Linen);
+                    TodayIsSundayBackground();
                     break;
                 default:
                     break;
             }
+        }
+        private void TodayIsMondayBackground()
+        {
+            Border0.Background = new SolidColorBrush(Colors.Linen);
+            Border1.Background = new SolidColorBrush(Colors.White);
+            Border2.Background = new SolidColorBrush(Colors.White);
+            Border3.Background = new SolidColorBrush(Colors.White);
+            Border4.Background = new SolidColorBrush(Colors.White);
+            Border5.Background = new SolidColorBrush(Colors.White);
+            Border6.Background = new SolidColorBrush(Colors.White);
+        }
+        private void TodayIsTuesdayBackground()
+        {
+            Border0.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border1.Background = new SolidColorBrush(Colors.Linen);
+            Border2.Background = new SolidColorBrush(Colors.White);
+            Border3.Background = new SolidColorBrush(Colors.White);
+            Border4.Background = new SolidColorBrush(Colors.White);
+            Border5.Background = new SolidColorBrush(Colors.White);
+            Border6.Background = new SolidColorBrush(Colors.White);
+        }
+        private void TodayIsWednesdayBackground()
+        {
+            Border0.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border1.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border2.Background = new SolidColorBrush(Colors.Linen);
+            Border3.Background = new SolidColorBrush(Colors.White);
+            Border4.Background = new SolidColorBrush(Colors.White);
+            Border5.Background = new SolidColorBrush(Colors.White);
+            Border6.Background = new SolidColorBrush(Colors.White);
+        }
+        private void TodayIsThursdayBackground()
+        {
+            Border0.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border1.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border2.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border3.Background = new SolidColorBrush(Colors.Linen);
+            Border4.Background = new SolidColorBrush(Colors.White);
+            Border5.Background = new SolidColorBrush(Colors.White);
+            Border6.Background = new SolidColorBrush(Colors.White);
+        }
+        private void TodayIsFridayBackground()
+        {
+            Border0.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border1.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border2.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border3.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border4.Background = new SolidColorBrush(Colors.Linen);
+            Border5.Background = new SolidColorBrush(Colors.White);
+            Border6.Background = new SolidColorBrush(Colors.White);
+        }
+        private void TodayIsSaturdayBackground()
+        {
+            Border0.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border1.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border2.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border3.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border4.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border5.Background = new SolidColorBrush(Colors.Linen);
+            Border6.Background = new SolidColorBrush(Colors.White);
+        }
+        private void TodayIsSundayBackground()
+        {
+            Border0.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border1.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border2.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border3.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border4.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border5.Background = new SolidColorBrush(Colors.Gainsboro);
+            Border6.Background = new SolidColorBrush(Colors.Linen);
         }
         private void FutureBackground()
         {
@@ -179,16 +235,20 @@ namespace Schedule.Views.Windows.ScheduleWindow
             Border5.Background = new SolidColorBrush(Colors.Gainsboro);
             Border6.Background = new SolidColorBrush(Colors.Gainsboro);
         }
-
         private MyCard ConvertLessonToCard(Lesson lesson)
         {
             var card = new MyCard();
             card.SetConnectionIndexes(lesson.ConnectionDayIndex, lesson.ConnectionLessonIndex);
+            SetContent(ref card, lesson);
+            SetStyle(ref card, lesson);
+            return card;
+        }
+        private void SetContent(ref MyCard card, Lesson lesson)
+        {
             var stack = new StackPanel();
             var header = new TextBlock { Text = $"Subject: {lesson.Subject}" };
-            var text = new TextBlock { Text = $"Teacher: {lesson.Teacher}\nAuditorium: {lesson.Auditorium}\n{lesson.Time}" };
+            var text = new TextBlock { Text = $"Teacher: {lesson.Teacher}\nAuditorium: {lesson.Auditorium}\n{lesson.Duration}" };
             header.FontWeight = FontWeights.Heavy;
-
             if (lesson.PositionInDayEnd <= 7)
             {
                 header.FontSize = 11;
@@ -196,7 +256,6 @@ namespace Schedule.Views.Windows.ScheduleWindow
             }
             if (lesson.PositionInDayEnd < 4)
             {
-                header.FontSize = 11;
                 stack.Children.Add(header);
             }
             else
@@ -205,14 +264,109 @@ namespace Schedule.Views.Windows.ScheduleWindow
                 stack.Children.Add(text);
             }
             card.Content = stack;
-            card.Margin=new Thickness(2, 0, 2, 0);
+        }
+        private void SetStyle(ref MyCard card, Lesson lesson)
+        {
+            card.Margin = new Thickness(2, 0, 2, 0);
             card.HorizontalContentAlignment = HorizontalAlignment.Center;
             card.VerticalContentAlignment = VerticalAlignment.Center;
             ElevationAssist.SetElevation(card, Elevation.Dp6);
             Grid.SetColumn(card, lesson.PositionInWeek);
             Grid.SetRow(card, lesson.PositionInDayStart);
             Grid.SetRowSpan(card, lesson.PositionInDayEnd);
-            return card;
+        }
+        private void SetColorMenuAndEvents(ref MyCard card, Day day)
+        {
+            if (day.IsPast())
+            {
+
+                card.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                card.Foreground = new SolidColorBrush(Colors.Gray);
+                card.MouseEnter += CardPast_MouseEnter;
+                card.MouseLeave += CardPast_MouseLeave;
+            }
+            else if (day.IsFuture())
+            {
+                card.Background = new SolidColorBrush(Colors.Ivory);
+                SetContextMenu(ref card);
+                card.MouseEnter += CardFuture_MouseEnter;
+                card.MouseLeave += CardFuture_MouseLeave;
+            }
+            else
+            {
+                card.Background = new SolidColorBrush(Colors.Wheat);
+                SetContextMenu(ref card);
+                card.MouseEnter += CardToday_MouseEnter;
+                card.MouseLeave += CardToday_MouseLeave;
+            }
+        }
+        private void SetContextMenu(ref MyCard card)
+        {
+            var (dayIndex, lessonIndex) = card.GetConnectionIndexes();
+
+            var edit = new MyMenuItem
+            {
+                Header = "Edit"
+            };
+            edit.SetConnectionIndexes(dayIndex, lessonIndex);
+            edit.Click += Edit_Click;
+            edit.Style = (Style)ResDic["StyleMenuItem"];
+
+            var delete = new MyMenuItem
+            {
+                Header = "Delete"
+            };
+            delete.SetConnectionIndexes(dayIndex, lessonIndex);
+            delete.Click += Delete_Click;
+            delete.Style = (Style)ResDic["StyleMenuItem"];
+
+            var items = new List<MenuItem>() { edit, delete };
+            var contextMenu = new ContextMenu
+            {
+                ItemsSource = items,
+                FontSize = 13
+            };
+            card.ContextMenu = contextMenu;
+        }
+        private void CardFuture_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            ((MyCard)sender).Background = new SolidColorBrush(Colors.Ivory);
+            ((MyCard)sender).Margin = new Thickness(2, 0, 2, 0);
+            ((MyCard)sender).FontSize = 13;
+            ElevationAssist.SetElevation((MyCard)sender, Elevation.Dp6);
+        }
+        private void CardFuture_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            ((MyCard)sender).Background = new SolidColorBrush(Colors.LightYellow);
+            ((MyCard)sender).Margin = new Thickness(0);
+            ((MyCard)sender).FontSize = 13.1;
+            ElevationAssist.SetElevation((MyCard)sender, Elevation.Dp16);
+        }
+        private void CardToday_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            ((MyCard)sender).Background = new SolidColorBrush(Colors.Wheat);
+            ((MyCard)sender).Margin = new Thickness(2, 0, 2, 0);
+            ((MyCard)sender).FontSize = 13;
+            ElevationAssist.SetElevation((MyCard)sender, Elevation.Dp6);
+        }
+        private void CardToday_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            ((MyCard)sender).Background = new SolidColorBrush(Colors.Moccasin);
+            ((MyCard)sender).Margin = new Thickness(0);
+            ((MyCard)sender).FontSize = 13.1;
+            ElevationAssist.SetElevation((MyCard)sender, Elevation.Dp16);
+        }
+        private void CardPast_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            ((MyCard)sender).Margin = new Thickness(2, 0, 2, 0);
+            ((MyCard)sender).FontSize = 13;
+            ElevationAssist.SetElevation((MyCard)sender, Elevation.Dp6);
+        }
+        private void CardPast_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            ((MyCard)sender).Margin = new Thickness(0);
+            ((MyCard)sender).FontSize = 13.1;
+            ElevationAssist.SetElevation((MyCard)sender, Elevation.Dp16);
         }
         private void AddCardsToMondayGrid(Day monday)
         {
@@ -293,144 +447,6 @@ namespace Schedule.Views.Windows.ScheduleWindow
             AddCardsToFridayGrid(friday);
             AddCardsToSaturdayGrid(saturday);
             AddCardsToSundayGrid(sunday);
-        }
-
-        private void MyCard_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            ((MyCard)sender).ContextMenu.IsOpen = true;
-        }
-        private void SetColorMenuAndEvents(ref MyCard card, Day day)
-        {
-            if (day.IsPast())
-            {
-               
-                card.Background = new SolidColorBrush(Colors.WhiteSmoke);
-                card.Foreground= new SolidColorBrush(Colors.Gray);
-                card.MouseEnter += CardPast_MouseEnter;
-                card.MouseLeave += CardPast_MouseLeave;
-            }
-            else if (day.IsFuture())
-            {
-                card.Background = new SolidColorBrush(Colors.Ivory);
-                SetContextMenu(ref card);
-                card.MouseEnter += CardFuture_MouseEnter;
-                card.MouseLeave += CardFuture_MouseLeave;
-            }
-            else
-            {
-                card.Background = new SolidColorBrush(Colors.Wheat);
-                SetContextMenu(ref card);
-                card.MouseEnter += CardToday_MouseEnter;
-                card.MouseLeave += CardToday_MouseLeave;
-            }
-        }
-
-        private void CardFuture_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            ((MyCard)sender).Background = new SolidColorBrush(Colors.Ivory);
-            ((MyCard)sender).Margin= new Thickness(2,0,2,0);
-            ((MyCard)sender).FontSize = 13;
-            ElevationAssist.SetElevation((MyCard)sender, Elevation.Dp6);
-        }
-
-        private void CardFuture_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {         
-            ((MyCard)sender).Background=new SolidColorBrush(Colors.LightYellow);
-            ((MyCard)sender).Margin = new Thickness(0);
-            ((MyCard)sender).FontSize = 13.1;
-            ElevationAssist.SetElevation((MyCard)sender, Elevation.Dp16);
-        }
-
-        private void CardToday_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            ((MyCard)sender).Background = new SolidColorBrush(Colors.Wheat);
-            ((MyCard)sender).Margin = new Thickness(2, 0, 2, 0);
-            ((MyCard)sender).FontSize = 13;
-            ElevationAssist.SetElevation((MyCard)sender, Elevation.Dp6);
-        }
-
-        private void CardToday_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            ((MyCard)sender).Background = new SolidColorBrush(Colors.Moccasin);
-            ((MyCard)sender).Margin = new Thickness(0);
-            ((MyCard)sender).FontSize = 13.1;
-            ElevationAssist.SetElevation((MyCard)sender, Elevation.Dp16);           
-        }
-        private void CardPast_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-  
-            ((MyCard)sender).Margin = new Thickness(2, 0, 2, 0);
-            ((MyCard)sender).FontSize = 13;
-            ElevationAssist.SetElevation((MyCard)sender, Elevation.Dp6);
-        }
-
-        private void CardPast_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
- 
-            ((MyCard)sender).Margin = new Thickness(0);
-            ((MyCard)sender).FontSize = 13.1;
-            ElevationAssist.SetElevation((MyCard)sender, Elevation.Dp16);
-        }
-
-        private void SetContextMenu(ref MyCard card)
-        {
-            var connection = card.GetConnectionIndexes();
-
-            var item1 = new MyMenuItem();           
-            item1.Header = "Edit";
-            item1.SetConnectionIndexes(connection.dayIndex, connection.lessonIndex);
-            item1.Click += Item1_Click;
-            item1.Style = (Style)ResDic["StyleMenuItem"];
-
-            var item2 = new MyMenuItem();
-            item2.Header = "Delete";
-            item2.SetConnectionIndexes(connection.dayIndex,connection.lessonIndex);
-            item2.Click += Item2_Click;
-            item2.Style = (Style)ResDic["StyleMenuItem"];
-
-            var items = new List<MenuItem>() { item1,item2};
-            var contextMenu = new ContextMenu
-            {
-                ItemsSource = items,
-                FontSize = 13
-            };
-            card.ContextMenu = contextMenu;
-        }
-
-        private void Item1_Click(object sender, RoutedEventArgs e)
-        {
-            var menuItem = (MyMenuItem)e.Source;
-            var connection = menuItem.GetConnectionIndexes();
-            var lesson = Model.GetSelectedLesson(connection.dayIndex, connection.lessonIndex);
-            AddingSection.Editor(lesson);
-            AddingBlock.Visibility = Visibility.Hidden;
-            EditingBlock.Visibility = Visibility.Visible;
-        }
-        private void Item2_Click(object sender, RoutedEventArgs e)
-        {
-            var menuItem = (MyMenuItem)e.Source;
-            var connection = menuItem.GetConnectionIndexes();
-            Model.DeleteSelectedLesson(connection.dayIndex, connection.lessonIndex);
-            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
-        }
-
-        private void ButtonSave_Click(object sender, RoutedEventArgs e)
-        {
-            var setup = AddingSection.GetSetupInfo();
-            var updatedDate = AddingSection.GetFromValues();
-            Model.EditLesson(setup.dayIndex, setup.lessonIndex, 
-                setup.subject, setup.teacher, setup.auditorium, 
-                setup.startTimeIndex, setup.endTimeIndex, setup.duration, 
-                setup.date, updatedDate.year, updatedDate.month, updatedDate.day);
-            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
-            AddingBlock.Visibility = Visibility.Visible;
-            EditingBlock.Visibility = Visibility.Hidden;
-        }
-
-        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
-        {
-            AddingBlock.Visibility = Visibility.Visible;
-            EditingBlock.Visibility = Visibility.Hidden;
-        }
+        }      
     }
 }

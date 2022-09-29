@@ -153,6 +153,7 @@ namespace Schedule.ViewModels
             CopyDays2SelectedItem = new(() => { SetCopyDays3(); RefreshStates(); });
             CopyDays3SelectedItem = new(RefreshStates);
 
+            Add_Or_Save = "Add";
             Today = "Today";
             TargetDay = string.Empty;
             _monthFromMemory = 0;
@@ -169,7 +170,6 @@ namespace Schedule.ViewModels
             CanPressTo = false;
             CanPressSave = true;
             IsAddingMode = true;
-            Add_Or_Save = "Add";
         }
 
         private void SetStartTime()
@@ -213,6 +213,42 @@ namespace Schedule.ViewModels
                 "13:40",
                 "13:50",
                 "14:00",
+                "14:10",
+                "14:20",
+                "14:30",
+                "14:40",
+                "14:50",
+                "15:00",
+                "15:10",
+                "15:20",
+                "15:30",
+                "15:40",
+                "15:50",
+                "16:00",
+                "16:10",
+                "16:20",
+                "16:30",
+                "16:40",
+                "16:50",
+                "17:00",
+                "17:10",
+                "17:20",
+                "17:30",
+                "17:40",
+                "17:50",
+                "18:00",
+                "18:10",
+                "18:20",
+                "18:30",
+                "18:40",
+                "18:50",
+                "19:00",
+                "19:10",
+                "19:20",
+                "19:30",
+                "19:40",
+                "19:50",
+                "20:00",
             };
         }
         private void SetEndTime()
@@ -604,6 +640,42 @@ namespace Schedule.ViewModels
                 "13:40" => 34,
                 "13:50" => 35,
                 "14:00" => 36,
+                "14:10" => 37,
+                "14:20" => 38,
+                "14:30" => 39,
+                "14:40" => 40,
+                "14:50" => 41,
+                "15:00" => 42,
+                "15:10" => 43,
+                "15:20" => 44,
+                "15:30" => 45,
+                "15:40" => 46,
+                "15:50" => 47,
+                "16:00" => 48,
+                "16:10" => 49,
+                "16:20" => 50,
+                "16:30" => 51,
+                "16:40" => 52,
+                "16:50" => 53,
+                "17:00" => 54,
+                "17:10" => 55,
+                "17:20" => 56,
+                "17:30" => 57,
+                "17:40" => 58,
+                "17:50" => 59,
+                "18:00" => 60,
+                "18:10" => 61,
+                "18:20" => 62,
+                "18:30" => 63,
+                "18:40" => 64,
+                "18:50" => 65,
+                "19:00" => 66,
+                "19:10" => 67,
+                "19:20" => 68,
+                "19:30" => 69,
+                "19:40" => 70,
+                "19:50" => 71,
+                "20:00" => 72,
                 _ => -1,
             };
         }
@@ -682,7 +754,6 @@ namespace Schedule.ViewModels
                 CanPressTo = false;
             }
         }
-
         private void RefreshCanSaveState()
         {
             if (Subject.IsOk && Teacher.IsOk && Auditorium.IsOk &&
@@ -696,7 +767,6 @@ namespace Schedule.ViewModels
                 CanPressSave = false;
             }
         }
-
         private void RefreshStates()
         {
             RefreshCanAddState();
@@ -737,7 +807,7 @@ namespace Schedule.ViewModels
         private void CommandSaveFunction()
         {
             Add_Or_Save = "Add";
-            IsAddingMode = true; 
+            IsAddingMode = true;
             CommandClearFunction();
         }
 
@@ -755,7 +825,7 @@ namespace Schedule.ViewModels
         {
             return (Subject.Value, Teacher.Value, Auditorium.Value,
                     StartTimeSelectedItem.Index, GetEndTimeIndex(EndTimeSelectedItem.Value),
-                    $"{StartTimeSelectedItem.Value} - {EndTimeSelectedItem.Value}", new DateTime(YearsFromSelectedItem.ValueToInt(),MonthToInt(MonthsFromSelectedItem.Value),DatesFromSelectedItem.ValueToInt()),_connectionDayIndex,_connectionLessonIndex);
+                    $"{StartTimeSelectedItem.Value} - {EndTimeSelectedItem.Value}", new DateTime(YearsFromSelectedItem.ValueToInt(), MonthToInt(MonthsFromSelectedItem.Value), DatesFromSelectedItem.ValueToInt()), _connectionDayIndex, _connectionLessonIndex);
         }
         public bool IsPeriodSelected()
         {
@@ -770,8 +840,8 @@ namespace Schedule.ViewModels
             Subject.Value = lesson.Subject;
             Teacher.Value = lesson.Teacher;
             Auditorium.Value = lesson.Auditorium;
-            var start = lesson.Time[..5];
-            var end = lesson.Time[8..];
+            var start = lesson.Duration[..5];
+            var end = lesson.Duration[8..];
             StartTimeSelectedItem.Value = start;
             EndTimeSelectedItem.Value = end;
             SetYearsFrom();

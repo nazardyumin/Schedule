@@ -5,8 +5,9 @@ namespace Schedule.ViewModels.Bindings
 {
     public class ItemBinding : Notifier
     {
-        private string _value;
         private readonly Action _action;
+
+        private string _value;
         public string Value
         {
             get => _value;
@@ -24,7 +25,7 @@ namespace Schedule.ViewModels.Bindings
             get => _index;
             set
             {
-                SetField(ref _index, value);             
+                SetField(ref _index, value);
             }
         }
 

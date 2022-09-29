@@ -8,7 +8,7 @@ namespace Schedule.Models
     public class Configurator
     {
         public string? PathToListDays { get; set; }
-        public int DaysCount { get; set; }  
+        public int DaysCount { get; set; }
         public ObservableCollection<int>? Years { get; set; }
         public static Configurator Load()
         {
@@ -18,7 +18,7 @@ namespace Schedule.Models
             {
                 config.PathToListDays = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\\Schedule\\";
             }
-            if (config.Years == null || config.Years.Count==0)
+            if (config.Years == null || config.Years.Count == 0)
             {
                 config.Years = new ObservableCollection<int>() { 2022 };
                 DateTime now = DateTime.Now;
@@ -26,8 +26,7 @@ namespace Schedule.Models
                 {
                     var lastYearInList = config.Years[^1];
                     var steps = now.Year - lastYearInList;
-                    
-                    for (int i=0;i<steps;i++)
+                    for (int i = 0; i < steps; i++)
                     {
                         config.Years.Add(lastYearInList + 1);
                     }
@@ -40,7 +39,7 @@ namespace Schedule.Models
                     config.Years.Add(lastYearInList + 1);
                 }
                 var firstDay = new DateTime(2022, 1, 1);
-                var lastDay=new DateTime(config.Years[^1], 12, 31);
+                var lastDay = new DateTime(config.Years[^1], 12, 31);
                 var result = lastDay - firstDay;
                 config.DaysCount = int.Parse(result.TotalDays.ToString());
             }
