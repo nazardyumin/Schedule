@@ -55,6 +55,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             if (Model.IsOverlay(dateToCheck.year, dateToCheck.month, dateToCheck.day, setup.startTimeIndex, setup.endTimeIndex))
             {
                 DialogBox.Show("ERROR", "Please change the lesson time to avoid overlays!", "OK");
+                AddingSection.ClearTime();
             }
             else
             {

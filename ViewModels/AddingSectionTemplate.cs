@@ -529,6 +529,11 @@ namespace Schedule.ViewModels
             ClearYearsTo();
             ClearCopyDays();
         }
+        public void ClearTime()
+        {
+            StartTimeSelectedItem.Value = string.Empty;
+            EndTime.Clear();
+        }
 
         private void ChangeToday()
         {
