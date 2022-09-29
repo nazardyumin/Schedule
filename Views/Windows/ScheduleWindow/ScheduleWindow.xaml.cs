@@ -50,21 +50,29 @@ namespace Schedule.Views.Windows.ScheduleWindow
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             var setup = AddingSection.GetSetupInfo();
-            var lesson = Model.CreateLesson(setup.subject, setup.teacher, setup.auditorium, setup.startTimeIndex, setup.endTimeIndex, setup.duration, setup.date);
-            if (AddingSection.IsPeriodSelected())
+            var dateToCheck = AddingSection.GetFromValues();
+            if (Model.IsOverlay(dateToCheck.year, dateToCheck.month, dateToCheck.day, setup.startTimeIndex, setup.endTimeIndex))
             {
-                var (yearFrom, monthFrom, dayFrom, yearTo, monthTo, dayTo, copy1, copy2, copy3) = AddingSection.GetFromAndToValues();
-                Model.AddLessonToDays(lesson, yearFrom, monthFrom, dayFrom, yearTo, monthTo, dayTo, copy1, copy2, copy3);
+                MessageBox.Show("Please change the lesson time to avoid overlays!");
             }
             else
             {
-                var (year, month, day) = AddingSection.GetFromValues();
-                Model.AddLessonToOneDay(lesson, year, month, day);
+                var lesson = Model.CreateLesson(setup.subject, setup.teacher, setup.auditorium, setup.startTimeIndex, setup.endTimeIndex, setup.duration, setup.date);
+                if (AddingSection.IsPeriodSelected())
+                {
+                    var (yearFrom, monthFrom, dayFrom, yearTo, monthTo, dayTo, copy1, copy2, copy3) = AddingSection.GetFromAndToValues();
+                    Model.AddLessonToDays(lesson, yearFrom, monthFrom, dayFrom, yearTo, monthTo, dayTo, copy1, copy2, copy3);
+                }
+                else
+                {
+                    var (year, month, day) = AddingSection.GetFromValues();
+                    Model.AddLessonToOneDay(lesson, year, month, day);
+                }
+                AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
+                AddingSection.CommandClearFunction();
+                ComboBoxCopy2.Visibility = Visibility.Hidden;
+                ComboBoxCopy3.Visibility = Visibility.Hidden;
             }
-            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
-            AddingSection.CommandClearFunction();
-            ComboBoxCopy2.Visibility = Visibility.Hidden;
-            ComboBoxCopy3.Visibility = Visibility.Hidden;
         }
         private void ButtonClear_Click(object sender, RoutedEventArgs e)
         {
@@ -447,6 +455,6 @@ namespace Schedule.Views.Windows.ScheduleWindow
             AddCardsToFridayGrid(friday);
             AddCardsToSaturdayGrid(saturday);
             AddCardsToSundayGrid(sunday);
-        }      
+        }
     }
 }
