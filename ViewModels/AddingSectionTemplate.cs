@@ -116,7 +116,7 @@ namespace Schedule.ViewModels
 
         public MyCommand CommandToday { get; }
         public MyCommand CommandClear { get; }
-        public MyCommand CommandSave { get; }
+        public MyCommand CommandSaveOrCancel { get; }
 
         public AddingSectionTemplate()
         {
@@ -161,7 +161,7 @@ namespace Schedule.ViewModels
 
             CommandToday = new(_ => { CommandTodayFunction(); RefreshStates(); }, _ => true);
             CommandClear = new(_ => { CommandClearFunction(); RefreshStates(); }, _ => true);
-            CommandSave = new(_ => { CommandSaveFunction(); RefreshStates(); }, _ => true);
+            CommandSaveOrCancel = new(_ => { CommandSaveOrCancelFunction(); RefreshStates(); }, _ => true);
 
             CanPressToday = true;
             CanPressAdd = false;
@@ -804,7 +804,7 @@ namespace Schedule.ViewModels
             CanPressToday = true;
             CanPressAdd = CanPressClear = CanPressCopy = CanPressTo = false;
         }
-        private void CommandSaveFunction()
+        private void CommandSaveOrCancelFunction()
         {
             Add_Or_Save = "Add";
             IsAddingMode = true;

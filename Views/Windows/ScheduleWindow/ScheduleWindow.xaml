@@ -888,14 +888,14 @@
                                 IsEnabled="{Binding AddingSection.CanPressClear, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Click="ButtonClear_Click"/>
                         <Button x:Name="ButtonSave" Content="{Binding AddingSection.Add_Or_Save}" Margin="5,0,0,0" Style="{DynamicResource MaterialDesignPaperButton}" 
                                 Click="ButtonSave_Click"
-                                Command="{Binding AddingSection.CommandSave}"
+                                Command="{Binding AddingSection.CommandSaveOrCancel}"
                                 IsEnabled="{Binding AddingSection.CanPressSave, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Row="9" >
                     <Button x:Name="ButtonCancel" Content="Cancel" Margin="5,0,0,0" Style="{DynamicResource MaterialDesignPaperButton}" 
                             HorizontalAlignment="Center" Click="ButtonCancel_Click"
-                            Command="{Binding AddingSection.CommandSave}"/>
+                            Command="{Binding AddingSection.CommandSaveOrCancel}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Image Source="\Assets\Icons\github.png" Margin="18,0,0,0" Width="20" Height="20"/>
