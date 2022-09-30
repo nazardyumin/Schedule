@@ -87,7 +87,7 @@ namespace Schedule.ViewModels
         public WeekTemplate()
         {
             SetDays();
-            FocuseOnCurrentWeek();
+            FocusOnCurrentWeek();
             CanPressForward = true;
             CanPressBack = true;
             _lastIndex = Days!.Count - 1;
@@ -115,7 +115,7 @@ namespace Schedule.ViewModels
                 }
             }
         }
-        public void FocuseOnCurrentWeek()
+        public void FocusOnCurrentWeek()
         {
             DateTime currentDate = DateTime.Now;
             int index;
