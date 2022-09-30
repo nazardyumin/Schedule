@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Schedule.ViewModels
 {
@@ -66,10 +67,31 @@ namespace Schedule.ViewModels
             set => SetField(ref _header, value);
         }
 
+        private bool _canPressForward;
+        public bool CanPressForward
+        {
+            get => _canPressForward;
+            set => SetField(ref _canPressForward, value);
+        }
+
+        private bool _canPressBack;
+        public bool CanPressBack
+        {
+            get => _canPressBack;
+            set => SetField(ref _canPressBack, value);
+        }
+
+        private readonly int _lastIndex;
+        private int _iterator;
+
         public WeekTemplate()
         {
             SetDays();
             FocuseOnCurrentWeek();
+            CanPressForward = true;
+            CanPressBack = true;
+            _lastIndex = Days!.Count - 1;
+            _iterator = Days.IndexOf(Monday);
         }
 
         private void SetDays()
@@ -139,26 +161,32 @@ namespace Schedule.ViewModels
             {
                 Tuesday = Days[index + 1];
             }
+            else { Tuesday = new Day("future"); }
             if (index + 2 <= lastIndex)
             {
                 Wednesday = Days[index + 2];
             }
+            else { Wednesday = new Day("future"); }
             if (index + 3 <= lastIndex)
             {
                 Thursday = Days[index + 3];
             }
+            else { Thursday = new Day("future"); }
             if (index + 4 <= lastIndex)
             {
                 Friday = Days[index + 4];
             }
+            else { Friday = new Day("future"); }
             if (index + 5 <= lastIndex)
             {
                 Saturday = Days[index + 5];
             }
+            else { Saturday = new Day("future"); }
             if (index + 6 <= lastIndex)
             {
                 Sunday = Days[index + 6];
             }
+            else { Sunday = new Day("future"); }
             Header = SetHeader();
         }
         private void TodayIsTuesday(int index)
@@ -168,27 +196,33 @@ namespace Schedule.ViewModels
             {
                 Monday = Days[index - 1];
             }
+            else { Monday = new Day("past"); }
             Tuesday = Days[index];
             if (index + 1 <= lastIndex)
             {
                 Wednesday = Days[index + 1];
             }
+            else { Wednesday = new Day("future"); }
             if (index + 2 <= lastIndex)
             {
                 Thursday = Days[index + 2];
             }
+            else { Thursday = new Day("future"); }
             if (index + 3 <= lastIndex)
             {
                 Friday = Days[index + 3];
             }
+            else { Friday = new Day("future"); }
             if (index + 4 <= lastIndex)
             {
                 Saturday = Days[index + 4];
             }
+            else { Saturday = new Day("future"); }
             if (index + 5 <= lastIndex)
             {
                 Sunday = Days[index + 5];
             }
+            else { Sunday = new Day("future"); }
             Header = SetHeader();
         }
         private void TodayIsWednesday(int index)
@@ -198,27 +232,33 @@ namespace Schedule.ViewModels
             {
                 Monday = Days[index - 2];
             }
+            else { Monday = new Day("past"); }
             if (index - 1 >= 0)
             {
                 Tuesday = Days[index - 1];
             }
+            else { Tuesday = new Day("past"); }
             Wednesday = Days[index];
             if (index + 1 <= lastIndex)
             {
                 Thursday = Days[index + 1];
             }
+            else { Thursday = new Day("future"); }
             if (index + 2 <= lastIndex)
             {
                 Friday = Days[index + 2];
             }
+            else { Friday = new Day("future"); }
             if (index + 3 <= lastIndex)
             {
                 Saturday = Days[index + 3];
             }
+            else { Saturday = new Day("future"); }
             if (index + 4 <= lastIndex)
             {
                 Sunday = Days[index + 4];
             }
+            else { Sunday = new Day("future"); }
             Header = SetHeader();
         }
         private void TodayIsThursday(int index)
@@ -228,27 +268,33 @@ namespace Schedule.ViewModels
             {
                 Monday = Days[index - 3];
             }
+            else { Monday = new Day("past"); }
             if (index - 2 >= 0)
             {
                 Tuesday = Days[index - 2];
             }
+            else { Tuesday = new Day("past"); }
             if (index - 1 >= 0)
             {
                 Wednesday = Days[index - 1];
             }
+            else { Wednesday = new Day("past"); }
             Thursday = Days[index];
             if (index + 1 <= lastIndex)
             {
                 Friday = Days[index + 1];
             }
+            else { Friday = new Day("future"); }
             if (index + 2 <= lastIndex)
             {
                 Saturday = Days[index + 2];
             }
+            else { Saturday = new Day("future"); }
             if (index + 3 <= lastIndex)
             {
                 Sunday = Days[index + 3];
             }
+            else { Sunday = new Day("future"); }
             Header = SetHeader();
         }
         private void TodayIsFriday(int index)
@@ -258,27 +304,33 @@ namespace Schedule.ViewModels
             {
                 Monday = Days[index - 4];
             }
+            else { Monday = new Day("past"); }
             if (index - 3 >= 0)
             {
                 Tuesday = Days[index - 3];
             }
+            else { Tuesday = new Day("past"); }
             if (index - 2 >= 0)
             {
                 Wednesday = Days[index - 2];
             }
+            else {  Wednesday = new Day("past"); }
             if (index - 1 >= 0)
             {
                 Thursday = Days[index - 1];
             }
+            else { Thursday = new Day("past"); }
             Friday = Days[index];
             if (index + 1 <= lastIndex)
             {
                 Saturday = Days[index + 1];
             }
+            else { Saturday = new Day("future"); }
             if (index + 2 <= lastIndex)
             {
                 Sunday = Days[index + 2];
             }
+            else { Sunday = new Day("future"); }
             Header = SetHeader();
         }
         private void TodayIsSaturday(int index)
@@ -288,27 +340,33 @@ namespace Schedule.ViewModels
             {
                 Monday = Days[index - 5];
             }
+            else { Monday = new Day("past"); }
             if (index - 4 >= 0)
             {
                 Tuesday = Days[index - 4];
             }
+            else { Tuesday = new Day("past"); }
             if (index - 3 >= 0)
             {
                 Wednesday = Days[index - 3];
             }
+            else { Wednesday = new Day("past"); }
             if (index - 2 >= 0)
             {
                 Thursday = Days[index - 2];
             }
+            else { Thursday = new Day("past");  }
             if (index - 1 >= 0)
             {
                 Friday = Days[index - 1];
             }
+            else {  Friday = new Day("past");  }
             Saturday = Days[index];
             if (index + 1 <= lastIndex)
             {
                 Sunday = Days[index + 1];
             }
+            else {  Sunday = new Day("future"); }
             Header = SetHeader();
         }
         private void TodayIsSunday(int index)
@@ -317,26 +375,32 @@ namespace Schedule.ViewModels
             {
                 Monday = Days![index - 6];
             }
+            else { Monday = new Day("past"); }
             if (index - 5 >= 0)
             {
                 Tuesday = Days![index - 5];
             }
+            else { Tuesday = new Day("past"); }
             if (index - 4 >= 0)
             {
                 Wednesday = Days![index - 4];
             }
+            else  { Wednesday = new Day("past"); }
             if (index - 3 >= 0)
             {
                 Thursday = Days![index - 3];
             }
+            else {  Thursday = new Day("past"); }
             if (index - 2 >= 0)
             {
                 Friday = Days![index - 2];
             }
+            else { Friday = new Day("past"); }
             if (index - 1 >= 0)
             {
                 Saturday = Days![index - 1];
             }
+            else { Saturday = new Day("past"); }
             Sunday = Days![index];
             Header = SetHeader();
         }
@@ -365,6 +429,10 @@ namespace Schedule.ViewModels
         {
             DateTime now = DateTime.Now;
             PlusWeek();
+            if (_iterator + 6 >= _lastIndex) { CanPressForward = false; }
+            else { CanPressForward = true; }
+            if (_iterator - 1 <= 0 ) { CanPressBack = false; }
+            else { CanPressBack = true; }
             if (Monday.IsThisDay(now.Year, now.Month, now.Day)) return (true, false, 0);
             if (Tuesday.IsThisDay(now.Year, now.Month, now.Day)) return (true, false, 1);
             if (Wednesday.IsThisDay(now.Year, now.Month, now.Day)) return (true, false, 2);
@@ -377,19 +445,65 @@ namespace Schedule.ViewModels
         }
         private void PlusWeek()
         {
-            Monday = Days![Days.IndexOf(Monday) + 7];
-            Tuesday = Days![Days.IndexOf(Tuesday) + 7];
-            Wednesday = Days![Days.IndexOf(Wednesday) + 7];
-            Thursday = Days![Days.IndexOf(Thursday) + 7];
-            Friday = Days![Days.IndexOf(Friday) + 7];
-            Saturday = Days![Days.IndexOf(Saturday) + 7];
-            Sunday = Days![Days.IndexOf(Sunday) + 7];
+            if (_iterator>=0)
+            {
+                PlusWeekIteratorNotNull();
+            }
+            else
+            {
+                PlusWeekIteratorNull();
+            }
             Header = SetHeader();
+        }
+        private void PlusWeekIteratorNotNull()
+        {
+            if (_iterator + 7 <= _lastIndex) Monday = Days![_iterator + 7];
+            else Monday = new Day("future");
+            _iterator++;
+            if (_iterator + 7 <= _lastIndex) Tuesday = Days![_iterator + 7];
+            else Tuesday = new Day("future");
+            _iterator++;
+            if (_iterator + 7 <= _lastIndex) Wednesday = Days![_iterator + 7];
+            else Wednesday = new Day("future");
+            _iterator++;
+            if (_iterator + 7 <= _lastIndex) Thursday = Days![_iterator + 7];
+            else Thursday = new Day("future");
+            _iterator++;
+            if (_iterator + 7 <= _lastIndex) Friday = Days![_iterator + 7];
+            else Friday = new Day("future");
+            _iterator++;
+            if (_iterator + 7 <= _lastIndex) Saturday = Days![_iterator + 7];
+            else Saturday = new Day("future");
+            _iterator++;
+            if (_iterator + 7 <= _lastIndex) Sunday = Days![_iterator + 7];
+            else Sunday = new Day("future");
+            _iterator++;
+        }
+        private void PlusWeekIteratorNull()
+        {
+            Monday = Days![_iterator + 7];          
+            _iterator++;
+            Tuesday = Days![_iterator + 7];
+            _iterator++;
+            Wednesday = Days![_iterator + 7];
+            _iterator++;
+            Thursday = Days![_iterator + 7];         
+            _iterator++;
+            Friday = Days![_iterator + 7];           
+            _iterator++;
+            Saturday = Days![_iterator + 7];         
+            _iterator++;
+            Sunday = Days![_iterator + 7];     
+            _iterator++;
         }
         public (bool isCurrentWeek, bool isFuture, int index) PreviousWeek()
         {
             DateTime now = DateTime.Now;
             MinusWeek();
+            if (_iterator + 6 >= _lastIndex) { CanPressForward = false; }
+            else { CanPressForward = true; }
+            if (_iterator - 1 <= 0) { CanPressBack = false; }
+            else { CanPressBack = true; }
             if (Monday.IsThisDay(now.Year, now.Month, now.Day)) return (true, false, 0);
             if (Tuesday.IsThisDay(now.Year, now.Month, now.Day)) return (true, false, 1);
             if (Wednesday.IsThisDay(now.Year, now.Month, now.Day)) return (true, false, 2);
@@ -402,15 +516,58 @@ namespace Schedule.ViewModels
         }
         private void MinusWeek()
         {
-            Monday = Days![Days.IndexOf(Monday) - 7];
-            Tuesday = Days![Days.IndexOf(Tuesday) - 7];
-            Wednesday = Days![Days.IndexOf(Wednesday) - 7];
-            Thursday = Days![Days.IndexOf(Thursday) - 7];
-            Friday = Days![Days.IndexOf(Friday) - 7];
-            Saturday = Days![Days.IndexOf(Saturday) - 7];
-            Sunday = Days![Days.IndexOf(Sunday) - 7];
+            if (_iterator - 7 <=0)
+            {
+                MinusWeekIteratorNull();
+            }
+            else
+            {
+                MinusWeekIteratorNotNull();
+            }
             Header = SetHeader();
         }
+        private void MinusWeekIteratorNull()
+        {
+            _iterator--;
+            if (_iterator >= 0) Sunday = Days![_iterator];
+            else Sunday = new Day("past");
+            _iterator--;
+            if (_iterator >= 0) Saturday = Days![_iterator];
+            else Saturday = new Day("past");
+            _iterator--;
+            if (_iterator >= 0) Friday = Days![_iterator];
+            else Friday = new Day("past");
+            _iterator--;
+            if (_iterator >= 0) Thursday = Days![_iterator];
+            else Thursday = new Day("past");
+            _iterator--;
+            if (_iterator >= 0) Wednesday = Days![_iterator];
+            else Wednesday = new Day("past");
+            _iterator--;
+            if (_iterator >= 0) Tuesday = Days![_iterator];
+            else Tuesday = new Day("past");
+            _iterator--;
+            if (_iterator >= 0) Monday = Days![_iterator];
+            else Monday = new Day("past");
+        }
+        private void MinusWeekIteratorNotNull()
+        {
+            _iterator--;
+            Sunday = Days![_iterator];
+            _iterator--;
+            Saturday = Days![_iterator];
+            _iterator--;
+            Friday = Days![_iterator];
+            _iterator--;
+            Thursday = Days![_iterator];
+            _iterator--;
+            Wednesday = Days![_iterator];
+            _iterator--;
+            Tuesday = Days![_iterator];
+            _iterator--;
+            Monday = Days![_iterator];
+        }
+
         public bool IsOverlay(int year, int month, int day, int startTimeIndex, int endTimeIndex)
         {
             bool isOverlay = false;

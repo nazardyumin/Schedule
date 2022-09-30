@@ -106,7 +106,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
         }
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            var res = DialogBox.Show("DELETE", "Are you shure?", "YES","NO");
+            var res = DialogBox.Show("DELETE", "Are you shure?", "YES", "NO");
             switch (res)
             {
                 case DialogBox.Result_.LeftButtonClicked:
@@ -389,71 +389,92 @@ namespace Schedule.Views.Windows.ScheduleWindow
         private void AddCardsToMondayGrid(Day monday)
         {
             GridMonday.Children.Clear();
-            foreach (var item in monday.Lessons!)
+            if (monday.Lessons is not null)
             {
-                var card = ConvertLessonToCard(item);
-                SetColorMenuAndEvents(ref card, monday);
-                GridMonday.Children.Add(card);
-            }
+                foreach (var item in monday.Lessons!)
+                {
+                    var card = ConvertLessonToCard(item);
+                    SetColorMenuAndEvents(ref card, monday);
+                    GridMonday.Children.Add(card);
+                }
+            }  
         }
         private void AddCardsToTuesdayGrid(Day tuesday)
         {
             GridTuesday.Children.Clear();
-            foreach (var item in tuesday.Lessons!)
+            if (tuesday.Lessons is not null)
             {
-                var card = ConvertLessonToCard(item);
-                SetColorMenuAndEvents(ref card, tuesday);
-                GridTuesday.Children.Add(card);
-            }
+                foreach (var item in tuesday.Lessons!)
+                {
+                    var card = ConvertLessonToCard(item);
+                    SetColorMenuAndEvents(ref card, tuesday);
+                    GridTuesday.Children.Add(card);
+                }
+            }     
         }
         private void AddCardsToWednesdayGrid(Day wednesday)
         {
             GridWednesday.Children.Clear();
-            foreach (var item in wednesday.Lessons!)
+            if (wednesday.Lessons is not null)
             {
-                var card = ConvertLessonToCard(item);
-                SetColorMenuAndEvents(ref card, wednesday);
-                GridWednesday.Children.Add(card);
-            }
+                foreach (var item in wednesday.Lessons!)
+                {
+                    var card = ConvertLessonToCard(item);
+                    SetColorMenuAndEvents(ref card, wednesday);
+                    GridWednesday.Children.Add(card);
+                }
+            }     
         }
         private void AddCardsToThursdayGrid(Day thursday)
         {
             GridThursday.Children.Clear();
-            foreach (var item in thursday.Lessons!)
+            if (thursday.Lessons is not null)
             {
-                var card = ConvertLessonToCard(item);
-                SetColorMenuAndEvents(ref card, thursday);
-                GridThursday.Children.Add(card);
-            }
+                foreach (var item in thursday.Lessons!)
+                {
+                    var card = ConvertLessonToCard(item);
+                    SetColorMenuAndEvents(ref card, thursday);
+                    GridThursday.Children.Add(card);
+                }
+            }  
         }
         private void AddCardsToFridayGrid(Day friday)
         {
-            GridFriday.Children.Clear();
-            foreach (var item in friday.Lessons!)
+            GridFriday.Children.Clear();    
+            if (friday.Lessons is not null)
             {
-                var card = ConvertLessonToCard(item);
-                SetColorMenuAndEvents(ref card, friday);
-                GridFriday.Children.Add(card);
+                foreach (var item in friday.Lessons!)
+                {
+                    var card = ConvertLessonToCard(item);
+                    SetColorMenuAndEvents(ref card, friday);
+                    GridFriday.Children.Add(card);
+                }
             }
         }
         private void AddCardsToSaturdayGrid(Day saturday)
         {
             GridSaturday.Children.Clear();
-            foreach (var item in saturday.Lessons!)
+            if (saturday.Lessons is not null)
             {
-                var card = ConvertLessonToCard(item);
-                SetColorMenuAndEvents(ref card, saturday);
-                GridSaturday.Children.Add(card);
+                foreach (var item in saturday.Lessons!)
+                {
+                    var card = ConvertLessonToCard(item);
+                    SetColorMenuAndEvents(ref card, saturday);
+                    GridSaturday.Children.Add(card);
+                }
             }
         }
         private void AddCardsToSundayGrid(Day sunday)
         {
             GridSunday.Children.Clear();
-            foreach (var item in sunday.Lessons!)
+            if (sunday.Lessons is not null)
             {
-                var card = ConvertLessonToCard(item);
-                SetColorMenuAndEvents(ref card, sunday);
-                GridSunday.Children.Add(card);
+                foreach (var item in sunday.Lessons!)
+                {
+                    var card = ConvertLessonToCard(item);
+                    SetColorMenuAndEvents(ref card, sunday);
+                    GridSunday.Children.Add(card);
+                }
             }
         }
         private void AddCardsToGrid(Day monday, Day tuesday, Day wednesday, Day thursday, Day friday, Day saturday, Day sunday)

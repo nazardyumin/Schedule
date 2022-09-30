@@ -11,10 +11,16 @@ namespace Schedule.Models
         public int Index { get; set; }
         public string? ShortDayInfo { get; set; }
         public ObservableCollection<Lesson>? Lessons { get; set; }
+        public string? EmptyDayKey { get; set; }
 
         public Day()
         {
-
+            
+        }
+        public Day(string key)
+        {
+            EmptyDayKey=key;
+            ShortDayInfo = string.Empty;
         }
         public Day(DateTime dateTime)
         {
@@ -65,7 +71,14 @@ namespace Schedule.Models
         }
         public string GetDayInfo()
         {
-            return $"{Year} {MonthToString(Month)}, {Date}";
+            if (Year == 0 && Month == 0 && Date == 0)
+            {
+                return "Not Available";
+            }
+            else
+            {
+                return $"{Year} {MonthToString(Month)}, {Date}";
+            }
         }
         public int GetDayIndex()
         {
@@ -73,20 +86,49 @@ namespace Schedule.Models
         }
         public bool IsThisDay(int year, int month, int date)
         {
-            return year == Year && month == Month && date == Date;
+            if(Year == 0 && Month == 0 && Date == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return year == Year && month == Month && date == Date;
+            }         
         }
         public bool IsFuture()
         {
-            DateTime now = DateTime.Now;
-            var thisDay = new DateTime(Year, Month, Date);
-            return thisDay > now;
+            if (EmptyDayKey is not null)
+            {
+                if (EmptyDayKey == "future")
+                {
+                    return true;
+                }
+                else return false;
+            }
+            else
+            {
+                DateTime now = DateTime.Now;
+                var thisDay = new DateTime(Year, Month, Date);
+                return thisDay > now;
+            }     
         }
         public bool IsPast()
         {
-            DateTime now = DateTime.Now;
-            var today = new DateTime(now.Year, now.Month, now.Day);
-            var thisDay = new DateTime(Year, Month, Date);
-            return thisDay < today;
+            if (EmptyDayKey is not null)
+            {
+                if (EmptyDayKey == "past")
+                {
+                    return true;
+                }
+                else return false;
+            }
+            else
+            {
+                DateTime now = DateTime.Now;
+                var today = new DateTime(now.Year, now.Month, now.Day);
+                var thisDay = new DateTime(Year, Month, Date);
+                return thisDay < today;
+            }   
         }
         public DateTime GetDateTime()
         {

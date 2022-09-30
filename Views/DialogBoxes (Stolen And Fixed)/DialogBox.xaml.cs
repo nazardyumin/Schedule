@@ -1,7 +1,7 @@
-﻿using System.ComponentModel;
+﻿using MaterialDesignThemes.Wpf;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using MaterialDesignThemes.Wpf;
 
 namespace ExtraTools
 {

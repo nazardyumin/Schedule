@@ -33,9 +33,17 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Button x:Name="ButtonBack" Content="{Binding ButtonBackContent}" Margin="0,0,8,0" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Foreground="LightGray" Click="ButtonBack_Click"/>
+                    <Button x:Name="ButtonBack" Content="{Binding ButtonBackContent}"
+                            Margin="0,0,8,0" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" 
+                            Foreground="LightGray" 
+                            IsEnabled="{Binding Model.CanPressBack, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Click="ButtonBack_Click"/>
                     <TextBlock Text="{Binding Model.Header}" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
-                    <Button x:Name="ButtonForward" Content="{Binding ButtonForwardContent}" Margin="8,0,0,0" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Foreground="LightGray" Click="ButtonForward_Click"/>
+                    <Button x:Name="ButtonForward" Content="{Binding ButtonForwardContent}" 
+                            Margin="8,0,0,0" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" 
+                            Foreground="LightGray" 
+                            IsEnabled="{Binding Model.CanPressForward,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Click="ButtonForward_Click"/>
                 </StackPanel>
 
                 <Grid Grid.Row="1" >
