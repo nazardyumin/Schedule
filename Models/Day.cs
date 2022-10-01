@@ -15,13 +15,14 @@ namespace Schedule.Models
 
         public Day()
         {
-
         }
+
         public Day(string key)
         {
             EmptyDayKey = key;
             ShortDayInfo = string.Empty;
         }
+
         public Day(DateTime dateTime)
         {
             Year = dateTime.Year;
@@ -51,6 +52,7 @@ namespace Schedule.Models
                 _ => "",
             };
         }
+
         private int SetIndex(string dayOfTheWeek)
         {
             return dayOfTheWeek switch
@@ -65,10 +67,12 @@ namespace Schedule.Models
                 _ => -1,
             };
         }
+
         private string GetShortDayInfo(DateTime dateTime)
         {
             return $"{dateTime.DayOfWeek} {MonthToString(Month)[..3]}, {Date}";
         }
+
         public string GetDayInfo()
         {
             if (Year == 0 && Month == 0 && Date == 0)
@@ -80,10 +84,12 @@ namespace Schedule.Models
                 return $"{Year} {MonthToString(Month)}, {Date}";
             }
         }
+
         public int GetDayIndex()
         {
             return Index;
         }
+
         public bool IsThisDay(int year, int month, int date)
         {
             if (Year == 0 && Month == 0 && Date == 0)
@@ -95,41 +101,34 @@ namespace Schedule.Models
                 return year == Year && month == Month && date == Date;
             }
         }
+
         public bool IsFuture()
         {
             if (EmptyDayKey is not null)
             {
-                if (EmptyDayKey == "future")
-                {
-                    return true;
-                }
-                else return false;
+                return EmptyDayKey == "future";
             }
             else
             {
-                DateTime now = DateTime.Now;
+                var now = DateTime.Now;
                 var thisDay = new DateTime(Year, Month, Date);
                 return thisDay > now;
             }
         }
+
         public bool IsPast()
         {
             if (EmptyDayKey is not null)
             {
-                if (EmptyDayKey == "past")
-                {
-                    return true;
-                }
-                else return false;
+                return EmptyDayKey == "past";
             }
-            else
-            {
-                DateTime now = DateTime.Now;
-                var today = new DateTime(now.Year, now.Month, now.Day);
-                var thisDay = new DateTime(Year, Month, Date);
-                return thisDay < today;
-            }
+
+            var now = DateTime.Now;
+            var today = new DateTime(now.Year, now.Month, now.Day);
+            var thisDay = new DateTime(Year, Month, Date);
+            return thisDay < today;
         }
+
         public DateTime GetDateTime()
         {
             return new DateTime(Year, Month, Date);

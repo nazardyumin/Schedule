@@ -10,7 +10,7 @@ namespace Schedule.Models
     {
         public static List<Day> Load()
         {
-            string fileName = "ListDays.json";
+            const string fileName = "ListDays.json";
             var path = Configurator.Load().PathToListDays + fileName;
             if (File.Exists(path))
             {
@@ -19,6 +19,7 @@ namespace Schedule.Models
             }
             else return new List<Day>();
         }
+
         public static void Save(IEnumerable<Day> days)
         {
             var path = Configurator.Load().PathToListDays;
@@ -26,7 +27,8 @@ namespace Schedule.Models
             {
                 Directory.CreateDirectory(path!);
             }
-            string fileName = "ListDays.json";
+
+            const string fileName = "ListDays.json";
             path += fileName;
             var file = JsonSerializer.Serialize(days, new JsonSerializerOptions
             {
