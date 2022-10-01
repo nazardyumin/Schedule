@@ -487,5 +487,12 @@ namespace Schedule.Views.Windows.ScheduleWindow
             AddCardsToSaturdayGrid(saturday);
             AddCardsToSundayGrid(sunday);
         }
+
+        private void ButtonCurrentWeek_Click(object sender, RoutedEventArgs e)
+        {
+            Model.CurrentWeekFunction();
+            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
+            TodayBackground(Model.GetCurrentDayIndex());
+        }
     }
 }

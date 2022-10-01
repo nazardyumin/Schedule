@@ -44,6 +44,12 @@
                             Foreground="LightGray" 
                             IsEnabled="{Binding Model.CanPressForward,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             Click="ButtonForward_Click"/>
+                    <Button x:Name="ButtonCurrentWeek" 
+                            Content="Current Week" Margin="30,0,0,0" 
+                            Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}"
+                            Foreground="Gray"
+                            IsEnabled="{Binding Model.CanPressCurrentWeek}"
+                            Click="ButtonCurrentWeek_Click"/>
                 </StackPanel>
 
                 <Grid Grid.Row="1" >

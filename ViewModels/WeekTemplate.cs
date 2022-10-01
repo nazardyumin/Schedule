@@ -1,8 +1,8 @@
 ﻿using Schedule.Models;
+using Schedule.ViewModels.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace Schedule.ViewModels
 {
@@ -84,6 +84,22 @@ namespace Schedule.ViewModels
         private readonly int _lastIndex;
         private int _iterator;
 
+        private bool _canPressCurrentWeek;
+        public bool CanPressCurrentWeek
+        {
+            get => _canPressCurrentWeek;
+            set => SetField(ref _canPressCurrentWeek, value);
+        }
+        private int _stepsFromCurrentWeek;
+        public int StepsFromCurrentWeek
+        {
+            get => _stepsFromCurrentWeek;
+            set
+            {
+                SetField(ref _stepsFromCurrentWeek, value);
+                RefreshCanPressCurrentWeekState();
+            }
+        }
         public WeekTemplate()
         {
             SetDays();
@@ -92,6 +108,7 @@ namespace Schedule.ViewModels
             CanPressBack = true;
             _lastIndex = Days!.Count - 1;
             _iterator = Days.IndexOf(Monday);
+            StepsFromCurrentWeek = 0;
         }
 
         private void SetDays()
@@ -427,6 +444,7 @@ namespace Schedule.ViewModels
         }
         public (bool isCurrentWeek, bool isFuture, int index) NextWeek()
         {
+            StepsFromCurrentWeek++;
             DateTime now = DateTime.Now;
             PlusWeek();
             if (_iterator + 6 >= _lastIndex) { CanPressForward = false; }
@@ -498,6 +516,7 @@ namespace Schedule.ViewModels
         }
         public (bool isCurrentWeek, bool isFuture, int index) PreviousWeek()
         {
+            StepsFromCurrentWeek--;
             DateTime now = DateTime.Now;
             MinusWeek();
             if (_iterator + 6 >= _lastIndex) { CanPressForward = false; }
@@ -567,7 +586,34 @@ namespace Schedule.ViewModels
             _iterator--;
             Monday = Days![_iterator];
         }
-
+        private void RefreshCanPressCurrentWeekState()
+        {
+            if (StepsFromCurrentWeek >= 2|| StepsFromCurrentWeek <= -2)
+            {
+                CanPressCurrentWeek = true;
+            }
+            else
+            {
+                CanPressCurrentWeek = false;
+            }
+        }
+        public void CurrentWeekFunction()
+        {
+            if (StepsFromCurrentWeek>0)
+            {
+                while (StepsFromCurrentWeek!=0)
+                {
+                    PreviousWeek();
+                }
+            }
+            else
+            {
+                while (StepsFromCurrentWeek!= 0)
+                {
+                    NextWeek();
+                }
+            }
+        }
         public bool IsOverlay(int year, int month, int day, int startTimeIndex, int endTimeIndex)
         {
             bool isOverlay = false;
