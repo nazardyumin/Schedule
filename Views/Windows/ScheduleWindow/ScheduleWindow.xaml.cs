@@ -106,7 +106,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
         }
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            var res = DialogBox.Show("DELETE", "Are you shure?", "YES", "NO");
+            var res = DialogBox.Show("DELETE", "Are you sure?", "YES", "NO");
             switch (res)
             {
                 case DialogBox.Result_.LeftButtonClicked:
