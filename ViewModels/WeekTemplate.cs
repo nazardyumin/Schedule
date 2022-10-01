@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using static ExtraTools.DialogBox;
 
 namespace Schedule.ViewModels
 {
@@ -119,14 +118,14 @@ namespace Schedule.ViewModels
             Days = Serializer.Load();
             var setup = Configurator.Load();
             var years = setup.Years;
-            if (Days.Count==0)
+            if (Days.Count == 0)
             {
                 SetDaysWithoutFile(setup.DaysCount, years!);
             }
             else
             {
                 AddDaysIfYearsChanged(years!);
-            }  
+            }
         }
         private void SetDaysWithoutFile(int count, ObservableCollection<int> years)
         {
