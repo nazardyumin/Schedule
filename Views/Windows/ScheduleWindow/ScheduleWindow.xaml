@@ -812,7 +812,7 @@
                     <StackPanel  Margin="10,10,10,10" Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button x:Name="ButtonClear" Content="Clear" Margin="0,0,5,0" Style="{DynamicResource MaterialDesignPaperButton}" Command="{Binding AddingSection.CommandClear}" 
                                 IsEnabled="{Binding AddingSection.CanPressClear, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Click="ButtonClear_Click"/>
-                        <Button x:Name="ButtonAdd" Content="{Binding AddingSection.Add_Or_Save}" Margin="5,0,0,0" Style="{DynamicResource MaterialDesignPaperButton}" Click="ButtonAdd_Click"
+                        <Button x:Name="ButtonAdd" Content="{Binding AddingSection.AddOrSave}" Margin="5,0,0,0" Style="{DynamicResource MaterialDesignPaperButton}" Click="ButtonAdd_Click"
                                 IsEnabled="{Binding AddingSection.CanPressAdd, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                 </StackPanel>
@@ -900,7 +900,7 @@
                     <StackPanel  Margin="10,10,10,10" Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button x:Name="ButtonClearEdit" Content="Clear" Margin="0,0,5,0" Style="{DynamicResource MaterialDesignPaperButton}" Command="{Binding AddingSection.CommandClear}" 
                                 IsEnabled="{Binding AddingSection.CanPressClear, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Click="ButtonClear_Click"/>
-                        <Button x:Name="ButtonSave" Content="{Binding AddingSection.Add_Or_Save}" Margin="5,0,0,0" Style="{DynamicResource MaterialDesignPaperButton}" 
+                        <Button x:Name="ButtonSave" Content="{Binding AddingSection.AddOrSave}" Margin="5,0,0,0" Style="{DynamicResource MaterialDesignPaperButton}" 
                                 Click="ButtonSave_Click"
                                 Command="{Binding AddingSection.CommandSaveOrCancel}"
                                 IsEnabled="{Binding AddingSection.CanPressSave, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>

@@ -8,6 +8,7 @@ namespace Schedule.ViewModels.Bindings
         private readonly Action _action;
 
         private string _value;
+
         public string Value
         {
             get => _value;
@@ -20,6 +21,7 @@ namespace Schedule.ViewModels.Bindings
         }
 
         private bool _isOk;
+
         public bool IsOk
         {
             get => _isOk;
@@ -36,12 +38,13 @@ namespace Schedule.ViewModels.Bindings
         {
             var isEmpty = string.IsNullOrEmpty(Value);
             var check = Value.ToCharArray();
-            bool hasLetters = false;
+            var hasLetters = false;
             foreach (var item in check)
             {
                 hasLetters = char.IsLetterOrDigit(item);
                 if (hasLetters) break;
             }
+
             if (!isEmpty && hasLetters) IsOk = true;
             else IsOk = false;
         }
