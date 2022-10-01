@@ -9,11 +9,15 @@ namespace Schedule.Models
     public static class Serializer
     {
         public static List<Day> Load()
-        {
+        {    
             string fileName = "ListDays.json";
             var path = Configurator.Load().PathToListDays + fileName;
-            var file = File.ReadAllText(path);
-            return JsonSerializer.Deserialize<List<Day>>(file)!;
+            if (File.Exists(path))
+            {
+                var file = File.ReadAllText(path);
+                return JsonSerializer.Deserialize<List<Day>>(file)!;
+            }
+            else return new List<Day>();
         }
         public static void Save(IEnumerable<Day> days)
         {

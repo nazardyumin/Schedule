@@ -397,7 +397,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
                     SetColorMenuAndEvents(ref card, monday);
                     GridMonday.Children.Add(card);
                 }
-            }  
+            }
         }
         private void AddCardsToTuesdayGrid(Day tuesday)
         {
@@ -410,7 +410,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
                     SetColorMenuAndEvents(ref card, tuesday);
                     GridTuesday.Children.Add(card);
                 }
-            }     
+            }
         }
         private void AddCardsToWednesdayGrid(Day wednesday)
         {
@@ -423,7 +423,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
                     SetColorMenuAndEvents(ref card, wednesday);
                     GridWednesday.Children.Add(card);
                 }
-            }     
+            }
         }
         private void AddCardsToThursdayGrid(Day thursday)
         {
@@ -436,11 +436,11 @@ namespace Schedule.Views.Windows.ScheduleWindow
                     SetColorMenuAndEvents(ref card, thursday);
                     GridThursday.Children.Add(card);
                 }
-            }  
+            }
         }
         private void AddCardsToFridayGrid(Day friday)
         {
-            GridFriday.Children.Clear();    
+            GridFriday.Children.Clear();
             if (friday.Lessons is not null)
             {
                 foreach (var item in friday.Lessons!)

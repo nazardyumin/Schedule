@@ -1,8 +1,9 @@
 ﻿using Schedule.Models;
-using Schedule.ViewModels.Commands;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using static ExtraTools.DialogBox;
 
 namespace Schedule.ViewModels
 {
@@ -90,6 +91,7 @@ namespace Schedule.ViewModels
             get => _canPressCurrentWeek;
             set => SetField(ref _canPressCurrentWeek, value);
         }
+
         private int _stepsFromCurrentWeek;
         public int StepsFromCurrentWeek
         {
@@ -100,6 +102,7 @@ namespace Schedule.ViewModels
                 RefreshCanPressCurrentWeekState();
             }
         }
+
         public WeekTemplate()
         {
             SetDays();
@@ -114,10 +117,32 @@ namespace Schedule.ViewModels
         private void SetDays()
         {
             Days = Serializer.Load();
-            var years = Configurator.Load().Years!;
-            foreach (var year in years)
+            var setup = Configurator.Load();
+            var years = setup.Years;
+            if (Days.Count==0)
             {
-                if (year > Days[^1].Year)
+                SetDaysWithoutFile(setup.DaysCount, years!);
+            }
+            else
+            {
+                AddDaysIfYearsChanged(years!);
+            }  
+        }
+        private void SetDaysWithoutFile(int count, ObservableCollection<int> years)
+        {
+            var firstDay = new DateTime(years![0], 1, 1);
+            for (int i = 0; i <= count; i++)
+            {
+                var timeSpan = new TimeSpan(i, 0, 0, 0);
+                Days!.Add(new Day(firstDay + timeSpan));
+            }
+            Serializer.Save(Days!);
+        }
+        private void AddDaysIfYearsChanged(ObservableCollection<int> years)
+        {
+            foreach (var year in years!)
+            {
+                if (year > Days![^1].Year)
                 {
                     var firstDay = new DateTime(year, 1, 1);
                     var lastDay = new DateTime(years[^1], 12, 31);
@@ -331,7 +356,7 @@ namespace Schedule.ViewModels
             {
                 Wednesday = Days[index - 2];
             }
-            else {  Wednesday = new Day("past"); }
+            else { Wednesday = new Day("past"); }
             if (index - 1 >= 0)
             {
                 Thursday = Days[index - 1];
@@ -372,18 +397,18 @@ namespace Schedule.ViewModels
             {
                 Thursday = Days[index - 2];
             }
-            else { Thursday = new Day("past");  }
+            else { Thursday = new Day("past"); }
             if (index - 1 >= 0)
             {
                 Friday = Days[index - 1];
             }
-            else {  Friday = new Day("past");  }
+            else { Friday = new Day("past"); }
             Saturday = Days[index];
             if (index + 1 <= lastIndex)
             {
                 Sunday = Days[index + 1];
             }
-            else {  Sunday = new Day("future"); }
+            else { Sunday = new Day("future"); }
             Header = SetHeader();
         }
         private void TodayIsSunday(int index)
@@ -402,12 +427,12 @@ namespace Schedule.ViewModels
             {
                 Wednesday = Days![index - 4];
             }
-            else  { Wednesday = new Day("past"); }
+            else { Wednesday = new Day("past"); }
             if (index - 3 >= 0)
             {
                 Thursday = Days![index - 3];
             }
-            else {  Thursday = new Day("past"); }
+            else { Thursday = new Day("past"); }
             if (index - 2 >= 0)
             {
                 Friday = Days![index - 2];
@@ -449,7 +474,7 @@ namespace Schedule.ViewModels
             PlusWeek();
             if (_iterator + 6 >= _lastIndex) { CanPressForward = false; }
             else { CanPressForward = true; }
-            if (_iterator - 1 <= 0 ) { CanPressBack = false; }
+            if (_iterator - 1 <= 0) { CanPressBack = false; }
             else { CanPressBack = true; }
             if (Monday.IsThisDay(now.Year, now.Month, now.Day)) return (true, false, 0);
             if (Tuesday.IsThisDay(now.Year, now.Month, now.Day)) return (true, false, 1);
@@ -463,7 +488,7 @@ namespace Schedule.ViewModels
         }
         private void PlusWeek()
         {
-            if (_iterator>=0)
+            if (_iterator >= 0)
             {
                 PlusWeekIteratorNotNull();
             }
@@ -499,19 +524,19 @@ namespace Schedule.ViewModels
         }
         private void PlusWeekIteratorNull()
         {
-            Monday = Days![_iterator + 7];          
+            Monday = Days![_iterator + 7];
             _iterator++;
             Tuesday = Days![_iterator + 7];
             _iterator++;
             Wednesday = Days![_iterator + 7];
             _iterator++;
-            Thursday = Days![_iterator + 7];         
+            Thursday = Days![_iterator + 7];
             _iterator++;
-            Friday = Days![_iterator + 7];           
+            Friday = Days![_iterator + 7];
             _iterator++;
-            Saturday = Days![_iterator + 7];         
+            Saturday = Days![_iterator + 7];
             _iterator++;
-            Sunday = Days![_iterator + 7];     
+            Sunday = Days![_iterator + 7];
             _iterator++;
         }
         public (bool isCurrentWeek, bool isFuture, int index) PreviousWeek()
@@ -535,7 +560,7 @@ namespace Schedule.ViewModels
         }
         private void MinusWeek()
         {
-            if (_iterator - 7 <=0)
+            if (_iterator - 7 <= 0)
             {
                 MinusWeekIteratorNull();
             }
@@ -588,7 +613,7 @@ namespace Schedule.ViewModels
         }
         private void RefreshCanPressCurrentWeekState()
         {
-            if (StepsFromCurrentWeek >= 2|| StepsFromCurrentWeek <= -2)
+            if (StepsFromCurrentWeek >= 2 || StepsFromCurrentWeek <= -2)
             {
                 CanPressCurrentWeek = true;
             }
@@ -599,16 +624,16 @@ namespace Schedule.ViewModels
         }
         public void CurrentWeekFunction()
         {
-            if (StepsFromCurrentWeek>0)
+            if (StepsFromCurrentWeek > 0)
             {
-                while (StepsFromCurrentWeek!=0)
+                while (StepsFromCurrentWeek != 0)
                 {
                     PreviousWeek();
                 }
             }
             else
             {
-                while (StepsFromCurrentWeek!= 0)
+                while (StepsFromCurrentWeek != 0)
                 {
                     NextWeek();
                 }

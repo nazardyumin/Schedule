@@ -15,11 +15,11 @@ namespace Schedule.Models
 
         public Day()
         {
-            
+
         }
         public Day(string key)
         {
-            EmptyDayKey=key;
+            EmptyDayKey = key;
             ShortDayInfo = string.Empty;
         }
         public Day(DateTime dateTime)
@@ -86,14 +86,14 @@ namespace Schedule.Models
         }
         public bool IsThisDay(int year, int month, int date)
         {
-            if(Year == 0 && Month == 0 && Date == 0)
+            if (Year == 0 && Month == 0 && Date == 0)
             {
                 return false;
             }
             else
             {
                 return year == Year && month == Month && date == Date;
-            }         
+            }
         }
         public bool IsFuture()
         {
@@ -110,7 +110,7 @@ namespace Schedule.Models
                 DateTime now = DateTime.Now;
                 var thisDay = new DateTime(Year, Month, Date);
                 return thisDay > now;
-            }     
+            }
         }
         public bool IsPast()
         {
@@ -128,7 +128,7 @@ namespace Schedule.Models
                 var today = new DateTime(now.Year, now.Month, now.Day);
                 var thisDay = new DateTime(Year, Month, Date);
                 return thisDay < today;
-            }   
+            }
         }
         public DateTime GetDateTime()
         {
