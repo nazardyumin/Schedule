@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Schedule.Models.Configurator">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAwAAQAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Configurator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schedule.Models.Day">
+    <Position X="0.5" Y="3" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAABAAICAEAAAAAAAQEAgQFAAEwACAAAEA=</HashCode>
+      <FileName>Models\Day.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schedule.Models.Lesson">
+    <Position X="12.25" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CAEQABASAAACAQAAAIgAAAAAAAAAAAADACAEBAAAEAA=</HashCode>
+      <FileName>Models\Lesson.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schedule.Models.Notifier">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Notifier.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Schedule.Models.Serializer">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Serializer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schedule.ViewModels.Bindings.InputBinding">
+    <Position X="5.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ADAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAggQAAAAA=</HashCode>
+      <FileName>ViewModels\Bindings\InputBinding.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schedule.ViewModels.Bindings.ItemBinding">
+    <Position X="7.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ADAAAAAAAAAAAAAAAAAgAAAIAAAAAAAAAAEggQAAAAg=</HashCode>
+      <FileName>ViewModels\Bindings\ItemBinding.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schedule.ViewModels.Commands.MyCommand" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEACAAQAAECAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Commands\MyCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Schedule.ViewModels.AddingSectionTemplate">
+    <Position X="9" Y="3" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>CAnkQFJGwgYZAMBN4OgJdAMSaAypGMAIziSAJURQgnY=</HashCode>
+      <FileName>ViewModels\AddingSectionTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schedule.ViewModels.WeekTemplate">
+    <Position X="2.75" Y="3" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>JAgRCJYCACQQrEAMABAEBGXSNZCGJAAAQCEQiQAFEAA=</HashCode>
+      <FileName>ViewModels\WeekTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schedule.Views.Cards.MyCard">
+    <Position X="14.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAABAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Views\Cards\MyCard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schedule.Views.MenuItems.MyMenuItem">
+    <Position X="17" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAABAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Views\MenuItems\MyMenuItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schedule.Views.Windows.ScheduleWindow.ScheduleWindow" BaseTypeListCollapsed="true">
+    <Position X="15" Y="3.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>BhwAEBQKkQIgAAIAAXIDIACIgAAwhAQAQCggBAhAKAA=</HashCode>
+      <FileName>Views\Windows\ScheduleWindow\ScheduleWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
