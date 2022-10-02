@@ -99,12 +99,21 @@ namespace Schedule.Views.Windows.ScheduleWindow
             var (subject, teacher, auditorium, startTimeIndex, endTimeIndex, duration, date, dayIndex, lessonIndex) =
                 AddingSection.GetSetupInfo();
             var (year, month, day) = AddingSection.GetFromValues();
-            Model.EditLesson(dayIndex, lessonIndex, subject, teacher, auditorium, startTimeIndex, endTimeIndex,
-                duration, date, year, month, day);
-            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday,
-                Model.Sunday);
-            AddingBlock.Visibility = Visibility.Visible;
-            EditingBlock.Visibility = Visibility.Hidden;
+            if (Model.EditLesson(dayIndex, lessonIndex, subject, teacher, auditorium, startTimeIndex, endTimeIndex,
+                    duration, date, year, month, day))
+            {
+                AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday,
+                    Model.Saturday,
+                    Model.Sunday);
+                AddingSection.CommandCancelFunction();
+                AddingBlock.Visibility = Visibility.Visible;
+                EditingBlock.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                DialogBox.Show("ERROR", "Please change the lesson time to avoid overlays!", "OK");
+                AddingSection.ClearTime();
+            }
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
@@ -182,8 +191,6 @@ namespace Schedule.Views.Windows.ScheduleWindow
                     break;
                 case 6:
                     TodayIsSundayBackground();
-                    break;
-                default:
                     break;
             }
         }

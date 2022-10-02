@@ -933,7 +933,6 @@
                         <Button x:Name="ButtonSave" Content="{Binding AddingSection.AddOrSave}" Margin="5,0,0,0"
                                 Style="{DynamicResource MaterialDesignPaperButton}"
                                 Click="ButtonSave_Click"
-                                Command="{Binding AddingSection.CommandSaveOrCancel}"
                                 IsEnabled="{Binding AddingSection.CanPressSave, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                 </StackPanel>
@@ -941,7 +940,7 @@
                     <Button x:Name="ButtonCancel" Content="Cancel" Margin="5,0,0,0"
                             Style="{DynamicResource MaterialDesignPaperButton}"
                             HorizontalAlignment="Center" Click="ButtonCancel_Click"
-                            Command="{Binding AddingSection.CommandSaveOrCancel}" />
+                            Command="{Binding AddingSection.CommandCancel}" />
                 </StackPanel>
                 <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Image Source="\Assets\Icons\github.png" Margin="18,0,0,0" Width="15" Height="15" />

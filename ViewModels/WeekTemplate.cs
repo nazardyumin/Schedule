@@ -167,6 +167,7 @@ namespace Schedule.ViewModels
                 }
 
                 Serializer.Save(_days);
+
                 break;
             }
         }
@@ -511,11 +512,16 @@ namespace Schedule.ViewModels
             return lesson;
         }
 
-        public void EditLesson(int dayIndex, int lessonIndex, string subject, string teacher, string auditorium,
+        public bool EditLesson(int dayIndex, int lessonIndex, string subject, string teacher, string auditorium,
             int startTimeIndex, int endTimeIndex, string duration, DateTime date, int year, int month, int day)
         {
             var newIndex = FindDay(year, month, day);
             var lesson = CreateLesson(subject, teacher, auditorium, startTimeIndex, endTimeIndex, duration, date);
+            if (IsOverlay(year, month, day, startTimeIndex, endTimeIndex))
+            {
+                return false;
+            }
+
             if (newIndex == dayIndex)
             {
                 _days![dayIndex].Lessons![lessonIndex].Edit(lesson);
@@ -530,6 +536,8 @@ namespace Schedule.ViewModels
             }
 
             Serializer.Save(_days);
+
+            return true;
         }
 
         private void AddLesson(Lesson lesson, int start, int stop)
