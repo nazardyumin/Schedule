@@ -488,15 +488,42 @@ namespace Schedule.ViewModels
             if (_days![index].Lessons!.Count <= 0) return isOverlay;
             foreach (var lesson in _days![index].Lessons!)
             {
-                if (startTimeIndex >= lesson.PositionInDayStart && startTimeIndex <= lesson.PositionInDayEnd)
+
+                if (startTimeIndex >= lesson.PositionInDayStart && startTimeIndex < lesson.PositionInDayStart+lesson.PositionInDayEnd)
                 {
                     isOverlay = true;
                     break;
                 }
 
-                if (endTimeIndex <= lesson.PositionInDayStart) continue;
-                isOverlay = true;
-                break;
+                if (startTimeIndex < lesson.PositionInDayStart && endTimeIndex > lesson.PositionInDayStart)
+                {
+                    isOverlay = true;
+                    break;
+                }            
+            }
+
+            return isOverlay;
+        }
+
+        private bool IsOverlayTheSameDay(int dayIndex, int lessonIndex, int startTimeIndex, int endTimeIndex)
+        {
+            var isOverlay = false;
+
+            for (var i=0;i< _days![dayIndex].Lessons!.Count;i++)
+            {
+                if (i == lessonIndex) continue;
+
+                if (startTimeIndex >= _days![dayIndex].Lessons![i].PositionInDayStart && startTimeIndex < _days![dayIndex].Lessons![i].PositionInDayStart+_days![dayIndex].Lessons![i].PositionInDayEnd)
+                {
+                    isOverlay = true;
+                    break;
+                }
+
+                if (startTimeIndex < _days![dayIndex].Lessons![i].PositionInDayStart && endTimeIndex > _days![dayIndex].Lessons![i].PositionInDayStart)
+                {
+                    isOverlay = true;
+                    break;
+                }           
             }
 
             return isOverlay;
@@ -517,17 +544,15 @@ namespace Schedule.ViewModels
         {
             var newIndex = FindDay(year, month, day);
             var lesson = CreateLesson(subject, teacher, auditorium, startTimeIndex, endTimeIndex, duration, date);
-            if (IsOverlay(year, month, day, startTimeIndex, endTimeIndex))
-            {
-                return false;
-            }
 
             if (newIndex == dayIndex)
             {
+                if (IsOverlayTheSameDay(dayIndex, lessonIndex, startTimeIndex, endTimeIndex)) return false;
                 _days![dayIndex].Lessons![lessonIndex].Edit(lesson);
             }
             else
             {
+                if (IsOverlay(year, month, day, startTimeIndex, endTimeIndex)) return false;
                 _days![dayIndex].Lessons!.RemoveAt(lessonIndex);
                 lesson.SetPositionInWeek(_days![newIndex].GetDayIndex());
                 _days![newIndex].Lessons!.Add(lesson);
