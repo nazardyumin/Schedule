@@ -1,6 +1,5 @@
 ﻿using Schedule.Models;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -178,8 +177,8 @@ namespace Schedule.ViewModels
             var currentDate = DateTime.Now;
             var currentDayOfTheWeek = 0;
             foreach (var item in from item in _days!
-                     where item.IsThisDay(currentDate.Year, currentDate.Month, currentDate.Day)
-                     select item)
+                                 where item.IsThisDay(currentDate.Year, currentDate.Month, currentDate.Day)
+                                 select item)
             {
                 var index = _days!.IndexOf(item);
                 currentDayOfTheWeek = _days[index].GetDayIndex();
@@ -489,7 +488,7 @@ namespace Schedule.ViewModels
             foreach (var lesson in _days![index].Lessons!)
             {
 
-                if (startTimeIndex >= lesson.PositionInDayStart && startTimeIndex < lesson.PositionInDayStart+lesson.PositionInDayEnd)
+                if (startTimeIndex >= lesson.PositionInDayStart && startTimeIndex < lesson.PositionInDayStart + lesson.PositionInDayEnd)
                 {
                     isOverlay = true;
                     break;
@@ -499,7 +498,7 @@ namespace Schedule.ViewModels
                 {
                     isOverlay = true;
                     break;
-                }            
+                }
             }
 
             return isOverlay;
@@ -538,11 +537,11 @@ namespace Schedule.ViewModels
         {
             var isOverlay = false;
 
-            for (var i=0;i< _days![dayIndex].Lessons!.Count;i++)
+            for (var i = 0; i < _days![dayIndex].Lessons!.Count; i++)
             {
                 if (i == lessonIndex) continue;
 
-                if (startTimeIndex >= _days![dayIndex].Lessons![i].PositionInDayStart && startTimeIndex < _days![dayIndex].Lessons![i].PositionInDayStart+_days![dayIndex].Lessons![i].PositionInDayEnd)
+                if (startTimeIndex >= _days![dayIndex].Lessons![i].PositionInDayStart && startTimeIndex < _days![dayIndex].Lessons![i].PositionInDayStart + _days![dayIndex].Lessons![i].PositionInDayEnd)
                 {
                     isOverlay = true;
                     break;
@@ -552,7 +551,7 @@ namespace Schedule.ViewModels
                 {
                     isOverlay = true;
                     break;
-                }           
+                }
             }
 
             return isOverlay;
@@ -595,7 +594,7 @@ namespace Schedule.ViewModels
         }
 
         private void AddLesson(Lesson lesson, int start, int stop)
-        {    
+        {
             for (var i = start; i <= stop; i += 7)
             {
                 var lessonToAdd = lesson.GetCopy();
@@ -658,7 +657,7 @@ namespace Schedule.ViewModels
 
         public bool AddLessonToOneDay(Lesson lesson, int yearFrom, int monthFrom, int dayFrom)
         {
-            
+
             var dayIndex = FindDay(yearFrom, monthFrom, dayFrom);
             if (IsOverlay(dayIndex, lesson.PositionInDayStart, lesson.PositionInDayStart + lesson.PositionInDayEnd))
             {

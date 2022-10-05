@@ -298,7 +298,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             var stack = new StackPanel();
             var header = new TextBlock { Text = $"Subject: {lesson.Subject}" };
             var text = new TextBlock
-                { Text = $"Teacher: {lesson.Teacher}\nAuditorium: {lesson.Auditorium}\n{lesson.Duration}" };
+            { Text = $"Teacher: {lesson.Teacher}\nAuditorium: {lesson.Auditorium}\n{lesson.Duration}" };
             header.FontWeight = FontWeights.Heavy;
             if (lesson.PositionInDayEnd <= 7)
             {
