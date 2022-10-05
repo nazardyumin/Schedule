@@ -1,5 +1,6 @@
 ﻿using Schedule.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -481,10 +482,9 @@ namespace Schedule.ViewModels
             }
         }
 
-        public bool IsOverlay(int year, int month, int day, int startTimeIndex, int endTimeIndex)
+        private bool IsOverlay(int index, int startTimeIndex, int endTimeIndex)
         {
             var isOverlay = false;
-            var index = FindDay(year, month, day);
             if (_days![index].Lessons!.Count <= 0) return isOverlay;
             foreach (var lesson in _days![index].Lessons!)
             {
@@ -503,6 +503,35 @@ namespace Schedule.ViewModels
             }
 
             return isOverlay;
+        }
+
+        private bool IsOverlayWhileAdding(Lesson lesson, int start, int stop)
+        {
+            for (var i = start; i <= stop; i += 7)
+            {
+                if (IsOverlay(i, lesson.PositionInDayStart, lesson.PositionInDayStart + lesson.PositionInDayEnd))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool IsOverlayWhileCopying(Lesson lesson, int copyIndex, int start, int stop)
+        {
+            for (var i = start; i <= stop; i++)
+            {
+                if (_days![i].GetDayIndex() != copyIndex) continue;
+                for (var j = i; j <= stop; j += 7)
+                {
+                    if (IsOverlay(j, lesson.PositionInDayStart, lesson.PositionInDayStart + lesson.PositionInDayEnd))
+                    {
+                        return false;
+                    }
+                }
+                break;
+            }
+            return true;
         }
 
         private bool IsOverlayTheSameDay(int dayIndex, int lessonIndex, int startTimeIndex, int endTimeIndex)
@@ -552,7 +581,7 @@ namespace Schedule.ViewModels
             }
             else
             {
-                if (IsOverlay(year, month, day, startTimeIndex, endTimeIndex)) return false;
+                if (IsOverlay(newIndex, startTimeIndex, endTimeIndex)) return false;
                 _days![dayIndex].Lessons!.RemoveAt(lessonIndex);
                 lesson.SetPositionInWeek(_days![newIndex].GetDayIndex());
                 _days![newIndex].Lessons!.Add(lesson);
@@ -566,7 +595,7 @@ namespace Schedule.ViewModels
         }
 
         private void AddLesson(Lesson lesson, int start, int stop)
-        {
+        {    
             for (var i = start; i <= stop; i += 7)
             {
                 var lessonToAdd = lesson.GetCopy();
@@ -591,17 +620,22 @@ namespace Schedule.ViewModels
                     var lesIndex = _days[j].Lessons!.IndexOf(lessonToAdd);
                     _days[j].Lessons![lesIndex].SetConnectionIndexes(j, lesIndex);
                 }
-
                 break;
             }
         }
 
-        public void AddLessonToDays(Lesson lesson, int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo,
+        public bool AddLessonToDays(Lesson lesson, int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo,
             int dayTo, int copy1Index, int copy2Index, int copy3Index)
         {
             var start = FindDay(yearFrom, monthFrom, dayFrom);
             var stop = FindDay(yearTo, monthTo, dayTo);
             lesson.SetPositionInWeek(_days![start].GetDayIndex());
+
+            if (IsOverlayWhileAdding(lesson, start, stop)) return false;
+            if (copy1Index != -1 && IsOverlayWhileCopying(lesson, copy1Index, start, stop)) return false;
+            if (copy2Index != -1 && IsOverlayWhileCopying(lesson, copy2Index, start, stop)) return false;
+            if (copy3Index != -1 && IsOverlayWhileCopying(lesson, copy3Index, start, stop)) return false;
+
             AddLesson(lesson, start, stop);
             if (copy1Index != -1)
             {
@@ -619,17 +653,24 @@ namespace Schedule.ViewModels
             }
 
             Serializer.Save(_days);
+            return true;
         }
 
-        public void AddLessonToOneDay(Lesson lesson, int yearFrom, int monthFrom, int dayFrom)
+        public bool AddLessonToOneDay(Lesson lesson, int yearFrom, int monthFrom, int dayFrom)
         {
+            
             var dayIndex = FindDay(yearFrom, monthFrom, dayFrom);
+            if (IsOverlay(dayIndex, lesson.PositionInDayStart, lesson.PositionInDayStart + lesson.PositionInDayEnd))
+            {
+                return false;
+            }
             lesson.SetPositionInWeek(_days![dayIndex].GetDayIndex());
             lesson.SetDate(_days![dayIndex].GetDateTime());
             _days![dayIndex].Lessons!.Add(lesson);
             var lesIndex = _days![dayIndex].Lessons!.IndexOf(lesson);
             _days![dayIndex].Lessons![lesIndex].SetConnectionIndexes(dayIndex, lesIndex);
             Serializer.Save(_days);
+            return true;
         }
 
         public void DeleteSelectedLesson(int dayIndex, int lessonIndex)

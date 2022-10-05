@@ -56,36 +56,31 @@ namespace Schedule.Views.Windows.ScheduleWindow
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             var setup = AddingSection.GetSetupInfo();
-            var dateToCheck = AddingSection.GetFromValues();
-            if (Model.IsOverlay(dateToCheck.year, dateToCheck.month, dateToCheck.day, setup.startTimeIndex,
-                    setup.endTimeIndex))
+            var lesson = Model.CreateLesson(setup.subject, setup.teacher, setup.auditorium, setup.startTimeIndex,
+                setup.endTimeIndex, setup.duration, setup.date);
+            if (AddingSection.IsPeriodSelected())
             {
-                DialogBox.Show("ERROR", "Please change the lesson time to avoid overlays!", "OK");
-                AddingSection.ClearTime();
+                var (yearFrom, monthFrom, dayFrom, yearTo, monthTo, dayTo, copy1, copy2, copy3) = AddingSection.GetFromAndToValues();
+                if (!Model.AddLessonToDays(lesson, yearFrom, monthFrom, dayFrom, yearTo, monthTo, dayTo, copy1, copy2, copy3))
+                {
+                    DialogBox.Show("ERROR", "Please change the lesson time to avoid overlays!", "OK");
+                    AddingSection.ClearTime();
+                }
             }
             else
             {
-                var lesson = Model.CreateLesson(setup.subject, setup.teacher, setup.auditorium, setup.startTimeIndex,
-                    setup.endTimeIndex, setup.duration, setup.date);
-                if (AddingSection.IsPeriodSelected())
+                var (year, month, day) = AddingSection.GetFromValues();
+                if (!Model.AddLessonToOneDay(lesson, year, month, day))
                 {
-                    var (yearFrom, monthFrom, dayFrom, yearTo, monthTo, dayTo, copy1, copy2, copy3) =
-                        AddingSection.GetFromAndToValues();
-                    Model.AddLessonToDays(lesson, yearFrom, monthFrom, dayFrom, yearTo, monthTo, dayTo, copy1, copy2,
-                        copy3);
+                    DialogBox.Show("ERROR", "Please change the lesson time to avoid overlays!", "OK");
+                    AddingSection.ClearTime();
                 }
-                else
-                {
-                    var (year, month, day) = AddingSection.GetFromValues();
-                    Model.AddLessonToOneDay(lesson, year, month, day);
-                }
-
-                AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday,
-                    Model.Saturday, Model.Sunday);
-                AddingSection.CommandClearFunction();
-                ComboBoxCopy2.Visibility = Visibility.Hidden;
-                ComboBoxCopy3.Visibility = Visibility.Hidden;
             }
+
+            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
+            AddingSection.CommandClearFunction();
+            ComboBoxCopy2.Visibility = Visibility.Hidden;
+            ComboBoxCopy3.Visibility = Visibility.Hidden;
         }
 
         private void ButtonClear_Click(object sender, RoutedEventArgs e)
@@ -99,21 +94,16 @@ namespace Schedule.Views.Windows.ScheduleWindow
             var (subject, teacher, auditorium, startTimeIndex, endTimeIndex, duration, date, dayIndex, lessonIndex) =
                 AddingSection.GetSetupInfo();
             var (year, month, day) = AddingSection.GetFromValues();
-            if (Model.EditLesson(dayIndex, lessonIndex, subject, teacher, auditorium, startTimeIndex, endTimeIndex,
+            if (!Model.EditLesson(dayIndex, lessonIndex, subject, teacher, auditorium, startTimeIndex, endTimeIndex,
                     duration, date, year, month, day))
-            {
-                AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday,
-                    Model.Saturday,
-                    Model.Sunday);
-                AddingSection.CommandCancelFunction();
-                AddingBlock.Visibility = Visibility.Visible;
-                EditingBlock.Visibility = Visibility.Hidden;
-            }
-            else
             {
                 DialogBox.Show("ERROR", "Please change the lesson time to avoid overlays!", "OK");
                 AddingSection.ClearTime();
             }
+            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
+            AddingSection.CommandCancelFunction();
+            AddingBlock.Visibility = Visibility.Visible;
+            EditingBlock.Visibility = Visibility.Hidden;
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
