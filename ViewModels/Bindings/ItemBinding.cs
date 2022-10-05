@@ -7,28 +7,28 @@ namespace Schedule.ViewModels.Bindings
     {
         private string _value;
         private readonly Action _action;
-        public string Value
+
+        public string? Value
         {
             get => _value;
             set
             {
-                SetField(ref _value, value);
+                SetField(ref _value!, value);
                 IsAllOk();
                 _action.Invoke();
             }
         }
 
         private int _index;
+
         public int Index
         {
             get => _index;
-            set
-            {
-                SetField(ref _index, value);
-            }
+            set => SetField(ref _index, value);
         }
 
         private bool _isOk;
+
         public bool IsOk
         {
             get => _isOk;
@@ -44,19 +44,17 @@ namespace Schedule.ViewModels.Bindings
 
         private void IsAllOk()
         {
-            if (Index != -1) IsOk = true;
-            else IsOk = false;
+            IsOk = Index != -1;
         }
+
         public int ValueToInt()
         {
-            if (_value is not null)
+            if (Value is not null)
             {
-                return int.Parse(_value);
+                return int.Parse(Value);
             }
-            else
-            {
-                return -1;
-            }
+
+            return -1;
         }
     }
 }

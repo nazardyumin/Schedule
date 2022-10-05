@@ -27,18 +27,22 @@ namespace Schedule.Models
         {
             Date = date;
         }
+
         public void SetPositionInWeek(int index)
         {
             PositionInWeek = index;
         }
+
         public void SetPositionInDayStart(int startIndex)
         {
             PositionInDayStart = startIndex;
         }
+
         public void SetPositionInDayEnd(int endIndex)
         {
             PositionInDayEnd = endIndex - PositionInDayStart;
         }
+
         public Lesson GetCopy()
         {
             var newLesson = new Lesson(Subject, Teacher, Auditorium, Duration)
@@ -51,11 +55,13 @@ namespace Schedule.Models
             };
             return newLesson;
         }
+
         public void SetConnectionIndexes(int dayIndex, int lessonIndex)
         {
             ConnectionDayIndex = dayIndex;
             ConnectionLessonIndex = lessonIndex;
         }
+
         public void Edit(Lesson lesson)
         {
             Subject = lesson.Subject;
