@@ -504,7 +504,7 @@ namespace Schedule.ViewModels
 
             return isOverlay;
         }
-        private (bool isOverlay, string whatDay) IsOverlay(int index, int startTimeIndex, int endTimeIndex)
+        private (bool isOverlay, string whatDay) IsOverlayWithMessage(int index, int startTimeIndex, int endTimeIndex)
         {
             var isOverlay = false;
             var whatDay=string.Empty;
@@ -534,7 +534,7 @@ namespace Schedule.ViewModels
         {
             for (var i = start; i <= stop; i += 7)
             {
-                var (isOverlay, whatDay) = IsOverlay(i, lesson.PositionInDayStart, lesson.PositionInDayStart + lesson.PositionInDayEnd);
+                var (isOverlay, whatDay) = IsOverlayWithMessage(i, lesson.PositionInDayStart, lesson.PositionInDayStart + lesson.PositionInDayEnd);
                 if (isOverlay)
                 {
                     return (true,whatDay);
@@ -550,7 +550,7 @@ namespace Schedule.ViewModels
                 if (_days![i].GetDayIndex() != copyIndex) continue;
                 for (var j = i; j <= stop; j += 7)
                 {
-                    var (isOverlay, whatDay) = IsOverlay(j, lesson.PositionInDayStart, lesson.PositionInDayStart + lesson.PositionInDayEnd);
+                    var (isOverlay, whatDay) = IsOverlayWithMessage(j, lesson.PositionInDayStart, lesson.PositionInDayStart + lesson.PositionInDayEnd);
                     if (isOverlay)
                     {
                         return (true, whatDay);
