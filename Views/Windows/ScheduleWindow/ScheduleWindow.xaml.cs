@@ -61,9 +61,10 @@ namespace Schedule.Views.Windows.ScheduleWindow
             if (AddingSection.IsPeriodSelected())
             {
                 var (yearFrom, monthFrom, dayFrom, yearTo, monthTo, dayTo, copy1, copy2, copy3) = AddingSection.GetFromAndToValues();
-                if (!Model.AddLessonToDays(lesson, yearFrom, monthFrom, dayFrom, yearTo, monthTo, dayTo, copy1, copy2, copy3))
+                var (isDone, whatDay) = Model.AddLessonToDays(lesson, yearFrom, monthFrom, dayFrom, yearTo, monthTo, dayTo, copy1, copy2, copy3);
+                if (!isDone)
                 {
-                    DialogBox.Show("ERROR", "Please change the lesson time to avoid overlays!", "OK");
+                    DialogBox.Show("ERROR", $"Please change the lesson time to avoid overlays on {whatDay}!", "OK");
                     AddingSection.ClearTime();
                     return;
                 }
@@ -101,6 +102,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             {
                 DialogBox.Show("ERROR", "Please change the lesson time to avoid overlays!", "OK");
                 AddingSection.ClearTime();
+                return;
             }
             AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
             AddingSection.CommandCancelFunction();

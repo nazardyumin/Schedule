@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 
 namespace Schedule.ViewModels
 {
@@ -481,7 +482,7 @@ namespace Schedule.ViewModels
             }
         }
 
-        private bool IsOverlay(int index, int startTimeIndex, int endTimeIndex)
+        private bool IsOverlayWithoutMessage(int index, int startTimeIndex, int endTimeIndex)
         {
             var isOverlay = false;
             if (_days![index].Lessons!.Count <= 0) return isOverlay;
@@ -503,34 +504,61 @@ namespace Schedule.ViewModels
 
             return isOverlay;
         }
+        private (bool isOverlay, string whatDay) IsOverlay(int index, int startTimeIndex, int endTimeIndex)
+        {
+            var isOverlay = false;
+            var whatDay=string.Empty;
+            if (_days![index].Lessons!.Count <= 0) return (isOverlay, whatDay);
+            foreach (var lesson in _days![index].Lessons!)
+            {
 
-        private bool IsOverlayWhileAdding(Lesson lesson, int start, int stop)
+                if (startTimeIndex >= lesson.PositionInDayStart && startTimeIndex < lesson.PositionInDayStart + lesson.PositionInDayEnd)
+                {
+                    isOverlay = true;
+                    whatDay = $"\n{_days![index].Year} {_days![index].MonthToString()} {_days![index].Date}";
+                    break;
+                }
+
+                if (startTimeIndex < lesson.PositionInDayStart && endTimeIndex > lesson.PositionInDayStart)
+                {
+                    isOverlay = true;
+                    whatDay = $"\n{_days![index].Year} {_days![index].MonthToString()} {_days![index].Date}";
+                    break;
+                }
+            }
+
+            return (isOverlay, whatDay);
+        }
+
+        private (bool isOverlay,string whatDay) IsOverlayWhileAdding(Lesson lesson, int start, int stop)
         {
             for (var i = start; i <= stop; i += 7)
             {
-                if (IsOverlay(i, lesson.PositionInDayStart, lesson.PositionInDayStart + lesson.PositionInDayEnd))
+                var (isOverlay, whatDay) = IsOverlay(i, lesson.PositionInDayStart, lesson.PositionInDayStart + lesson.PositionInDayEnd);
+                if (isOverlay)
                 {
-                    return true;
+                    return (true,whatDay);
                 }
             }
-            return false;
+            return (false, string.Empty);
         }
 
-        private bool IsOverlayWhileCopying(Lesson lesson, int copyIndex, int start, int stop)
+        private (bool isOverlay, string whatDay) IsOverlayWhileCopying(Lesson lesson, int copyIndex, int start, int stop)
         {
             for (var i = start; i <= stop; i++)
             {
                 if (_days![i].GetDayIndex() != copyIndex) continue;
                 for (var j = i; j <= stop; j += 7)
                 {
-                    if (IsOverlay(j, lesson.PositionInDayStart, lesson.PositionInDayStart + lesson.PositionInDayEnd))
+                    var (isOverlay, whatDay) = IsOverlay(j, lesson.PositionInDayStart, lesson.PositionInDayStart + lesson.PositionInDayEnd);
+                    if (isOverlay)
                     {
-                        return true;
+                        return (true, whatDay);
                     }
                 }
                 break;
             }
-            return false;
+            return (false, string.Empty);
         }
 
         private bool IsOverlayTheSameDay(int dayIndex, int lessonIndex, int startTimeIndex, int endTimeIndex)
@@ -580,7 +608,7 @@ namespace Schedule.ViewModels
             }
             else
             {
-                if (IsOverlay(newIndex, startTimeIndex, endTimeIndex)) return false;
+                if (IsOverlayWithoutMessage(newIndex, startTimeIndex, endTimeIndex)) return false;
                 _days![dayIndex].Lessons!.RemoveAt(lessonIndex);
                 lesson.SetPositionInWeek(_days![newIndex].GetDayIndex());
                 _days![newIndex].Lessons!.Add(lesson);
@@ -623,17 +651,17 @@ namespace Schedule.ViewModels
             }
         }
 
-        public bool AddLessonToDays(Lesson lesson, int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo,
+        public (bool isDone, string whatDay) AddLessonToDays(Lesson lesson, int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo,
             int dayTo, int copy1Index, int copy2Index, int copy3Index)
         {
             var start = FindDay(yearFrom, monthFrom, dayFrom);
             var stop = FindDay(yearTo, monthTo, dayTo);
             lesson.SetPositionInWeek(_days![start].GetDayIndex());
 
-            if (IsOverlayWhileAdding(lesson, start, stop)) return false;
-            if (copy1Index != -1 && IsOverlayWhileCopying(lesson, copy1Index, start, stop)) return false;
-            if (copy2Index != -1 && IsOverlayWhileCopying(lesson, copy2Index, start, stop)) return false;
-            if (copy3Index != -1 && IsOverlayWhileCopying(lesson, copy3Index, start, stop)) return false;
+            var check0 = IsOverlayWhileAdding(lesson, start, stop); if (check0.isOverlay) return (false, check0.whatDay);
+            var check1 = IsOverlayWhileCopying(lesson, copy1Index, start, stop); if (copy1Index != -1 && check1.isOverlay) return (false, check1.whatDay);
+            var check2 = IsOverlayWhileCopying(lesson, copy2Index, start, stop); if (copy2Index != -1 && check2.isOverlay) return (false, check2.whatDay);
+            var check3 = IsOverlayWhileCopying(lesson, copy3Index, start, stop); if (copy3Index != -1 && check3.isOverlay) return (false, check3.whatDay);
 
             AddLesson(lesson, start, stop);
             if (copy1Index != -1)
@@ -652,14 +680,14 @@ namespace Schedule.ViewModels
             }
 
             Serializer.Save(_days);
-            return true;
+            return (true, string.Empty);
         }
 
         public bool AddLessonToOneDay(Lesson lesson, int yearFrom, int monthFrom, int dayFrom)
         {
 
             var dayIndex = FindDay(yearFrom, monthFrom, dayFrom);
-            if (IsOverlay(dayIndex, lesson.PositionInDayStart, lesson.PositionInDayStart + lesson.PositionInDayEnd))
+            if (IsOverlayWithoutMessage(dayIndex, lesson.PositionInDayStart, lesson.PositionInDayStart + lesson.PositionInDayEnd))
             {
                 return false;
             }
@@ -677,8 +705,67 @@ namespace Schedule.ViewModels
             var lesson = _days![dayIndex].Lessons![lessonIndex];
             var dayOfTheWeek = _days![dayIndex].GetDayIndex();
             RemoveLessonFromCurrentWeek(dayOfTheWeek, lesson);
+            RefreshConnectionLessonIndexesInView(dayOfTheWeek);
             _days[dayIndex].Lessons!.Remove(lesson);
+            RefreshConnectionLessonIndexes(dayIndex);
             Serializer.Save(_days);
+        }
+
+        private void RefreshConnectionLessonIndexes(int index)
+        {
+            foreach (var lesson in _days![index].Lessons!)
+            {
+                lesson.ConnectionLessonIndex = _days![index].Lessons!.IndexOf(lesson);
+            }
+        }
+
+        private void RefreshConnectionLessonIndexesInView(int dayOfTheWeek)
+        {
+            switch (dayOfTheWeek)
+            {
+                case 0:
+                    foreach (var lesson in Monday.Lessons!)
+                    {
+                        lesson.ConnectionLessonIndex = Monday.Lessons!.IndexOf(lesson);
+                    }
+                    break;
+                case 1:
+                    foreach (var lesson in Tuesday.Lessons!)
+                    {
+                        lesson.ConnectionLessonIndex = Tuesday.Lessons!.IndexOf(lesson);
+                    }
+                    break;
+                case 2:
+                    foreach (var lesson in Wednesday.Lessons!)
+                    {
+                        lesson.ConnectionLessonIndex = Wednesday.Lessons!.IndexOf(lesson);
+                    }
+                    break;
+                case 3:
+                    foreach (var lesson in Thursday.Lessons!)
+                    {
+                        lesson.ConnectionLessonIndex = Thursday.Lessons!.IndexOf(lesson);
+                    }
+                    break;
+                case 4:
+                    foreach (var lesson in Friday.Lessons!)
+                    {
+                        lesson.ConnectionLessonIndex = Friday.Lessons!.IndexOf(lesson);
+                    }
+                    break;
+                case 5:
+                    foreach (var lesson in Saturday.Lessons!)
+                    {
+                        lesson.ConnectionLessonIndex = Saturday.Lessons!.IndexOf(lesson);
+                    }
+                    break;
+                case 6:
+                    foreach (var lesson in Sunday.Lessons!)
+                    {
+                        lesson.ConnectionLessonIndex = Sunday.Lessons!.IndexOf(lesson);
+                    }
+                    break;
+            }
         }
 
         private void RemoveLessonFromCurrentWeek(int dayOfTheWeek, Lesson lesson)
