@@ -873,7 +873,6 @@ namespace Schedule.ViewModels
             SetYearsTo();
             SetMonthsFromDependOnCalendar();
             MonthsFromSelectedItem.Index = MonthsFrom.IndexOf(MonthToString(month));
-            SetDatesFromDependOnCalendar();
             _monthFromMemory = MonthToInt(MonthsFromSelectedItem.Value!);
             DatesFromSelectedItem.Index = DatesFrom.IndexOf(day);
             Today = name;

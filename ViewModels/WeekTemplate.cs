@@ -510,10 +510,10 @@ namespace Schedule.ViewModels
             {
                 if (IsOverlay(i, lesson.PositionInDayStart, lesson.PositionInDayStart + lesson.PositionInDayEnd))
                 {
-                    return false;
+                    return true;
                 }
             }
-            return true;
+            return false;
         }
 
         private bool IsOverlayWhileCopying(Lesson lesson, int copyIndex, int start, int stop)
@@ -525,12 +525,12 @@ namespace Schedule.ViewModels
                 {
                     if (IsOverlay(j, lesson.PositionInDayStart, lesson.PositionInDayStart + lesson.PositionInDayEnd))
                     {
-                        return false;
+                        return true;
                     }
                 }
                 break;
             }
-            return true;
+            return false;
         }
 
         private bool IsOverlayTheSameDay(int dayIndex, int lessonIndex, int startTimeIndex, int endTimeIndex)

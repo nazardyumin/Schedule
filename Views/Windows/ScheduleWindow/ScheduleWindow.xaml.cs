@@ -65,6 +65,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
                 {
                     DialogBox.Show("ERROR", "Please change the lesson time to avoid overlays!", "OK");
                     AddingSection.ClearTime();
+                    return;
                 }
             }
             else
@@ -74,6 +75,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
                 {
                     DialogBox.Show("ERROR", "Please change the lesson time to avoid overlays!", "OK");
                     AddingSection.ClearTime();
+                    return;
                 }
             }
 
