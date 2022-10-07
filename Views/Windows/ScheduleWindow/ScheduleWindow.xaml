@@ -37,20 +37,20 @@
                     <Button x:Name="ButtonBack" Content="{Binding ButtonBackContent}"
                             Margin="0,0,8,0" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}"
                             Foreground="LightGray"
-                            IsEnabled="{Binding Model.CanPressBack, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            IsEnabled="{Binding Model.States.CanPressBack, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             Click="ButtonBack_Click" />
                     <TextBlock Text="{Binding Model.Header}" HorizontalAlignment="Center" VerticalAlignment="Center"
                                Style="{DynamicResource MaterialDesignHeadline6TextBlock}" />
                     <Button x:Name="ButtonForward" Content="{Binding ButtonForwardContent}"
                             Margin="8,0,0,0" Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}"
                             Foreground="LightGray"
-                            IsEnabled="{Binding Model.CanPressForward,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            IsEnabled="{Binding Model.States.CanPressForward,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             Click="ButtonForward_Click" />
                     <Button x:Name="ButtonCurrentWeek"
                             Content="Current Week" Margin="30,0,0,0"
                             Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}"
                             Foreground="Gray"
-                            IsEnabled="{Binding Model.CanPressCurrentWeek}"
+                            IsEnabled="{Binding Model.States.CanPressCurrentWeek}"
                             Click="ButtonCurrentWeek_Click" />
                 </StackPanel>
 
@@ -65,19 +65,26 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="1" Text="{Binding Model.Monday.ShortDayInfo}" HorizontalAlignment="Center"
+                    <TextBlock Grid.Column="1" Text="{Binding Model.DayInfo.Short[0]}" 
+                               HorizontalAlignment="Center"
                                VerticalAlignment="Center" />
-                    <TextBlock Grid.Column="2" Text="{Binding Model.Tuesday.ShortDayInfo}" HorizontalAlignment="Center"
+                    <TextBlock Grid.Column="2" Text="{Binding Model.DayInfo.Short[1]}" 
+                               HorizontalAlignment="Center"
                                VerticalAlignment="Center" />
-                    <TextBlock Grid.Column="3" Text="{Binding Model.Wednesday.ShortDayInfo}"
-                               HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    <TextBlock Grid.Column="4" Text="{Binding Model.Thursday.ShortDayInfo}"
-                               HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    <TextBlock Grid.Column="5" Text="{Binding Model.Friday.ShortDayInfo}" HorizontalAlignment="Center"
+                    <TextBlock Grid.Column="3" Text="{Binding Model.DayInfo.Short[2]}"
+                               HorizontalAlignment="Center" 
                                VerticalAlignment="Center" />
-                    <TextBlock Grid.Column="6" Text="{Binding Model.Saturday.ShortDayInfo}"
-                               HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    <TextBlock Grid.Column="7" Text="{Binding Model.Sunday.ShortDayInfo}" HorizontalAlignment="Center"
+                    <TextBlock Grid.Column="4" Text="{Binding Model.DayInfo.Short[3]}"
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="5" Text="{Binding Model.DayInfo.Short[4]}" 
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="6" Text="{Binding Model.DayInfo.Short[5]}"
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="7" Text="{Binding Model.DayInfo.Short[6]}" 
+                               HorizontalAlignment="Center"
                                VerticalAlignment="Center" />
                 </Grid>
 

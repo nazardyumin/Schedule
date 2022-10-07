@@ -15,6 +15,7 @@ namespace Schedule.Models
 
         public Day()
         {
+
         }
 
         public Day(string key)
@@ -152,6 +153,14 @@ namespace Schedule.Models
         public DateTime GetDateTime()
         {
             return new DateTime(Year, Month, Date);
+        }
+
+        public void RefreshConnectionLessonIndexes()
+        {
+            foreach (var lesson in Lessons!)
+            {
+                lesson.ConnectionLessonIndex = Lessons!.IndexOf(lesson);
+            }
         }
     }
 }

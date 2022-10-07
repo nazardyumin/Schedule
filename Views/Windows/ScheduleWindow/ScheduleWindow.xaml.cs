@@ -28,8 +28,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             ButtonBackContent = "<<";
             ButtonForwardContent = ">>";
             InitializeComponent();
-            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday,
-                Model.Sunday);
+            AddCardsToGrid(Model.Week);
             TodayBackground(Model.GetCurrentDayIndex());
         }
 
@@ -39,8 +38,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             if (isCurrentWeek) TodayBackground(index);
             else if (isFuture) FutureBackground();
             else PastBackground();
-            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday,
-                Model.Sunday);
+            AddCardsToGrid(Model.Week);
         }
 
         private void ButtonForward_Click(object sender, RoutedEventArgs e)
@@ -49,8 +47,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             if (isCurrentWeek) TodayBackground(index);
             else if (isFuture) FutureBackground();
             else PastBackground();
-            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday,
-                Model.Sunday);
+            AddCardsToGrid(Model.Week);
         }
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
@@ -80,7 +77,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
                 }
             }
 
-            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
+            AddCardsToGrid(Model.Week);
             AddingSection.CommandClearFunction();
             ComboBoxCopy2.Visibility = Visibility.Hidden;
             ComboBoxCopy3.Visibility = Visibility.Hidden;
@@ -104,7 +101,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
                 AddingSection.ClearTime();
                 return;
             }
-            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday, Model.Sunday);
+            AddCardsToGrid(Model.Week);
             AddingSection.CommandCancelFunction();
             AddingBlock.Visibility = Visibility.Visible;
             EditingBlock.Visibility = Visibility.Hidden;
@@ -135,8 +132,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
                     var menuItem = (MyMenuItem)e.Source;
                     var connection = menuItem.GetConnectionIndexes();
                     Model.DeleteSelectedLesson(connection.dayIndex, connection.lessonIndex);
-                    AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday,
-                        Model.Saturday, Model.Sunday);
+                    AddCardsToGrid(Model.Week);
                     break;
                 case DialogBox.Result_.RightButtonClicked:
                     break;
@@ -518,23 +514,21 @@ namespace Schedule.Views.Windows.ScheduleWindow
             }
         }
 
-        private void AddCardsToGrid(Day monday, Day tuesday, Day wednesday, Day thursday, Day friday, Day saturday,
-            Day sunday)
+        private void AddCardsToGrid(Day[] week)
         {
-            AddCardsToMondayGrid(monday);
-            AddCardsToTuesdayGrid(tuesday);
-            AddCardsToWednesdayGrid(wednesday);
-            AddCardsToThursdayGrid(thursday);
-            AddCardsToFridayGrid(friday);
-            AddCardsToSaturdayGrid(saturday);
-            AddCardsToSundayGrid(sunday);
+            AddCardsToMondayGrid(week[0]);
+            AddCardsToTuesdayGrid(week[1]);
+            AddCardsToWednesdayGrid(week[2]);
+            AddCardsToThursdayGrid(week[3]);
+            AddCardsToFridayGrid(week[4]);
+            AddCardsToSaturdayGrid(week[5]);
+            AddCardsToSundayGrid(week[6]);
         }
 
         private void ButtonCurrentWeek_Click(object sender, RoutedEventArgs e)
         {
             Model.CurrentWeekFunction();
-            AddCardsToGrid(Model.Monday, Model.Tuesday, Model.Wednesday, Model.Thursday, Model.Friday, Model.Saturday,
-                Model.Sunday);
+            AddCardsToGrid(Model.Week);
             TodayBackground(Model.GetCurrentDayIndex());
         }
     }
