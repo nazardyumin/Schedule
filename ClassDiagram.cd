@@ -10,12 +10,12 @@
   <Class Name="Schedule.Models.Day">
     <Position X="0.5" Y="3" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAABAAABAAICAEAAAAAAAQEAgQFAAEwACAAAEA=</HashCode>
+      <HashCode>AAAAAAAABAIABAAICAEAAAAAAAQEAgQFAAEwACAAAEA=</HashCode>
       <FileName>Models\Day.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Schedule.Models.Lesson">
-    <Position X="12.75" Y="3.5" Width="2" />
+    <Position X="18.5" Y="3.5" Width="2" />
     <TypeIdentifier>
       <HashCode>CAEQABASAAACAQAAAIgAAAAAAAAAAAADACAEBAAAEAA=</HashCode>
       <FileName>Models\Lesson.cs</FileName>
@@ -37,21 +37,21 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Schedule.ViewModels.Bindings.InputBinding">
-    <Position X="6" Y="3" Width="1.5" />
+    <Position X="16.75" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ADAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAggQAAAAA=</HashCode>
-      <FileName>ViewModels\Bindings\InputBinding.cs</FileName>
+      <FileName>ViewModels\AddingSection\InputBinding.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Schedule.ViewModels.Bindings.ItemBinding">
-    <Position X="7.75" Y="3" Width="1.5" />
+    <Position X="15" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ADAAAAAAAAAAAAAAAAAgAAAIAAAAAAAAAAEggQAAAAg=</HashCode>
-      <FileName>ViewModels\Bindings\ItemBinding.cs</FileName>
+      <FileName>ViewModels\AddingSection\ItemBinding.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Schedule.ViewModels.Commands.MyCommand" BaseTypeListCollapsed="true">
-    <Position X="12.5" Y="0.5" Width="1.75" />
+    <Position X="18.5" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAEACAAQAAECAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\Commands\MyCommand.cs</FileName>
@@ -59,40 +59,54 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Schedule.ViewModels.AddingSectionTemplate">
-    <Position X="9.5" Y="3" Width="2.75" />
+    <Position X="12" Y="3" Width="2.75" />
     <TypeIdentifier>
       <HashCode>CAnkQFJGwhYZAMBN6OgJdAMSaAipGMAIzCCAJURQgnY=</HashCode>
-      <FileName>ViewModels\AddingSectionTemplate.cs</FileName>
+      <FileName>ViewModels\AddingSection\AddingSectionTemplate.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Schedule.ViewModels.WeekTemplate">
     <Position X="2.75" Y="3" Width="3" />
     <TypeIdentifier>
-      <HashCode>JAgQCJYCACYQrVAMABAEBGXSNZCGJAAAACEQqQAFEQA=</HashCode>
-      <FileName>ViewModels\WeekTemplate.cs</FileName>
+      <HashCode>BAAACJQAAASQCUAMgBAEBEXABcACIAAAAAAAJIAFEQA=</HashCode>
+      <FileName>ViewModels\Week\WeekTemplate.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Schedule.Views.Cards.MyCard">
-    <Position X="14.75" Y="0.5" Width="2" />
+    <Position X="20.5" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAQAAABAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>Views\Cards\MyCard.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Schedule.Views.MenuItems.MyMenuItem">
-    <Position X="17" Y="0.5" Width="2" />
+    <Position X="22.75" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAQAAABAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>Views\MenuItems\MyMenuItem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Schedule.Views.Windows.ScheduleWindow.ScheduleWindow" BaseTypeListCollapsed="true">
-    <Position X="15" Y="3.5" Width="2.75" />
+    <Position X="21" Y="3" Width="2.75" />
     <TypeIdentifier>
       <HashCode>BhwAEBQKkQIgAAIAAXIDIACIgAAwhAQAQCggBAhAKAA=</HashCode>
       <FileName>Views\Windows\ScheduleWindow\ScheduleWindow.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Schedule.ViewModels.Bindings.WeekTemplateDayInfoBinding">
+    <Position X="6" Y="3" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABACAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Week\WeekTemplateDayInfoBinding.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schedule.ViewModels.Week.WeekTemplateStateBinding">
+    <Position X="8.5" Y="3" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>IAgAAIAAAAAAgAAAAAAAAAQQABAEAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>ViewModels\Week\WeekTemplateStateBinding.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

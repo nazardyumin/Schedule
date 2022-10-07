@@ -12,7 +12,7 @@ namespace Schedule.ViewModels
     {
         private List<Day>? _days;
         public Day[] Week { get; set; }
-        public ShortDayInfoBinding DayInfo { get; set; }
+        public WeekTemplateDayInfoBinding DayInfo { get; set; }
         public WeekTemplateStateBinding States { get; set; }
 
         private string? _header;
