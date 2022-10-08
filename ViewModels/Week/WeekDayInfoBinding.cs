@@ -1,6 +1,6 @@
 ﻿using Schedule.Models;
 
-namespace Schedule.ViewModels.Bindings
+namespace Schedule.ViewModels.Week
 {
     public class WeekDayInfoBinding : Notifier
     {

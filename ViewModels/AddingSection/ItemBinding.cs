@@ -1,7 +1,7 @@
 ﻿using Schedule.Models;
 using System;
 
-namespace Schedule.ViewModels.Bindings
+namespace Schedule.ViewModels.AddingSection
 {
     public class ItemBinding : Notifier
     {

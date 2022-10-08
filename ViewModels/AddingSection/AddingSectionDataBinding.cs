@@ -1,5 +1,4 @@
 ﻿using Schedule.Models;
-using Schedule.ViewModels.Bindings;
 
 namespace Schedule.ViewModels.AddingSection
 {

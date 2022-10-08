@@ -1,10 +1,9 @@
 ﻿using Schedule.Models;
-using Schedule.ViewModels.AddingSection;
 using Schedule.ViewModels.Commands;
 using System;
 using System.Collections.ObjectModel;
 
-namespace Schedule.ViewModels
+namespace Schedule.ViewModels.AddingSection
 {
     public class AddingSectionTemplate : Notifier
     {

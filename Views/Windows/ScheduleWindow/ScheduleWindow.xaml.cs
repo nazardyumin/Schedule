@@ -1,7 +1,8 @@
 ﻿using ExtraTools;
 using MaterialDesignThemes.Wpf;
 using Schedule.Models;
-using Schedule.ViewModels;
+using Schedule.ViewModels.AddingSection;
+using Schedule.ViewModels.Week;
 using Schedule.Views.Cards;
 using Schedule.Views.MenuItems;
 using System;

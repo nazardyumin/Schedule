@@ -1,12 +1,10 @@
 ﻿using Schedule.Models;
-using Schedule.ViewModels.Bindings;
-using Schedule.ViewModels.Week;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace Schedule.ViewModels
+namespace Schedule.ViewModels.Week
 {
     public class WeekTemplate : Notifier
     {
@@ -31,7 +29,7 @@ namespace Schedule.ViewModels
             SetDays();
             _lastIndex = _days!.Count - 1;
             Week = new Day[7];
-            DayInfo = new();  
+            DayInfo = new();
             States = new();
             FocusOnCurrentWeek();
             _iterator = _days.IndexOf(Week[0]);
