@@ -26,7 +26,7 @@
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0" BorderThickness="1" BorderBrush="WhiteSmoke">
-            <Grid x:Name="CalendarBlock" Grid.Column="0" IsEnabled="{Binding AddingSection.IsAddingMode}">
+            <Grid x:Name="CalendarBlock" Grid.Column="0" IsEnabled="{Binding AddingSection.States.IsAddingMode}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40" />
                     <RowDefinition Height="20" />
@@ -732,32 +732,32 @@
                 <StackPanel Grid.Row="1" Margin="10,10,10,10">
                     <TextBlock Text="Subject" />
                     <TextBox x:Name="InputSubject"
-                             Text="{Binding AddingSection.Subject.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                             Text="{Binding AddingSection.Data.Subject.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
                 <StackPanel Grid.Row="2" Margin="10,10,10,10">
                     <TextBlock Text="Teacher" />
                     <TextBox x:Name="InputTeacher"
-                             Text="{Binding AddingSection.Teacher.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                             Text="{Binding AddingSection.Data.Teacher.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
                 <StackPanel Grid.Row="3" Margin="10,10,10,10">
                     <TextBlock Text="Auditorium" />
                     <TextBox x:Name="InputAuditorium"
-                             Text="{Binding AddingSection.Auditorium.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                             Text="{Binding AddingSection.Data.Auditorium.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
                 <StackPanel Grid.Row="4" Orientation="Horizontal">
                     <StackPanel Margin="10,10,10,10">
                         <TextBlock Text="Start Time" />
                         <ComboBox x:Name="ComboBoxStartTime"
                                   ItemsSource="{Binding AddingSection.StartTime}"
-                                  SelectedValue="{Binding AddingSection.StartTimeSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedIndex="{Binding AddingSection.StartTimeSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                  SelectedValue="{Binding AddingSection.Data.StartTimeSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedIndex="{Binding AddingSection.Data.StartTimeSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <StackPanel Margin="10,10,10,10">
                         <TextBlock Text=" End Time" />
                         <ComboBox x:Name="ComboBoxEndTime"
                                   ItemsSource="{Binding AddingSection.EndTime}"
-                                  SelectedValue="{Binding AddingSection.EndTimeSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedIndex="{Binding AddingSection.EndTimeSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                  SelectedValue="{Binding AddingSection.Data.EndTimeSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedIndex="{Binding AddingSection.Data.EndTimeSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Row="5" Margin="10,10,10,10">
@@ -765,22 +765,22 @@
                     <StackPanel Orientation="Horizontal">
                         <ComboBox x:Name="ComboBoxYearFrom" Width="50" Margin="0,0,10,0"
                                   ItemsSource="{Binding AddingSection.YearsFrom}"
-                                  SelectedValue="{Binding AddingSection.YearsFromSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedIndex="{Binding AddingSection.YearsFromSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                  SelectedValue="{Binding AddingSection.Data.YearsFromSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedIndex="{Binding AddingSection.Data.YearsFromSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <ComboBox x:Name="ComboBoxMonthFrom" Width="80" Margin="0,0,10,0"
                                   ItemsSource="{Binding AddingSection.MonthsFrom, Mode=TwoWay}"
-                                  SelectedValue="{Binding AddingSection.MonthsFromSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedIndex="{Binding AddingSection.MonthsFromSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                  SelectedValue="{Binding AddingSection.Data.MonthsFromSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedIndex="{Binding AddingSection.Data.MonthsFromSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <ComboBox x:Name="ComboBoxDayFrom" Width="40" Margin="0,0,10,0"
                                   ItemsSource="{Binding AddingSection.DatesFrom, Mode=TwoWay}"
-                                  SelectedValue="{Binding AddingSection.DatesFromSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedIndex="{Binding AddingSection.DatesFromSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                  SelectedValue="{Binding AddingSection.Data.DatesFromSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedIndex="{Binding AddingSection.Data.DatesFromSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <Button x:Name="ButtonToday"
-                                Content="{Binding AddingSection.Today, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Content="{Binding AddingSection.Content.Today, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Padding="4"
                                 Foreground="Gray"
                                 Command="{Binding AddingSection.CommandToday}"
-                                IsEnabled="{Binding AddingSection.CanPressToday, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                IsEnabled="{Binding AddingSection.States.CanPressToday, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Row="6" Margin="10,10,10,10">
@@ -788,21 +788,21 @@
                     <StackPanel Orientation="Horizontal">
                         <ComboBox x:Name="ComboBoxYearTo" Width="50" Margin="0,0,10,0"
                                   ItemsSource="{Binding AddingSection.YearsTo, Mode=TwoWay}"
-                                  SelectedValue="{Binding AddingSection.YearsToSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedIndex="{Binding AddingSection.YearsToSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  IsEnabled="{Binding AddingSection.CanPressTo, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                  SelectedValue="{Binding AddingSection.Data.YearsToSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedIndex="{Binding AddingSection.Data.YearsToSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  IsEnabled="{Binding AddingSection.States.CanPressTo, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                         <ComboBox x:Name="ComboBoxMonthTo" Width="80" Margin="0,0,10,0"
                                   ItemsSource="{Binding AddingSection.MonthsTo, Mode=TwoWay}"
-                                  SelectedValue="{Binding AddingSection.MonthsToSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedIndex="{Binding AddingSection.MonthsToSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  IsEnabled="{Binding AddingSection.CanPressTo, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                  SelectedValue="{Binding AddingSection.Data.MonthsToSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedIndex="{Binding AddingSection.Data.MonthsToSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  IsEnabled="{Binding AddingSection.States.CanPressTo, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                         <ComboBox x:Name="ComboBoxDayTo" Width="40" Margin="0,0,10,0"
                                   ItemsSource="{Binding AddingSection.DatesTo, Mode=TwoWay}"
-                                  SelectedValue="{Binding AddingSection.DatesToSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedIndex="{Binding AddingSection.DatesToSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  IsEnabled="{Binding AddingSection.CanPressTo, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                  SelectedValue="{Binding AddingSection.Data.DatesToSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedIndex="{Binding AddingSection.Data.DatesToSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  IsEnabled="{Binding AddingSection.States.CanPressTo, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                         <Button x:Name="ButtonTargetDay"
-                                Content="{Binding AddingSection.TargetDay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Content="{Binding AddingSection.Content.TargetDay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Padding="4"
                                 Foreground="Gray"
                                 IsEnabled="False" />
@@ -813,23 +813,23 @@
                     <StackPanel Orientation="Horizontal">
                         <ComboBox x:Name="ComboBoxCopy1" Width="85" Margin="0,0,10,0"
                                   ItemsSource="{Binding AddingSection.CopyDays1}"
-                                  SelectedValue="{Binding AddingSection.CopyDays1SelectedItem.Value}"
-                                  SelectedIndex="{Binding AddingSection.CopyDays1SelectedItem.Index}"
+                                  SelectedValue="{Binding AddingSection.Data.CopyDays1SelectedItem.Value}"
+                                  SelectedIndex="{Binding AddingSection.Data.CopyDays1SelectedItem.Index}"
                                   DropDownClosed="ComboBoxCopy1_DropDownClosed"
-                                  IsEnabled="{Binding AddingSection.CanPressCopy, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                  IsEnabled="{Binding AddingSection.States.CanPressCopy, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                         <ComboBox x:Name="ComboBoxCopy2" Width="85" Margin="0,0,10,0"
                                   ItemsSource="{Binding AddingSection.CopyDays2}"
-                                  SelectedValue="{Binding AddingSection.CopyDays2SelectedItem.Value}"
-                                  SelectedIndex="{Binding AddingSection.CopyDays2SelectedItem.Index}"
+                                  SelectedValue="{Binding AddingSection.Data.CopyDays2SelectedItem.Value}"
+                                  SelectedIndex="{Binding AddingSection.Data.CopyDays2SelectedItem.Index}"
                                   Visibility="Hidden"
                                   DropDownClosed="ComboBoxCopy2_DropDownClosed"
-                                  IsEnabled="{Binding AddingSection.CanPressCopy, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                  IsEnabled="{Binding AddingSection.States.CanPressCopy, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                         <ComboBox x:Name="ComboBoxCopy3" Width="85" Margin="0,0,10,0"
                                   ItemsSource="{Binding AddingSection.CopyDays3}"
-                                  SelectedValue="{Binding AddingSection.CopyDays3SelectedItem.Value}"
-                                  SelectedIndex="{Binding AddingSection.CopyDays3SelectedItem.Index}"
+                                  SelectedValue="{Binding AddingSection.Data.CopyDays3SelectedItem.Value}"
+                                  SelectedIndex="{Binding AddingSection.Data.CopyDays3SelectedItem.Index}"
                                   Visibility="Hidden"
-                                  IsEnabled="{Binding AddingSection.CanPressCopy, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                  IsEnabled="{Binding AddingSection.States.CanPressCopy, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Row="8">
@@ -837,11 +837,11 @@
                         <Button x:Name="ButtonClear" Content="Clear" Margin="0,0,5,0"
                                 Style="{DynamicResource MaterialDesignPaperButton}"
                                 Command="{Binding AddingSection.CommandClear}"
-                                IsEnabled="{Binding AddingSection.CanPressClear, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                IsEnabled="{Binding AddingSection.States.CanPressClear, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                 Click="ButtonClear_Click" />
-                        <Button x:Name="ButtonAdd" Content="{Binding AddingSection.AddOrSave}" Margin="5,0,0,0"
+                        <Button x:Name="ButtonAdd" Content="{Binding AddingSection.Content.AddOrSave}" Margin="5,0,0,0"
                                 Style="{DynamicResource MaterialDesignPaperButton}" Click="ButtonAdd_Click"
-                                IsEnabled="{Binding AddingSection.CanPressAdd, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                IsEnabled="{Binding AddingSection.States.CanPressAdd, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                 </StackPanel>
 
@@ -878,32 +878,32 @@
                 <StackPanel Grid.Row="1" Margin="10,10,10,10">
                     <TextBlock Text="Subject" />
                     <TextBox x:Name="EditSubject"
-                             Text="{Binding AddingSection.Subject.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                             Text="{Binding AddingSection.Data.Subject.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
                 <StackPanel Grid.Row="2" Margin="10,10,10,10">
                     <TextBlock Text="Teacher" />
                     <TextBox x:Name="EditTeacher"
-                             Text="{Binding AddingSection.Teacher.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                             Text="{Binding AddingSection.Data.Teacher.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
                 <StackPanel Grid.Row="3" Margin="10,10,10,10">
                     <TextBlock Text="Auditorium" />
                     <TextBox x:Name="EditAuditorium"
-                             Text="{Binding AddingSection.Auditorium.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                             Text="{Binding AddingSection.Data.Auditorium.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
                 <StackPanel Grid.Row="4" Orientation="Horizontal">
                     <StackPanel Margin="10,10,10,10">
                         <TextBlock Text="Start Time" />
                         <ComboBox x:Name="ComboBoxStartTimeEdit"
                                   ItemsSource="{Binding AddingSection.StartTime}"
-                                  SelectedValue="{Binding AddingSection.StartTimeSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedIndex="{Binding AddingSection.StartTimeSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                  SelectedValue="{Binding AddingSection.Data.StartTimeSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedIndex="{Binding AddingSection.Data.StartTimeSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <StackPanel Margin="10,10,10,10">
                         <TextBlock Text=" End Time" />
                         <ComboBox x:Name="ComboBoxEndTimeEdit"
                                   ItemsSource="{Binding AddingSection.EndTime}"
-                                  SelectedValue="{Binding AddingSection.EndTimeSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedIndex="{Binding AddingSection.EndTimeSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                  SelectedValue="{Binding AddingSection.Data.EndTimeSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedIndex="{Binding AddingSection.Data.EndTimeSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Row="5" Margin="10,10,10,10">
@@ -911,22 +911,22 @@
                     <StackPanel Orientation="Horizontal">
                         <ComboBox x:Name="ComboBoxYearFromEdit" Width="50" Margin="0,0,10,0"
                                   ItemsSource="{Binding AddingSection.YearsFrom}"
-                                  SelectedValue="{Binding AddingSection.YearsFromSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedIndex="{Binding AddingSection.YearsFromSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                  SelectedValue="{Binding AddingSection.Data.YearsFromSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedIndex="{Binding AddingSection.Data.YearsFromSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <ComboBox x:Name="ComboBoxMonthFromEdit" Width="80" Margin="0,0,10,0"
                                   ItemsSource="{Binding AddingSection.MonthsFrom, Mode=TwoWay}"
-                                  SelectedValue="{Binding AddingSection.MonthsFromSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedIndex="{Binding AddingSection.MonthsFromSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                  SelectedValue="{Binding AddingSection.Data.MonthsFromSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedIndex="{Binding AddingSection.Data.MonthsFromSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <ComboBox x:Name="ComboBoxDayFromEdit" Width="40" Margin="0,0,10,0"
                                   ItemsSource="{Binding AddingSection.DatesFrom, Mode=TwoWay}"
-                                  SelectedValue="{Binding AddingSection.DatesFromSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedIndex="{Binding AddingSection.DatesFromSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                  SelectedValue="{Binding AddingSection.Data.DatesFromSelectedItem.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedIndex="{Binding AddingSection.Data.DatesFromSelectedItem.Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <Button x:Name="ButtonTodayEdit"
-                                Content="{Binding AddingSection.Today, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Content="{Binding AddingSection.Content.Today, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Style="{DynamicResource MaterialDesignFlatSecondaryDarkButton}" Padding="4"
                                 Foreground="Gray"
                                 Command="{Binding AddingSection.CommandToday}"
-                                IsEnabled="{Binding AddingSection.CanPressToday, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                IsEnabled="{Binding AddingSection.States.CanPressToday, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                 </StackPanel>
 
@@ -935,12 +935,12 @@
                         <Button x:Name="ButtonClearEdit" Content="Clear" Margin="0,0,5,0"
                                 Style="{DynamicResource MaterialDesignPaperButton}"
                                 Command="{Binding AddingSection.CommandClear}"
-                                IsEnabled="{Binding AddingSection.CanPressClear, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                IsEnabled="{Binding AddingSection.States.CanPressClear, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                 Click="ButtonClear_Click" />
-                        <Button x:Name="ButtonSave" Content="{Binding AddingSection.AddOrSave}" Margin="5,0,0,0"
+                        <Button x:Name="ButtonSave" Content="{Binding AddingSection.Content.AddOrSave}" Margin="5,0,0,0"
                                 Style="{DynamicResource MaterialDesignPaperButton}"
                                 Click="ButtonSave_Click"
-                                IsEnabled="{Binding AddingSection.CanPressSave, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                IsEnabled="{Binding AddingSection.States.CanPressSave, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Row="9">

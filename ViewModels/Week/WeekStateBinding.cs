@@ -2,7 +2,7 @@
 
 namespace Schedule.ViewModels.Week
 {
-    public class WeekTemplateStateBinding : Notifier
+    public class WeekStateBinding : Notifier
     {
         private bool _canPressForward;
         public bool CanPressForward
@@ -36,7 +36,7 @@ namespace Schedule.ViewModels.Week
             }
         }
 
-        public WeekTemplateStateBinding()
+        public WeekStateBinding()
         {
             CanPressForward = true;
             CanPressBack = true;

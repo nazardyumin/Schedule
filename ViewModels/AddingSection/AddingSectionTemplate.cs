@@ -1,5 +1,5 @@
 ﻿using Schedule.Models;
-using Schedule.ViewModels.Bindings;
+using Schedule.ViewModels.AddingSection;
 using Schedule.ViewModels.Commands;
 using System;
 using System.Collections.ObjectModel;
@@ -8,115 +8,20 @@ namespace Schedule.ViewModels
 {
     public class AddingSectionTemplate : Notifier
     {
-        public InputBinding Subject { get; set; }
-        public InputBinding Teacher { get; set; }
-        public InputBinding Auditorium { get; set; }
-
         public ObservableCollection<string>? StartTime { get; set; }
-        public ItemBinding StartTimeSelectedItem { get; set; }
         public ObservableCollection<string> EndTime { get; set; }
-        public ItemBinding EndTimeSelectedItem { get; set; }
-
         public ObservableCollection<int>? YearsFrom { get; set; }
         public ObservableCollection<string> MonthsFrom { get; set; }
         public ObservableCollection<int> DatesFrom { get; set; }
-        public ItemBinding YearsFromSelectedItem { get; set; }
-        public ItemBinding MonthsFromSelectedItem { get; set; }
-        public ItemBinding DatesFromSelectedItem { get; set; }
-
         public ObservableCollection<int> YearsTo { get; set; }
         public ObservableCollection<string> MonthsTo { get; set; }
         public ObservableCollection<int> DatesTo { get; set; }
-        public ItemBinding YearsToSelectedItem { get; set; }
-        public ItemBinding MonthsToSelectedItem { get; set; }
-        public ItemBinding DatesToSelectedItem { get; set; }
-
         public ObservableCollection<string>? CopyDays1 { get; set; }
         public ObservableCollection<string> CopyDays2 { get; set; }
         public ObservableCollection<string> CopyDays3 { get; set; }
-        public ItemBinding CopyDays1SelectedItem { get; set; }
-        public ItemBinding CopyDays2SelectedItem { get; set; }
-        public ItemBinding CopyDays3SelectedItem { get; set; }
-
-        private string? _today;
-
-        public string Today
-        {
-            get => _today!;
-            set => SetField(ref _today, value);
-        }
-
-        private string? _targetDay;
-
-        public string TargetDay
-        {
-            get => _targetDay!;
-            set => SetField(ref _targetDay, value);
-        }
-
-        private bool _canPressAdd;
-
-        public bool CanPressAdd
-        {
-            get => _canPressAdd;
-            set => SetField(ref _canPressAdd, value);
-        }
-
-        private bool _canPressClear;
-
-        public bool CanPressClear
-        {
-            get => _canPressClear;
-            set => SetField(ref _canPressClear, value);
-        }
-
-        private bool _canPressCopy;
-
-        public bool CanPressCopy
-        {
-            get => _canPressCopy;
-            set => SetField(ref _canPressCopy, value);
-        }
-
-        private bool _canPressToday;
-
-        public bool CanPressToday
-        {
-            get => _canPressToday;
-            set => SetField(ref _canPressToday, value);
-        }
-
-        private bool _canPressTo;
-
-        public bool CanPressTo
-        {
-            get => _canPressTo;
-            set => SetField(ref _canPressTo, value);
-        }
-
-        private bool _canPressSave;
-
-        public bool CanPressSave
-        {
-            get => _canPressSave;
-            set => SetField(ref _canPressSave, value);
-        }
-
-        private bool _isAddingMode;
-
-        public bool IsAddingMode
-        {
-            get => _isAddingMode;
-            set => SetField(ref _isAddingMode, value);
-        }
-
-        private string? _addOrSave;
-
-        public string AddOrSave
-        {
-            get => _addOrSave!;
-            set => SetField(ref _addOrSave, value);
-        }
+        public AddingSectionDataBinding Data { get; set; }
+        public AddingSectionControlsContentBinding Content { get; set; }
+        public AddingSectionStateBinding States { get; set; }
 
         private int _monthFromMemory;
         private int _monthToMemory;
@@ -130,18 +35,19 @@ namespace Schedule.ViewModels
 
         public AddingSectionTemplate()
         {
-            Subject = new(RefreshStates);
-            Teacher = new(RefreshStates);
-            Auditorium = new(RefreshStates);
+            Data = new();
+            Data.Subject = new(RefreshStates);
+            Data.Teacher = new(RefreshStates);
+            Data.Auditorium = new(RefreshStates);
 
             SetStartTime();
             EndTime = new();
-            StartTimeSelectedItem = new(() =>
+            Data.StartTimeSelectedItem = new(() =>
             {
                 SetEndTime();
                 RefreshStates();
             });
-            EndTimeSelectedItem = new(RefreshStates);
+            Data.EndTimeSelectedItem = new(RefreshStates);
 
             SetYearsFrom();
             MonthsFrom = new();
@@ -151,33 +57,33 @@ namespace Schedule.ViewModels
             MonthsTo = new();
             DatesTo = new();
 
-            YearsFromSelectedItem = new(() =>
+            Data.YearsFromSelectedItem = new(() =>
             {
                 SetMonthsFrom();
                 RefreshStates();
             });
-            MonthsFromSelectedItem = new(() =>
+            Data.MonthsFromSelectedItem = new(() =>
             {
                 SetDatesFrom();
                 RefreshStates();
             });
-            DatesFromSelectedItem = new(() =>
+            Data.DatesFromSelectedItem = new(() =>
             {
                 ChangeToday();
                 RefreshStates();
             });
 
-            YearsToSelectedItem = new(() =>
+            Data.YearsToSelectedItem = new(() =>
             {
                 SetMonthsTo();
                 RefreshStates();
             });
-            MonthsToSelectedItem = new(() =>
+            Data.MonthsToSelectedItem = new(() =>
             {
                 SetDatesTo();
                 RefreshStates();
             });
-            DatesToSelectedItem = new(() =>
+            Data.DatesToSelectedItem = new(() =>
             {
                 ChangeTargetDay();
                 RefreshStates();
@@ -187,21 +93,20 @@ namespace Schedule.ViewModels
             CopyDays2 = new();
             CopyDays3 = new();
 
-            CopyDays1SelectedItem = new(() =>
+            Data.CopyDays1SelectedItem = new(() =>
             {
                 SetCopyDays2();
                 RefreshStates();
             });
-            CopyDays2SelectedItem = new(() =>
+            Data.CopyDays2SelectedItem = new(() =>
             {
                 SetCopyDays3();
                 RefreshStates();
             });
-            CopyDays3SelectedItem = new(RefreshStates);
+            Data.CopyDays3SelectedItem = new(RefreshStates);
 
-            AddOrSave = "Add";
-            Today = "Today";
-            TargetDay = string.Empty;
+            Content = new();
+
             _monthFromMemory = 0;
             _monthToMemory = 0;
 
@@ -221,13 +126,7 @@ namespace Schedule.ViewModels
                 RefreshStates();
             }, _ => true);
 
-            CanPressToday = true;
-            CanPressAdd = false;
-            CanPressClear = false;
-            CanPressCopy = false;
-            CanPressTo = false;
-            CanPressSave = true;
-            IsAddingMode = true;
+            States = new();
         }
 
         private void SetStartTime()
@@ -313,8 +212,8 @@ namespace Schedule.ViewModels
         private void SetEndTime()
         {
             EndTime.Clear();
-            if (StartTimeSelectedItem.Index < 0) return;
-            for (var i = StartTimeSelectedItem.Index + 1; i < StartTime!.Count; i++)
+            if (Data.StartTimeSelectedItem!.Index < 0) return;
+            for (var i = Data.StartTimeSelectedItem.Index + 1; i < StartTime!.Count; i++)
             {
                 EndTime.Add(StartTime[i]);
             }
@@ -327,30 +226,29 @@ namespace Schedule.ViewModels
 
         private void SetMonthsFrom()
         {
-            if (YearsFromSelectedItem.IsOk && MonthsFromSelectedItem.IsOk && DatesFromSelectedItem.IsOk &&
-                YearsToSelectedItem.IsOk && MonthsToSelectedItem.IsOk && DatesToSelectedItem.IsOk)
+            if (Data.AllDatesFromAndToSelected())
             {
                 var check = FromExceedsTo();
                 if (check)
                 {
-                    YearsToSelectedItem.Index = -1;
+                    Data.YearsToSelectedItem!.Index = -1;
                     ClearMonthsAndDates("to");
-                    TargetDay = string.Empty;
+                    Content.ResetTargetDay();
                 }
             }
 
-            if (!YearsFromSelectedItem.IsOk) return;
+            if (Data.YearFromNotSelected()) return;
             SetYearsTo();
             SetMonthsFromDependOnCalendar();
             ClearDates("from");
-            Today = "Today";
+            Content.ResetToday();
         }
 
         private void SetMonthsFromDependOnCalendar()
         {
             MonthsFrom.Clear();
             var now = DateTime.Now;
-            if (YearsFromSelectedItem.ValueToInt() > now.Year)
+            if (Data.GetYearFrom() > now.Year)
             {
                 for (var i = 1; i <= 12; i++)
                 {
@@ -368,28 +266,27 @@ namespace Schedule.ViewModels
 
         private void SetDatesFrom()
         {
-            if (YearsFromSelectedItem.IsOk && MonthsFromSelectedItem.IsOk && DatesFromSelectedItem.IsOk &&
-                YearsToSelectedItem.IsOk && MonthsToSelectedItem.IsOk && DatesToSelectedItem.IsOk)
+            if (Data.AllDatesFromAndToSelected())
             {
                 var check = FromExceedsTo();
                 if (check)
                 {
-                    YearsToSelectedItem.Index = -1;
+                    Data.YearsToSelectedItem!.Index = -1;
                     ClearMonthsAndDates("to");
-                    TargetDay = string.Empty;
+                    Content.ResetTargetDay();
                 }
             }
 
-            if (!YearsFromSelectedItem.IsOk || !MonthsFromSelectedItem.IsOk) return;
+            if (Data.YearFromOrMonthFromNotSelected()) return;
             SetDatesFromDependOnCalendar();
-            _monthFromMemory = MonthToInt(MonthsFromSelectedItem.Value!);
-            Today = "Today";
+            _monthFromMemory = Data.GetMonthFrom();
+            Content.ResetToday();
         }
 
         private void SetDatesFromDependOnCalendar()
         {
-            var year = YearsFromSelectedItem.ValueToInt();
-            var month = MonthToInt(MonthsFromSelectedItem.Value!);
+            var year = Data.GetYearFrom();
+            var month = Data.GetMonthFrom();
             if (month != _monthFromMemory)
             {
                 DatesFrom.Clear();
@@ -417,21 +314,20 @@ namespace Schedule.ViewModels
         private void SetYearsTo()
         {
             YearsTo.Clear();
-            if (YearsFromSelectedItem.Index <= -1) return;
-            for (var i = YearsFromSelectedItem.Index; i < YearsFrom!.Count; i++)
+            if (Data.YearFromNotSelected()) return;
+            for (var i = Data.YearsFromSelectedItem!.Index; i < YearsFrom!.Count; i++)
             {
                 YearsTo.Add(YearsFrom[i]);
             }
-
-            YearsToSelectedItem.Index = -1;
+            Data.YearsToSelectedItem!.Index = -1;
         }
 
         private void SetMonthsTo()
         {
-            if (!YearsToSelectedItem.IsOk) return;
+            if (Data.YearToNotSelected()) return;
             ClearMonthsAndDates("to");
-            TargetDay = string.Empty;
-            if (YearsFromSelectedItem.Value == YearsToSelectedItem.Value)
+            Content.ResetTargetDay();
+            if (Data.YearFromEqualsYearTo())
             {
                 SetMonthsToDependOnMonthsFrom();
             }
@@ -444,7 +340,7 @@ namespace Schedule.ViewModels
         private void SetMonthsToDependOnCalendar()
         {
             MonthsTo.Clear();
-            var year = YearsToSelectedItem.ValueToInt();
+            var year = Data.GetYearTo();
             var now = DateTime.Now;
             if (year > now.Year)
             {
@@ -465,7 +361,7 @@ namespace Schedule.ViewModels
         private void SetMonthsToDependOnMonthsFrom()
         {
             MonthsTo.Clear();
-            for (var i = MonthsFromSelectedItem.Index; i < MonthsFrom.Count; i++)
+            for (var i = Data.MonthsFromSelectedItem!.Index; i < MonthsFrom.Count; i++)
             {
                 MonthsTo.Add(MonthsFrom[i]);
             }
@@ -473,11 +369,10 @@ namespace Schedule.ViewModels
 
         private void SetDatesTo()
         {
-            if (!YearsToSelectedItem.IsOk || !MonthsToSelectedItem.IsOk) return;
+            if (Data.YearToOrMonthToNotSelected()) return;
             ClearDates("to");
-            TargetDay = string.Empty;
-            if (YearsFromSelectedItem.Value == YearsToSelectedItem.Value &&
-                MonthsFromSelectedItem.Value == MonthsToSelectedItem.Value)
+            Content.ResetTargetDay();
+            if (Data.MonthFromEqualsMonthTo())
             {
                 SetDatesToDependOnDatesFrom();
             }
@@ -486,14 +381,14 @@ namespace Schedule.ViewModels
                 SetDatesToDependOnCalendar();
             }
 
-            _monthToMemory = MonthToInt(MonthsToSelectedItem.Value!);
+            _monthToMemory = Data.GetMonthTo();
             SetCopyDays1();
         }
 
         private void SetDatesToDependOnCalendar()
         {
-            var year = YearsToSelectedItem.ValueToInt();
-            var month = MonthToInt(MonthsToSelectedItem.Value!);
+            var year = Data.GetYearTo();
+            var month = Data.GetMonthTo();
             if (month != _monthToMemory)
             {
                 DatesTo.Clear();
@@ -521,7 +416,7 @@ namespace Schedule.ViewModels
         private void SetDatesToDependOnDatesFrom()
         {
             DatesTo.Clear();
-            for (var i = DatesFromSelectedItem.Index + 1; i < DatesFrom.Count; i++)
+            for (var i = Data.DatesFromSelectedItem!.Index + 1; i < DatesFrom.Count; i++)
             {
                 DatesTo.Add(DatesFrom[i]);
             }
@@ -530,13 +425,13 @@ namespace Schedule.ViewModels
         private void SetCopyDays1()
         {
             CopyDays1!.Clear();
-            if (Today != "Monday") CopyDays1!.Add("Monday");
-            if (Today != "Tuesday") CopyDays1!.Add("Tuesday");
-            if (Today != "Wednesday") CopyDays1!.Add("Wednesday");
-            if (Today != "Thursday") CopyDays1!.Add("Thursday");
-            if (Today != "Friday") CopyDays1!.Add("Friday");
-            if (Today != "Saturday") CopyDays1!.Add("Saturday");
-            if (Today != "Sunday") CopyDays1!.Add("Sunday");
+            if (Content.Today != "Monday") CopyDays1!.Add("Monday");
+            if (Content.Today != "Tuesday") CopyDays1!.Add("Tuesday");
+            if (Content.Today != "Wednesday") CopyDays1!.Add("Wednesday");
+            if (Content.Today != "Thursday") CopyDays1!.Add("Thursday");
+            if (Content.Today != "Friday") CopyDays1!.Add("Friday");
+            if (Content.Today != "Saturday") CopyDays1!.Add("Saturday");
+            if (Content.Today != "Sunday") CopyDays1!.Add("Sunday");
         }
 
         private void SetCopyDays2()
@@ -544,7 +439,7 @@ namespace Schedule.ViewModels
             CopyDays2.Clear();
             foreach (var day in CopyDays1!)
             {
-                if (day == Today || day == CopyDays1SelectedItem.Value) continue;
+                if (day == Content.Today || day == Data.GetCopyDay1()) continue;
                 CopyDays2.Add(day);
             }
         }
@@ -554,7 +449,7 @@ namespace Schedule.ViewModels
             CopyDays3.Clear();
             foreach (var day in CopyDays2)
             {
-                if (day == Today || day == CopyDays1SelectedItem.Value || day == CopyDays2SelectedItem.Value) continue;
+                if (day == Content.Today || day == Data.GetCopyDay1() || day == Data.GetCopyDay2()) continue;
                 CopyDays3.Add(day);
             }
         }
@@ -601,24 +496,22 @@ namespace Schedule.ViewModels
 
         public void ClearTime()
         {
-            StartTimeSelectedItem.Value = string.Empty;
+            Data.StartTimeSelectedItem!.Value = string.Empty;
             EndTime.Clear();
         }
 
         private void ChangeToday()
         {
-            if (!YearsFromSelectedItem.IsOk || !MonthsFromSelectedItem.IsOk || !DatesFromSelectedItem.IsOk) return;
-            Today = GetSelectedDay(YearsFromSelectedItem.ValueToInt(), MonthToInt(MonthsFromSelectedItem.Value!),
-                DatesFromSelectedItem.ValueToInt());
-            CanPressToday = false;
+            if (Data.AnyDateFromNotSelected()) return;
+            Content.Today = GetSelectedDay(Data.GetYearFrom(), Data.GetMonthFrom(), Data.GetDateFrom());
+            States.CanPressToday = false;
         }
 
         private void ChangeTargetDay()
         {
-            if (YearsToSelectedItem.IsOk && MonthsToSelectedItem.IsOk && DatesToSelectedItem.IsOk)
+            if (Data.AllDatesToSelected())
             {
-                TargetDay = GetSelectedDay(YearsToSelectedItem.ValueToInt(), MonthToInt(MonthsToSelectedItem.Value!),
-                    DatesToSelectedItem.ValueToInt());
+                Content.TargetDay = GetSelectedDay(Data.GetYearTo(), Data.GetMonthTo(), Data.GetDateTo());
             }
         }
 
@@ -642,122 +535,6 @@ namespace Schedule.ViewModels
             };
         }
 
-        private int MonthToInt(string month)
-        {
-            return month switch
-            {
-                "January" => 1,
-                "February" => 2,
-                "March" => 3,
-                "April" => 4,
-                "May" => 5,
-                "June" => 6,
-                "July" => 7,
-                "August" => 8,
-                "September" => 9,
-                "October" => 10,
-                "November" => 11,
-                "December" => 12,
-                _ => -1,
-            };
-        }
-
-        private int CopyDayToIndex(string dayOfTheWeek)
-        {
-            return dayOfTheWeek switch
-            {
-                "Monday" => 0,
-                "Tuesday" => 1,
-                "Wednesday" => 2,
-                "Thursday" => 3,
-                "Friday" => 4,
-                "Saturday" => 5,
-                "Sunday" => 6,
-                _ => -1,
-            };
-        }
-
-        private int GetEndTimeIndex(string selectedValue)
-        {
-            return selectedValue switch
-            {
-                "08:00" => 0,
-                "08:10" => 1,
-                "08:20" => 2,
-                "08:30" => 3,
-                "08:40" => 4,
-                "08:50" => 5,
-                "09:00" => 6,
-                "09:10" => 7,
-                "09:20" => 8,
-                "09:30" => 9,
-                "09:40" => 10,
-                "09:50" => 11,
-                "10:00" => 12,
-                "10:10" => 13,
-                "10:20" => 14,
-                "10:30" => 15,
-                "10:40" => 16,
-                "10:50" => 17,
-                "11:00" => 18,
-                "11:10" => 19,
-                "11:20" => 20,
-                "11:30" => 21,
-                "11:40" => 22,
-                "11:50" => 23,
-                "12:00" => 24,
-                "12:10" => 25,
-                "12:20" => 26,
-                "12:30" => 27,
-                "12:40" => 28,
-                "12:50" => 29,
-                "13:00" => 30,
-                "13:10" => 31,
-                "13:20" => 32,
-                "13:30" => 33,
-                "13:40" => 34,
-                "13:50" => 35,
-                "14:00" => 36,
-                "14:10" => 37,
-                "14:20" => 38,
-                "14:30" => 39,
-                "14:40" => 40,
-                "14:50" => 41,
-                "15:00" => 42,
-                "15:10" => 43,
-                "15:20" => 44,
-                "15:30" => 45,
-                "15:40" => 46,
-                "15:50" => 47,
-                "16:00" => 48,
-                "16:10" => 49,
-                "16:20" => 50,
-                "16:30" => 51,
-                "16:40" => 52,
-                "16:50" => 53,
-                "17:00" => 54,
-                "17:10" => 55,
-                "17:20" => 56,
-                "17:30" => 57,
-                "17:40" => 58,
-                "17:50" => 59,
-                "18:00" => 60,
-                "18:10" => 61,
-                "18:20" => 62,
-                "18:30" => 63,
-                "18:40" => 64,
-                "18:50" => 65,
-                "19:00" => 66,
-                "19:10" => 67,
-                "19:20" => 68,
-                "19:30" => 69,
-                "19:40" => 70,
-                "19:50" => 71,
-                "20:00" => 72,
-                _ => -1,
-            };
-        }
-
         private (int year, int month, int day, string name) GetTodayDateAndDay()
         {
             var today = DateTime.Now;
@@ -772,88 +549,62 @@ namespace Schedule.ViewModels
 
         private bool FromExceedsTo()
         {
-            var monthFrom = MonthToInt(MonthsFromSelectedItem.Value!);
-            var monthTo = MonthToInt(MonthsToSelectedItem.Value!);
-            var from = new DateTime(YearsFromSelectedItem.ValueToInt(), monthFrom, DatesFromSelectedItem.ValueToInt());
-            var to = new DateTime(YearsToSelectedItem.ValueToInt(), monthTo, DatesToSelectedItem.ValueToInt());
+            var from = new DateTime(Data.GetYearFrom(), Data.GetMonthFrom(), Data.GetDateFrom());
+            var to = new DateTime(Data.GetYearTo(), Data.GetMonthTo(), Data.GetDateTo());
             return from > to;
         }
 
         private void RefreshCanAddState()
         {
-            if (!Subject.IsOk || !Teacher.IsOk || !Auditorium.IsOk || !StartTimeSelectedItem.IsOk ||
-                !EndTimeSelectedItem.IsOk || !YearsFromSelectedItem.IsOk || !MonthsFromSelectedItem.IsOk ||
-                !DatesFromSelectedItem.IsOk || !YearsToSelectedItem.IsOk || !MonthsToSelectedItem.IsOk ||
-                !DatesToSelectedItem.IsOk)
+            if (Data.AnyFieldIsEmpty())
             {
-                if (Subject.IsOk && Teacher.IsOk && Auditorium.IsOk &&
-                    StartTimeSelectedItem.IsOk && EndTimeSelectedItem.IsOk &&
-                    YearsFromSelectedItem.IsOk && MonthsFromSelectedItem.IsOk && DatesFromSelectedItem.IsOk &&
-                    !YearsToSelectedItem.IsOk && !MonthsToSelectedItem.IsOk && !DatesToSelectedItem.IsOk)
+                if (Data.AllFieldsSelectedAndPeriodNotSelected())
                 {
-                    CanPressAdd = true;
+                    States.CanPressAdd = true;
                 }
-                else CanPressAdd = false;
+                else States.CanPressAdd = false;
             }
             else
             {
-                CanPressAdd = true;
+                States.CanPressAdd = true;
             }
         }
 
         private void RefreshCanClearState()
         {
-            if (Subject.IsOk || Teacher.IsOk || Auditorium.IsOk || StartTimeSelectedItem.IsOk ||
-                YearsFromSelectedItem.IsOk || YearsToSelectedItem.IsOk || CopyDays1SelectedItem.IsOk)
+            if (Data.AnyFieldIsNotEmpty())
             {
-                CanPressClear = true;
+                States.CanPressClear = true;
             }
             else
             {
-                CanPressClear = false;
+                States.CanPressClear = false;
             }
         }
 
         private void RefreshCanCopyState()
         {
-            if (Subject.IsOk && Teacher.IsOk && Auditorium.IsOk &&
-                StartTimeSelectedItem.IsOk && EndTimeSelectedItem.IsOk &&
-                YearsFromSelectedItem.IsOk && MonthsFromSelectedItem.IsOk && DatesFromSelectedItem.IsOk &&
-                YearsToSelectedItem.IsOk && MonthsToSelectedItem.IsOk && DatesToSelectedItem.IsOk)
+            if (Data.AnyFieldIsEmpty())
             {
-                CanPressCopy = true;
+                States.CanPressCopy = false;
             }
             else
             {
-                CanPressCopy = false;
+                States.CanPressCopy = true;
             }
         }
 
-        private void RefreshToState()
+        private void RefreshToAndSaveState()
         {
-            if (Subject.IsOk && Teacher.IsOk && Auditorium.IsOk &&
-                StartTimeSelectedItem.IsOk && EndTimeSelectedItem.IsOk &&
-                YearsFromSelectedItem.IsOk && MonthsFromSelectedItem.IsOk && DatesFromSelectedItem.IsOk)
+            if (Data.AllFieldsExceptPeriodSelected())
             {
-                CanPressTo = true;
+                States.CanPressTo = true;
+                States.CanPressSave = true;
             }
             else
             {
-                CanPressTo = false;
-            }
-        }
-
-        private void RefreshCanSaveState()
-        {
-            if (Subject.IsOk && Teacher.IsOk && Auditorium.IsOk &&
-                StartTimeSelectedItem.IsOk && EndTimeSelectedItem.IsOk &&
-                YearsFromSelectedItem.IsOk && MonthsFromSelectedItem.IsOk && DatesFromSelectedItem.IsOk)
-            {
-                CanPressSave = true;
-            }
-            else
-            {
-                CanPressSave = false;
+                States.CanPressTo = false;
+                States.CanPressSave = false;
             }
         }
 
@@ -862,97 +613,72 @@ namespace Schedule.ViewModels
             RefreshCanAddState();
             RefreshCanClearState();
             RefreshCanCopyState();
-            RefreshToState();
-            RefreshCanSaveState();
+            RefreshToAndSaveState();
         }
 
         private void CommandTodayFunction()
         {
             var (year, month, day, name) = GetTodayDateAndDay();
-            YearsFromSelectedItem.Index = YearsFrom!.IndexOf(year);
+            Data.YearsFromSelectedItem!.Index = YearsFrom!.IndexOf(year);
             SetYearsTo();
             SetMonthsFromDependOnCalendar();
-            MonthsFromSelectedItem.Index = MonthsFrom.IndexOf(MonthToString(month));
-            _monthFromMemory = MonthToInt(MonthsFromSelectedItem.Value!);
-            DatesFromSelectedItem.Index = DatesFrom.IndexOf(day);
-            Today = name;
-            CanPressToday = false;
+            Data.MonthsFromSelectedItem!.Index = MonthsFrom.IndexOf(MonthToString(month));
+            _monthFromMemory = Data.GetMonthFrom();
+            Data.DatesFromSelectedItem!.Index = DatesFrom.IndexOf(day);
+            Content.Today = name;
+            States.CanPressToday = false;
         }
 
         public void CommandClearFunction()
         {
-            Subject.Value = Teacher.Value = Auditorium.Value = string.Empty;
+            Data.ClearInputs();
             ResetAndClear();
-            StartTimeSelectedItem.Index = -1;
-            YearsFromSelectedItem.Index = -1;
-            Today = "Today";
-            TargetDay = string.Empty;
+            Data.StartTimeSelectedItem!.Index = -1;
+            Data.YearsFromSelectedItem!.Index = -1;
+            Content.ResetToday();
+            Content.ResetTargetDay();
             _monthFromMemory = 0;
             _monthToMemory = 0;
-            CopyDays1SelectedItem.Index = -1;
+            Data.CopyDays1SelectedItem!.Index = -1;
             ClearCopyDays();
-            CanPressToday = true;
-            CanPressAdd = CanPressClear = CanPressCopy = CanPressTo = false;
+            States.CanPressToday = true;
+            States.CanPressAdd = States.CanPressClear = States.CanPressCopy = States.CanPressTo = false;
         }
 
         public void CommandCancelFunction()
         {
-            AddOrSave = "Add";
-            IsAddingMode = true;
+            Content.AddOrSave = "Add";
+            States.IsAddingMode = true;
             CommandClearFunction();
         }
 
-        public (int year, int month, int day) GetFromValues()
+        public (string subject, string teacher, string auditorium, int startTimeIndex, int endTimeIndex, string duration, DateTime date, int dayIndex, int lessonIndex) GetSetupInfo()
         {
-            return (YearsFromSelectedItem.ValueToInt(), MonthToInt(MonthsFromSelectedItem.Value!),
-                DatesFromSelectedItem.ValueToInt());
-        }
-
-        public (int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo, int dayTo, int copy1, int copy2, int
-            copy3) GetFromAndToValues()
-        {
-            return (YearsFromSelectedItem.ValueToInt(), MonthToInt(MonthsFromSelectedItem.Value!),
-                DatesFromSelectedItem.ValueToInt(),
-                YearsToSelectedItem.ValueToInt(), MonthToInt(MonthsToSelectedItem.Value!),
-                DatesToSelectedItem.ValueToInt(),
-                CopyDayToIndex(CopyDays1SelectedItem.Value!), CopyDayToIndex(CopyDays2SelectedItem.Value!),
-                CopyDayToIndex(CopyDays3SelectedItem.Value!));
-        }
-
-        public (string subject, string teacher, string auditorium, int startTimeIndex, int endTimeIndex, string duration
-            , DateTime date, int dayIndex, int lessonIndex) GetSetupInfo()
-        {
-            return (Subject.Value, Teacher.Value, Auditorium.Value,
-                StartTimeSelectedItem.Index, GetEndTimeIndex(EndTimeSelectedItem.Value!),
-                $"{StartTimeSelectedItem.Value} - {EndTimeSelectedItem.Value}",
-                new DateTime(YearsFromSelectedItem.ValueToInt(), MonthToInt(MonthsFromSelectedItem.Value!),
-                    DatesFromSelectedItem.ValueToInt()), _connectionDayIndex, _connectionLessonIndex);
-        }
-
-        public bool IsPeriodSelected()
-        {
-            return YearsToSelectedItem.IsOk && MonthsToSelectedItem.IsOk && DatesToSelectedItem.IsOk;
+            return (Data.GetSubject(), Data.GetTeacher(), Data.GetAuditorium(),
+                    Data.GetStartTimeIndex(), Data.GetEndTimeIndex(),
+                    Data.GetDuration(), new DateTime(Data.GetYearFrom(), Data.GetMonthFrom(), Data.GetDateFrom()),
+                    _connectionDayIndex, _connectionLessonIndex);
         }
 
         public void Editor(Lesson lesson)
         {
             _connectionDayIndex = lesson.ConnectionDayIndex;
             _connectionLessonIndex = lesson.ConnectionLessonIndex;
-            AddOrSave = "Save";
-            IsAddingMode = false;
-            Subject.Value = lesson.Subject;
-            Teacher.Value = lesson.Teacher;
-            Auditorium.Value = lesson.Auditorium;
+            Content.AddOrSave = "Save";
+            States.IsAddingMode = false;
+            Data.Subject!.Value = lesson.Subject;
+            Data.Teacher!.Value = lesson.Teacher;
+            Data.Auditorium!.Value = lesson.Auditorium;
             var start = lesson.Duration[..5];
             var end = lesson.Duration[8..];
-            StartTimeSelectedItem.Value = start;
-            EndTimeSelectedItem.Value = end;
+            Data.StartTimeSelectedItem!.Value = start;
+            Data.EndTimeSelectedItem!.Value = end;
             SetYearsFrom();
-            YearsFromSelectedItem.Index = YearsFrom!.IndexOf(lesson.Date.Year);
+            Data.YearsFromSelectedItem!.Index = YearsFrom!.IndexOf(lesson.Date.Year);
             SetMonthsFrom();
-            MonthsFromSelectedItem.Index = MonthsFrom.IndexOf(MonthToString(lesson.Date.Month));
+            Data.MonthsFromSelectedItem!.Index = MonthsFrom.IndexOf(MonthToString(lesson.Date.Month));
             SetDatesFrom();
-            DatesFromSelectedItem.Index = DatesFrom.IndexOf(lesson.Date.Day);
+            Data.DatesFromSelectedItem!.Index = DatesFrom.IndexOf(lesson.Date.Day);
             ChangeToday();
         }
     }

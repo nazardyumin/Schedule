@@ -61,7 +61,7 @@
   <Class Name="Schedule.ViewModels.AddingSectionTemplate">
     <Position X="12" Y="3" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>CAnkQFJGwhYZAMBN6OgJdAMSaAipGMAIzCCAJURQgnY=</HashCode>
+      <HashCode>CADkQEJGwhYZAIAN6GgJdAMSaAgpCMAITCCAAcBQglY=</HashCode>
       <FileName>ViewModels\AddingSection\AddingSectionTemplate.cs</FileName>
     </TypeIdentifier>
   </Class>

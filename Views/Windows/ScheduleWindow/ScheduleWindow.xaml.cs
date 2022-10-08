@@ -55,9 +55,9 @@ namespace Schedule.Views.Windows.ScheduleWindow
             var setup = AddingSection.GetSetupInfo();
             var lesson = Model.CreateLesson(setup.subject, setup.teacher, setup.auditorium, setup.startTimeIndex,
                 setup.endTimeIndex, setup.duration, setup.date);
-            if (AddingSection.IsPeriodSelected())
+            if (AddingSection.Data.IsPeriodSelected())
             {
-                var (yearFrom, monthFrom, dayFrom, yearTo, monthTo, dayTo, copy1, copy2, copy3) = AddingSection.GetFromAndToValues();
+                var (yearFrom, monthFrom, dayFrom, yearTo, monthTo, dayTo, copy1, copy2, copy3) = AddingSection.Data.GetFromAndToValues();
                 var (isDone, whatDay) = Model.AddLessonToDays(lesson, yearFrom, monthFrom, dayFrom, yearTo, monthTo, dayTo, copy1, copy2, copy3);
                 if (!isDone)
                 {
@@ -68,7 +68,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             }
             else
             {
-                var (year, month, day) = AddingSection.GetFromValues();
+                var (year, month, day) = AddingSection.Data.GetFromValues();
                 if (!Model.AddLessonToOneDay(lesson, year, month, day))
                 {
                     DialogBox.Show("ERROR", "Please change the lesson time to avoid overlays!", "OK");
@@ -93,7 +93,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
         {
             var (subject, teacher, auditorium, startTimeIndex, endTimeIndex, duration, date, dayIndex, lessonIndex) =
                 AddingSection.GetSetupInfo();
-            var (year, month, day) = AddingSection.GetFromValues();
+            var (year, month, day) = AddingSection.Data.GetFromValues();
             if (!Model.EditLesson(dayIndex, lessonIndex, subject, teacher, auditorium, startTimeIndex, endTimeIndex,
                     duration, date, year, month, day))
             {

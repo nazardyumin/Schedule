@@ -12,8 +12,8 @@ namespace Schedule.ViewModels
     {
         private List<Day>? _days;
         public Day[] Week { get; set; }
-        public WeekTemplateDayInfoBinding DayInfo { get; set; }
-        public WeekTemplateStateBinding States { get; set; }
+        public WeekDayInfoBinding DayInfo { get; set; }
+        public WeekStateBinding States { get; set; }
 
         private string? _header;
         public string Header
@@ -25,7 +25,7 @@ namespace Schedule.ViewModels
         private int _iterator;
         private int _currentDayIndex;
         private readonly int _lastIndex;
-        
+
         public WeekTemplate()
         {
             SetDays();
@@ -101,7 +101,7 @@ namespace Schedule.ViewModels
 
         private void TodayIs(int currentDayOfTheWeek, int index)
         {
-            var j = -currentDayOfTheWeek;
+            var j = 0 - currentDayOfTheWeek;
             for (var i = 0; i < 7; i++)
             {
                 if (j < 0) Week[i] = index + j >= 0 ? _days![index + j] : new Day("past");

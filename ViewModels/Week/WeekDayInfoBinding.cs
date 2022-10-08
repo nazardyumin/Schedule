@@ -2,7 +2,7 @@
 
 namespace Schedule.ViewModels.Bindings
 {
-    public class WeekTemplateDayInfoBinding : Notifier
+    public class WeekDayInfoBinding : Notifier
     {
         private string[] _shortDayInfos = new string[7];
         public string[] Short
