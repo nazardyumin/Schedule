@@ -86,7 +86,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Schedule.ViewModels.Commands.MyCommand" BaseTypeListCollapsed="true">
-    <Position X="24" Y="2" Width="1.75" />
+    <Position X="26.5" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAEACAAQAAECAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\Commands\MyCommand.cs</FileName>
@@ -101,26 +101,33 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Schedule.Views.Cards.MyCard">
-    <Position X="28.25" Y="2" Width="2" />
+    <Position X="30.75" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAQAAABAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>Views\Cards\MyCard.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Schedule.Views.MenuItems.MyMenuItem">
-    <Position X="26" Y="2" Width="2" />
+    <Position X="28.5" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAQAAABAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>Views\MenuItems\MyMenuItem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Schedule.Views.Windows.ScheduleWindow.ScheduleWindow" BaseTypeListCollapsed="true">
-    <Position X="25.75" Y="5.25" Width="2.75" />
+    <Position X="28.25" Y="3.5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>BhwAEBQKkQIgAAIAAXIDIACIgAAwhAQAQCggBAhAKAA=</HashCode>
       <FileName>Views\Windows\ScheduleWindow\ScheduleWindow.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Schedule.ViewModels.AddingSection.AddingSectionControlsContentBinding">
+    <Position X="23.5" Y="3" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAJQAgAAAAAACAAABAAAAAAAAAQAAAAAAABAAAA=</HashCode>
+      <FileName>ViewModels\AddingSection\AddingSectionControlsContentBinding.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
