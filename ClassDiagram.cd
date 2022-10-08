@@ -79,7 +79,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Schedule.ViewModels.Bindings.WeekDayInfoBinding">
-    <Position X="6" Y="3" Width="1.5" />
+    <Position X="6" Y="3" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAABACAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\Week\WeekDayInfoBinding.cs</FileName>
@@ -94,7 +94,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Schedule.ViewModels.Week.WeekStateBinding">
-    <Position X="7.75" Y="3" Width="2.5" />
+    <Position X="8" Y="3" Width="2.5" />
     <TypeIdentifier>
       <HashCode>IAgAAIAAAAAAgAAAAAAAAAQQABAEAAAAAAAAgAAAAAA=</HashCode>
       <FileName>ViewModels\Week\WeekStateBinding.cs</FileName>
