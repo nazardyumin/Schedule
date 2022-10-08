@@ -29,9 +29,9 @@ namespace Schedule.ViewModels
         public WeekTemplate()
         {
             SetDays();
-            Week = new Day[7];
-            DayInfo = new();
             _lastIndex = _days!.Count - 1;
+            Week = new Day[7];
+            DayInfo = new();  
             States = new();
             FocusOnCurrentWeek();
             _iterator = _days.IndexOf(Week[0]);

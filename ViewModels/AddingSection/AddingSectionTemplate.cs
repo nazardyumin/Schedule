@@ -23,15 +23,15 @@ namespace Schedule.ViewModels
         public AddingSectionControlsContentBinding Content { get; set; }
         public AddingSectionStateBinding States { get; set; }
 
+        public MyCommand CommandToday { get; }
+        public MyCommand CommandClear { get; }
+        public MyCommand CommandCancel { get; }
+
         private int _monthFromMemory;
         private int _monthToMemory;
 
         private int _connectionDayIndex;
         private int _connectionLessonIndex;
-
-        public MyCommand CommandToday { get; }
-        public MyCommand CommandClear { get; }
-        public MyCommand CommandCancel { get; }
 
         public AddingSectionTemplate()
         {
@@ -106,9 +106,6 @@ namespace Schedule.ViewModels
             Data.CopyDays3SelectedItem = new(RefreshStates);
 
             Content = new();
-
-            _monthFromMemory = 0;
-            _monthToMemory = 0;
 
             CommandToday = new(_ =>
             {
@@ -641,14 +638,13 @@ namespace Schedule.ViewModels
             _monthToMemory = 0;
             Data.CopyDays1SelectedItem!.Index = -1;
             ClearCopyDays();
-            States.CanPressToday = true;
-            States.CanPressAdd = States.CanPressClear = States.CanPressCopy = States.CanPressTo = false;
+            States.ResetAddingModeStates();
         }
 
         public void CommandCancelFunction()
         {
-            Content.AddOrSave = "Add";
             States.IsAddingMode = true;
+            Content.AddingMode();
             CommandClearFunction();
         }
 
@@ -660,19 +656,11 @@ namespace Schedule.ViewModels
                     _connectionDayIndex, _connectionLessonIndex);
         }
 
-        public void Editor(Lesson lesson)
+        public void EditingMode(Lesson lesson)
         {
             _connectionDayIndex = lesson.ConnectionDayIndex;
             _connectionLessonIndex = lesson.ConnectionLessonIndex;
-            Content.AddOrSave = "Save";
-            States.IsAddingMode = false;
-            Data.Subject!.Value = lesson.Subject;
-            Data.Teacher!.Value = lesson.Teacher;
-            Data.Auditorium!.Value = lesson.Auditorium;
-            var start = lesson.Duration[..5];
-            var end = lesson.Duration[8..];
-            Data.StartTimeSelectedItem!.Value = start;
-            Data.EndTimeSelectedItem!.Value = end;
+            Data.LoadLessonData(lesson);
             SetYearsFrom();
             Data.YearsFromSelectedItem!.Index = YearsFrom!.IndexOf(lesson.Date.Year);
             SetMonthsFrom();
@@ -680,6 +668,8 @@ namespace Schedule.ViewModels
             SetDatesFrom();
             Data.DatesFromSelectedItem!.Index = DatesFrom.IndexOf(lesson.Date.Day);
             ChangeToday();
+            States.IsAddingMode = false;
+            Content.EditingMode();
         }
     }
 }

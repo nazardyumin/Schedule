@@ -118,7 +118,7 @@ namespace Schedule.Views.Windows.ScheduleWindow
             var menuItem = (MyMenuItem)e.Source;
             var connection = menuItem.GetConnectionIndexes();
             var lesson = Model.GetSelectedLesson(connection.dayIndex, connection.lessonIndex);
-            AddingSection.Editor(lesson);
+            AddingSection.EditingMode(lesson);
             AddingBlock.Visibility = Visibility.Hidden;
             EditingBlock.Visibility = Visibility.Visible;
         }

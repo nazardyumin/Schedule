@@ -71,5 +71,13 @@ namespace Schedule.Models
             PositionInDayStart = lesson.PositionInDayStart;
             PositionInDayEnd = lesson.PositionInDayEnd;
         }
+        public string GetStartTime()
+        {
+            return Duration[..5];
+        }
+        public string GetEndTime()
+        {
+            return Duration[8..];
+        }
     }
 }

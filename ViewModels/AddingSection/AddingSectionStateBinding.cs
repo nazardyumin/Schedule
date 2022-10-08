@@ -63,5 +63,10 @@ namespace Schedule.ViewModels.AddingSection
             CanPressSave = true;
             IsAddingMode = true;
         }
+        public void ResetAddingModeStates()
+        {
+            CanPressToday = true;
+            CanPressAdd = CanPressClear = CanPressCopy = CanPressTo = false;
+        }
     }
 }

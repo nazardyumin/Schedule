@@ -1,4 +1,5 @@
-﻿using Schedule.ViewModels.Bindings;
+﻿using Schedule.Models;
+using Schedule.ViewModels.Bindings;
 
 namespace Schedule.ViewModels.AddingSection
 {
@@ -163,6 +164,14 @@ namespace Schedule.ViewModels.AddingSection
         public string GetDuration()
         {
             return $"{StartTimeSelectedItem!.Value} - {EndTimeSelectedItem!.Value}";
+        }
+        public void LoadLessonData(Lesson lesson)
+        {
+            Subject!.Value = lesson.Subject;
+            Teacher!.Value = lesson.Teacher;
+            Auditorium!.Value = lesson.Auditorium;
+            StartTimeSelectedItem!.Value = lesson.GetStartTime();
+            EndTimeSelectedItem!.Value = lesson.GetEndTime();
         }
         public void ClearInputs()
         {
