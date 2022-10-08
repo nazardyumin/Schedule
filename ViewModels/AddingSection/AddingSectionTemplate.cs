@@ -644,7 +644,7 @@ namespace Schedule.ViewModels
         public void CommandCancelFunction()
         {
             States.IsAddingMode = true;
-            Content.AddingMode();
+            Content.SwitchToAddingMode();
             CommandClearFunction();
         }
 
@@ -669,7 +669,7 @@ namespace Schedule.ViewModels
             Data.DatesFromSelectedItem!.Index = DatesFrom.IndexOf(lesson.Date.Day);
             ChangeToday();
             States.IsAddingMode = false;
-            Content.EditingMode();
+            Content.SwitchToEditingMode();
         }
     }
 }

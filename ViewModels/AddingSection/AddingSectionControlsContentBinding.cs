@@ -39,11 +39,11 @@ namespace Schedule.ViewModels.AddingSection
         {
             Today = "Today";
         }
-        public void AddingMode()
+        public void SwitchToAddingMode()
         {
             AddOrSave = "Add";
         }
-        public void EditingMode()
+        public void SwitchToEditingMode()
         {
             AddOrSave = "Save";
         }
