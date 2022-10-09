@@ -386,6 +386,7 @@ namespace Schedule.ViewModels.Week
             {
                 if (IsOverlayWithoutMessage(newIndex, startTimeIndex, endTimeIndex)) return false;
                 _days![dayIndex].Lessons!.RemoveAt(lessonIndex);
+                _days![dayIndex].RefreshConnectionLessonIndexes();
                 lesson.SetPositionInWeek(_days![newIndex].GetDayIndex());
                 _days![newIndex].Lessons!.Add(lesson);
                 var lesIndex = _days[newIndex].Lessons!.IndexOf(lesson);
