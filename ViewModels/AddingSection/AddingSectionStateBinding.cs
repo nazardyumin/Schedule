@@ -46,13 +46,6 @@ namespace Schedule.ViewModels.AddingSection
             set => SetField(ref _canPressSave, value);
         }
 
-        private bool _isAddingMode;
-        public bool IsAddingMode
-        {
-            get => _isAddingMode;
-            set => SetField(ref _isAddingMode, value);
-        }
-
         public AddingSectionStateBinding()
         {
             CanPressToday = true;
@@ -61,7 +54,6 @@ namespace Schedule.ViewModels.AddingSection
             CanPressCopy = false;
             CanPressTo = false;
             CanPressSave = true;
-            IsAddingMode = true;
         }
         public void ResetAddingModeStates()
         {
